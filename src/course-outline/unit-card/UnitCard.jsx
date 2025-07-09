@@ -1,5 +1,5 @@
 // @ts-check
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { useToggle } from '@openedx/paragon';
@@ -14,6 +14,9 @@ import TitleLink from '../card-header/TitleLink';
 import XBlockStatus from '../xblock-status/XBlockStatus';
 import { getItemStatus, getItemStatusBorder, scrollToElement } from '../utils';
 import { useClipboard } from '../../generic/clipboard';
+import { getConfig } from '@edx/frontend-platform';
+import EditorPage from '../../editors/EditorPage';
+import { PageWrap } from '@edx/frontend-platform/react';
 
 const UnitCard = ({
   unit,
@@ -32,13 +35,17 @@ const UnitCard = ({
   getTitleLink,
   onOrderChange,
   discussionsSettings,
+  handleCreateNewCourseXBlock
 }) => {
   const currentRef = useRef(null);
   const dispatch = useDispatch();
   const [searchParams] = useSearchParams();
   const locatorId = searchParams.get('show');
   const isScrolledToElement = locatorId === unit.id;
-  const [isFormOpen, openForm, closeForm] = useToggle(false);
+  const [isFormOpen, openForm, closeForm] = useToggle(true);
+  const [isOpenText, openText, closeText] = useToggle(false);
+  const [blockId, setBlockId] = useState(null);
+  const [courseId, setCourseId] = useState(null);
   const namePrefix = 'unit';
 
   const { copyToClipboard } = useClipboard();
@@ -98,6 +105,18 @@ const UnitCard = ({
   const handleUnitMoveDown = () => {
     onOrderChange(section, moveDownDetails);
   };
+  
+  const onCreateNewCourseXBlock = async () => {
+    await handleCreateNewCourseXBlock({
+      category: "html",
+      parentLocator: id
+    }, id, ({ locator, courseKey }) => {
+      console.log("locator=xblockId====>>>>>>", locator);
+      setCourseId(courseKey)
+      setBlockId(locator)
+      openText();
+    });
+  };
 
   const handleCopyClick = () => {
     copyToClipboard(id);
@@ -135,58 +154,94 @@ const UnitCard = ({
   const isDraggable = actions.draggable && (actions.allowMoveUp || actions.allowMoveDown);
 
   return (
-    <SortableItem
-      id={id}
-      category={category}
-      key={id}
-      isDraggable={isDraggable}
-      isDroppable={actions.childAddable}
-      componentStyle={{
-        background: '#fdfdfd',
-        ...borderStyle,
-      }}
-    >
-      <div
-        className={`unit-card ${isScrolledToElement ? 'highlight' : ''}`}
-        data-testid="unit-card"
-        ref={currentRef}
+    <>
+      <SortableItem
+        id={id}
+        category={category}
+        key={id}
+        isDraggable={isDraggable}
+        isDroppable={actions.childAddable}
+        componentStyle={{
+          background: '#f8f7f6',
+          display: 'flex',
+          flexDirection: 'row-reverse',
+          backgroundColor: 'white',
+          boxShadow: 'none',
+          'border-radius': '0',
+          'border-bottom-right-radius': '16px',
+          'border-bottom-left-radius': '16px',
+          marginBottom: '0',
+          // : {
+          //   backgroundColor: '#f0f0f0',
+          // },
+          // ...borderStyle,
+        }}
       >
-        <CardHeader
-          title={displayName}
-          status={unitStatus}
-          hasChanges={hasChanges}
-          cardId={id}
-          onClickMenuButton={handleClickMenuButton}
-          onClickPublish={onOpenPublishModal}
-          onClickConfigure={onOpenConfigureModal}
-          onClickEdit={openForm}
-          onClickDelete={onOpenDeleteModal}
-          onClickMoveUp={handleUnitMoveUp}
-          onClickMoveDown={handleUnitMoveDown}
-          isFormOpen={isFormOpen}
-          closeForm={closeForm}
-          onEditSubmit={handleEditSubmit}
-          isDisabledEditField={savingStatus === RequestStatus.IN_PROGRESS}
-          onClickDuplicate={onDuplicateSubmit}
-          titleComponent={titleComponent}
-          namePrefix={namePrefix}
-          actions={actions}
-          isVertical
-          enableCopyPasteUnits={enableCopyPasteUnits}
-          onClickCopy={handleCopyClick}
-          discussionEnabled={discussionEnabled}
-          discussionsSettings={discussionsSettings}
-          parentInfo={parentInfo}
-        />
-        <div className="unit-card__content item-children" data-testid="unit-card__content">
-          <XBlockStatus
-            isSelfPaced={isSelfPaced}
-            isCustomRelativeDatesActive={isCustomRelativeDatesActive}
-            blockData={unit}
+        <div
+          className={`unit-card ${isScrolledToElement ? 'highlight' : ''}`}
+          data-testid="unit-card"
+          ref={currentRef}
+        >
+          <CardHeader
+            title={displayName}
+            status={unitStatus}
+            hasChanges={hasChanges}
+            cardId={id}
+            onClickMenuButton={handleClickMenuButton}
+            onClickPublish={onOpenPublishModal}
+            onClickConfigure={onOpenConfigureModal}
+            onClickEdit={openForm}
+            onClickDelete={onOpenDeleteModal}
+            onClickMoveUp={handleUnitMoveUp}
+            onClickMoveDown={handleUnitMoveDown}
+            isFormOpen={isFormOpen}
+            closeForm={closeForm}
+            onEditSubmit={handleEditSubmit}
+            isDisabledEditField={savingStatus === RequestStatus.IN_PROGRESS}
+            onClickDuplicate={onDuplicateSubmit}
+            titleComponent={titleComponent}
+            namePrefix={namePrefix}
+            actions={actions}
+            isVertical
+            enableCopyPasteUnits={enableCopyPasteUnits}
+            onClickCopy={handleCopyClick}
+            discussionEnabled={discussionEnabled}
+            discussionsSettings={discussionsSettings}
+            parentInfo={parentInfo}
           />
+          {/* <div className="unit-card__content item-children" data-testid="unit-card__content">
+            <XBlockStatus
+              isSelfPaced={isSelfPaced}
+              isCustomRelativeDatesActive={isCustomRelativeDatesActive}
+              blockData={unit}
+            />
+          </div> */}
         </div>
-      </div>
-    </SortableItem>
+      </SortableItem>
+      {/* This is for create block here. */}
+      {/* <h1>Hello This is {displayName} + {category}</h1>
+      <button onClick={onCreateNewCourseXBlock}>Textblock</button> */}
+      {isOpenText && blockId && courseId && <div
+        className="pgn__modal-fullscreen h-100"
+        role="dialog"
+        aria-label={'html'}
+      >
+        <PageWrap>
+          <EditorPage
+            courseId={courseId}
+            blockType={'html'}
+            blockId={blockId}
+            studioEndpointUrl={getConfig().STUDIO_BASE_URL}
+            lmsEndpointUrl={getConfig().LMS_BASE_URL}
+            onClose={() => {
+              closeText()
+              setBlockId(null);
+            }}
+          // returnFunction={() => closeText()}
+          />
+        </PageWrap>
+      </div>}
+    </>
   );
 };
 

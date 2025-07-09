@@ -26,6 +26,16 @@ const HeaderNavigations = ({
 
   return (
     <nav className="header-navigations ml-auto">
+        {hasSections && (
+        <Button
+          variant="outline-secondary"
+          onClick={handleExpandAll}
+        >
+          {isSectionsExpanded
+            ? intl.formatMessage(messages.collapseAllButton)
+            : intl.formatMessage(messages.expandAllButton)}
+        </Button>
+      )}
       {courseActions.childAddable && (
         <OverlayTrigger
           placement="bottom"
@@ -38,7 +48,7 @@ const HeaderNavigations = ({
           <Button
             iconBefore={IconAdd}
             onClick={handleNewSection}
-            disabled={errors?.outlineIndexApi}
+            // disabled={errors?.outlineIndexApi}
           >
             {intl.formatMessage(messages.newSectionButton)}
           </Button>
@@ -63,18 +73,8 @@ const HeaderNavigations = ({
           </Button>
         </OverlayTrigger>
       )}
-      {hasSections && (
-        <Button
-          variant="outline-primary"
-          iconBefore={isSectionsExpanded ? ArrowUpIcon : ArrowDownIcon}
-          onClick={handleExpandAll}
-        >
-          {isSectionsExpanded
-            ? intl.formatMessage(messages.collapseAllButton)
-            : intl.formatMessage(messages.expandAllButton)}
-        </Button>
-      )}
-      <OverlayTrigger
+    
+      {/* <OverlayTrigger
         placement="bottom"
         overlay={(
           <Tooltip id={intl.formatMessage(messages.viewLiveButtonTooltip)}>
@@ -89,7 +89,7 @@ const HeaderNavigations = ({
         >
           {intl.formatMessage(messages.viewLiveButton)}
         </Button>
-      </OverlayTrigger>
+      </OverlayTrigger> */}
     </nav>
   );
 };

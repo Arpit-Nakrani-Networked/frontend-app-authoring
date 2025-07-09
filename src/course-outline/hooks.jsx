@@ -53,6 +53,7 @@ import {
   pasteClipboardContent,
   dismissNotificationQuery,
 } from './data/thunk';
+import { createNewCourseXBlock } from '../course-unit/data/thunk';
 
 const useCourseOutline = ({ courseId }) => {
   const dispatch = useDispatch();
@@ -85,7 +86,7 @@ const useCourseOutline = ({ courseId }) => {
   const errors = useSelector(getErrors);
 
   const [isEnableHighlightsModalOpen, openEnableHighlightsModal, closeEnableHighlightsModal] = useToggle(false);
-  const [isSectionsExpanded, setSectionsExpanded] = useState(true);
+  const [isSectionsExpanded, setSectionsExpanded] = useState(false);
   const [isDisabledReindexButton, setDisableReindexButton] = useState(false);
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [isHighlightsModalOpen, openHighlightsModal, closeHighlightsModal] = useToggle(false);
@@ -100,7 +101,11 @@ const useCourseOutline = ({ courseId }) => {
   };
 
   const handleNewSectionSubmit = () => {
-    dispatch(addNewSectionQuery(courseStructure.id));
+    if (sectionsList.length === 0) {
+      dispatch(addNewSectionQuery(courseStructure.id));
+    } else {
+      handleNewSubsectionSubmit(sectionsList[0].id);
+    }
   };
 
   const handleNewSubsectionSubmit = (sectionId) => {
@@ -124,8 +129,14 @@ const useCourseOutline = ({ courseId }) => {
   };
 
   const handleNewUnitSubmit = (subsectionId) => {
-    dispatch(addNewUnitQuery(subsectionId, openUnitPage));
+    dispatch(addNewUnitQuery(subsectionId,(result) => {
+      dispatch(fetchCourseOutlineIndexQuery(courseId, true));
+    }));
   };
+
+  const handleCreateNewCourseXBlock = (body, blockId, callback) => (
+    dispatch(createNewCourseXBlock(body, callback, blockId))
+  );
 
   const headerNavigationsActions = {
     handleNewSection: handleNewSectionSubmit,
@@ -349,6 +360,7 @@ const useCourseOutline = ({ courseId }) => {
     handleSectionDragAndDrop,
     handleSubsectionDragAndDrop,
     handleUnitDragAndDrop,
+    handleCreateNewCourseXBlock,
     errors,
   };
 };

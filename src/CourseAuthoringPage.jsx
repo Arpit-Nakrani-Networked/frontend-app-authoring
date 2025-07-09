@@ -15,6 +15,7 @@ import { fetchStudioHomeData } from './studio-home/data/thunks';
 import { getCourseAppsApiStatus } from './pages-and-resources/data/selectors';
 import { RequestStatus } from './data/constants';
 import Loading from './generic/Loading';
+import CourseMultiHeader from './_components/course-header-title/CourseMultiHeader';
 
 const CourseAuthoringPage = ({ courseId, children }) => {
   const dispatch = useDispatch();
@@ -56,16 +57,17 @@ const CourseAuthoringPage = ({ courseId, children }) => {
       This functionality will be removed in TNL-9591 */}
       {inProgress ? !isEditor && <Loading />
         : (!isEditor && (
-          <Header
-            number={courseNumber}
-            org={courseOrg}
-            title={courseTitle}
-            contextId={courseId}
-          />
+          // <Header
+          //   number={courseNumber}
+          //   org={courseOrg}
+          //   title={courseTitle}
+          //   contextId={courseId}
+          // />
+         <CourseMultiHeader />
         )
         )}
       {children}
-      {!inProgress && !isEditor && <StudioFooter />}
+      {/* {!inProgress && !isEditor && <StudioFooter />} */}
     </div>
   );
 };

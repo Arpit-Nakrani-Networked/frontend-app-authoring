@@ -71,9 +71,10 @@ const getErrorDetails = (error, dismissible = true) => {
   return errorInfo;
 };
 
-export function fetchCourseOutlineIndexQuery(courseId) {
+export function fetchCourseOutlineIndexQuery(courseId,byPassloading = false) {
   return async (dispatch) => {
-    dispatch(updateOutlineIndexLoadingStatus({ status: RequestStatus.IN_PROGRESS }));
+    if(!byPassloading) dispatch(updateOutlineIndexLoadingStatus({ status: RequestStatus.IN_PROGRESS }));
+    
 
     try {
       const outlineIndex = await getCourseOutlineIndex(courseId);
@@ -546,7 +547,7 @@ export function addNewUnitQuery(parentLocator, callback) {
       parentLocator,
       COURSE_BLOCK_NAMES.vertical.id,
       COURSE_BLOCK_NAMES.vertical.name,
-      async (result) => callback(result.locator),
+      callback,
     ));
   };
 }

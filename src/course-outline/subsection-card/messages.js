@@ -3,7 +3,7 @@ import { defineMessages } from '@edx/frontend-platform/i18n';
 const messages = defineMessages({
   newUnitButton: {
     id: 'course-authoring.course-outline.subsection.button.new-unit',
-    defaultMessage: 'New unit',
+    defaultMessage: 'Add Lesson',
   },
   pasteButton: {
     id: 'course-authoring.course-outline.subsection.button.paste-unit',

@@ -1,0 +1,99 @@
+// site commmon colors
+
+$v2-info-100: #F5F6FF;
+$v2-info-200: #F5F5F5;
+$v2-info-300: #EFF4FF;
+$v2-info-400: #F6F7FA;
+
+$v2-blue-500: #0566FA;
+$v2-blue-600: #0D68F9;
+
+$v2-black-300: #000000b3;
+$v2-black-400: #000000CC;
+$v2-black-500: #0000001F;
+$v2-black-600: #00000099;
+
+$v2-white-100: #fff;
+
+
+
+// colors
+.v2-text-black-400 {
+  color: $v2-black-400 !important;
+}
+
+.v2-text-black-600 {
+  color: $v2-black-600 !important;
+}
+
+// Background colors
+.bg-info-100 {
+  background-color: $v2-info-100 !important;
+}
+.bg-blue-500 {
+  background-color: $v2-blue-500 !important;
+}
+
+// font sizes and weights
+.text-base {
+  font-size: 16px;
+}
+
+.text-sm {
+  font-size: 14px;
+}
+
+.font-weight-c-light {
+  font-weight: 400;
+}
+.font-weight-medium {
+  font-weight: 500;
+}
+
+.font-weight-semibold {
+  font-weight: 600;
+}
+
+// utils
+.border-none {
+  border: none !important;
+}
+.container-fluid {
+  max-width: 100%;
+  width: 100%;
+  padding: 0 15px;
+}
+
+.w-auto {
+  width: auto !important;
+}
+
+.h-auto {
+  height: auto !important;
+}
+
+.h-full {
+  height: 100%;
+}
+
+.h-fit {
+  height: fit-content;
+}
+
+//custom 
+.rounded-c-lg{
+  border-radius: 1rem;
+}
+
+.rounded-c-b-lg{
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+}
+
+.cursor-c-pointer{
+  cursor: pointer;
+}
+
+.bg-gray-c-50{
+  background-color: #f5f5f5;
+}

@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import { getConfig } from '@edx/frontend-platform';
 import { useIntl } from '@edx/frontend-platform/i18n';
 import { useSearchParams } from 'react-router-dom';
+import { Button } from '@openedx/paragon';
+import { Add as IconAdd } from '@openedx/paragon/icons';
 import {
   Dropdown,
   Form,
@@ -25,6 +27,7 @@ import { ITEM_BADGE_STATUS } from '../constants';
 import { scrollToElement } from '../utils';
 import CardStatus from './CardStatus';
 import messages from './messages';
+import unitMessage from '../subsection-card/messages';
 
 const CardHeader = ({
   title,
@@ -53,6 +56,8 @@ const CardHeader = ({
   proctoringExamConfigurationLink,
   discussionEnabled,
   discussionsSettings,
+  handleNewButtonClick,
+  showNewButton = false,
   parentInfo,
 }) => {
   const intl = useIntl();
@@ -84,13 +89,13 @@ const CardHeader = ({
 
   const showDiscussionsEnabledBadge = (
     isVertical
-      && !parentInfo?.isTimeLimited
-      && discussionEnabled
-      && discussionsSettings?.providerType === 'openedx'
-      && (
-        discussionsSettings?.enableGradedUnits
-          || (!discussionsSettings?.enableGradedUnits && !parentInfo.graded)
-      )
+    && !parentInfo?.isTimeLimited
+    && discussionEnabled
+    && discussionsSettings?.providerType === 'openedx'
+    && (
+      discussionsSettings?.enableGradedUnits
+      || (!discussionsSettings?.enableGradedUnits && !parentInfo.graded)
+    )
   );
 
   useEscapeClick({
@@ -138,11 +143,21 @@ const CardHeader = ({
             />
           </>
         )}
-        <div className="ml-auto d-flex">
+        <div className="ml-auto d-flex align-items-center">
+         {showNewButton && <Button
+            data-testid="new-unit-button"
+            className="mr-3"
+            variant="outline-third"
+            iconBefore={IconAdd}
+            block
+            onClick={handleNewButtonClick ? handleNewButtonClick : () => { }}
+          >
+            {intl.formatMessage(unitMessage.newUnitButton)}
+          </Button>}
           {(isVertical || isSequential) && (
             <CardStatus status={status} showDiscussionsEnabledBadge={showDiscussionsEnabledBadge} />
           )}
-          { getConfig().ENABLE_TAGGING_TAXONOMY_PAGES === 'true' && !!contentTagCount && (
+          {getConfig().ENABLE_TAGGING_TAXONOMY_PAGES === 'true' && !!contentTagCount && (
             <TagCount count={contentTagCount} onClick={openManageTagsDrawer} />
           )}
           <Dropdown data-testid={`${namePrefix}-card-header__menu`} onClick={onClickMenuButton}>
@@ -235,7 +250,7 @@ const CardHeader = ({
       </div>
       <ContentTagsDrawerSheet
         id={cardId}
-        onClose={/* istanbul ignore next */ () => closeManageTagsDrawer()}
+        onClose={() => closeManageTagsDrawer()}
         showSheet={isManageTagsDrawerOpen}
       />
     </>

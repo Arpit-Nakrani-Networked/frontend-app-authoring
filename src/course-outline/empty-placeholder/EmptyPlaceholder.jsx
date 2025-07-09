@@ -13,8 +13,9 @@ const EmptyPlaceholder = ({
   const intl = useIntl();
 
   return (
-    <div className="outline-empty-placeholder bg-gray-100" data-testid="empty-placeholder">
-      <p className="mb-0 text-gray-500">{intl.formatMessage(messages.title)}</p>
+    <div className="outline-empty-placeholder" data-testid="empty-placeholder">
+      <h4 className="mb-0">{intl.formatMessage(messages.title)}</h4>
+      <p className="mb-0">{intl.formatMessage(messages.description)}</p>
       {childAddable && (
         <OverlayTrigger
           placement="bottom"

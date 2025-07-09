@@ -14,10 +14,10 @@ const SubHeader = ({
   hideBorder,
   withSubHeaderContent,
 }) => (
-  <div className={`${!hideBorder && 'border-bottom border-light-400'} mb-3`}>
+  <div className={`${!hideBorder && ''} mb-3`}>
     <header className="sub-header">
-      <h2 className="sub-header-title">
-        <small className="sub-header-title-subtitle">{subtitle}</small>
+      <h2 className="sub-header-title m-0">
+        {/* <small className="sub-header-title-subtitle">{subtitle}</small> */}
         {breadcrumbs && (
           <div className="sub-header-breadcrumbs">{breadcrumbs}</div>
         )}
@@ -29,7 +29,7 @@ const SubHeader = ({
         )}
       </h2>
       {headerActions && (
-        <ActionRow className="ml-auto flex-shrink-0 sub-header-actions">
+        <ActionRow className="ml-auto flex-shrink-0 sub-header-actions m-0">
           {headerActions}
         </ActionRow>
       )}

@@ -71,7 +71,7 @@ const SectionCard = ({
 
     return false;
   };
-  const [isExpanded, setIsExpanded] = useState(containsSearchResult() || isSectionsExpanded);
+  const [isExpanded, setIsExpanded] = useState(true || containsSearchResult() || isSectionsExpanded);
   const [isFormOpen, openForm, closeForm] = useToggle(false);
   const namePrefix = 'section';
 
@@ -181,23 +181,23 @@ const SectionCard = ({
   const isDraggable = actions.draggable && (actions.allowMoveUp || actions.allowMoveDown);
 
   return (
-    <SortableItem
-      id={id}
-      category={category}
-      isDraggable={isDraggable}
-      isDroppable={actions.childAddable}
-      componentStyle={{
-        padding: '1.75rem',
-        ...borderStyle,
-      }}
+    // <SortableItem
+    //   id={id}
+    //   category={category}
+    //   isDraggable={isDraggable}
+    //   isDroppable={actions.childAddable}
+    //   componentStyle={{
+    //     // padding: '1.75rem',
+    //     // ...borderStyle,
+    //   }}
+    // >
+    <div
+      className={`section-card ${isScrolledToElement ? 'highlight' : ''}`}
+      data-testid="section-card"
+      ref={currentRef}
     >
-      <div
-        className={`section-card ${isScrolledToElement ? 'highlight' : ''}`}
-        data-testid="section-card"
-        ref={currentRef}
-      >
-        <div>
-          {isHeaderVisible && (
+      <div>
+        {/* {isHeaderVisible && (
             <CardHeader
               cardId={id}
               title={displayName}
@@ -219,34 +219,34 @@ const SectionCard = ({
               namePrefix={namePrefix}
               actions={actions}
             />
-          )}
-          <div className="section-card__content" data-testid="section-card__content">
-            <div className="outline-section__status mb-1">
-              <Button
-                className="p-0 bg-transparent"
-                data-destid="section-card-highlights-button"
-                variant="tertiary"
-                onClick={handleOpenHighlightsModal}
-              >
-                <Bubble className="mr-1">
-                  {highlights.length}
-                </Bubble>
-                <p className="m-0 text-black">{messages.sectionHighlightsBadge.defaultMessage}</p>
-              </Button>
-            </div>
-            <XBlockStatus
-              isSelfPaced={isSelfPaced}
-              isCustomRelativeDatesActive={isCustomRelativeDatesActive}
-              blockData={section}
-            />
-          </div>
-          {isExpanded && (
-            <div
-              data-testid="section-card__subsections"
-              className={classNames('section-card__subsections', { 'item-children': isDraggable })}
-            >
-              {children}
-              {actions.childAddable && (
+          )} */}
+        {/* <div className="section-card__content" data-testid="section-card__content">
+              <div className="outline-section__status mb-1">
+                <Button
+                  className="p-0 bg-transparent"
+                  data-destid="section-card-highlights-button"
+                  variant="tertiary"
+                  onClick={handleOpenHighlightsModal}
+                >
+                  <Bubble className="mr-1">
+                    {highlights.length}
+                  </Bubble>
+                  <p className="m-0 text-black">{messages.sectionHighlightsBadge.defaultMessage}</p>
+                </Button>
+              </div>
+              <XBlockStatus
+                isSelfPaced={isSelfPaced}
+                isCustomRelativeDatesActive={isCustomRelativeDatesActive}
+                blockData={section}
+              />
+            </div> */}
+        {/* {isExpanded && ( */}
+          <div
+            data-testid="section-card__subsections"
+            className={classNames('section-card__subsections', { 'item-children': isDraggable })}
+          >
+            {children}
+            {/* {actions.childAddable && (
                 <Button
                   data-testid="new-subsection-button"
                   className="mt-4"
@@ -257,12 +257,12 @@ const SectionCard = ({
                 >
                   {intl.formatMessage(messages.newSubsectionButton)}
                 </Button>
-              )}
-            </div>
-          )}
-        </div>
+              )} */}
+          </div>
+        {/* )} */}
       </div>
-    </SortableItem>
+    </div>
+    // </SortableItem>
   );
 };
 
