@@ -15,10 +15,12 @@
 
   &>.item-card-header {
     padding: 12px 15px 12px 45px;
+
     .btn-tertiary:not(:disabled, .disabled):active, .btn-tertiary:not(:disabled, .disabled).active, .show > .btn-tertiary.dropdown-toggle{
       background-color: transparent !important;
       border: none !important;
     }
+
     .btn-tertiary.focus::before, .btn-tertiary:focus::before{
       border:none !important;
       background-color: transparent !important;
@@ -26,7 +28,6 @@
   }
 
   .subsection-card__units {
-
     >div {
       border-top: 1px solid #0000001F
     }

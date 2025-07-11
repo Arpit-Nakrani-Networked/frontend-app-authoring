@@ -6,6 +6,8 @@ import { useToggle } from '@openedx/paragon';
 import { isEmpty } from 'lodash';
 import { useSearchParams } from 'react-router-dom';
 
+import { getConfig } from '@edx/frontend-platform';
+import { PageWrap } from '@edx/frontend-platform/react';
 import { setCurrentItem, setCurrentSection, setCurrentSubsection } from '../data/slice';
 import { RequestStatus } from '../../data/constants';
 import CardHeader from '../card-header/CardHeader';
@@ -14,9 +16,7 @@ import TitleLink from '../card-header/TitleLink';
 import XBlockStatus from '../xblock-status/XBlockStatus';
 import { getItemStatus, getItemStatusBorder, scrollToElement } from '../utils';
 import { useClipboard } from '../../generic/clipboard';
-import { getConfig } from '@edx/frontend-platform';
 import EditorPage from '../../editors/EditorPage';
-import { PageWrap } from '@edx/frontend-platform/react';
 
 const UnitCard = ({
   unit,
@@ -35,7 +35,7 @@ const UnitCard = ({
   getTitleLink,
   onOrderChange,
   discussionsSettings,
-  handleCreateNewCourseXBlock
+  handleCreateNewCourseXBlock,
 }) => {
   const currentRef = useRef(null);
   const dispatch = useDispatch();
@@ -105,15 +105,15 @@ const UnitCard = ({
   const handleUnitMoveDown = () => {
     onOrderChange(section, moveDownDetails);
   };
-  
+
   const onCreateNewCourseXBlock = async () => {
     await handleCreateNewCourseXBlock({
-      category: "html",
-      parentLocator: id
+      category: 'html',
+      parentLocator: id,
     }, id, ({ locator, courseKey }) => {
-      console.log("locator=xblockId====>>>>>>", locator);
-      setCourseId(courseKey)
-      setBlockId(locator)
+      console.log('locator=xblockId====>>>>>>', locator);
+      setCourseId(courseKey);
+      setBlockId(locator);
       openText();
     });
   };
@@ -221,26 +221,27 @@ const UnitCard = ({
       {/* This is for create block here. */}
       {/* <h1>Hello This is {displayName} + {category}</h1>
       <button onClick={onCreateNewCourseXBlock}>Textblock</button> */}
-      {isOpenText && blockId && courseId && <div
+      {isOpenText && blockId && courseId && (
+      <div
         className="pgn__modal-fullscreen h-100"
         role="dialog"
-        aria-label={'html'}
+        aria-label="html"
       >
         <PageWrap>
           <EditorPage
             courseId={courseId}
-            blockType={'html'}
+            blockType="html"
             blockId={blockId}
             studioEndpointUrl={getConfig().STUDIO_BASE_URL}
             lmsEndpointUrl={getConfig().LMS_BASE_URL}
             onClose={() => {
-              closeText()
+              closeText();
               setBlockId(null);
             }}
-          // returnFunction={() => closeText()}
           />
         </PageWrap>
-      </div>}
+      </div>
+      )}
     </>
   );
 };

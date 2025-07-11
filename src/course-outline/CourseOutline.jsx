@@ -232,7 +232,7 @@ const CourseOutline = ({ courseId }) => {
       </Row>
     );
   }
-  console.log("items=sections======>>>>", sections);
+  console.log('items=sections======>>>>', sections);
 
   return (
     <>
@@ -275,10 +275,10 @@ const CourseOutline = ({ courseId }) => {
             subtitle={intl.formatMessage(messages.headingSubtitle)}
             headerActions={(
               <HeaderNavigations
-                isReIndexShow={isReIndexShow  && false}
+                isReIndexShow={isReIndexShow && false}
                 isSectionsExpanded={isSectionsExpanded}
                 headerNavigationsActions={headerNavigationsActions}
-                isDisabledReindexButton={isDisabledReindexButton }
+                isDisabledReindexButton={isDisabledReindexButton}
                 hasSections={Boolean(sectionsList.length)}
                 courseActions={courseActions}
                 errors={errors}
@@ -374,7 +374,7 @@ const CourseOutline = ({ courseId }) => {
                                             id={subsection.id}
                                             items={subsection.childInfo.children}
                                             strategy={verticalListSortingStrategy}
-                                            
+
                                           >
                                             {subsection.childInfo.children.map((unit, unitIndex) => (
                                               <UnitCard
@@ -413,7 +413,7 @@ const CourseOutline = ({ courseId }) => {
                                 ))}
                               </SortableContext>
                             </DraggableList>
-                            {/* {courseActions.childAddable && (
+                            {courseActions.childAddable && (
                               <Button
                                 data-testid="new-section-button"
                                 className="mt-4"
@@ -424,7 +424,7 @@ const CourseOutline = ({ courseId }) => {
                               >
                                 {intl.formatMessage(messages.newSectionButton)}
                               </Button>
-                            )} */}
+                            )}
                           </>
                         ) : (
                           <EmptyPlaceholder

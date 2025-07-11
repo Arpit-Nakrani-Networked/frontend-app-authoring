@@ -241,12 +241,12 @@ const SectionCard = ({
               />
             </div> */}
         {/* {isExpanded && ( */}
-          <div
-            data-testid="section-card__subsections"
-            className={classNames('section-card__subsections', { 'item-children': isDraggable })}
-          >
-            {children}
-            {/* {actions.childAddable && (
+        <div
+          data-testid="section-card__subsections"
+          className={classNames('section-card__subsections', { 'item-children': isDraggable })}
+        >
+          {children}
+          {/* {actions.childAddable && (
                 <Button
                   data-testid="new-subsection-button"
                   className="mt-4"
@@ -258,7 +258,7 @@ const SectionCard = ({
                   {intl.formatMessage(messages.newSubsectionButton)}
                 </Button>
               )} */}
-          </div>
+        </div>
         {/* )} */}
       </div>
     </div>

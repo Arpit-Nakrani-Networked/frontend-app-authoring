@@ -4,9 +4,8 @@ import PropTypes from 'prop-types';
 import { getConfig } from '@edx/frontend-platform';
 import { useIntl } from '@edx/frontend-platform/i18n';
 import { useSearchParams } from 'react-router-dom';
-import { Button } from '@openedx/paragon';
-import { Add as IconAdd } from '@openedx/paragon/icons';
 import {
+  Button,
   Dropdown,
   Form,
   Hyperlink,
@@ -15,6 +14,7 @@ import {
   useToggle,
 } from '@openedx/paragon';
 import {
+  Add as IconAdd,
   MoreVert as MoveVertIcon,
   EditOutline as EditIcon,
 } from '@openedx/paragon/icons';
@@ -144,16 +144,18 @@ const CardHeader = ({
           </>
         )}
         <div className="ml-auto d-flex align-items-center">
-         {showNewButton && <Button
+          {showNewButton && (
+          <Button
             data-testid="new-unit-button"
             className="mr-3"
             variant="outline-third"
             iconBefore={IconAdd}
             block
-            onClick={handleNewButtonClick ? handleNewButtonClick : () => { }}
+            onClick={handleNewButtonClick || (() => { })}
           >
             {intl.formatMessage(unitMessage.newUnitButton)}
-          </Button>}
+          </Button>
+          )}
           {(isVertical || isSequential) && (
             <CardStatus status={status} showDiscussionsEnabledBadge={showDiscussionsEnabledBadge} />
           )}

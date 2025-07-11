@@ -1,0 +1,95 @@
+// Checkboxes.scss
+
+// Rounded single-select checkbox
+.rounded-checkbox-wrapper {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  margin: 0;
+
+  .rounded-checkbox {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1.5px solid #CCCCCC;
+    background-color: #FFFFFF;
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
+
+    &:checked {
+      background-color: #0D6EFD;
+      border-color: #0D6EFD;
+
+      &::after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        width: 8px;
+        height: 8px;
+        background: white;
+        border-radius: 50%;
+      }
+    }
+  }
+
+  .checkbox-label {
+    margin-left: 8px;
+  }
+}
+
+// Square multi-select checkbox
+.square-checkbox-wrapper {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  margin: 0;
+
+  .square-checkbox {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: .225rem;
+    border: 1.5px solid #CCCCCC;
+    background-color: #FFFFFF;
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
+
+    &:checked {
+      background-color: #0D6EFD;
+      border-color: #0D6EFD;
+
+      &::after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        width: 8px;
+        height: 8px;
+        background: white;
+        border-radius: 50%;
+      }
+    }
+  }
+
+  .checkbox-label {
+    margin-left: 8px;
+  }
+}
+
+.component-block-wrappper {
+
+  .component-block-dropdown__menu {
+    padding: 0;
+    min-width: 10rem;
+    .component-block-dropdown__menu-item{
+      padding: .5rem !important;
+    }
+  }
+
+}

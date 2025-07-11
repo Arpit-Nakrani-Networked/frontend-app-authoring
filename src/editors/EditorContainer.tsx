@@ -1,5 +1,7 @@
 import React from 'react';
-import { useLocation, useParams, useSearchParams } from 'react-router-dom';
+import {
+  useLocation, useNavigate, useParams, useSearchParams,
+} from 'react-router-dom';
 import { getConfig } from '@edx/frontend-platform';
 import { useIntl } from '@edx/frontend-platform/i18n';
 import { Button, Hyperlink } from '@openedx/paragon';
@@ -33,8 +35,9 @@ const EditorContainer: React.FC<Props> = ({
   returnFunction,
 }) => {
   const intl = useIntl();
-  const { blockType, blockId } = useParams();
+  const { blockType, blockId, unitId, courseId } = useParams();
   const location = useLocation();
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const upstreamLibRef = searchParams.get('upstreamLibRef');
 
@@ -51,11 +54,19 @@ const EditorContainer: React.FC<Props> = ({
     return createCorrectInternalRoute(`/library/${libId}/components?usageKey=${upstreamLibRef}`);
   };
 
+  const handleCloseModal = () => {
+    if (onClose) {
+      onClose();
+      return;
+    }
+    navigate(`/course/${courseId}/container/${unitId}`);
+  };
+
   return (
     <div className="editor-page">
       <AlertMessage
         className="m-3"
-        show={upstreamLibRef}
+        show={!!upstreamLibRef}
         variant="warning"
         icon={WarningIcon}
         title={intl.formatMessage(messages.libraryBlockEditWarningTitle)}
@@ -78,8 +89,8 @@ const EditorContainer: React.FC<Props> = ({
         blockId={blockId}
         studioEndpointUrl={getConfig().STUDIO_BASE_URL}
         lmsEndpointUrl={getConfig().LMS_BASE_URL}
-        onClose={onClose ? () => onClose(location.state?.from) : null}
-        returnFunction={returnFunction ? () => returnFunction(location.state?.from) : null}
+        onClose={handleCloseModal}
+        returnFunction={returnFunction ? () => returnFunction(location.state?.from) : () => handleCloseModal}
       />
     </div>
   );

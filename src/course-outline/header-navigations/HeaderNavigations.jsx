@@ -26,7 +26,7 @@ const HeaderNavigations = ({
 
   return (
     <nav className="header-navigations ml-auto">
-        {hasSections && (
+      {hasSections && (
         <Button
           variant="outline-secondary"
           onClick={handleExpandAll}
@@ -73,7 +73,7 @@ const HeaderNavigations = ({
           </Button>
         </OverlayTrigger>
       )}
-    
+
       {/* <OverlayTrigger
         placement="bottom"
         overlay={(

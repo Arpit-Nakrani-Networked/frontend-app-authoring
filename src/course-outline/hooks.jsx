@@ -113,6 +113,7 @@ const useCourseOutline = ({ courseId }) => {
   };
 
   const getUnitUrl = (locator) => {
+    return `/course/${courseId}/container/${locator}`;
     if (getConfig().ENABLE_UNIT_PAGE === 'true') {
       return `/course/${courseId}/container/${locator}`;
     }
@@ -129,7 +130,7 @@ const useCourseOutline = ({ courseId }) => {
   };
 
   const handleNewUnitSubmit = (subsectionId) => {
-    dispatch(addNewUnitQuery(subsectionId,(result) => {
+    dispatch(addNewUnitQuery(subsectionId, (result) => {
       dispatch(fetchCourseOutlineIndexQuery(courseId, true));
     }));
   };

@@ -71,10 +71,9 @@ const getErrorDetails = (error, dismissible = true) => {
   return errorInfo;
 };
 
-export function fetchCourseOutlineIndexQuery(courseId,byPassloading = false) {
+export function fetchCourseOutlineIndexQuery(courseId, byPassloading = false) {
   return async (dispatch) => {
-    if(!byPassloading) dispatch(updateOutlineIndexLoadingStatus({ status: RequestStatus.IN_PROGRESS }));
-    
+    if (!byPassloading) { dispatch(updateOutlineIndexLoadingStatus({ status: RequestStatus.IN_PROGRESS })); }
 
     try {
       const outlineIndex = await getCourseOutlineIndex(courseId);

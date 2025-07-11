@@ -8,12 +8,12 @@ $v2-info-400: #F6F7FA;
 $v2-blue-500: #0566FA;
 $v2-blue-600: #0D68F9;
 
-$v2-black-300: #000000b3;
+$v2-black-300: #000000B3;
 $v2-black-400: #000000CC;
 $v2-black-500: #0000001F;
 $v2-black-600: #00000099;
 
-$v2-white-100: #fff;
+$v2-white-100: #FFFFFF;
 
 
 
@@ -30,6 +30,7 @@ $v2-white-100: #fff;
 .bg-info-100 {
   background-color: $v2-info-100 !important;
 }
+
 .bg-blue-500 {
   background-color: $v2-blue-500 !important;
 }
@@ -46,6 +47,7 @@ $v2-white-100: #fff;
 .font-weight-c-light {
   font-weight: 400;
 }
+
 .font-weight-medium {
   font-weight: 500;
 }
@@ -58,6 +60,7 @@ $v2-white-100: #fff;
 .border-none {
   border: none !important;
 }
+
 .container-fluid {
   max-width: 100%;
   width: 100%;
@@ -80,20 +83,30 @@ $v2-white-100: #fff;
   height: fit-content;
 }
 
-//custom 
-.rounded-c-lg{
+//custom variable. i am adding prefix c to let know that variable is custom
+.rounded-c-lg {
   border-radius: 1rem;
 }
 
-.rounded-c-b-lg{
+.rounded-c-b-lg {
   border-bottom-left-radius: 1rem;
   border-bottom-right-radius: 1rem;
 }
 
-.cursor-c-pointer{
+.cursor-c-pointer {
   cursor: pointer;
 }
 
-.bg-gray-c-50{
-  background-color: #f5f5f5;
+.bg-gray-c-50 {
+  background-color: #F5F5F5;
+}
+
+.text-primary {
+  color: black;
+  opacity: .8
+}
+
+.text-secondory {
+  color: black;
+  opacity: .6;
 }

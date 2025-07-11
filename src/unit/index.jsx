@@ -1,66 +1,128 @@
 import { injectIntl } from '@edx/frontend-platform/i18n';
-import { Container, Stack } from '@openedx/paragon';
-import { useParams } from 'react-router';
-import { TextFields } from '@openedx/paragon/icons';
-import { SlowMotionVideo } from '@openedx/paragon/icons';
-import { Question } from '@openedx/paragon/icons';
+import { Container, Spinner } from '@openedx/paragon';
+import { Outlet, useParams } from 'react-router';
+import { useEffect, useState } from 'react';
+import { SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import { closestCenter, DndContext, KeyboardSensor, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
+import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
+import { deleteComponentBlock, getVerticalBlock, updateVerticleBlock } from './data/api';
+import { HTMLComponentCard } from './components/cards/HTMLComponentCard';
+import { VideoComponentCard } from './components/cards/VideoComponentCard';
+import { ProblemComponentCard } from './components/cards/ProblemComponentCard';
+import { availableComponents } from './data/constant';
+import { NoContent } from './components/NoContent';
+import { DraggableComponent } from './components/DraggableComponent';
+import { ComponentCard } from './components/AvailableComponentCard';
+import ComponentDetails from 'library-authoring/component-info/ComponentDetails';
 
 const Unit = () => {
   const params = useParams();
+  const [loading, setLoading] = useState(true);
+  const [components, setComponents] = useState([]);
+  const [verticleBlock, setVerticleBlock] = useState(null);
 
-  const components = [
-    {
-      label: 'Add Text',
-      navigate: '/text',
-      icon: <TextFields />,
-    },
-    {
-      label: 'Add Video',
-      navigate: '/video',
-      icon: <SlowMotionVideo />,
-    },
-    {
-      label: 'Add Question',
-      navigate: '/problem',
-      icon: <Question />,
-    },
-  ]
+  const handleDeleteComponentBlock = (componentBlockId) => {
+    setComponents((components) => components.filter((component) => component.id !== componentBlockId));
+    deleteComponentBlock(componentBlockId)
+  }
+
+  const selectComponent = (component) => {
+    switch (component.category) {
+      case 'html':
+        return <HTMLComponentCard component={component} onDelete={handleDeleteComponentBlock} />;
+      case 'video':
+        return <VideoComponentCard component={component} onDelete={handleDeleteComponentBlock} />;
+      case 'problem':
+        return <ProblemComponentCard component={component} onDelete={handleDeleteComponentBlock} />;
+      default:
+        return null;
+    }
+  };
+
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    }),
+  );
+
+  const handleDragEnd = (event) => {
+    const { active, over } = event;
+    if (!active || !over) {
+      return;
+    }
+
+    const { id } = active;
+    const { id: overId } = over;
+
+    const activeIndex = components.findIndex((component) => component.id === id);
+    const overIndex = components.findIndex((component) => component.id === overId);
+
+    const currentComponents = [...components];
+    const [movedItem] = currentComponents.splice(activeIndex, 1);
+    currentComponents.splice(overIndex, 0, movedItem);
+
+    setComponents(currentComponents);
+
+    const newOrder = currentComponents.map((component) => component.id);
+    //api call for update children order
+    updateVerticleBlock(params.unitId, {
+      children: newOrder
+    })
+  };
+
+  useEffect(() => {
+    const getComponents = async () => {
+      if (params.unitId) {
+        setLoading(true);
+        getVerticalBlock(params.unitId).then(((response) => {
+          setComponents(response.components);
+          setVerticleBlock(response.verticalBlock);
+        })).finally(() => { setLoading(false); });
+      }
+    };
+    getComponents();
+  }, []);
 
   return (
     <Container size="xl" className="px-4 rounded p-4">
-      <div className='bg-white rounded-c-lg border border-gray-100'>
-        <div className='d-flex justify-content-between align-items-center'>
-          <h2 className='sub-header-title p-4'>What is Python?</h2>
+      <div className="bg-white rounded-c-lg border border-light">
+        <div className="d-flex justify-content-between align-items-center">
+          <h2 className="sub-header-title p-4">{verticleBlock?.displayName}</h2>
         </div>
-        <div className='h-200px bg-white p-4 border-top border-bottom border-gray-100 d-flex flex-column align-items-center justify-content-center'>
-          <h2 className='sub-header-title'>No Content Added Yet</h2>
-          <span className='text-gray-500'>share updates, ask questions, or start a discussion.</span>
+        <div className="bg-white p-4 border-top border-bottom border-light" style={{ minHeight: '200px' }}>
+          {loading && <div className="d-flex flex-column align-items-center justify-content-center"> <Spinner animation="border" className="mie-3" screenReaderText="loading" /> </div>}
+          {!loading && components.length === 0 && <NoContent />}
+          {!loading && components.length && (
+            <DndContext
+              modifiers={[restrictToVerticalAxis]}
+              sensors={sensors}
+              collisionDetection={closestCenter}
+              onDragOver={() => console.log('drag over')}
+              onDragStart={(event) => console.log(event, 'drag start')}
+              onDragEnd={handleDragEnd}
+            >
+              <SortableContext id="root" strategy={verticalListSortingStrategy} items={components}>
+                {
+                  components.map((component) => <DraggableComponent id={component.id} category={component.category} children={selectComponent(component)} isDraggable isDroppable />)
+                }
+              </SortableContext>
+            </DndContext>
+          )}
         </div>
-        <div className='bg-gray-c-50 p-4 d-flex flex-column align-items-center justify-content-between rounded-c-b-lg'>
-          <h2 className='sub-header-title'>Add Content</h2>
-          <span className='text-gray-500 font-weight-c-light'>Please select the one of the below type</span>
-
-          <div className='d-flex justify-content-between w-100 mt-4' style={{ gap: '1rem' }}>
+        <div className="bg-gray-c-50 p-4 d-flex flex-column align-items-center justify-content-between rounded-c-b-lg">
+          <h2 className="sub-header-title">Add Content</h2>
+          <span className="text-gray-500 font-weight-c-light">Please select the one of the below type</span>
+          <div className="d-flex justify-content-between w-100 mt-4" style={{ gap: '1rem' }}>
             {
-              components.map((component, index) => <ComponentCard key={index} {...component} />)
+              availableComponents.map((component, index) => <ComponentCard key={index} {...component} />)
             }
           </div>
         </div>
       </div>
+      <Outlet />
     </Container>
-  )
-}
+  );
+};
 
 export default injectIntl(Unit);
-
-
-const ComponentCard = ({ label, icon, navigate }) => {
-  return (
-    <div className='rounded-c-lg px-4 py-3 flex-grow-1 bg-white cursor-c-pointer'>
-      <Stack direction="horizontal" gap={3}>
-        {icon}
-        <div>{label}</div>
-      </Stack>
-    </div>
-  )
-}

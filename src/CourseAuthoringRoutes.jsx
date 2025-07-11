@@ -69,9 +69,14 @@ const CourseAuthoringRoutes = () => {
           element={<PageWrap><PagesAndResources courseId={courseId} /></PageWrap>}
         />
         <Route
-          path="unit/:unitId"
+          path="container/:unitId"
           element={<PageWrap><Unit /></PageWrap>}
-        />
+        >
+          <Route
+            path="editor/:blockType/:blockId?"
+            element={<PageWrap><EditorContainer learningContextId={courseId} /></PageWrap>}
+          />
+        </Route>
         <Route
           path="proctored-exam-settings"
           element={<Navigate replace to={`/course/${courseId}/pages-and-resources`} />}
@@ -90,10 +95,6 @@ const CourseAuthoringRoutes = () => {
         <Route
           path="editor/course-videos/:blockId"
           element={<PageWrap><VideoSelectorContainer courseId={courseId} /></PageWrap>}
-        />
-        <Route
-          path="editor/:blockType/:blockId?"
-          element={<PageWrap><EditorContainer learningContextId={courseId} /></PageWrap>}
         />
         <Route
           path="settings/details"

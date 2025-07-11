@@ -11,6 +11,8 @@ import { Add as IconAdd } from '@openedx/paragon/icons';
 import classNames from 'classnames';
 import { isEmpty } from 'lodash';
 
+import { getConfig } from '@edx/frontend-platform';
+import { PageWrap } from '@edx/frontend-platform/react';
 import { setCurrentItem, setCurrentSection, setCurrentSubsection } from '../data/slice';
 import { RequestStatus } from '../../data/constants';
 import CardHeader from '../card-header/CardHeader';
@@ -21,9 +23,7 @@ import TitleButton from '../card-header/TitleButton';
 import XBlockStatus from '../xblock-status/XBlockStatus';
 import { getItemStatus, getItemStatusBorder, scrollToElement } from '../utils';
 import messages from './messages';
-import { getConfig } from '@edx/frontend-platform';
 import EditorPage from '../../editors/EditorPage';
-import { PageWrap } from '@edx/frontend-platform/react';
 
 const SubsectionCard = ({
   section,
@@ -43,7 +43,7 @@ const SubsectionCard = ({
   onOpenConfigureModal,
   onPasteClick,
   courseId,
-  isSectionsExpanded
+  isSectionsExpanded,
 }) => {
   const currentRef = useRef(null);
   const intl = useIntl();
@@ -123,8 +123,7 @@ const SubsectionCard = ({
   };
 
   const handleNewButtonClick = () => {
-    onNewUnitSubmit(id)
-
+    onNewUnitSubmit(id);
   };
   const handlePasteButtonClick = () => onPasteClick(id, section.id);
 
@@ -137,7 +136,7 @@ const SubsectionCard = ({
     />
   );
 
-    useEffect(() => {
+  useEffect(() => {
     setIsExpanded(isSectionsExpanded);
   }, [isSectionsExpanded]);
 
@@ -232,7 +231,7 @@ const SubsectionCard = ({
               namePrefix={namePrefix}
               actions={actions}
               handleNewButtonClick={handleNewButtonClick}
-              showNewButton={true}
+              showNewButton
               proctoringExamConfigurationLink={proctoringExamConfigurationLink}
               isSequential
             />
