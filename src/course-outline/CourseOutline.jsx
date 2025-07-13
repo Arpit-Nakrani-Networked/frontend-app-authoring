@@ -413,7 +413,7 @@ const CourseOutline = ({ courseId }) => {
                                 ))}
                               </SortableContext>
                             </DraggableList>
-                            {courseActions.childAddable && (
+                            {/* {courseActions.childAddable && (
                               <Button
                                 data-testid="new-section-button"
                                 className="mt-4"
@@ -424,7 +424,7 @@ const CourseOutline = ({ courseId }) => {
                               >
                                 {intl.formatMessage(messages.newSectionButton)}
                               </Button>
-                            )}
+                            )} */}
                           </>
                         ) : (
                           <EmptyPlaceholder

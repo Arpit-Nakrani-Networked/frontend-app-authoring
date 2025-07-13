@@ -1,6 +1,6 @@
 import { injectIntl } from '@edx/frontend-platform/i18n';
 import { Container, Spinner } from '@openedx/paragon';
-import { Outlet, useParams } from 'react-router';
+import { Outlet, useNavigate, useParams } from 'react-router';
 import { useEffect, useState } from 'react';
 import { SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { closestCenter, DndContext, KeyboardSensor, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
@@ -12,14 +12,15 @@ import { ProblemComponentCard } from './components/cards/ProblemComponentCard';
 import { availableComponents } from './data/constant';
 import { NoContent } from './components/NoContent';
 import { DraggableComponent } from './components/DraggableComponent';
-import { ComponentCard } from './components/AvailableComponentCard';
-import ComponentDetails from 'library-authoring/component-info/ComponentDetails';
+import { AvailableComponentCard } from './components/AvailableComponentCard';
+import { UnitContextWrapper } from './data/context/UnitContext';
 
-const Unit = () => {
-  const params = useParams();
-  const [loading, setLoading] = useState(true);
+const Unit = ({ courseId }) => {
+  const { unitId } = useParams();
+  const [loading, setLoading] = useState(false);
   const [components, setComponents] = useState([]);
   const [verticleBlock, setVerticleBlock] = useState(null);
+  const navigate = useNavigate()
 
   const handleDeleteComponentBlock = (componentBlockId) => {
     setComponents((components) => components.filter((component) => component.id !== componentBlockId));
@@ -66,16 +67,39 @@ const Unit = () => {
 
     const newOrder = currentComponents.map((component) => component.id);
     //api call for update children order
-    updateVerticleBlock(params.unitId, {
+    updateVerticleBlock(unitId, {
       children: newOrder
     })
   };
 
+  const onSuccessComponentBlockCreate = ({ componentBlockCategory, componentBlockId }) => {
+    const baseComponent = {
+      id: componentBlockId,
+      category: componentBlockCategory,
+    };
+
+    const defaultsByCategory = {
+      video: { metadata: {} },
+      html: { data: '' },
+      problem: { data: '' },
+    };
+
+    const newComponent = {
+      ...baseComponent,
+      ...(defaultsByCategory[componentBlockCategory] || {}),
+    };
+
+    setComponents(prev => [...prev, newComponent]);
+
+    navigate(`/course/${courseId}/container/${unitId}/editor/${componentBlockCategory}/${componentBlockId}`);
+  };
+
+
   useEffect(() => {
     const getComponents = async () => {
-      if (params.unitId) {
+      if (unitId) {
         setLoading(true);
-        getVerticalBlock(params.unitId).then(((response) => {
+        getVerticalBlock(unitId).then(((response) => {
           setComponents(response.components);
           setVerticleBlock(response.verticalBlock);
         })).finally(() => { setLoading(false); });
@@ -91,7 +115,7 @@ const Unit = () => {
           <h2 className="sub-header-title p-4">{verticleBlock?.displayName}</h2>
         </div>
         <div className="bg-white p-4 border-top border-bottom border-light" style={{ minHeight: '200px' }}>
-          {loading && <div className="d-flex flex-column align-items-center justify-content-center"> <Spinner animation="border" className="mie-3" screenReaderText="loading" /> </div>}
+          {loading && <div className="d-flex flex-column align-items-center justify-content-center" style={{ minHeight: '150px' }}> <Spinner animation="border" className="mie-3" screenReaderText="loading" /> </div>}
           {!loading && components.length === 0 && <NoContent />}
           {!loading && components.length && (
             <DndContext
@@ -115,12 +139,26 @@ const Unit = () => {
           <span className="text-gray-500 font-weight-c-light">Please select the one of the below type</span>
           <div className="d-flex justify-content-between w-100 mt-4" style={{ gap: '1rem' }}>
             {
-              availableComponents.map((component, index) => <ComponentCard key={index} {...component} />)
+              availableComponents.map((component, index) => <AvailableComponentCard key={index} {...component} onSuccess={onSuccessComponentBlockCreate} />)
             }
           </div>
         </div>
       </div>
-      <Outlet />
+      <UnitContextWrapper updateComponent={(updatedComponent) => {
+        setComponents((components) => components.map((component) => {
+          if (component.id === updatedComponent.id) {
+            return {
+              ...component,
+              ...updatedComponent
+            }
+          }
+          else {
+            return component
+          }
+        }))
+      }} componentBlocks={components}>
+        <Outlet />
+      </UnitContextWrapper>
     </Container>
   );
 };

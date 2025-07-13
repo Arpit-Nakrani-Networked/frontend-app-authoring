@@ -56,7 +56,7 @@ const CardHeader = ({
   proctoringExamConfigurationLink,
   discussionEnabled,
   discussionsSettings,
-  handleNewButtonClick,
+  handleNewButtonClick=()=>{},
   showNewButton = false,
   parentInfo,
 }) => {

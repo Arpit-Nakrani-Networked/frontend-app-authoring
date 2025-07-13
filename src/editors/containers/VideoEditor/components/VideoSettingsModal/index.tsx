@@ -27,7 +27,7 @@ const VideoSettingsModal: React.FC<Props> = ({
   isLibrary,
 }) => (
   <>
-    {!isLibrary && (
+    {/* {!isLibrary && (
       <Button
         variant="link"
         className="text-primary-500"
@@ -41,20 +41,20 @@ const VideoSettingsModal: React.FC<Props> = ({
         <Icon src={ArrowBackIos} style={{ height: '13px' }} />
         <FormattedMessage {...messages.replaceVideoButtonLabel} />
       </Button>
-    )}
+    )} */}
     <ErrorSummary />
-    <ConnectedVideoPreviewWidget />
     <VideoSourceWidget />
-    {!isLibrary && (
+    <ConnectedVideoPreviewWidget />
+    {/* {!isLibrary && (
       <SocialShareWidget />
-    )}
-    <ThumbnailWidget />
-    {!isLibrary && ( // Since content libraries v2 don't support static assets yet, we can't include transcripts.
+    )} */}
+    {/* <ThumbnailWidget /> */}
+    {/* {!isLibrary && ( // Since content libraries v2 don't support static assets yet, we can't include transcripts.
       <TranscriptWidget />
-    )}
-    <DurationWidget />
-    <HandoutWidget />
-    <LicenseWidget />
+    )} */}
+    {/* <DurationWidget /> */}
+    {/* <HandoutWidget /> */}
+    {/* <LicenseWidget /> */}
   </>
 );
 

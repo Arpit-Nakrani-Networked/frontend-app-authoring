@@ -5,6 +5,7 @@ import { FormattedMessage, injectIntl, intlShape } from '@edx/frontend-platform/
 import messages from './messages';
 import { ProblemTypes } from '../../../../../data/constants/problem';
 import AnswersContainer from './AnswersContainer';
+import { Stack } from '@openedx/paragon';
 
 // This widget should be connected, grab all answers from store, update them as needed.
 const AnswerWidget = ({
@@ -15,17 +16,17 @@ const AnswerWidget = ({
 }) => {
   const problemStaticData = ProblemTypes[problemType];
   return (
-    <div>
-      <div className="mt-4 text-primary-500">
-        <div className="h4">
+    <Stack gap={3}>
+      <div className="text-primary-500">
+        <div className="text-base font-weight-semibold">
           <FormattedMessage {...messages.answerWidgetTitle} />
         </div>
-        <div className="small">
+        <div className="text-sm text-gray-500">
           {intl.formatMessage(messages.answerHelperText, { helperText: problemStaticData.description })}
         </div>
       </div>
       <AnswersContainer problemType={problemType} />
-    </div>
+    </Stack>
   );
 };
 

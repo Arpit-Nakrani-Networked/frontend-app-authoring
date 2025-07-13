@@ -9,6 +9,7 @@ import { RequestKeys } from '../../data/constants/requests';
 import messages from './messages';
 import { ProblemType } from '../../data/constants/problem';
 import type { EditorComponent } from '../../EditorComponent';
+import EditorContainer from '../EditorContainer';
 
 export interface Props extends EditorComponent {
   // redux
@@ -40,13 +41,15 @@ const ProblemEditor: React.FC<Props> = ({
 
   if (!blockFinished || !advancedSettingsFinished) {
     return (
-      <div className="text-center p-6">
-        <Spinner
-          animation="border"
-          className="m-3"
-          screenreadertext="Loading Problem Editor"
-        />
-      </div>
+      <EditorContainer getContent={() => { console.log('Dummy') }} isDirty={() => false} onClose={onClose}>
+        <div className="text-center p-6">
+          <Spinner
+            animation="border"
+            className="m-3"
+            screenreadertext="Loading Problem Editor"
+          />
+        </div>
+      </EditorContainer>
     );
   }
 

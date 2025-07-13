@@ -4,16 +4,21 @@ export const availableComponents = [
   {
     label: 'Add Text',
     navigate: '/text',
-    icon: <TextFields />,
+    icon: TextFields,
+    category: 'html'
   },
   {
     label: 'Add Video',
     navigate: '/video',
-    icon: <SlowMotionVideo />,
+    icon: SlowMotionVideo,
+    category: 'video',
+    type: 'video'
   },
   {
     label: 'Add Question',
     navigate: '/problem',
-    icon: <Question />,
+    icon: Question,
+    category: 'problem',
+    type: 'problem'
   },
 ];

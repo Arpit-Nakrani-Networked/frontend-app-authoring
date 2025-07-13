@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-  useLocation, useNavigate, useParams, useSearchParams,
-} from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { getConfig } from '@edx/frontend-platform';
 import { useIntl } from '@edx/frontend-platform/i18n';
 import { Button, Hyperlink } from '@openedx/paragon';
@@ -12,6 +10,7 @@ import AlertMessage from '../generic/alert-message';
 import messages from './messages';
 import { getLibraryId } from '../generic/key-utils';
 import { createCorrectInternalRoute } from '../utils';
+import { useUnitContext } from '../unit/data/context/UnitContext';
 
 interface Props {
   /** Course ID or Library ID */
@@ -36,10 +35,10 @@ const EditorContainer: React.FC<Props> = ({
 }) => {
   const intl = useIntl();
   const { blockType, blockId, unitId, courseId } = useParams();
-  const location = useLocation();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const upstreamLibRef = searchParams.get('upstreamLibRef');
+  const context: { updateComponent: Function } = useUnitContext();
 
   if (blockType === undefined || blockId === undefined) {
     // istanbul ignore next - This shouldn't be possible; it's just here to satisfy the type checker.
@@ -61,6 +60,12 @@ const EditorContainer: React.FC<Props> = ({
     }
     navigate(`/course/${courseId}/container/${unitId}`);
   };
+
+  const handleReturn = (response) => {
+    returnFunction?.(response);
+    context.updateComponent(response);
+    handleCloseModal();
+  }
 
   return (
     <div className="editor-page">
@@ -90,7 +95,7 @@ const EditorContainer: React.FC<Props> = ({
         studioEndpointUrl={getConfig().STUDIO_BASE_URL}
         lmsEndpointUrl={getConfig().LMS_BASE_URL}
         onClose={handleCloseModal}
-        returnFunction={returnFunction ? () => returnFunction(location.state?.from) : () => handleCloseModal}
+        returnFunction={() => handleReturn}
       />
     </div>
   );

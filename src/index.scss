@@ -240,3 +240,14 @@ mark {
     }
   }
 }
+
+// _forms.scss
+.form-control ,.form-control:focus-visible,.form-control:focus-within{
+  height: 36px;
+  border: 1px solid #0000001F;
+  // font-weight: 600;
+  font-size: 16px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #000000CC;
+}

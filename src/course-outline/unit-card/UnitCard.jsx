@@ -42,7 +42,7 @@ const UnitCard = ({
   const [searchParams] = useSearchParams();
   const locatorId = searchParams.get('show');
   const isScrolledToElement = locatorId === unit.id;
-  const [isFormOpen, openForm, closeForm] = useToggle(true);
+  const [isFormOpen, openForm, closeForm] = useToggle(false);
   const [isOpenText, openText, closeText] = useToggle(false);
   const [blockId, setBlockId] = useState(null);
   const [courseId, setCourseId] = useState(null);
@@ -151,7 +151,7 @@ const UnitCard = ({
     return null;
   }
 
-  const isDraggable = actions.draggable && (actions.allowMoveUp || actions.allowMoveDown);
+  const isDraggable = false && actions.draggable && (actions.allowMoveUp || actions.allowMoveDown);
 
   return (
     <>
@@ -162,14 +162,14 @@ const UnitCard = ({
         isDraggable={isDraggable}
         isDroppable={actions.childAddable}
         componentStyle={{
-          background: '#f8f7f6',
-          display: 'flex',
-          flexDirection: 'row-reverse',
-          backgroundColor: 'white',
+          // background: '#f8f7f6',
+          // display: 'flex',
+          // flexDirection: 'row-reverse',
+          backgroundColor: 'transparent',
           boxShadow: 'none',
-          'border-radius': '0',
-          'border-bottom-right-radius': '16px',
-          'border-bottom-left-radius': '16px',
+            borderRadius: '0 0 16px 16px',
+          // 'border-bottom-right-radius': '16px !important',
+          // 'border-bottom-left-radius': '16px !important',
           marginBottom: '0',
           // : {
           //   backgroundColor: '#f0f0f0',

@@ -7,8 +7,8 @@ import {
   Truncate,
 } from '@openedx/paragon';
 import {
-  ArrowDropDown as ArrowDownIcon,
-  ArrowRight as ArrowRightIcon,
+  KeyboardArrowDown as ArrowDownIcon,
+  KeyboardArrowUp as ArrowRightIcon,
 } from '@openedx/paragon/icons';
 import messages from './messages';
 

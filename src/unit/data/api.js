@@ -5,6 +5,7 @@ const getApiBaseUrl = () => getConfig().STUDIO_BASE_URL;
 
 export const getVerticleBlockApiUrl = (unitId) => `${getApiBaseUrl()}/xblock/verticle/container/${unitId}`;
 export const updateVerticleBlockApirUrl = (unitId) => `${getApiBaseUrl()}/xblock/${unitId}`;
+export const createComponentBlockApirUrl = (componentBlockId) => `${getApiBaseUrl()}/xblock/`;
 export const deleteComponentBlockApirUrl = (componentBlockId) => `${getApiBaseUrl()}/xblock/${componentBlockId}`;
 
 export async function getVerticalBlock(unitId) {
@@ -20,6 +21,16 @@ export async function updateVerticleBlock(unitId, payload) {
   const { data } = await getAuthenticatedHttpClient()
     .post(
       updateVerticleBlockApirUrl(unitId),
+      payload
+    );
+
+  return camelCaseObject(data);
+}
+
+export async function createComponentBlock(payload) {
+  const { data } = await getAuthenticatedHttpClient()
+    .post(
+      createComponentBlockApirUrl(),
       payload
     );
 

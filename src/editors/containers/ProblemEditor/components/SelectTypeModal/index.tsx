@@ -29,7 +29,7 @@ const SelectTypeModal: React.FC<Props> = ({
         {(!isAdvancedProblemType(selected)) ? (
           <Stack direction="horizontal" gap={4} className="flex-wrap mb-6">
             <ProblemTypeSelect selected={selected} setSelected={setSelected} />
-            <Preview problemType={selected} />
+            {/* <Preview problemType={selected} /> */}
           </Stack>
         ) : <AdvanceTypeSelect selected={selected} setSelected={setSelected} />}
       </Row>

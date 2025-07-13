@@ -101,11 +101,7 @@ const useCourseOutline = ({ courseId }) => {
   };
 
   const handleNewSectionSubmit = () => {
-    if (sectionsList.length === 0) {
       dispatch(addNewSectionQuery(courseStructure.id));
-    } else {
-      handleNewSubsectionSubmit(sectionsList[0].id);
-    }
   };
 
   const handleNewSubsectionSubmit = (sectionId) => {
@@ -130,9 +126,7 @@ const useCourseOutline = ({ courseId }) => {
   };
 
   const handleNewUnitSubmit = (subsectionId) => {
-    dispatch(addNewUnitQuery(subsectionId, (result) => {
-      dispatch(fetchCourseOutlineIndexQuery(courseId, true));
-    }));
+    dispatch(addNewUnitQuery(subsectionId));
   };
 
   const handleCreateNewCourseXBlock = (body, blockId, callback) => (

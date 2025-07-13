@@ -70,7 +70,7 @@ const CourseAuthoringRoutes = () => {
         />
         <Route
           path="container/:unitId"
-          element={<PageWrap><Unit /></PageWrap>}
+          element={<PageWrap><Unit courseId={courseId} /></PageWrap>}
         >
           <Route
             path="editor/:blockType/:blockId?"

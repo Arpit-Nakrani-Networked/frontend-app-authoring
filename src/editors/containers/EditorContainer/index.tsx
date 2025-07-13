@@ -30,7 +30,7 @@ export const EditorModalWrapper: React.FC<WrapperProps & { onClose: () => void }
   const intl = useIntl();
   const title = intl.formatMessage(messages.modalTitle);
   return (
-    <ModalDialog isOpen size="lg" isOverflowVisible={false} onClose={onClose} title={title}>{children}</ModalDialog>
+    <ModalDialog isOpen size="lg" className='rounded-c-lg' isOverflowVisible={false} onClose={onClose} title={title}>{children}</ModalDialog>
   );
 };
 
@@ -129,7 +129,7 @@ const EditorContainer: React.FC<Props> = ({
       >
         <FormattedMessage {...messages.cancelConfirmDescription} />
       </BaseModal>
-      <ModalDialog.Header className="shadow-sm zindex-10">
+      <ModalDialog.Header className="shadow-sm zindex-10" style={{boxShadow:'0'}}>
         <div className="d-flex flex-row justify-content-between">
           <h2 className="h3 col pl-0">
             <TitleHeader isInitialized={isInitialized} />

@@ -87,7 +87,7 @@ const SubsectionCard = ({
 
     return false;
   };
-  const [isExpanded, setIsExpanded] = useState(containsSearchResult() || !isHeaderVisible);
+  const [isExpanded, setIsExpanded] = useState(true || containsSearchResult() || !isHeaderVisible);
   const subsectionStatus = getItemStatus({
     published,
     visibilityState,
@@ -190,8 +190,9 @@ const SubsectionCard = ({
         flexDirection: 'row-reverse',
         backgroundColor: 'white',
         boxShadow: 'none',
-        border: '1px solid #0000001F',
-        borderRadius: '16px',
+        marginBottom: "0",
+        // border: '1px solid #0000001F',
+        borderRadius: '0 0 16px 16px',
         // overflow: 'hidden',
         // ...borderStyle,
       }}
@@ -210,7 +211,7 @@ const SubsectionCard = ({
                 blockData={subsection}
               />
             </div> */}
-            <CardHeader
+            {/* <CardHeader
               title={displayName}
               status={subsectionStatus}
               cardId={id}
@@ -234,10 +235,10 @@ const SubsectionCard = ({
               showNewButton
               proctoringExamConfigurationLink={proctoringExamConfigurationLink}
               isSequential
-            />
+            /> */}
           </>
         )}
-        {isExpanded && (
+        {true && (
           <div
             data-testid="subsection-card__units"
             className={classNames('subsection-card__units', { 'item-children': isDraggable })}

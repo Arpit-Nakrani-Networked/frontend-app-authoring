@@ -26,6 +26,7 @@ const ProblemTypeSelect: React.FC<Props> = ({
   const handleClick = () => setSelected(AdvanceProblemKeys.BLANK);
   const settings = { type: 'radio' };
 
+  const currentReleaseVersionSupportedProblemTypes = [ProblemTypeKeys.SINGLESELECT, ProblemTypeKeys.MULTISELECT];
   return (
     <Container style={{ width: '494px', height: '400px' }}>
       <SelectableBox.Set
@@ -35,7 +36,7 @@ const ProblemTypeSelect: React.FC<Props> = ({
         type={settings.type}
         value={selected}
       >
-        {Object.values(ProblemTypeKeys).map((key) => (
+        {Object.values(ProblemTypeKeys).filter((problemType) => currentReleaseVersionSupportedProblemTypes.includes(problemType)).map((key) => (
           key !== 'advanced'
             ? (
               <SelectableBox
@@ -51,9 +52,9 @@ const ProblemTypeSelect: React.FC<Props> = ({
             : null
         ))}
       </SelectableBox.Set>
-      <Button variant="link" className="pl-0 mt-2" onClick={handleClick}>
+      {/* <Button variant="link" className="pl-0 mt-2" onClick={handleClick}>
         <FormattedMessage {...messages.advanceProblemButtonLabel} />
-      </Button>
+      </Button> */}
     </Container>
   );
 };

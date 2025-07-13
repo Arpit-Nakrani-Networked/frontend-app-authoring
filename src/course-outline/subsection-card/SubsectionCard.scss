@@ -46,18 +46,20 @@
     }
 
     .unit-card>.item-card-header {
-      padding: 2px 16px 2px 75px;
+      padding: 2px 16px 2px 70px;
     }
   }
 
 }
+.section-card__subsections{
 
-.btn-icon__drag {
-  width: auto;
-  position: absolute;
-  top: 12px;
-  // transform: translateY(-50%);
-  left: 10px;
+  .btn-icon__drag {
+    width: auto;
+    position: absolute;
+    top: 2px;
+    // transform: translateY(-50%);
+    left: 35px;
+  }
 }
 
 .btn-icon__drag:hover {

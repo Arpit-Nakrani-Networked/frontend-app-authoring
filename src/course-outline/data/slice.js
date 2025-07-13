@@ -145,6 +145,19 @@ const slice = createSlice({
         return section;
       });
     },
+    addUnit: (state, { payload, data }) => {
+      state.sectionsList = state.sectionsList.map((section) => {
+        section.childInfo.children.map((subsection) => {
+          if (subsection.id === payload.parentLocator) {
+            subsection.childInfo.children = [
+              ...subsection.childInfo.children,
+              payload.data,
+            ];
+          }
+        })
+        return section;
+      });
+    },
     deleteSection: (state, { payload }) => {
       state.sectionsList = state.sectionsList.filter(
         ({ id }) => id !== payload.itemId,
@@ -200,6 +213,7 @@ const slice = createSlice({
 export const {
   addSection,
   addSubsection,
+  addUnit,
   fetchOutlineIndexSuccess,
   updateOutlineIndexLoadingStatus,
   updateReindexLoadingStatus,
