@@ -5,10 +5,16 @@
   // src/course-outline/card-header/TitleButton.jsx as
   // `${namePrefix}-card-title`
   .unit-card-title {
-    font-size: $h5-font-size;
-    font-family: $headings-font-family;
-    font-weight: $headings-font-weight;
-    line-height: $headings-line-height;
-    color: $headings-color;
+    // font-size: $h5-font-size;
+    // font-family: $headings-font-family;
+    // font-weight: $headings-font-weight;
+    // line-height: $headings-line-height;
+    // color: $headings-color;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color: #000000CC;
+
   }
 }

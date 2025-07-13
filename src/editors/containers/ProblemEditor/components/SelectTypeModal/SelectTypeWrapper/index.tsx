@@ -20,6 +20,7 @@ import messages from './messages';
 interface Props {
   selected: string;
   onClose: (() => void) | null;
+  children?: React.ReactNode;
 }
 
 const SelectTypeWrapper: React.FC<Props> = ({
@@ -36,48 +37,49 @@ const SelectTypeWrapper: React.FC<Props> = ({
 
   return (
     <EditorModalWrapper onClose={handleCancel}>
-      <ModalDialog.Header className="shadow-sm zindex-10">
-        <ModalDialog.Title>
+      <ModalDialog.Header className="zindex-10">
+        <span className='font-weight-medium text-secondory'>
           <FormattedMessage {...messages.selectTypeTitle} />
-          <div className="pgn__modal-close-container">
-            <IconButton
-              src={Close}
-              iconAs={Icon}
-              onClick={handleCancel}
-              alt={intl.formatMessage(ecMessages.exitButtonAlt)}
-            />
-          </div>
-        </ModalDialog.Title>
+        </span>
+        <div className="pgn__modal-close-container">
+          <IconButton
+            src={Close}
+            iconAs={Icon}
+            onClick={handleCancel}
+            alt={intl.formatMessage(ecMessages.exitButtonAlt)}
+          />
+        </div>
       </ModalDialog.Header>
       <EditorModalBody>
         {children}
       </EditorModalBody>
-      <FooterWrapper>
-        <ModalDialog.Footer className="border-top-0">
-          <ActionRow>
-            <ActionRow.Spacer />
-            <Button
-              aria-label={intl.formatMessage(messages.cancelButtonAriaLabel)}
-              variant="tertiary"
-              onClick={handleCancel}
-            >
-              <FormattedMessage {...messages.cancelButtonLabel} />
-            </Button>
-            <Button
-              aria-label={intl.formatMessage(messages.selectButtonAriaLabel)}
-              onClick={hooks.onSelect({
-                selected,
-                updateField,
-                setBlockTitle,
-                defaultSettings,
-              })}
-              disabled={!selected}
-            >
-              <FormattedMessage {...messages.selectButtonLabel} />
-            </Button>
-          </ActionRow>
-        </ModalDialog.Footer>
-      </FooterWrapper>
+      <ModalDialog.Footer className="border-top-0">
+        <ActionRow>
+          <ActionRow.Spacer />
+          <Button
+            aria-label={intl.formatMessage(messages.cancelButtonAriaLabel)}
+            variant="outline-third"
+            style={{ padding: '6px  16px' }}
+            onClick={handleCancel}
+          >
+            <FormattedMessage {...messages.cancelButtonLabel} />
+          </Button>
+          <Button
+            aria-label={intl.formatMessage(messages.selectButtonAriaLabel)}
+            onClick={hooks.onSelect({
+              selected,
+              updateField,
+              setBlockTitle,
+              defaultSettings,
+            })}
+            variant="outline-primary"
+            style={{ padding: '6px  16px' }}
+            disabled={!selected}
+          >
+            <FormattedMessage {...messages.selectButtonLabel} />
+          </Button>
+        </ActionRow>
+      </ModalDialog.Footer>
     </EditorModalWrapper>
   );
 };

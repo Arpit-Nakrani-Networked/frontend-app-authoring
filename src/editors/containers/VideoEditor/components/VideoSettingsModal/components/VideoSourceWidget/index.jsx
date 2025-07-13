@@ -58,10 +58,7 @@ const VideoSourceWidget = ({
   } = hooks.fallbackHooks({ fallbackVideos: fallbackVideos.formValue, dispatch });
 
   return (
-    <CollapsibleFormWidget
-      fontSize="x-small"
-      title={intl.formatMessage(messages.titleLabel)}
-    >
+    <div>
       <ErrorAlert
         dismissError={videoIdChangeAlert.dismiss}
         hideHeading
@@ -70,31 +67,32 @@ const VideoSourceWidget = ({
         <FormattedMessage {...messages.videoIdChangeAlert} />
       </ErrorAlert>
 
-      <div className="border-primary-100 border-bottom pb-4">
-        <Form.Group>
+      <div className="border-primary-100 border-bottom pb-3">
+        {/* <Form.Group>
           <Form.Control
             floatingLabel={intl.formatMessage(messages.videoIdLabel)}
             onChange={videoId.onChange}
             onBlur={updateVideoId}
             value={videoId.local}
-          />
+            />
           <Form.Control.Feedback className="text-primary-300 mb-4">
             <FormattedMessage {...messages.videoIdFeedback} />
           </Form.Control.Feedback>
-        </Form.Group>
-        <Form.Group>
+        </Form.Group> */}
+        <Form.Group size='sm'>
+          <Form.Label>Video URL</Form.Label>
           <Form.Control
-            floatingLabel={intl.formatMessage(messages.videoUrlLabel)}
             onChange={source.onChange}
             onBlur={(e) => updateVideoURL(e, videoId.local)}
             value={source.local}
+            className='font-weight-normal'
           />
-          <Form.Control.Feedback className="text-primary-300">
+          {/* <Form.Control.Feedback className="text-primary-300">
             <FormattedMessage {...messages.videoUrlFeedback} />
-          </Form.Control.Feedback>
+          </Form.Control.Feedback> */}
         </Form.Group>
       </div>
-      <div className="mt-4">
+      {/* <div className="mt-4">
         <FormattedMessage {...messages.fallbackVideoTitle} />
       </div>
       <div className="mt-3">
@@ -156,8 +154,8 @@ const VideoSourceWidget = ({
         onClick={() => addFallbackVideo()}
       >
         <FormattedMessage {...messages.addButtonLabel} />
-      </Button>
-    </CollapsibleFormWidget>
+      </Button> */}
+    </div>
   );
 };
 VideoSourceWidget.propTypes = {

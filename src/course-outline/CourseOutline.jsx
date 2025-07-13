@@ -101,6 +101,7 @@ const CourseOutline = ({ courseId }) => {
     handleDuplicateUnitSubmit,
     handleNewSectionSubmit,
     handleNewSubsectionSubmit,
+    handleCreateNewCourseXBlock,
     handleNewUnitSubmit,
     getUnitUrl,
     handleVideoSharingOptionChange,
@@ -121,7 +122,7 @@ const CourseOutline = ({ courseId }) => {
   } = useCourseOutline({ courseId });
 
   // Use `setToastMessage` to show the toast.
-  const [toastMessage, setToastMessage] = useState(/** @type{null|string} */ (null));
+  const [toastMessage, setToastMessage] = useState(/** @type{null|string} */(null));
 
   useEffect(() => {
     // Wait for the course data to load before exporting tags.
@@ -231,6 +232,7 @@ const CourseOutline = ({ courseId }) => {
       </Row>
     );
   }
+  console.log('items=sections======>>>>', sections);
 
   return (
     <>
@@ -238,8 +240,8 @@ const CourseOutline = ({ courseId }) => {
         <title>{getPageHeadTitle(courseName, intl.formatMessage(messages.headingTitle))}</title>
       </Helmet>
       <Container size="xl" className="px-4">
-        <section className="course-outline-container mb-4 mt-5">
-          <PageAlerts
+        <section className="course-outline-container mb-4 mt-3">
+          {/* <PageAlerts
             courseId={courseId}
             notificationDismissUrl={notificationDismissUrl}
             handleDismissNotification={handleDismissNotification}
@@ -252,8 +254,8 @@ const CourseOutline = ({ courseId }) => {
             advanceSettingsUrl={advanceSettingsUrl}
             savingStatus={savingStatus}
             errors={errors}
-          />
-          <TransitionReplace>
+          /> */}
+          {/* <TransitionReplace>
             {showSuccessAlert ? (
               <AlertMessage
                 key={intl.formatMessage(messages.alertSuccessAriaLabelledby)}
@@ -267,13 +269,13 @@ const CourseOutline = ({ courseId }) => {
                 aria-describedby={intl.formatMessage(messages.alertSuccessAriaDescribedby)}
               />
             ) : null}
-          </TransitionReplace>
+          </TransitionReplace> */}
           <SubHeader
             title={intl.formatMessage(messages.headingTitle)}
             subtitle={intl.formatMessage(messages.headingSubtitle)}
             headerActions={(
               <HeaderNavigations
-                isReIndexShow={isReIndexShow}
+                isReIndexShow={isReIndexShow && false}
                 isSectionsExpanded={isSectionsExpanded}
                 headerNavigationsActions={headerNavigationsActions}
                 isDisabledReindexButton={isDisabledReindexButton}
@@ -284,25 +286,25 @@ const CourseOutline = ({ courseId }) => {
             )}
           />
           <Layout
-            lg={[{ span: 9 }, { span: 3 }]}
-            md={[{ span: 9 }, { span: 3 }]}
-            sm={[{ span: 12 }, { span: 12 }]}
-            xs={[{ span: 12 }, { span: 12 }]}
-            xl={[{ span: 9 }, { span: 3 }]}
+            lg={[{ span: 12 }]}
+            md={[{ span: 12 }]}
+            sm={[{ span: 12 }]}
+            xs={[{ span: 12 }]}
+            xl={[{ span: 12 }]}
           >
             <Layout.Element>
               <article>
                 <div>
                   <section className="course-outline-section">
-                    <StatusBar
+                    {/* <StatusBar
                       courseId={courseId}
                       isLoading={isLoading}
                       statusBarData={statusBarData}
                       openEnableHighlightsModal={openEnableHighlightsModal}
                       handleVideoSharingOptionChange={handleVideoSharingOptionChange}
-                    />
+                    /> */}
                     {!errors?.outlineIndexApi && (
-                      <div className="pt-4">
+                      <div className="">
                         {sections.length ? (
                           <>
                             <DraggableList
@@ -348,6 +350,7 @@ const CourseOutline = ({ courseId }) => {
                                           section={section}
                                           subsection={subsection}
                                           index={subsectionIndex}
+                                          isSectionsExpanded={isSectionsExpanded}
                                           getPossibleMoves={possibleSubsectionMoves(
                                             [...sections],
                                             sectionIndex,
@@ -365,11 +368,13 @@ const CourseOutline = ({ courseId }) => {
                                           onNewUnitSubmit={handleNewUnitSubmit}
                                           onOrderChange={updateSubsectionOrderByIndex}
                                           onPasteClick={handlePasteClipboardClick}
+                                          courseId={courseId}
                                         >
                                           <SortableContext
                                             id={subsection.id}
                                             items={subsection.childInfo.children}
                                             strategy={verticalListSortingStrategy}
+
                                           >
                                             {subsection.childInfo.children.map((unit, unitIndex) => (
                                               <UnitCard
@@ -380,6 +385,7 @@ const CourseOutline = ({ courseId }) => {
                                                 isSelfPaced={statusBarData.isSelfPaced}
                                                 isCustomRelativeDatesActive={isCustomRelativeDatesActive}
                                                 index={unitIndex}
+                                                handleCreateNewCourseXBlock={handleCreateNewCourseXBlock}
                                                 getPossibleMoves={possibleUnitMoves(
                                                   [...sections],
                                                   sectionIndex,
@@ -407,7 +413,7 @@ const CourseOutline = ({ courseId }) => {
                                 ))}
                               </SortableContext>
                             </DraggableList>
-                            {courseActions.childAddable && (
+                            {/* {courseActions.childAddable && (
                               <Button
                                 data-testid="new-section-button"
                                 className="mt-4"
@@ -418,7 +424,7 @@ const CourseOutline = ({ courseId }) => {
                               >
                                 {intl.formatMessage(messages.newSectionButton)}
                               </Button>
-                            )}
+                            )} */}
                           </>
                         ) : (
                           <EmptyPlaceholder
@@ -431,9 +437,6 @@ const CourseOutline = ({ courseId }) => {
                   </section>
                 </div>
               </article>
-            </Layout.Element>
-            <Layout.Element>
-              <OutlineSideBar courseId={courseId} />
             </Layout.Element>
           </Layout>
           <EnableHighlightsModal

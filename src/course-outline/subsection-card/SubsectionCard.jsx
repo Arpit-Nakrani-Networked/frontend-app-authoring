@@ -11,6 +11,8 @@ import { Add as IconAdd } from '@openedx/paragon/icons';
 import classNames from 'classnames';
 import { isEmpty } from 'lodash';
 
+import { getConfig } from '@edx/frontend-platform';
+import { PageWrap } from '@edx/frontend-platform/react';
 import { setCurrentItem, setCurrentSection, setCurrentSubsection } from '../data/slice';
 import { RequestStatus } from '../../data/constants';
 import CardHeader from '../card-header/CardHeader';
@@ -21,6 +23,7 @@ import TitleButton from '../card-header/TitleButton';
 import XBlockStatus from '../xblock-status/XBlockStatus';
 import { getItemStatus, getItemStatusBorder, scrollToElement } from '../utils';
 import messages from './messages';
+import EditorPage from '../../editors/EditorPage';
 
 const SubsectionCard = ({
   section,
@@ -39,6 +42,8 @@ const SubsectionCard = ({
   onOrderChange,
   onOpenConfigureModal,
   onPasteClick,
+  courseId,
+  isSectionsExpanded,
 }) => {
   const currentRef = useRef(null);
   const intl = useIntl();
@@ -48,6 +53,8 @@ const SubsectionCard = ({
   const locatorId = searchParams.get('show');
   const isScrolledToElement = locatorId === subsection.id;
   const [isFormOpen, openForm, closeForm] = useToggle(false);
+  // const [isOpenText, openText, closeText] = useToggle(false);
+  // const [blockId, setBlockId] = useState(null);
   const namePrefix = 'subsection';
   const { sharedClipboardData, showPasteUnit } = useClipboard();
 
@@ -80,13 +87,13 @@ const SubsectionCard = ({
 
     return false;
   };
-  const [isExpanded, setIsExpanded] = useState(containsSearchResult() || !isHeaderVisible);
+  const [isExpanded, setIsExpanded] = useState(true || containsSearchResult() || !isHeaderVisible);
   const subsectionStatus = getItemStatus({
     published,
     visibilityState,
     hasChanges,
   });
-  const borderStyle = getItemStatusBorder(subsectionStatus);
+  // const borderStyle = getItemStatusBorder(subsectionStatus);
 
   const handleExpandContent = () => {
     setIsExpanded((prevState) => !prevState);
@@ -115,7 +122,9 @@ const SubsectionCard = ({
     onOrderChange(section, moveDownDetails);
   };
 
-  const handleNewButtonClick = () => onNewUnitSubmit(id);
+  const handleNewButtonClick = () => {
+    onNewUnitSubmit(id);
+  };
   const handlePasteButtonClick = () => onPasteClick(id, section.id);
 
   const titleComponent = (
@@ -126,6 +135,10 @@ const SubsectionCard = ({
       namePrefix={namePrefix}
     />
   );
+
+  useEffect(() => {
+    setIsExpanded(isSectionsExpanded);
+  }, [isSectionsExpanded]);
 
   useEffect(() => {
     if (activeId === id && isExpanded) {
@@ -160,8 +173,8 @@ const SubsectionCard = ({
 
   const isDraggable = (
     actions.draggable
-      && (actions.allowMoveUp || actions.allowMoveDown)
-      && !(isHeaderVisible === false)
+    && (actions.allowMoveUp || actions.allowMoveDown)
+    && !(isHeaderVisible === false)
   );
 
   return (
@@ -173,7 +186,15 @@ const SubsectionCard = ({
       isDroppable={actions.childAddable}
       componentStyle={{
         background: '#f8f7f6',
-        ...borderStyle,
+        display: 'flex',
+        flexDirection: 'row-reverse',
+        backgroundColor: 'white',
+        boxShadow: 'none',
+        marginBottom: "0",
+        // border: '1px solid #0000001F',
+        borderRadius: '0 0 16px 16px',
+        // overflow: 'hidden',
+        // ...borderStyle,
       }}
     >
       <div
@@ -183,7 +204,14 @@ const SubsectionCard = ({
       >
         {isHeaderVisible && (
           <>
-            <CardHeader
+            {/* <div className="subsection-card__content item-children" data-testid="subsection-card__content">
+              <XBlockStatus
+                isSelfPaced={isSelfPaced}
+                isCustomRelativeDatesActive={isCustomRelativeDatesActive}
+                blockData={subsection}
+              />
+            </div> */}
+            {/* <CardHeader
               title={displayName}
               status={subsectionStatus}
               cardId={id}
@@ -203,25 +231,20 @@ const SubsectionCard = ({
               titleComponent={titleComponent}
               namePrefix={namePrefix}
               actions={actions}
+              handleNewButtonClick={handleNewButtonClick}
+              showNewButton
               proctoringExamConfigurationLink={proctoringExamConfigurationLink}
               isSequential
-            />
-            <div className="subsection-card__content item-children" data-testid="subsection-card__content">
-              <XBlockStatus
-                isSelfPaced={isSelfPaced}
-                isCustomRelativeDatesActive={isCustomRelativeDatesActive}
-                blockData={subsection}
-              />
-            </div>
+            /> */}
           </>
         )}
-        {isExpanded && (
+        {true && (
           <div
             data-testid="subsection-card__units"
             className={classNames('subsection-card__units', { 'item-children': isDraggable })}
           >
             {children}
-            {actions.childAddable && (
+            {/* {actions.childAddable && (
               <>
                 <Button
                   data-testid="new-unit-button"
@@ -242,9 +265,29 @@ const SubsectionCard = ({
                   />
                 )}
               </>
-            )}
+            )} */}
           </div>
         )}
+        {/* {isOpenText && blockId&& <div
+          className="pgn__modal-fullscreen h-100"
+          role="dialog"
+          aria-label={'html'}
+        >
+          <PageWrap>
+            <EditorPage
+              courseId={courseId}
+              blockType={'html'}
+              blockId={blockId}
+              studioEndpointUrl={getConfig().STUDIO_BASE_URL}
+              lmsEndpointUrl={getConfig().LMS_BASE_URL}
+              onClose={() => {
+                closeText()
+                setBlockId(null);
+              }}
+            // returnFunction={() => closeText()}
+            />
+          </PageWrap>
+        </div>} */}
       </div>
     </SortableItem>
   );

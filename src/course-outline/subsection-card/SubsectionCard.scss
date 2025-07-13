@@ -1,10 +1,6 @@
 .subsection-card {
   flex-grow: 1;
 
-  .subsection-card__units {
-    margin-top: $spacer;
-  }
-
   .subsection-card-title {
     font-size: $h4-font-size;
     font-family: $headings-font-family;
@@ -16,4 +12,57 @@
   .subsection-card__content {
     margin-left: 1.7rem;
   }
+
+  &>.item-card-header {
+    padding: 12px 15px 12px 45px;
+
+    .btn-tertiary:not(:disabled, .disabled):active, .btn-tertiary:not(:disabled, .disabled).active, .show > .btn-tertiary.dropdown-toggle{
+      background-color: transparent !important;
+      border: none !important;
+    }
+
+    .btn-tertiary.focus::before, .btn-tertiary:focus::before{
+      border:none !important;
+      background-color: transparent !important;
+    }
+  }
+
+  .subsection-card__units {
+    >div {
+      border-top: 1px solid #0000001F
+    }
+
+    .btn-icon__drag {
+      width: auto;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 40px;
+    }
+
+    .btn-icon__drag:hover {
+      background-color: transparent !important;
+      color: black !important;
+    }
+
+    .unit-card>.item-card-header {
+      padding: 2px 16px 2px 70px;
+    }
+  }
+
+}
+.section-card__subsections{
+
+  .btn-icon__drag {
+    width: auto;
+    position: absolute;
+    top: 2px;
+    // transform: translateY(-50%);
+    left: 35px;
+  }
+}
+
+.btn-icon__drag:hover {
+  background-color: transparent !important;
+  color: black !important;
 }

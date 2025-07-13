@@ -1,6 +1,9 @@
+@import '../../variables';
+
 .sub-header {
   display: flex;
   gap: map-get($spacers, 4\.5);
+  align-items: center;
 
   .sub-header-actions {
     margin-bottom: 1.75rem;
@@ -9,8 +12,11 @@
 }
 
 .sub-header-title {
-  font: normal $font-weight-bold 2rem/2.25rem $font-family-base;
-  color: $black;
+  // font: normal $font-weight-bold 2rem/2.25rem $font-family-base;
+  color: $v2-black-400;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 100%;
 
   .sub-header-title-subtitle,
   .sub-header-breadcrumbs {

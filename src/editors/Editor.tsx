@@ -9,7 +9,6 @@ import * as hooks from './hooks';
 
 import supportedEditors from './supportedEditors';
 import type { EditorComponent } from './EditorComponent';
-import { useEditorContext } from './EditorContext';
 
 export interface Props extends EditorComponent {
   blockType: string;
@@ -40,28 +39,12 @@ const Editor: React.FC<Props> = ({
       studioEndpointUrl,
     },
   });
-  const { fullScreen } = useEditorContext();
 
   const EditorComponent = supportedEditors[blockType];
   const innerEditor = (EditorComponent !== undefined)
     ? <EditorComponent {...{ onClose, returnFunction }} />
     : <FormattedMessage {...messages.couldNotFindEditor} />;
 
-  if (fullScreen) {
-    return (
-      <div
-        className="d-flex flex-column"
-      >
-        <div
-          className="pgn__modal-fullscreen h-100"
-          role="dialog"
-          aria-label={blockType}
-        >
-          {innerEditor}
-        </div>
-      </div>
-    );
-  }
   return innerEditor;
 };
 

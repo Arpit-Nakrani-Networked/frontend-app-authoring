@@ -31,6 +31,7 @@
 @import "search-manager";
 @import "certificates/scss/Certificates";
 @import "group-configurations/GroupConfigurations";
+@import 'variables';
 
 // To apply the glow effect to the selected Section/Subsection, in the Course Outline
 div.row:has(> div > div.highlight) {
@@ -55,13 +56,198 @@ div.xblock-highlight {
 }
 
 body {
-  background-color: $light-200;
+  background-color: $v2-info-400;
 
   .editor-page {
-    background-color: $light-100;
+    background-color: $v2-info-400;
   }
 }
 
 mark {
   padding: 0;
+}
+
+.pgn__modal-fullscreen {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 90vh !important;
+  overflow: auto;
+  background-color: white;
+  border-radius: 24px;
+  z-index: 9;
+}
+
+
+// header community
+.main-course-header {
+  background-color: $v2-white-100 !important;
+  padding: 15px !important;
+  border-bottom: 1px solid $v2-black-500;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 10px;
+
+  div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 10px;
+  }
+
+  h1 {
+    font-weight: 600 !important;
+    font-size: 20px !important;
+    line-height: 100% !important;
+    letter-spacing: 0% !important;
+    color: $v2-black-400 !important;
+    margin: 0;
+  }
+}
+
+.community-header {
+  border-bottom: 1px solid $v2-black-500;
+  padding: 15px !important;
+  background-color: $v2-white-100 !important;
+}
+
+.course-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.course-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.course-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 14px;
+  object-fit: cover;
+  overflow: hidden;
+  border: 1px solid $v2-black-500;
+}
+
+.course-title {
+  font-weight: 600 !important;
+  font-size: 20px !important;
+  line-height: 100% !important;
+  letter-spacing: 0% !important;
+  color: $v2-black-600 !important;
+  margin: 0;
+}
+
+.course-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.back-button {
+  background-color: $v2-white-100;
+  border: 1px solid $v2-black-500;
+  padding: 6px 12px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0%;
+  vertical-align: middle;
+  color: $v2-black-400;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.btn-filled,
+.btn-primary,
+.btn-outline-primary {
+  width: fit-content !important;
+  background-color: $v2-blue-600 !important;
+  border-color: $v2-blue-600 !important;
+  color: $v2-white-100 !important;
+  border-radius: 12px !important;
+  font-weight: 500 !important;
+  font-size: 14px !important;
+  line-height: 20px !important;
+  letter-spacing: 0% !important;
+  vertical-align: middle !important;
+}
+
+.btn-outline-secondary {
+  width: fit-content !important;
+  background-color: transparent !important;
+  border-color: $v2-blue-600 !important;
+  color: $v2-blue-600 !important;
+  border-radius: 12px !important;
+  font-weight: 500 !important;
+  font-size: 14px !important;
+  line-height: 20px !important;
+  letter-spacing: 0% !important;
+  vertical-align: middle !important;
+}
+
+.btn-outline-third {
+  height: fit-content !important;
+  padding: 6px 12px !important;
+  width: fit-content !important;
+  background-color: transparent !important;
+  border-color: $v2-black-500 !important;
+  color: $v2-black-400 !important;
+  border-radius: 12px !important;
+  font-weight: 500 !important;
+  font-size: 14px !important;
+  line-height: 20px !important;
+  letter-spacing: 0% !important;
+  vertical-align: middle !important;
+}
+
+// common card
+.card,
+.raised-card {
+  background-color: $v2-white-100 !important;
+  border: 1px solid $v2-black-500 !important;
+  border-radius: 12px !important;
+  box-shadow: none !important;
+
+  h2 {
+    font-weight: 600 !important;
+    font-size: 20px !important;
+    line-height: 100% !important;
+    letter-spacing: 0% !important;
+    // color: $v2-black-400 !important;
+  }
+
+  ul li,
+  ol li {
+    padding: 4px 0;
+    ;
+
+    button,
+    a {
+      color: $v2-black-300;
+    }
+  }
+}
+
+// _forms.scss
+.form-control ,.form-control:focus-visible,.form-control:focus-within{
+  height: 36px;
+  border: 1px solid #0000001F;
+  // font-weight: 600;
+  font-size: 16px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #000000CC;
 }

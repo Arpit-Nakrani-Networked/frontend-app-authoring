@@ -27,27 +27,15 @@ interface WrapperProps {
 }
 
 export const EditorModalWrapper: React.FC<WrapperProps & { onClose: () => void }> = ({ children, onClose }) => {
-  const { fullScreen } = useEditorContext();
   const intl = useIntl();
-  if (fullScreen) {
-    return (
-      <div
-        className="editor-container d-flex flex-column position-relative zindex-0"
-        style={{ minHeight: '100%' }}
-      >
-        {children}
-      </div>
-    );
-  }
   const title = intl.formatMessage(messages.modalTitle);
   return (
-    <ModalDialog isOpen size="xl" isOverflowVisible={false} onClose={onClose} title={title}>{children}</ModalDialog>
+    <ModalDialog isOpen size="lg" className='rounded-c-lg' isOverflowVisible={false} onClose={onClose} title={title}>{children}</ModalDialog>
   );
 };
 
 export const EditorModalBody: React.FC<WrapperProps> = ({ children }) => {
-  const { fullScreen } = useEditorContext();
-  return <ModalDialog.Body className={fullScreen ? 'pb-6' : 'pb-0'}>{ children }</ModalDialog.Body>;
+  return <ModalDialog.Body className='pb-0 editor-modal-body'>{children}</ModalDialog.Body>;
 };
 
 export const FooterWrapper: React.FC<WrapperProps> = ({ children }) => {
@@ -56,7 +44,7 @@ export const FooterWrapper: React.FC<WrapperProps> = ({ children }) => {
     return <div className="editor-footer fixed-bottom">{children}</div>;
   }
   // eslint-disable-next-line react/jsx-no-useless-fragment
-  return <>{ children }</>;
+  return <>{children}</>;
 };
 
 interface Props extends EditorComponent {
@@ -141,7 +129,7 @@ const EditorContainer: React.FC<Props> = ({
       >
         <FormattedMessage {...messages.cancelConfirmDescription} />
       </BaseModal>
-      <ModalDialog.Header className="shadow-sm zindex-10">
+      <ModalDialog.Header className="shadow-sm zindex-10" style={{boxShadow:'0'}}>
         <div className="d-flex flex-row justify-content-between">
           <h2 className="h3 col pl-0">
             <TitleHeader isInitialized={isInitialized} />
@@ -155,30 +143,31 @@ const EditorContainer: React.FC<Props> = ({
         </div>
       </ModalDialog.Header>
       <EditorModalBody>
-        {isInitialized && children}
+        {!!isInitialized && children}
       </EditorModalBody>
-      <FooterWrapper>
-        <ModalDialog.Footer className="shadow-sm">
-          <ActionRow>
-            <Button
-              aria-label={intl.formatMessage(messages.cancelButtonAriaLabel)}
-              variant="tertiary"
-              onClick={confirmCancelIfDirty}
-            >
-              <FormattedMessage {...messages.cancelButtonLabel} />
-            </Button>
-            <Button
-              aria-label={intl.formatMessage(messages.saveButtonAriaLabel)}
-              onClick={onSave}
-              disabled={disableSave}
-            >
-              {disableSave
-                ? <Spinner animation="border" className="mr-3" />
-                : <FormattedMessage {...messages.saveButtonLabel} />}
-            </Button>
-          </ActionRow>
-        </ModalDialog.Footer>
-      </FooterWrapper>
+      <ModalDialog.Footer className="shadow-sm p-4">
+        <ActionRow>
+          <Button
+            aria-label={intl.formatMessage(messages.cancelButtonAriaLabel)}
+            variant="outline-third"
+            style={{ padding: '6px  16px' }}
+            onClick={confirmCancelIfDirty}
+          >
+            <FormattedMessage {...messages.cancelButtonLabel} />
+          </Button>
+          <Button
+            aria-label={intl.formatMessage(messages.saveButtonAriaLabel)}
+            onClick={onSave}
+            variant="outline-primary"
+            style={{ padding: '6px  16px' }}
+            disabled={disableSave}
+          >
+            {disableSave
+              ? <Spinner animation="border" className="d-flex justify-content-center" style={{ width: '1rem', height: '1rem' }} />
+              : <FormattedMessage {...messages.saveButtonLabel} />}
+          </Button>
+        </ActionRow>
+      </ModalDialog.Footer>
     </EditorModalWrapper>
   );
 };

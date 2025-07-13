@@ -2,18 +2,53 @@
   flex-grow: 1;
 
   .section-card__subsections {
-    margin-top: $spacer;
+    // margin-top: $spacer;
+  }
+
+  .item-card-header {
+    padding: 10px 16px 10px 40px;
+  }
+
+  .btn-tertiary:not(:disabled, .disabled):active,
+  .btn-tertiary:not(:disabled, .disabled).active,
+  .show>.btn-tertiary.dropdown-toggle {
+    background-color: transparent !important;
+    border: none !important;
+  }
+
+  .btn-tertiary.focus::before,
+  .btn-tertiary:focus::before {
+    border: none !important;
+    background-color: transparent !important;
   }
 
   .section-card-title {
-    font-size: $h3-font-size;
-    font-family: $headings-font-family;
-    font-weight: $headings-font-weight;
-    line-height: $headings-line-height;
-    color: $headings-color;
+    // font-size: $h4-font-size;
+    // font-family: $headings-font-family;
+    // font-weight: $headings-font-weight;
+    // line-height: $headings-line-height;
+    // color: $headings-color;
+    padding-left: 5px;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color: #000000CC;
   }
 
   .section-card__content {
     margin-left: 1.7rem;
   }
+}
+
+.btn-icon__drag {
+  width: auto;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.btn-icon__drag:hover {
+  background-color: transparent !important;
+  color: black !important;
 }

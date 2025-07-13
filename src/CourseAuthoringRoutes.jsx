@@ -14,6 +14,7 @@ import { FilesPage, VideosPage } from './files-and-videos';
 import { AdvancedSettings } from './advanced-settings';
 import { CourseOutline } from './course-outline';
 import ScheduleAndDetails from './schedule-and-details';
+import Unit from './unit';
 import { GradingSettings } from './grading-settings';
 import CourseTeam from './course-team/CourseTeam';
 import { CourseUpdates } from './course-updates';
@@ -68,6 +69,15 @@ const CourseAuthoringRoutes = () => {
           element={<PageWrap><PagesAndResources courseId={courseId} /></PageWrap>}
         />
         <Route
+          path="container/:unitId"
+          element={<PageWrap><Unit courseId={courseId} /></PageWrap>}
+        >
+          <Route
+            path="editor/:blockType/:blockId?"
+            element={<PageWrap><EditorContainer learningContextId={courseId} /></PageWrap>}
+          />
+        </Route>
+        <Route
           path="proctored-exam-settings"
           element={<Navigate replace to={`/course/${courseId}/pages-and-resources`} />}
         />
@@ -85,10 +95,6 @@ const CourseAuthoringRoutes = () => {
         <Route
           path="editor/course-videos/:blockId"
           element={<PageWrap><VideoSelectorContainer courseId={courseId} /></PageWrap>}
-        />
-        <Route
-          path="editor/:blockType/:blockId?"
-          element={<PageWrap><EditorContainer learningContextId={courseId} /></PageWrap>}
         />
         <Route
           path="settings/details"

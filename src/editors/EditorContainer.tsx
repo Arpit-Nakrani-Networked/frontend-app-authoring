@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocation, useParams, useSearchParams } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { getConfig } from '@edx/frontend-platform';
 import { useIntl } from '@edx/frontend-platform/i18n';
 import { Button, Hyperlink } from '@openedx/paragon';
@@ -10,6 +10,7 @@ import AlertMessage from '../generic/alert-message';
 import messages from './messages';
 import { getLibraryId } from '../generic/key-utils';
 import { createCorrectInternalRoute } from '../utils';
+import { useUnitContext } from '../unit/data/context/UnitContext';
 
 interface Props {
   /** Course ID or Library ID */
@@ -33,10 +34,11 @@ const EditorContainer: React.FC<Props> = ({
   returnFunction,
 }) => {
   const intl = useIntl();
-  const { blockType, blockId } = useParams();
-  const location = useLocation();
+  const { blockType, blockId, unitId, courseId } = useParams();
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const upstreamLibRef = searchParams.get('upstreamLibRef');
+  const context: { updateComponent: Function } = useUnitContext();
 
   if (blockType === undefined || blockId === undefined) {
     // istanbul ignore next - This shouldn't be possible; it's just here to satisfy the type checker.
@@ -51,11 +53,25 @@ const EditorContainer: React.FC<Props> = ({
     return createCorrectInternalRoute(`/library/${libId}/components?usageKey=${upstreamLibRef}`);
   };
 
+  const handleCloseModal = () => {
+    if (onClose) {
+      onClose();
+      return;
+    }
+    navigate(`/course/${courseId}/container/${unitId}`);
+  };
+
+  const handleReturn = (response) => {
+    returnFunction?.(response);
+    context.updateComponent(response);
+    handleCloseModal();
+  }
+
   return (
     <div className="editor-page">
       <AlertMessage
         className="m-3"
-        show={upstreamLibRef}
+        show={!!upstreamLibRef}
         variant="warning"
         icon={WarningIcon}
         title={intl.formatMessage(messages.libraryBlockEditWarningTitle)}
@@ -78,8 +94,8 @@ const EditorContainer: React.FC<Props> = ({
         blockId={blockId}
         studioEndpointUrl={getConfig().STUDIO_BASE_URL}
         lmsEndpointUrl={getConfig().LMS_BASE_URL}
-        onClose={onClose ? () => onClose(location.state?.from) : null}
-        returnFunction={returnFunction ? () => returnFunction(location.state?.from) : null}
+        onClose={handleCloseModal}
+        returnFunction={() => handleReturn}
       />
     </div>
   );

@@ -46,7 +46,8 @@ const SortableItem = ({
     transform: CSS.Translate.toString(transform),
     transition,
     background: 'white',
-    padding: '1rem 1.5rem',
+    // padding: '1rem 1.5rem',
+    // overflow: 'hidden',
     marginBottom: '1.5rem',
     borderRadius: '0.35rem',
     boxShadow: '0 0 .125rem rgba(0, 0, 0, .15), 0 0 .25rem rgba(0, 0, 0, .15)',
@@ -67,7 +68,7 @@ const SortableItem = ({
           ref={setActivatorNodeRef}
           key="drag-to-reorder-icon"
           aria-label={intl.formatMessage(messages.tooltipContent)}
-          className="btn-icon btn-icon-secondary btn-icon-md"
+          className="btn-icon btn-icon-secondary btn-icon-md btn-icon__drag"
           type="button"
           {...attributes}
           {...listeners}

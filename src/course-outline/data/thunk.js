@@ -32,6 +32,7 @@ import {
   dismissNotification,
 } from './api';
 import {
+  addUnit,
   addSection,
   addSubsection,
   fetchOutlineIndexSuccess,
@@ -71,9 +72,9 @@ const getErrorDetails = (error, dismissible = true) => {
   return errorInfo;
 };
 
-export function fetchCourseOutlineIndexQuery(courseId) {
+export function fetchCourseOutlineIndexQuery(courseId, byPassloading = false) {
   return async (dispatch) => {
-    dispatch(updateOutlineIndexLoadingStatus({ status: RequestStatus.IN_PROGRESS }));
+    if (!byPassloading) { dispatch(updateOutlineIndexLoadingStatus({ status: RequestStatus.IN_PROGRESS })); }
 
     try {
       const outlineIndex = await getCourseOutlineIndex(courseId);
@@ -518,6 +519,8 @@ export function addNewSectionQuery(parentLocator) {
         const data = await getCourseItem(result.locator);
         // Page should scroll to newly created section.
         data.shouldScroll = true;
+        console.log("result-addNewSectionQuery-->>",data,parentLocator,result)
+        dispatch(addNewSubsectionQuery(data.id))
         dispatch(addSection(data));
       },
     ));
@@ -535,6 +538,8 @@ export function addNewSubsectionQuery(parentLocator) {
         // Page should scroll to newly created subsection.
         data.shouldScroll = true;
         dispatch(addSubsection({ parentLocator, data }));
+        console.log("result-addNewSubsectionQuery-->>",data,parentLocator,result)
+        dispatch(addNewUnitQuery(data.id));
       },
     ));
   };
@@ -546,7 +551,15 @@ export function addNewUnitQuery(parentLocator, callback) {
       parentLocator,
       COURSE_BLOCK_NAMES.vertical.id,
       COURSE_BLOCK_NAMES.vertical.name,
-      async (result) => callback(result.locator),
+      async (result)=>{
+        const data = await getCourseItem(result.locator);
+        // Page should scroll to newly created subsection.
+        data.shouldScroll = true;
+        console.log("result-addNewUnitQuery-->>",data,result,parentLocator);
+        dispatch(addUnit({ parentLocator, data }));
+        callback && callback(result);
+        // dispatch(fetchCourseOutlineIndexQuery(result.courseId, true))
+      },
     ));
   };
 }

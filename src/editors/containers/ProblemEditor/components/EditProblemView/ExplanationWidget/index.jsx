@@ -26,13 +26,13 @@ const ExplanationWidget = ({
   const solutionContent = newContent || initialContent;
   if (!refReady) { return null; }
   return (
-    <div className="tinyMceWidget mt-4 text-primary-500">
-      <div className="h4 mb-3">
+    <div className="tinyMceWidget text-primary-500">
+      <div className="text-sm mb-2 text-gray-500">
         <FormattedMessage {...messages.solutionWidgetTitle} />
       </div>
-      <div className="small mb-3">
+      {/* <div className="small mb-3">
         <FormattedMessage {...messages.solutionDescriptionText} />
-      </div>
+      </div> */}
       <TinyMceWidget
         id="solution"
         editorType="solution"

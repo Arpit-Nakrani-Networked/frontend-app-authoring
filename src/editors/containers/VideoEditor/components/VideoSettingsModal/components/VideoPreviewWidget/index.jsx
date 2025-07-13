@@ -15,6 +15,7 @@ import videoThumbnail from '../../../../../../data/images/videoThumbnail.svg';
 export const VideoPreviewWidget = ({
   thumbnail,
   videoSource,
+  videoId,
   transcripts,
   blockTitle,
   isLibrary,
@@ -24,6 +25,10 @@ export const VideoPreviewWidget = ({
   const videoType = intl.formatMessage(hooks.getVideoType(videoSource));
   const thumbnailImage = thumbnail || videoThumbnail;
 
+  const youtubeUrl = `https://youtube.com/embed/${videoId ? videoId : 'f7jYFW-iHFw'}`
+  return (
+    <iframe src={youtubeUrl} width='100%' height={310} style={{border:'none' ,borderRadius:'1rem'}}/>
+  )
   return (
     <Collapsible.Advanced
       className="collapsible-card rounded mx-4 my-3 px-4"
@@ -71,6 +76,7 @@ export const VideoPreviewWidget = ({
 VideoPreviewWidget.propTypes = {
   intl: intlShape.isRequired,
   videoSource: PropTypes.string.isRequired,
+  videoId: PropTypes.string,
   thumbnail: PropTypes.string.isRequired,
   transcripts: PropTypes.arrayOf(PropTypes.string).isRequired,
   blockTitle: PropTypes.string.isRequired,
@@ -80,6 +86,7 @@ VideoPreviewWidget.propTypes = {
 export const mapStateToProps = (state) => ({
   transcripts: selectors.video.transcripts(state),
   videoSource: selectors.video.videoSource(state),
+  videoId: selectors.video.videoId(state),
   thumbnail: selectors.video.thumbnail(state),
   blockTitle: selectors.app.blockTitle(state),
   isLibrary: selectors.app.isLibrary(state),

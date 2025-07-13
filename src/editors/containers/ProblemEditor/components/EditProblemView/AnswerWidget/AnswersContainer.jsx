@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FormattedMessage } from '@edx/frontend-platform/i18n';
 
-import { Dropdown, Icon } from '@openedx/paragon';
+import { Dropdown, Form, Icon, Stack } from '@openedx/paragon';
 import { Add } from '@openedx/paragon/icons';
 import messages from './messages';
 import { useAnswerContainer, isSingleAnswerProblem } from './hooks';
@@ -24,9 +24,18 @@ const AnswersContainer = ({
   const hasSingleAnswer = isSingleAnswerProblem(problemType);
 
   useAnswerContainer({ answers, problemType, updateField });
+  
+  const isMultiSelect = ProblemTypeKeys.MULTISELECT === problemType;
+  const handleQuestionTypeChange = (event) => {
+    if (event.target.checked) {
+      updateField({ problemType: ProblemTypeKeys.MULTISELECT })
+    } else {
+      updateField({ problemType: ProblemTypeKeys.SINGLESELECT })
+    }
+  }
 
   return (
-    <div className="answers-container border border-light-700 rounded py-4 pl-4 pr-3">
+    <div className="answers-container">
       {answers.map((answer) => (
         <AnswerOption
           key={answer.id}
@@ -36,12 +45,15 @@ const AnswersContainer = ({
       ))}
 
       {problemType !== ProblemTypeKeys.NUMERIC ? (
-        <Button
-          variant="add"
-          onClick={addAnswer}
-        >
-          <FormattedMessage {...messages.addAnswerButtonText} />
-        </Button>
+        <Stack direction='horizontal' className='justify-content-between'>
+          <Button
+            variant="add"
+            onClick={addAnswer}
+          >
+            <FormattedMessage {...messages.addAnswerButtonText} />
+          </Button>
+          <Form.Switch checked={isMultiSelect} onChange={handleQuestionTypeChange} />
+        </Stack>
 
       ) : (
         <Dropdown>

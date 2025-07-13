@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { connect, useDispatch } from 'react-redux';
 import { injectIntl, intlShape, FormattedMessage } from '@edx/frontend-platform/i18n';
@@ -8,6 +8,7 @@ import {
   Button,
   AlertModal,
   ActionRow,
+  Stack,
 } from '@openedx/paragon';
 import AnswerWidget from './AnswerWidget';
 import SettingsWidget from './SettingsWidget';
@@ -113,14 +114,16 @@ const EditProblemView = ({
           </Container>
         ) : (
           <span className="flex-grow-1 mb-5">
-            <QuestionWidget />
-            <ExplanationWidget />
-            <AnswerWidget problemType={problemType} />
+            <Stack gap={3}>
+              <QuestionWidget />
+              <ExplanationWidget />
+              <AnswerWidget problemType={problemType} />
+            </Stack>
           </span>
         )}
-        <span className="editProblemView-settingsColumn">
+        {/* <span className="editProblemView-settingsColumn">
           <SettingsWidget problemType={problemType} />
-        </span>
+        </span> */}
       </div>
     </EditorContainer>
   );

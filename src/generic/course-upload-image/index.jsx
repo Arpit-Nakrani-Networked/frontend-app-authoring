@@ -45,6 +45,7 @@ const CourseUploadImage = ({
   };
 
   const handleProcessUpload = async ({ fileData, handleError }) => {
+    console.log(fileData, 'filedata');
     try {
       const response = await uploadAssets(courseId, fileData);
       const url = response?.asset?.url;

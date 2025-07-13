@@ -16,11 +16,11 @@ const CardStatus = ({
 
   return (
     <>
-      {showDiscussionsEnabledBadge && (
+      {/* {showDiscussionsEnabledBadge && (
         <StatusBadge
           text={intl.formatMessage(messages.discussionEnabledBadgeText)}
         />
-      )}
+      )} */}
       {badgeTitle && (
         <StatusBadge
           text={badgeTitle}
