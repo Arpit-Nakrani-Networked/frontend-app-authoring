@@ -30,12 +30,12 @@ export default function CourseTitleHeader() {
         >
           View as a Viewer
         </Button>
-        {/* <Button
+        <Button
           data-testid="course-reindex"
           variant="outline-primary"
         >
-          Save
-        </Button> */}
+          Publish
+        </Button>
       </div>
     </div>
   );

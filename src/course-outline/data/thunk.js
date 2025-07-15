@@ -519,8 +519,8 @@ export function addNewSectionQuery(parentLocator) {
         const data = await getCourseItem(result.locator);
         // Page should scroll to newly created section.
         data.shouldScroll = true;
-        console.log("result-addNewSectionQuery-->>",data,parentLocator,result)
-        dispatch(addNewSubsectionQuery(data.id))
+        // console.log("result-addNewSectionQuery-->>",data,parentLocator,result)
+        // dispatch(addNewSubsectionQuery(data.id))
         dispatch(addSection(data));
       },
     ));

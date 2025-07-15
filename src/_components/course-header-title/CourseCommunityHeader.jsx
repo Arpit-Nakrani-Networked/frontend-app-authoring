@@ -1,5 +1,5 @@
-import { NETWORKED_FRONTEND_URL } from 'helper/constants';
-import { HttpMethod, HttpWrapper } from 'helper/httpWrapper';
+import { NETWORKED_FRONTEND_URL } from '../../helper/constants';
+import { HttpMethod, HttpWrapper } from '../../helper/httpWrapper';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 

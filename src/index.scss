@@ -232,7 +232,6 @@ mark {
   ul li,
   ol li {
     padding: 4px 0;
-    ;
 
     button,
     a {
@@ -242,12 +241,83 @@ mark {
 }
 
 // _forms.scss
-.form-control ,.form-control:focus-visible,.form-control:focus-within{
-  height: 36px;
-  border: 1px solid #0000001F;
-  // font-weight: 600;
-  font-size: 16px;
+.section-card {
+
+  .item-card-header {
+    .dropdown {
+      opacity: 0;
+    }
+
+    &:hover {
+      .dropdown {
+        opacity: 1;
+      }
+    }
+
+    .btn-icon.btn-icon-primary.focus,
+    .btn-icon.btn-icon-primary:focus {
+      box-shadow: none;
+    }
+
+    .btn-icon.btn-icon-primary.hover,
+    .btn-icon.btn-icon-primary:hover,
+    .btn-icon.btn-icon-primary.active,
+    .btn-icon.btn-icon-primary:active {
+      background-color: transparent;
+      color: #0A3055;
+    }
+  }
+
+  .form-control,
+  .form-control:focus-visible,
+  .form-control:focus-within,
+  input.form-control:focus {
+    height: 36px;
+    border: 1px solid #0000001F;
+    outline: none !important;
+    // font-weight: 600;
+    font-size: 16px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color: #000000CC;
+    box-shadow: none !important;
+    // font-family: Proxima Nova;
+    font-weight: 600;
+    font-style: Semibold;
+    font-size: 16px;
+    // leading-trim: NONE;
+    line-height: 100%;
+    letter-spacing: 0%;
+  }
+
+  .unit-card {
+
+    .form-control,
+    .form-control:focus-visible,
+    .form-control:focus-within,
+    input.form-control:focus {
+      font-weight: 400;
+    }
+
+    .btn-icon.btn-icon-primary.focus,
+    .btn-icon.btn-icon-primary:focus {
+      box-shadow: none;
+    }
+
+  }
+
+}
+
+.card.dropdown-menu a {
+  border-radius: 8px;
+  // font-family: Proxima Nova;
+  font-weight: 400;
+  // font-style: Regular;
+  font-size: 14px;
+  // leading-trim: NONE;
   line-height: 100%;
   letter-spacing: 0%;
   color: #000000CC;
+  border: none;
+  padding: 8.5px 16px;
 }

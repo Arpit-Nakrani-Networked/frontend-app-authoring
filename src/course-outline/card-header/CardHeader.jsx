@@ -172,8 +172,8 @@ const CardHeader = ({
               alt={`${namePrefix}-card-header__menu`}
               iconAs={Icon}
             />
-            <Dropdown.Menu>
-              {isSequential && proctoringExamConfigurationLink && (
+            <Dropdown.Menu className="card p-3" style={{ width:"207px"}}>
+              {/* {isSequential && proctoringExamConfigurationLink && (
                 <Dropdown.Item
                   as={Hyperlink}
                   target="_blank"
@@ -183,43 +183,44 @@ const CardHeader = ({
                 >
                   {intl.formatMessage(messages.menuProctoringLinkText)}
                 </Dropdown.Item>
-              )}
+              )} */}
               <Dropdown.Item
                 data-testid={`${namePrefix}-card-header__menu-publish-button`}
                 disabled={isDisabledPublish}
                 onClick={onClickPublish}
+                iconBefore={Icon}
               >
                 {intl.formatMessage(messages.menuPublish)}
               </Dropdown.Item>
-              <Dropdown.Item
+              {/* <Dropdown.Item
                 data-testid={`${namePrefix}-card-header__menu-configure-button`}
                 onClick={onClickConfigure}
               >
                 {intl.formatMessage(messages.menuConfigure)}
-              </Dropdown.Item>
-              {getConfig().ENABLE_TAGGING_TAXONOMY_PAGES === 'true' && (
+              </Dropdown.Item> */}
+              {/* {getConfig().ENABLE_TAGGING_TAXONOMY_PAGES === 'true' && (
                 <Dropdown.Item
                   data-testid={`${namePrefix}-card-header__menu-manage-tags-button`}
                   onClick={openManageTagsDrawer}
                 >
                   {intl.formatMessage(messages.menuManageTags)}
                 </Dropdown.Item>
-              )}
+              )} */}
 
-              {isVertical && enableCopyPasteUnits && (
+              {/* {isVertical && enableCopyPasteUnits && (
                 <Dropdown.Item onClick={onClickCopy}>
                   {intl.formatMessage(messages.menuCopy)}
                 </Dropdown.Item>
-              )}
-              {actions.duplicable && (
+              )} */}
+              {/* {actions.duplicable && (
                 <Dropdown.Item
                   data-testid={`${namePrefix}-card-header__menu-duplicate-button`}
                   onClick={onClickDuplicate}
                 >
                   {intl.formatMessage(messages.menuDuplicate)}
                 </Dropdown.Item>
-              )}
-              {actions.draggable && (
+              )} */}
+              {/* {actions.draggable && (
                 <>
                   <Dropdown.Item
                     data-testid={`${namePrefix}-card-header__menu-move-up-button`}
@@ -236,10 +237,10 @@ const CardHeader = ({
                     {intl.formatMessage(messages.menuMoveDown)}
                   </Dropdown.Item>
                 </>
-              )}
+              )} */}
               {actions.deletable && (
                 <Dropdown.Item
-                  className="border-top border-light"
+                  className=""
                   data-testid={`${namePrefix}-card-header__menu-delete-button`}
                   onClick={onClickDelete}
                 >

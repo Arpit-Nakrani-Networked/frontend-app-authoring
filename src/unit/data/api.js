@@ -3,7 +3,7 @@ import { getAuthenticatedHttpClient } from '@edx/frontend-platform/auth';
 
 const getApiBaseUrl = () => getConfig().STUDIO_BASE_URL;
 
-export const getVerticleBlockApiUrl = (unitId) => `${getApiBaseUrl()}/xblock/verticle/container/${unitId}`;
+export const getVerticleBlockApiUrl = (unitId) => `${getApiBaseUrl()}/xblock/unit/container/${unitId}`;
 export const updateVerticleBlockApirUrl = (unitId) => `${getApiBaseUrl()}/xblock/${unitId}`;
 export const createComponentBlockApirUrl = (componentBlockId) => `${getApiBaseUrl()}/xblock/`;
 export const deleteComponentBlockApirUrl = (componentBlockId) => `${getApiBaseUrl()}/xblock/${componentBlockId}`;
