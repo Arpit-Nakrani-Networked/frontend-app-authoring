@@ -35,7 +35,6 @@ export const DraggableComponent = ({
     marginBottom: '1.5rem',
     gap: '1rem',
     flexWrap: 'no-wrap',
-    overflow: 'hidden',
   };
 
   return (

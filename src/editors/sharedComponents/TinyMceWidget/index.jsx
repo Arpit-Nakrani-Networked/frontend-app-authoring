@@ -23,6 +23,7 @@ const editorConfigDefaultProps = {
   updateContent: undefined,
   content: undefined,
   minHeight: undefined,
+  maxHeight: undefined,
 };
 
 const editorConfigPropTypes = {
@@ -32,6 +33,7 @@ const editorConfigPropTypes = {
   updateContent: PropTypes.func,
   content: PropTypes.any,
   minHeight: PropTypes.any,
+  maxHeight: PropTypes.any,
 };
 
 const TinyMceWidget = ({

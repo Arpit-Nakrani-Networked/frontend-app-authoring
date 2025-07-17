@@ -152,7 +152,11 @@ const SectionCard = ({
   };
 
   const handleNewSubsectionSubmit = () => {
-    onNewSubsectionSubmit(id);
+    onNewSubsectionSubmit(id,()=>{
+      if(!isExpanded){
+        setIsExpanded(true);
+      }
+    });
   };
 
   const handleSectionMoveUp = () => {

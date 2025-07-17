@@ -7,4 +7,12 @@
 
 .editor-modal-body {
   min-height: 500px;
+
+  .tox-tinymce {
+    border-radius: .75rem;
+  }
+}
+
+.editor-container_header.editor-container_header {
+  box-shadow: none !important;
 }

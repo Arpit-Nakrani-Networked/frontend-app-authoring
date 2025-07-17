@@ -84,6 +84,10 @@ $v2-white-100: #FFFFFF;
 }
 
 //custom variable. i am adding prefix c to let know that variable is custom
+.rounded-c-md {
+  border-radius: .75rem;
+}
+
 .rounded-c-lg {
   border-radius: 1rem;
 }

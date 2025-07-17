@@ -527,7 +527,7 @@ export function addNewSectionQuery(parentLocator) {
   };
 }
 
-export function addNewSubsectionQuery(parentLocator) {
+export function addNewSubsectionQuery(parentLocator,callback) {
   return async (dispatch) => {
     dispatch(addNewCourseItemQuery(
       parentLocator,
@@ -539,7 +539,7 @@ export function addNewSubsectionQuery(parentLocator) {
         data.shouldScroll = true;
         dispatch(addSubsection({ parentLocator, data }));
         console.log("result-addNewSubsectionQuery-->>",data,parentLocator,result)
-        dispatch(addNewUnitQuery(data.id));
+        dispatch(addNewUnitQuery(data.id,callback));
       },
     ));
   };

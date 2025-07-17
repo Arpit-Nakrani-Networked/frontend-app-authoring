@@ -4,6 +4,7 @@ import { getConfig } from '@edx/frontend-platform';
 import { useIntl } from '@edx/frontend-platform/i18n';
 import { Button, Hyperlink } from '@openedx/paragon';
 import { Warning as WarningIcon } from '@openedx/paragon/icons';
+import { camelCaseObject } from '@edx/frontend-platform';
 
 import EditorPage from './EditorPage';
 import AlertMessage from '../generic/alert-message';
@@ -63,7 +64,7 @@ const EditorContainer: React.FC<Props> = ({
 
   const handleReturn = (response) => {
     returnFunction?.(response);
-    context.updateComponent(response);
+    context.updateComponent(camelCaseObject(response));
     handleCloseModal();
   }
 

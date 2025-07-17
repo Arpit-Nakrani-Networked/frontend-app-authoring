@@ -25,9 +25,15 @@ export const VideoPreviewWidget = ({
   const videoType = intl.formatMessage(hooks.getVideoType(videoSource));
   const thumbnailImage = thumbnail || videoThumbnail;
 
-  const youtubeUrl = `https://youtube.com/embed/${videoId ? videoId : 'f7jYFW-iHFw'}`
+  function extractYouTubeID(url) {
+    const regex = /(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+    const match = url.match(regex);
+    return match ? match[1] : null;
+  }
+
+  const youtubeUrl = `https://youtube.com/embed/${extractYouTubeID(videoSource)}`
   return (
-    <iframe src={youtubeUrl} width='100%' height={310} style={{border:'none' ,borderRadius:'1rem'}}/>
+    <iframe src={youtubeUrl} width='100%' height={370} style={{ border: 'none', borderRadius: '1rem' }} />
   )
   return (
     <Collapsible.Advanced

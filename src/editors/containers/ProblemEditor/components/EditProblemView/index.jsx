@@ -28,6 +28,7 @@ import ExplanationWidget from './ExplanationWidget';
 import { saveBlock } from '../../../../hooks';
 
 const EditProblemView = ({
+  onClose,
   returnFunction,
   // redux
   problemType,
@@ -63,6 +64,7 @@ const EditProblemView = ({
       })}
       isDirty={checkIfDirty}
       returnFunction={returnFunction}
+      onClose={onClose}
     >
       <AlertModal
         title={isAdvancedProblemType ? (
@@ -138,6 +140,7 @@ EditProblemView.defaultProps = {
 EditProblemView.propTypes = {
   problemType: PropTypes.string.isRequired,
   returnFunction: PropTypes.func,
+  onClose: PropTypes.func,
   // eslint-disable-next-line
   problemState: PropTypes.any.isRequired,
   analytics: PropTypes.shape({}).isRequired,

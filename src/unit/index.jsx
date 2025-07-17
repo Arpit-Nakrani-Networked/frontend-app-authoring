@@ -94,6 +94,19 @@ const Unit = ({ courseId }) => {
     navigate(`/course/${courseId}/container/${unitId}/editor/${componentBlockCategory}/${componentBlockId}`);
   };
 
+  const handleComponentUpdate = (updatedComponent) => {
+    setComponents((components) => components.map((component) => {
+      if (component.id === updatedComponent.id) {
+        return {
+          ...component,
+          ...updatedComponent
+        }
+      }
+      else {
+        return component
+      }
+    }))
+  }
 
   useEffect(() => {
     const getComponents = async () => {
@@ -117,7 +130,7 @@ const Unit = ({ courseId }) => {
         <div className="bg-white p-4 border-top border-bottom border-light" style={{ minHeight: '200px' }}>
           {loading && <div className="d-flex flex-column align-items-center justify-content-center" style={{ minHeight: '150px' }}> <Spinner animation="border" className="mie-3" screenReaderText="loading" /> </div>}
           {!loading && components.length === 0 && <NoContent />}
-          {!loading && components.length && (
+          {!loading && components.length !== 0 && (
             <DndContext
               modifiers={[restrictToVerticalAxis]}
               sensors={sensors}
@@ -144,19 +157,7 @@ const Unit = ({ courseId }) => {
           </div>
         </div>
       </div>
-      <UnitContextWrapper updateComponent={(updatedComponent) => {
-        setComponents((components) => components.map((component) => {
-          if (component.id === updatedComponent.id) {
-            return {
-              ...component,
-              ...updatedComponent
-            }
-          }
-          else {
-            return component
-          }
-        }))
-      }} componentBlocks={components}>
+      <UnitContextWrapper updateComponent={handleComponentUpdate} componentBlocks={components}>
         <Outlet />
       </UnitContextWrapper>
     </Container>

@@ -22,6 +22,7 @@ const TitleHeader = ({
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const title = useSelector(selectors.app.displayTitle);
 
+  const titleAsPerNetowkedRequirment = title.toLowerCase() === 'text' ? 'Add Text' : title.toLowerCase() === 'video' ? 'Add Video' : 'Add Question'
   const {
     inputRef,
     isEditing,
@@ -50,16 +51,16 @@ const TitleHeader = ({
   return (
     <div className="d-flex flex-row align-items-center mt-1">
       <Truncate>
-        {title}
+        {titleAsPerNetowkedRequirment}
       </Truncate>
-      <IconButton
+      {/* <IconButton
         alt={intl.formatMessage(messages.editTitleLabel)}
         iconAs={Icon}
         className="mx-2"
         onClick={startEditing}
         size="sm"
         src={EditOutline}
-      />
+      /> */}
     </div>
   );
 };

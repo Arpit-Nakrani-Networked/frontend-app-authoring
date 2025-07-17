@@ -300,6 +300,7 @@ export const editorConfig = ({
   updateContent,
   content,
   minHeight,
+  maxHeight,
   learningContextId,
   staticRootUrl,
 }) => {
@@ -331,6 +332,7 @@ export const editorConfig = ({
       content_css: false,
       content_style: tinyMCEStyles + a11ycheckerCss,
       min_height: minHeight,
+      max_height: maxHeight,
       contextmenu: 'link table',
       directionality: isLocaleRtl ? 'rtl' : 'ltr',
       document_base_url: baseURL,

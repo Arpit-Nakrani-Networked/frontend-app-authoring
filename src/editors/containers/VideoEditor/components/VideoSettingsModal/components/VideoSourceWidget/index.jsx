@@ -67,7 +67,7 @@ const VideoSourceWidget = ({
         <FormattedMessage {...messages.videoIdChangeAlert} />
       </ErrorAlert>
 
-      <div className="border-primary-100 border-bottom pb-3">
+      <div className="border-primary-100 border-bottom">
         {/* <Form.Group>
           <Form.Control
             floatingLabel={intl.formatMessage(messages.videoIdLabel)}
@@ -80,12 +80,12 @@ const VideoSourceWidget = ({
           </Form.Control.Feedback>
         </Form.Group> */}
         <Form.Group size='sm'>
-          <Form.Label>Video URL</Form.Label>
+          <Form.Label className='text-secondory font-weight-medium'>Video URL</Form.Label>
           <Form.Control
             onChange={source.onChange}
             onBlur={(e) => updateVideoURL(e, videoId.local)}
             value={source.local}
-            className='font-weight-normal'
+            style={{ height: '42px', borderRadius: '.75rem' }}
           />
           {/* <Form.Control.Feedback className="text-primary-300">
             <FormattedMessage {...messages.videoUrlFeedback} />

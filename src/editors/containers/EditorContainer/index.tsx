@@ -30,7 +30,7 @@ export const EditorModalWrapper: React.FC<WrapperProps & { onClose: () => void }
   const intl = useIntl();
   const title = intl.formatMessage(messages.modalTitle);
   return (
-    <ModalDialog isOpen size="lg" className='rounded-c-lg' isOverflowVisible={false} onClose={onClose} title={title}>{children}</ModalDialog>
+    <ModalDialog isOpen size="lg" className='rounded-c-md' isOverflowVisible={false} onClose={onClose} title={title}>{children}</ModalDialog>
   );
 };
 
@@ -129,14 +129,15 @@ const EditorContainer: React.FC<Props> = ({
       >
         <FormattedMessage {...messages.cancelConfirmDescription} />
       </BaseModal>
-      <ModalDialog.Header className="shadow-sm zindex-10" style={{boxShadow:'0'}}>
-        <div className="d-flex flex-row justify-content-between">
-          <h2 className="h3 col pl-0">
+      <ModalDialog.Header className="shadow-sm zindex-10 editor-container_header">
+        <div className="d-flex flex-row justify-content-between align-items-center">
+          <span className="col pl-0 font-weight-semibold">
             <TitleHeader isInitialized={isInitialized} />
-          </h2>
+          </span>
           <IconButton
             src={Close}
             iconAs={Icon}
+            size='sm'
             onClick={confirmCancelIfDirty}
             alt={intl.formatMessage(messages.exitButtonAlt)}
           />
@@ -145,7 +146,7 @@ const EditorContainer: React.FC<Props> = ({
       <EditorModalBody>
         {!!isInitialized && children}
       </EditorModalBody>
-      <ModalDialog.Footer className="shadow-sm p-4">
+      <ModalDialog.Footer className="shadow-sm px-4 pb-4 pt-0">
         <ActionRow>
           <Button
             aria-label={intl.formatMessage(messages.cancelButtonAriaLabel)}
