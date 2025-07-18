@@ -3,13 +3,14 @@ import { Button } from '@openedx/paragon';
 import { ArrowBack, Search } from '@openedx/paragon/icons';
 import { useModel } from '../../generic/model-store';
 import { Link } from 'react-router-dom';
+import { getConfig } from '@edx/frontend-platform';
 
 export default function CourseTitleHeader() {
   const { courseId: courseIdFromUrl } = useParams();
-
   const courseDetail = useModel('courseDetails', courseIdFromUrl);
   const courseTitle = courseDetail ? courseDetail.name : courseIdFromUrl;
-  const viewerUrl = `http://local.openedx.io:8000/courses/${courseIdFromUrl}/jump_to/block-v1:${courseIdFromUrl}+type@course+block@course`;
+  const lmsApiBaseUrl = getConfig().LMS_BASE_URL
+  const viewerUrl = `${lmsApiBaseUrl}/courses/${courseIdFromUrl}/jump_to/block-v1:${courseIdFromUrl}+type@course+block@course`;
   const { pathname } = useLocation();
   const isUnitPage = pathname.includes('/container');
   const backToOutlinePage = `/course/${courseIdFromUrl}/`
