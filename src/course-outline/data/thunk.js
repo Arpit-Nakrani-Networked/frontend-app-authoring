@@ -527,7 +527,7 @@ export function addNewSectionQuery(parentLocator) {
   };
 }
 
-export function addNewSubsectionQuery(parentLocator,callback) {
+export function addNewSubsectionQuery(parentLocator, callback) {
   return async (dispatch) => {
     dispatch(addNewCourseItemQuery(
       parentLocator,
@@ -537,9 +537,10 @@ export function addNewSubsectionQuery(parentLocator,callback) {
         const data = await getCourseItem(result.locator);
         // Page should scroll to newly created subsection.
         data.shouldScroll = true;
-        dispatch(addSubsection({ parentLocator, data }));
-        console.log("result-addNewSubsectionQuery-->>",data,parentLocator,result)
-        dispatch(addNewUnitQuery(data.id,callback));
+        dispatch(addNewUnitQuery(data.id, (result) => {
+          callback && callback(result);
+          dispatch(addSubsection({ parentLocator, data }));
+        }));
       },
     ));
   };
@@ -551,14 +552,12 @@ export function addNewUnitQuery(parentLocator, callback) {
       parentLocator,
       COURSE_BLOCK_NAMES.vertical.id,
       COURSE_BLOCK_NAMES.vertical.name,
-      async (result)=>{
+      async (result) => {
         const data = await getCourseItem(result.locator);
         // Page should scroll to newly created subsection.
         data.shouldScroll = true;
-        console.log("result-addNewUnitQuery-->>",data,result,parentLocator);
-        dispatch(addUnit({ parentLocator, data }));
         callback && callback(result);
-        // dispatch(fetchCourseOutlineIndexQuery(result.courseId, true))
+        dispatch(addUnit({ parentLocator, data }));
       },
     ));
   };
