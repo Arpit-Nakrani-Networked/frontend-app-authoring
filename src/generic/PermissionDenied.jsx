@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from '@edx/frontend-platform/i18n';
-import { Alert, Button, Icon } from '@openedx/paragon';
+import { Alert, Button } from '@openedx/paragon';
+import { NETWORKED_FRONTEND_URL } from 'helper/constants';
 // import { LockFill } from '@openedx/paragon/icons';
 
 const PermissionDenied = ({ courseId }) => {
   const handleBackToCourse = () => {
-    window.location.href = `http://localhost:3000/courses/${courseId}`;
+    window.location.href = `${NETWORKED_FRONTEND_URL}/courses/${courseId}`;
   };
 
   return (
