@@ -30,13 +30,11 @@ export const EditorModalWrapper: React.FC<WrapperProps & { onClose: () => void }
   const intl = useIntl();
   const title = intl.formatMessage(messages.modalTitle);
   return (
-    <ModalDialog isOpen size="lg" className='rounded-c-md' isOverflowVisible={false} onClose={onClose} title={title}>{children}</ModalDialog>
+    <ModalDialog isOpen size="lg" className="rounded-c-md" isOverflowVisible={false} onClose={onClose} title={title}>{children}</ModalDialog>
   );
 };
 
-export const EditorModalBody: React.FC<WrapperProps> = ({ children }) => {
-  return <ModalDialog.Body className='pb-0 editor-modal-body'>{children}</ModalDialog.Body>;
-};
+export const EditorModalBody: React.FC<WrapperProps> = ({ children }) => <ModalDialog.Body className="pb-0 editor-modal-body">{children}</ModalDialog.Body>;
 
 export const FooterWrapper: React.FC<WrapperProps> = ({ children }) => {
   const { fullScreen } = useEditorContext();
@@ -137,7 +135,7 @@ const EditorContainer: React.FC<Props> = ({
           <IconButton
             src={Close}
             iconAs={Icon}
-            size='sm'
+            size="sm"
             onClick={confirmCancelIfDirty}
             alt={intl.formatMessage(messages.exitButtonAlt)}
           />

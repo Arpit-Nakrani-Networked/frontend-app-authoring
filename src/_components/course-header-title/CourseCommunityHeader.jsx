@@ -1,7 +1,7 @@
-import { NETWORKED_FRONTEND_URL } from '../../helper/constants';
-import { HttpMethod, HttpWrapper } from '../../helper/httpWrapper';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { NETWORKED_FRONTEND_URL } from '../../helper/constants';
+import { HttpMethod, HttpWrapper } from '../../helper/httpWrapper';
 
 const DEFAULT_COMMUNITY_IMAGE = 'https://wellness.mcmaster.ca/app/uploads/2020/01/23-SWNL_Photo-Hearders_72_4.jpg';
 const DEFAULT_COMMUNITY_NAME = 'How women lead';
@@ -12,16 +12,16 @@ export default function CourseCommunityHeader() {
 
   // State initialized from localStorage or fallback default
   const [isLoading, setIsLoading] = useState(
-    false
+    false,
   );
   const [communityImage, setCommunityImage] = useState(
-    localStorage.getItem('communityImage') || DEFAULT_COMMUNITY_IMAGE
+    localStorage.getItem('communityImage') || DEFAULT_COMMUNITY_IMAGE,
   );
   const [communityName, setCommunityName] = useState(
-    localStorage.getItem('communityName') || DEFAULT_COMMUNITY_NAME
+    localStorage.getItem('communityName') || DEFAULT_COMMUNITY_NAME,
   );
   const [userProfile, setUserProfile] = useState(
-    localStorage.getItem('userProfile') || DEFAULT_USER_PROFILE
+    localStorage.getItem('userProfile') || DEFAULT_USER_PROFILE,
   );
 
   const handleBackClick = () => {
@@ -29,13 +29,13 @@ export default function CourseCommunityHeader() {
   };
 
   const fetchUserProfile = async () => {
-    setIsLoading(true)
+    setIsLoading(true);
     try {
       const user = await HttpWrapper.call(
         HttpMethod.GET,
         '/global/open-edx/header-meta',
         {},
-        undefined
+        undefined,
       );
 
       const newCommunityName = user?.community?.name || DEFAULT_COMMUNITY_NAME;
@@ -51,10 +51,9 @@ export default function CourseCommunityHeader() {
       setCommunityName(newCommunityName);
       setCommunityImage(newCommunityImage);
       setUserProfile(newUserProfile);
-      
     } catch (error) {
       console.error('❌ Error fetching user profile:', error);
-    }finally{
+    } finally {
       setIsLoading(false);
     }
   };

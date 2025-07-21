@@ -1,6 +1,6 @@
 import { getAuthenticatedUser } from '@edx/frontend-platform/auth';
 import { addModel } from '../generic/model-store';
-import { getCourseDetail } from './api';
+import { getCourseDetail, getCourseDetailPermissions } from './api';
 import {
   updateStatus,
   updateCanChangeProviders,
@@ -13,6 +13,13 @@ export function fetchCourseDetail(courseId) {
     dispatch(updateStatus({ courseId, status: RequestStatus.IN_PROGRESS }));
 
     try {
+      const hasPermission = await getCourseDetailPermissions(courseId);
+      console.log('hasPermission', hasPermission);
+
+      if (!hasPermission) {
+        dispatch(updateStatus({ courseId, status: RequestStatus.NO_PERMISSION }));
+        return;
+      }
       const courseDetail = await getCourseDetail(courseId, getAuthenticatedUser().username);
       dispatch(updateStatus({ courseId, status: RequestStatus.SUCCESSFUL }));
 

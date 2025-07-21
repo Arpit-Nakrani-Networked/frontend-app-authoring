@@ -1,10 +1,9 @@
 import React from 'react';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
-import { getConfig } from '@edx/frontend-platform';
+import { getConfig, camelCaseObject } from '@edx/frontend-platform';
 import { useIntl } from '@edx/frontend-platform/i18n';
 import { Button, Hyperlink } from '@openedx/paragon';
 import { Warning as WarningIcon } from '@openedx/paragon/icons';
-import { camelCaseObject } from '@edx/frontend-platform';
 
 import EditorPage from './EditorPage';
 import AlertMessage from '../generic/alert-message';
@@ -35,7 +34,9 @@ const EditorContainer: React.FC<Props> = ({
   returnFunction,
 }) => {
   const intl = useIntl();
-  const { blockType, blockId, unitId, courseId } = useParams();
+  const {
+    blockType, blockId, unitId, courseId,
+  } = useParams();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const upstreamLibRef = searchParams.get('upstreamLibRef');
@@ -66,7 +67,7 @@ const EditorContainer: React.FC<Props> = ({
     returnFunction?.(response);
     context.updateComponent(camelCaseObject(response));
     handleCloseModal();
-  }
+  };
 
   return (
     <div className="editor-page">

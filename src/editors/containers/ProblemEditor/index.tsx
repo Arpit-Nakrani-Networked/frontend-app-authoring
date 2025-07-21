@@ -41,7 +41,7 @@ const ProblemEditor: React.FC<Props> = ({
 
   if (!blockFinished || !advancedSettingsFinished) {
     return (
-      <EditorContainer getContent={() => { console.log('Dummy') }} isDirty={() => false} onClose={onClose}>
+      <EditorContainer getContent={() => { console.log('Dummy'); }} isDirty={() => false} onClose={onClose}>
         <div className="text-center p-6">
           <Spinner
             animation="border"

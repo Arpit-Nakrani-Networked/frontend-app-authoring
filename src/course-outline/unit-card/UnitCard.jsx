@@ -167,7 +167,7 @@ const UnitCard = ({
           // flexDirection: 'row-reverse',
           backgroundColor: 'transparent',
           boxShadow: 'none',
-            borderRadius: '0 0 16px 16px',
+          borderRadius: '0 0 16px 16px',
           // 'border-bottom-right-radius': '16px !important',
           // 'border-bottom-left-radius': '16px !important',
           marginBottom: '0',

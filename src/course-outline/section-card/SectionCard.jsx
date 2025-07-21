@@ -152,8 +152,8 @@ const SectionCard = ({
   };
 
   const handleNewSubsectionSubmit = () => {
-    onNewSubsectionSubmit(id,()=>{
-      if(!isExpanded){
+    onNewSubsectionSubmit(id, () => {
+      if (!isExpanded) {
         setIsExpanded(true);
       }
     });
@@ -203,38 +203,38 @@ const SectionCard = ({
         // ...borderStyle,
       }}
     >
-    <div
-      className={`section-card ${isScrolledToElement ? 'highlight' : ''}`}
-      data-testid="section-card"
-      ref={currentRef}
+      <div
+        className={`section-card ${isScrolledToElement ? 'highlight' : ''}`}
+        data-testid="section-card"
+        ref={currentRef}
       >
-      <div>
-      {isHeaderVisible && (
-        <CardHeader
-          cardId={id}
-          title={displayName}
-          status={sectionStatus}
-          hasChanges={hasChanges}
-          onClickMenuButton={handleClickMenuButton}
-          onClickPublish={onOpenPublishModal}
-          onClickConfigure={onOpenConfigureModal}
-          onClickEdit={openForm}
-          onClickDelete={onOpenDeleteModal}
-          onClickMoveUp={handleSectionMoveUp}
-          onClickMoveDown={handleSectionMoveDown}
-          isFormOpen={isFormOpen}
-          closeForm={closeForm}
-          onEditSubmit={handleEditSubmit}
-          isDisabledEditField={savingStatus === RequestStatus.IN_PROGRESS}
-          onClickDuplicate={onDuplicateSubmit}
-          titleComponent={titleComponent}
-          handleNewButtonClick={handleNewSubsectionSubmit}
-          showNewButton
-          namePrefix={namePrefix}
-          actions={actions}
-        />
+        <div>
+          {isHeaderVisible && (
+          <CardHeader
+            cardId={id}
+            title={displayName}
+            status={sectionStatus}
+            hasChanges={hasChanges}
+            onClickMenuButton={handleClickMenuButton}
+            onClickPublish={onOpenPublishModal}
+            onClickConfigure={onOpenConfigureModal}
+            onClickEdit={openForm}
+            onClickDelete={onOpenDeleteModal}
+            onClickMoveUp={handleSectionMoveUp}
+            onClickMoveDown={handleSectionMoveDown}
+            isFormOpen={isFormOpen}
+            closeForm={closeForm}
+            onEditSubmit={handleEditSubmit}
+            isDisabledEditField={savingStatus === RequestStatus.IN_PROGRESS}
+            onClickDuplicate={onDuplicateSubmit}
+            titleComponent={titleComponent}
+            handleNewButtonClick={handleNewSubsectionSubmit}
+            showNewButton
+            namePrefix={namePrefix}
+            actions={actions}
+          />
           )}
-        {/* <div className="section-card__content" data-testid="section-card__content">
+          {/* <div className="section-card__content" data-testid="section-card__content">
               <div className="outline-section__status mb-1">
                 <Button
                   className="p-0 bg-transparent"
@@ -254,13 +254,13 @@ const SectionCard = ({
                 blockData={section}
               />
             </div> */}
-        {isExpanded && (
-        <div
-          data-testid="section-card__subsections"
-          className={classNames('section-card__subsections', { 'item-children': isDraggable })}
-        >
-          {children}
-          {/* {actions.childAddable && (
+          {isExpanded && (
+          <div
+            data-testid="section-card__subsections"
+            className={classNames('section-card__subsections', { 'item-children': isDraggable })}
+          >
+            {children}
+            {/* {actions.childAddable && (
                 <Button
                   data-testid="new-subsection-button"
                   className="mt-4"
@@ -272,10 +272,10 @@ const SectionCard = ({
                   {intl.formatMessage(messages.newSubsectionButton)}
                 </Button>
               )} */}
+          </div>
+          )}
         </div>
-        )}
       </div>
-    </div>
     </SortableItem>
   );
 };

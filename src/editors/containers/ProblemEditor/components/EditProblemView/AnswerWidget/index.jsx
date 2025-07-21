@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl, intlShape } from '@edx/frontend-platform/i18n';
 
+import { Stack } from '@openedx/paragon';
 import messages from './messages';
 import { ProblemTypes } from '../../../../../data/constants/problem';
 import AnswersContainer from './AnswersContainer';
-import { Stack } from '@openedx/paragon';
 
 // This widget should be connected, grab all answers from store, update them as needed.
 const AnswerWidget = ({

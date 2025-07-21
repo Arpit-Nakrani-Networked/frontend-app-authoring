@@ -242,7 +242,6 @@ mark {
 
 // _forms.scss
 .section-card {
-
   .item-card-header {
     .dropdown {
       opacity: 0;
@@ -276,14 +275,11 @@ mark {
     border: 1px solid #0000001F;
     outline: none !important;
     // font-weight: 600;
-    font-size: 16px;
-    line-height: 100%;
-    letter-spacing: 0%;
     color: #000000CC;
     box-shadow: none !important;
     // font-family: Proxima Nova;
     font-weight: 600;
-    font-style: Semibold;
+    font-style: semibold;
     font-size: 16px;
     // leading-trim: NONE;
     line-height: 100%;
@@ -291,7 +287,6 @@ mark {
   }
 
   .unit-card {
-
     .form-control,
     .form-control:focus-visible,
     .form-control:focus-within,

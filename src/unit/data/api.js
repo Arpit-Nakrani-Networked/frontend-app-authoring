@@ -21,7 +21,7 @@ export async function updateVerticleBlock(unitId, payload) {
   const { data } = await getAuthenticatedHttpClient()
     .post(
       updateVerticleBlockApirUrl(unitId),
-      payload
+      payload,
     );
 
   return camelCaseObject(data);
@@ -31,7 +31,7 @@ export async function createComponentBlock(payload) {
   const { data } = await getAuthenticatedHttpClient()
     .post(
       createComponentBlockApirUrl(),
-      payload
+      payload,
     );
 
   return camelCaseObject(data);
@@ -40,7 +40,7 @@ export async function createComponentBlock(payload) {
 export async function deleteComponentBlock(componentBlockId) {
   const { data } = await getAuthenticatedHttpClient()
     .delete(
-      deleteComponentBlockApirUrl(componentBlockId)
+      deleteComponentBlockApirUrl(componentBlockId),
     );
 
   return camelCaseObject(data);

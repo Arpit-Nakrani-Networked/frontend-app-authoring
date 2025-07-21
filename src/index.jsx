@@ -16,24 +16,25 @@ import { initializeHotjar } from '@edx/frontend-enterprise-hotjar';
 import { logError } from '@edx/frontend-platform/logging';
 import messages from './i18n';
 
-import {
-  ComponentPicker,
-  CreateLibrary,
-  LibraryLayout,
-  PreviewChangesEmbed,
-} from './library-authoring';
+// import {
+//   ComponentPicker,
+//   CreateLibrary,
+//   LibraryLayout,
+//   PreviewChangesEmbed,
+// } from './library-authoring';
 import initializeStore from './store';
 import CourseAuthoringRoutes from './CourseAuthoringRoutes';
 import Head from './head/Head';
-import { StudioHome } from './studio-home';
-import CourseRerun from './course-rerun';
-import { TaxonomyLayout, TaxonomyDetailPage, TaxonomyListPage } from './taxonomy';
-import { ContentTagsDrawer } from './content-tags-drawer';
-import AccessibilityPage from './accessibility-page';
+// import { StudioHome } from './studio-home';
+// import CourseRerun from './course-rerun';
+// import { TaxonomyLayout, TaxonomyDetailPage, TaxonomyListPage } from './taxonomy';
+// import { ContentTagsDrawer } from './content-tags-drawer';
+// import AccessibilityPage from './accessibility-page';
 import { ToastProvider } from './generic/toast-context';
 
 import 'react-datepicker/dist/react-datepicker.css';
 import './index.scss';
+import NotFoundPage from './404/404';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -61,20 +62,21 @@ const App = () => {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route>
-        <Route path="/home" element={<StudioHome />} />
-        <Route path="/libraries" element={<StudioHome />} />
+        {/* <Route path="/home" element={<StudioHome />} /> */}
+        {/* <Route path="/libraries" element={<StudioHome />} />
         <Route path="/libraries-v1" element={<StudioHome />} />
         <Route path="/library/create" element={<CreateLibrary />} />
         <Route path="/library/:libraryId/*" element={<LibraryLayout />} />
         <Route path="/component-picker" element={<ComponentPicker />} />
         <Route path="/component-picker/multiple" element={<ComponentPicker componentPickerMode="multiple" />} />
-        <Route path="/legacy/preview-changes/:usageKey" element={<PreviewChangesEmbed />} />
+        <Route path="/legacy/preview-changes/:usageKey" element={<PreviewChangesEmbed />} /> */}
         <Route path="/course/:courseId/*" element={<CourseAuthoringRoutes />} />
-        <Route path="/course_rerun/:courseId" element={<CourseRerun />} />
-        {getConfig().ENABLE_ACCESSIBILITY_PAGE === 'true' && (
+        <Route path="*" element={<NotFoundPage />} />
+        {/* <Route path="/course_rerun/:courseId" element={<CourseRerun />} /> */}
+        {/* {getConfig().ENABLE_ACCESSIBILITY_PAGE === 'true' && (
           <Route path="/accessibility" element={<AccessibilityPage />} />
-        )}
-        {getConfig().ENABLE_TAGGING_TAXONOMY_PAGES === 'true' && (
+        )} */}
+        {/* {getConfig().ENABLE_TAGGING_TAXONOMY_PAGES === 'true' && (
           <>
             <Route path="/taxonomies" element={<TaxonomyLayout />}>
               <Route index element={<TaxonomyListPage />} />
@@ -87,7 +89,7 @@ const App = () => {
               element={<ContentTagsDrawer />}
             />
           </>
-        )}
+        )} */}
       </Route>,
     ),
     {

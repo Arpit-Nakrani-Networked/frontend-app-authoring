@@ -101,11 +101,11 @@ const useCourseOutline = ({ courseId }) => {
   };
 
   const handleNewSectionSubmit = () => {
-      dispatch(addNewSectionQuery(courseStructure.id));
+    dispatch(addNewSectionQuery(courseStructure.id));
   };
 
-  const handleNewSubsectionSubmit = (sectionId,callback) => {
-    dispatch(addNewSubsectionQuery(sectionId,callback));
+  const handleNewSubsectionSubmit = (sectionId, callback) => {
+    dispatch(addNewSubsectionQuery(sectionId, callback));
   };
 
   const getUnitUrl = (locator) => {

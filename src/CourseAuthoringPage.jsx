@@ -8,6 +8,7 @@ import {
 import { fetchCourseDetail } from './data/thunks';
 import NotFoundAlert from './generic/NotFoundAlert';
 import PermissionDeniedAlert from './generic/PermissionDeniedAlert';
+import PermissionDenied from './generic/PermissionDenied';
 import { fetchStudioHomeData } from './studio-home/data/thunks';
 import { getCourseAppsApiStatus } from './pages-and-resources/data/selectors';
 import { RequestStatus } from './data/constants';
@@ -41,6 +42,12 @@ const CourseAuthoringPage = ({ courseId, children }) => {
       <PermissionDeniedAlert />
     );
   }
+  if (courseDetailStatus === RequestStatus.NO_PERMISSION) {
+    return (
+      <PermissionDenied courseId={courseId} />
+    );
+  }
+
   return (
     <div>
       {/* While V2 Editors are temporarily served from their own pages

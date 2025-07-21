@@ -9,7 +9,7 @@ export const ProblemComponentCard = ({ component, onEdit, onDelete }) => {
   } = parseProblemComponent(component.data);
 
   return (
-    <div className='component-block-wrappper'>
+    <div className="component-block-wrappper">
       <CardHeader component={component} onDelete={onDelete} />
       {
         !!error && 'No Problem'

@@ -3,7 +3,9 @@ import { Container, Spinner } from '@openedx/paragon';
 import { Outlet, useNavigate, useParams } from 'react-router';
 import { useEffect, useState } from 'react';
 import { SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy } from '@dnd-kit/sortable';
-import { closestCenter, DndContext, KeyboardSensor, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
+import {
+  closestCenter, DndContext, KeyboardSensor, PointerSensor, useSensor, useSensors,
+} from '@dnd-kit/core';
 import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
 import { deleteComponentBlock, getVerticalBlock, updateVerticleBlock } from './data/api';
 import { HTMLComponentCard } from './components/cards/HTMLComponentCard';
@@ -20,12 +22,12 @@ const Unit = ({ courseId }) => {
   const [loading, setLoading] = useState(false);
   const [components, setComponents] = useState([]);
   const [verticleBlock, setVerticleBlock] = useState(null);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleDeleteComponentBlock = (componentBlockId) => {
     setComponents((components) => components.filter((component) => component.id !== componentBlockId));
-    deleteComponentBlock(componentBlockId)
-  }
+    deleteComponentBlock(componentBlockId);
+  };
 
   const selectComponent = (component) => {
     switch (component.category) {
@@ -66,10 +68,10 @@ const Unit = ({ courseId }) => {
     setComponents(currentComponents);
 
     const newOrder = currentComponents.map((component) => component.id);
-    //api call for update children order
+    // api call for update children order
     updateVerticleBlock(unitId, {
-      children: newOrder
-    })
+      children: newOrder,
+    });
   };
 
   const onSuccessComponentBlockCreate = ({ componentBlockCategory, componentBlockId }) => {
@@ -99,14 +101,13 @@ const Unit = ({ courseId }) => {
       if (component.id === updatedComponent.id) {
         return {
           ...component,
-          ...updatedComponent
-        }
+          ...updatedComponent,
+        };
       }
-      else {
-        return component
-      }
-    }))
-  }
+
+      return component;
+    }));
+  };
 
   useEffect(() => {
     const getComponents = async () => {

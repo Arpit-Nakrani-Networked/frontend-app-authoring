@@ -15,6 +15,7 @@ export const RequestStatus = /** @type {const} */ ({
   PARTIAL: 'partial',
   PARTIAL_FAILURE: 'partial failure',
   NOT_FOUND: 'not-found',
+  NO_PERMISSION: 'not-permission',
 });
 
 /**

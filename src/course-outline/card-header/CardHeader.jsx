@@ -56,7 +56,7 @@ const CardHeader = ({
   proctoringExamConfigurationLink,
   discussionEnabled,
   discussionsSettings,
-  handleNewButtonClick=()=>{},
+  handleNewButtonClick = () => {},
   showNewButton = false,
   parentInfo,
 }) => {
@@ -172,7 +172,7 @@ const CardHeader = ({
               alt={`${namePrefix}-card-header__menu`}
               iconAs={Icon}
             />
-            <Dropdown.Menu className="card p-3" style={{ width:"207px"}}>
+            <Dropdown.Menu className="card p-3" style={{ width: '207px' }}>
               {/* {isSequential && proctoringExamConfigurationLink && (
                 <Dropdown.Item
                   as={Hyperlink}

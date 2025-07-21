@@ -1,7 +1,7 @@
-import { useSortable } from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities";
-import { Col, Icon, Row } from "@openedx/paragon";
-import { DragIndicator } from "@openedx/paragon/icons";
+import { useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
+import { Col, Icon, Row } from '@openedx/paragon';
+import { DragIndicator } from '@openedx/paragon/icons';
 
 export const DraggableComponent = ({
   id, category, isDraggable, isDroppable, children,

@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FormattedMessage } from '@edx/frontend-platform/i18n';
 
-import { Dropdown, Form, Icon, Stack } from '@openedx/paragon';
+import {
+  Dropdown, Form, Icon, Stack,
+} from '@openedx/paragon';
 import { Add } from '@openedx/paragon/icons';
 import messages from './messages';
 import { useAnswerContainer, isSingleAnswerProblem } from './hooks';
@@ -24,15 +26,15 @@ const AnswersContainer = ({
   const hasSingleAnswer = isSingleAnswerProblem(problemType);
 
   useAnswerContainer({ answers, problemType, updateField });
-  
+
   const isMultiSelect = ProblemTypeKeys.MULTISELECT === problemType;
   const handleQuestionTypeChange = (event) => {
     if (event.target.checked) {
-      updateField({ problemType: ProblemTypeKeys.MULTISELECT })
+      updateField({ problemType: ProblemTypeKeys.MULTISELECT });
     } else {
-      updateField({ problemType: ProblemTypeKeys.SINGLESELECT })
+      updateField({ problemType: ProblemTypeKeys.SINGLESELECT });
     }
-  }
+  };
 
   return (
     <div className="answers-container">
@@ -45,7 +47,7 @@ const AnswersContainer = ({
       ))}
 
       {problemType !== ProblemTypeKeys.NUMERIC ? (
-        <Stack direction='horizontal' className='justify-content-between'>
+        <Stack direction="horizontal" className="justify-content-between">
           <Button
             variant="add"
             onClick={addAnswer}

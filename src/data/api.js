@@ -1,6 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 import { camelCaseObject, getConfig } from '@edx/frontend-platform';
 import { getAuthenticatedHttpClient } from '@edx/frontend-platform/auth';
+import { HttpMethod, HttpWrapper } from 'helper/httpWrapper';
 
 function normalizeCourseDetail(data) {
   return {
@@ -14,4 +15,19 @@ export async function getCourseDetail(courseId, username) {
     .get(`${getConfig().LMS_BASE_URL}/api/courses/v1/courses/${courseId}?username=${username}`);
 
   return normalizeCourseDetail(data);
+}
+
+export async function getCourseDetailPermissions(courseId) {
+  // /global/open-edx/edit-access
+  try {
+    const response = await HttpWrapper.call(
+      HttpMethod.GET,
+      '/global/open-edx/edit-access',
+      {},
+      undefined,
+    );
+    return response?.access;
+  } catch (error) {
+    return false;
+  }
 }

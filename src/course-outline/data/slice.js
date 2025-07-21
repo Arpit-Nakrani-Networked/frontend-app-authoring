@@ -154,7 +154,7 @@ const slice = createSlice({
               payload.data,
             ];
           }
-        })
+        });
         return section;
       });
     },

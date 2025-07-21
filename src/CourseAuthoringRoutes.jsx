@@ -1,30 +1,30 @@
 import React from 'react';
 import {
-  Navigate, Routes, Route, useParams,
+  Routes, Route, useParams,
 } from 'react-router-dom';
-import { getConfig } from '@edx/frontend-platform';
+// import { getConfig } from '@edx/frontend-platform';
 import { PageWrap } from '@edx/frontend-platform/react';
-import { Textbooks } from 'CourseAuthoring/textbooks';
+// import { Textbooks } from 'CourseAuthoring/textbooks';
 import CourseAuthoringPage from './CourseAuthoringPage';
-import { PagesAndResources } from './pages-and-resources';
+// import { PagesAndResources } from './pages-and-resources';
 import EditorContainer from './editors/EditorContainer';
 import VideoSelectorContainer from './selectors/VideoSelectorContainer';
-import CustomPages from './custom-pages';
-import { FilesPage, VideosPage } from './files-and-videos';
-import { AdvancedSettings } from './advanced-settings';
+// import CustomPages from './custom-pages';
+// import { FilesPage, VideosPage } from './files-and-videos';
+// import { AdvancedSettings } from './advanced-settings';
 import { CourseOutline } from './course-outline';
-import ScheduleAndDetails from './schedule-and-details';
+// import ScheduleAndDetails from './schedule-and-details';
 import Unit from './unit';
-import { GradingSettings } from './grading-settings';
-import CourseTeam from './course-team/CourseTeam';
-import { CourseUpdates } from './course-updates';
+// import { GradingSettings } from './grading-settings';
+// import CourseTeam from './course-team/CourseTeam';
+// import { CourseUpdates } from './course-updates';
 import { CourseUnit } from './course-unit';
-import { Certificates } from './certificates';
-import CourseExportPage from './export-page/CourseExportPage';
-import CourseImportPage from './import-page/CourseImportPage';
+// import { Certificates } from './certificates';
+// import CourseExportPage from './export-page/CourseExportPage';
+// import CourseImportPage from './import-page/CourseImportPage';
 import { DECODED_ROUTES } from './constants';
-import CourseChecklist from './course-checklist';
-import GroupConfigurations from './group-configurations';
+// import CourseChecklist from './course-checklist';
+// import GroupConfigurations from './group-configurations';
 
 /**
  * As of this writing, these routes are mounted at a path prefixed with the following:
@@ -52,7 +52,7 @@ const CourseAuthoringRoutes = () => {
           path="/"
           element={<PageWrap><CourseOutline courseId={courseId} /></PageWrap>}
         />
-        <Route
+        {/* <Route
           path="course_info"
           element={<PageWrap><CourseUpdates courseId={courseId} /></PageWrap>}
         />
@@ -67,7 +67,7 @@ const CourseAuthoringRoutes = () => {
         <Route
           path="pages-and-resources/*"
           element={<PageWrap><PagesAndResources courseId={courseId} /></PageWrap>}
-        />
+        /> */}
         <Route
           path="container/:unitId"
           element={<PageWrap><Unit courseId={courseId} /></PageWrap>}
@@ -77,14 +77,14 @@ const CourseAuthoringRoutes = () => {
             element={<PageWrap><EditorContainer learningContextId={courseId} /></PageWrap>}
           />
         </Route>
-        <Route
+        {/* <Route
           path="proctored-exam-settings"
           element={<Navigate replace to={`/course/${courseId}/pages-and-resources`} />}
         />
         <Route
           path="custom-pages/*"
           element={<PageWrap><CustomPages courseId={courseId} /></PageWrap>}
-        />
+        /> */}
         {DECODED_ROUTES.COURSE_UNIT.map((path) => (
           <Route
             key={path}
@@ -96,7 +96,7 @@ const CourseAuthoringRoutes = () => {
           path="editor/course-videos/:blockId"
           element={<PageWrap><VideoSelectorContainer courseId={courseId} /></PageWrap>}
         />
-        <Route
+        {/* <Route
           path="settings/details"
           element={<PageWrap><ScheduleAndDetails courseId={courseId} /></PageWrap>}
         />
@@ -135,7 +135,7 @@ const CourseAuthoringRoutes = () => {
         <Route
           path="textbooks"
           element={<PageWrap><Textbooks courseId={courseId} /></PageWrap>}
-        />
+        /> */}
       </Routes>
     </CourseAuthoringPage>
   );

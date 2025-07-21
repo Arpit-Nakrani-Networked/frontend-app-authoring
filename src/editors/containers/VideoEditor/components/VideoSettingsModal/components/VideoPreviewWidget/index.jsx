@@ -31,10 +31,10 @@ export const VideoPreviewWidget = ({
     return match ? match[1] : null;
   }
 
-  const youtubeUrl = `https://youtube.com/embed/${extractYouTubeID(videoSource)}`
+  const youtubeUrl = `https://youtube.com/embed/${extractYouTubeID(videoSource)}`;
   return (
-    <iframe src={youtubeUrl} width='100%' height={370} style={{ border: 'none', borderRadius: '1rem' }} />
-  )
+    <iframe src={youtubeUrl} width="100%" height={370} style={{ border: 'none', borderRadius: '1rem' }} />
+  );
   return (
     <Collapsible.Advanced
       className="collapsible-card rounded mx-4 my-3 px-4"

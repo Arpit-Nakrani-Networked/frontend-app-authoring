@@ -190,7 +190,7 @@ const SubsectionCard = ({
         flexDirection: 'row-reverse',
         backgroundColor: 'white',
         boxShadow: 'none',
-        marginBottom: "0",
+        marginBottom: '0',
         // border: '1px solid #0000001F',
         borderRadius: '0 0 16px 16px',
         // overflow: 'hidden',

@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig, CancelToken } from 'axios';
+import Cookies from 'universal-cookie';
 import cacheService from './cache.service';
 import { NETWORKED_BACKEND_URL } from './constants';
-import Cookies from 'universal-cookie';
 
 // --- ENUMS & INTERFACES ---
 
@@ -23,46 +23,46 @@ export interface HttpOptions {
 }
 
 // --- AXIOS INSTANCE WITH INTERCEPTORS ---
-const BASE_URL = NETWORKED_BACKEND_URL+'/api/v1';
+const BASE_URL = `${NETWORKED_BACKEND_URL}/api/v1`;
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
   timeout: 10000,
 });
 
-axiosInstance.interceptors.request.use((config) => {
+axiosInstance.interceptors.request.use((config) =>
   // Attach auth tokens or log requests here
-  return config;
-});
+  config);
 
 axiosInstance.interceptors.response.use(
   (response) => response,
-  (error) => Promise.reject(error)
+  (error) => Promise.reject(error),
 );
 
 // --- HTTP WRAPPER CLASS ---
 
 export class HttpWrapper {
   private static getDefaultHeader() {
-     const cookies = new Cookies();
-		return {
-			sessionToken: cookies.get('sessionToken'),
-			communityToken: cookies.get('communityToken'),
-			groupToken: (cookies.get('groupToken')) ? cookies.get('groupToken') : undefined
-		}
-	};
+    const cookies = new Cookies();
+    return {
+      sessionToken: cookies.get('sessionToken'),
+      communityToken: cookies.get('communityToken'),
+      groupToken: (cookies.get('groupToken')) ? cookies.get('groupToken') : undefined,
+    };
+  }
+
   static async call<T>(
     method: HttpMethod,
     url: string,
     data?: any,
     options?: HttpOptions,
-    custom?:boolean
+    custom?:boolean,
   ): Promise<T> {
     const config: AxiosRequestConfig = {
       method,
       url,
       headers: options?.headers || {},
       cancelToken: options?.cancelToken,
-      baseURL: custom ? 'http://localhost:3002/api/v1' :axiosInstance.defaults.baseURL,
+      baseURL: custom ? 'http://localhost:3002/api/v1' : axiosInstance.defaults.baseURL,
     };
 
     // For GET/DELETE, use `params`; for POST/PUT, use `data`
@@ -81,15 +81,13 @@ export class HttpWrapper {
       }
     }
 
-    
     try {
-      let headers = { ...HttpWrapper.getDefaultHeader(), ...config.headers };
-			let fH = {}
-			for (let i in headers) {
-				if (headers[i] !== undefined)
-					fH[i] = headers[i]
-			}
-			config.headers = fH
+      const headers = { ...HttpWrapper.getDefaultHeader(), ...config.headers };
+      const fH = {};
+      for (const i in headers) {
+        if (headers[i] !== undefined) { fH[i] = headers[i]; }
+      }
+      config.headers = fH;
       const response = await axiosInstance(config);
       options?.onSuccess?.(response.data);
 
@@ -115,9 +113,8 @@ export class HttpWrapper {
       return { message: 'Network error', status: 503 };
     }
 
-    const status = error.response.status;
-    const message =
-      error.response.data?.message || error.response.statusText || 'Something went wrong';
+    const { status } = error.response;
+    const message = error.response.data?.message || error.response.statusText || 'Something went wrong';
 
     if (status === 401) {
       localStorage.removeItem('user');
