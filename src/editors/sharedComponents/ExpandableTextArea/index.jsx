@@ -15,7 +15,7 @@ const ExpandableTextArea = ({
 
   return (
     <>
-      <div className="expandable-mce error">
+      <div className="expandable-mce error w-100">
         <TinyMceWidget
           editorContentHtml={value}
           editorRef={editorRef}

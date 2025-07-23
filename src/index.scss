@@ -1,3 +1,6 @@
+// overwirte variables
+$primary-500: #0566FA !default; 
+
 @import "~@edx/brand/paragon/fonts";
 @import "~@edx/brand/paragon/variables";
 @import "~@openedx/paragon/scss/core/core";
@@ -32,6 +35,28 @@
 @import "certificates/scss/Certificates";
 @import "group-configurations/GroupConfigurations";
 @import 'variables';
+@import 'base/module';
+
+//  Networked Common Styles
+
+
+body {
+  font-size: 1rem;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scrollbar-width: none;
+  // font-family: "Proxima Nova","Open Sans","Helvetica Neue Light","Helvetica Neue","Helvetica","Arial",sans-serif !important;
+}
+
+// code {
+//   font-family: "Proxima Nova", "Open Sans", "Helvetica Neue Light",
+//     "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+// }
+
+
+
+
+// OpendEDX Styles---
 
 // To apply the glow effect to the selected Section/Subsection, in the Course Outline
 div.row:has(> div > div.highlight) {
@@ -287,6 +312,7 @@ mark {
   }
 
   .unit-card {
+
     .form-control,
     .form-control:focus-visible,
     .form-control:focus-within,
@@ -315,4 +341,166 @@ mark {
   color: #000000CC;
   border: none;
   padding: 8.5px 16px;
+}
+
+// common css utilities
+.pgn__form-checkbox-input,
+.pgn__form-radio-input,
+.pgn__form-checkbox-input:focus,
+.pgn__form-radio-input:focus {
+  border-radius: 4px;
+  background: #FFFFFF;
+  border: 1.5px solid #0000001F;
+  background-position: center !important;
+}
+
+.pgn__form-checkbox-input:not(:disabled):hover,
+.pgn__form-radio-input:not(:disabled):hover,
+.pgn__form-switch-input:not(:disabled):hover {
+  box-shadow: none;
+}
+
+.pgn__form-checkbox-input:focus::before,
+.pgn__form-radio-input:focus::before {
+  border: none !important;
+}
+
+.editProblemView .answer-option .pgn__form-checkbox+.pgn__form-label,
+.editProblemView .answer-option .pgn__form-radio+.pgn__form-label {
+  font-weight: 500;
+  font-style: Medium;
+  font-size: 16px;
+  // line-height: 120%;
+  letter-spacing: 0%;
+  color: #000000CC;
+}
+
+input.pgn__form-switch-input {
+  appearance: none;
+  -webkit-appearance: none;
+  border: none;
+  height: 14px;
+  width: 34px;
+  background-color: #d8d8d8;
+  border-radius: 20px;
+  position: relative;
+  cursor: pointer;
+  background-image: none !important;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 1px;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #5c5757;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
+  }
+
+  &:checked::before {
+    transform: translate(15px, -50%);
+    background-color: #0c08f7;
+  }
+}
+
+// .pgn__selectable_box.taxonomy-tags-selectable-box input.pgn__form-switch-input.pgn__form-checkbox-input:indeterminate 
+.pgn__form-switch-input:checked {
+  background-color: #0785ff1A;
+  background-image: none !important;
+}
+
+.pgn__form-radio-input,
+.pgn__form-radio-input:focus {
+  border-radius: 50%;
+}
+
+// models
+.pgn__modal.pgn__modal-lg.pgn__modal-default {
+  min-width: 489px;
+  width: auto;
+}
+
+.pgn__modal-header * {
+  font-size: 18px !important;
+  box-shadow: none !important;
+}
+
+.pgn__modal-body {
+  min-height: 75px;
+}
+
+// select question
+
+.pgn__selectable_box {
+  width: 204px;
+  border-radius: 12px;
+}
+
+
+// btn-icon threedot 
+.btn-icon {
+  color: $v2-black-400 !important;
+}
+
+.btn-icon.btn-icon-primary.focus,
+.btn-icon.btn-icon-primary:focus .btn-icon.btn-icon-secondary.focus,
+.btn-icon.btn-icon-secondary:focus {
+  box-shadow: none;
+}
+
+.btn-icon.btn-icon-primary.focus,
+.btn-icon.btn-icon-primary:focus .btn-icon.btn-icon-secondary.focus,
+.btn-icon.btn-icon-secondary:focus {
+  box-shadow: none;
+}
+
+.btn-icon.btn-icon-primary.hover,
+.btn-icon.btn-icon-primary:hover,
+.btn-icon.btn-icon-primary.active,
+.btn-icon.btn-icon-primary:active,
+.btn-icon.btn-icon-secondary.hover,
+.btn-icon.btn-icon-secondary:hover,
+.btn-icon.btn-icon-secondary.active,
+.btn-icon.btn-icon-secondary:active,
+.btn-icon {
+  background-color: transparent;
+  color: #0A3055;
+}
+
+// buttons
+.btn-outline-primary.focus::before,
+.btn-outline-primary:focus::before,
+.btn-outline-secondary.focus::before,
+.btn-outline-secondary:focus::before,
+.btn.focus::before,
+.btn:focus::before {
+  border: none !important;
+}
+
+// dropdown globbaly
+.dropdown-menu,
+.component-block-dropdown__menu.dropdown-menu {
+  border-radius: 12px;
+  padding: 10px !important;
+
+  a {
+    border-radius: 8px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color: rgba(0, 0, 0, 0.8);
+    border: none;
+    padding: 8.5px 16px;
+
+    &:disabled,
+    &[aria-disabled=true] {
+      color: rgba(0, 0, 0, 0.4) !important;
+      cursor: not-allowed !important;
+    }
+  }
 }

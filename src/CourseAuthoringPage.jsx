@@ -54,7 +54,7 @@ const CourseAuthoringPage = ({ courseId, children }) => {
       using url pattern containing /editor/,
       we shouldn't have the header and footer on these pages.
       This functionality will be removed in TNL-9591 */}
-      {inProgress ? <Loading /> : <CourseMultiHeader />}
+      {inProgress ? <Loading /> : <CourseMultiHeader  />}
       {children}
       {/* {!inProgress && !isEditor && <StudioFooter />} */}
     </div>

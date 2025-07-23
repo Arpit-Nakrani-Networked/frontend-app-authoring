@@ -37,7 +37,7 @@ const AnswersContainer = ({
   };
 
   return (
-    <div className="answers-container">
+    <div className="answers-container px-2">
       {answers.map((answer) => (
         <AnswerOption
           key={answer.id}
@@ -47,14 +47,16 @@ const AnswersContainer = ({
       ))}
 
       {problemType !== ProblemTypeKeys.NUMERIC ? (
-        <Stack direction="horizontal" className="justify-content-between">
+        <Stack direction="horizontal" className="justify-content-between mt-2">
           <Button
             variant="add"
             onClick={addAnswer}
+            className={`text-primary btn btn-outline-third px-3`}
           >
             <FormattedMessage {...messages.addAnswerButtonText} />
+            
           </Button>
-          <Form.Switch checked={isMultiSelect} onChange={handleQuestionTypeChange} />
+          <div className="d-flex justify-content-center align-items-center"><Form.Switch checked={isMultiSelect} onChange={handleQuestionTypeChange} label="Allow Multiple Answer" /> <FormattedMessage {...messages.toggleAnswerInputLabel} /></div>
         </Stack>
 
       ) : (
@@ -62,7 +64,7 @@ const AnswersContainer = ({
           <Dropdown.Toggle
             id="Add-Answer-Or-Answer-Range"
             variant="tertiary"
-            className="pl-0"
+            className="px-3 text-primary btn btn-outline-third "
           >
             <Icon
               src={Add}

@@ -4,9 +4,11 @@ import { ArrowBack, Search } from '@openedx/paragon/icons';
 import { Link } from 'react-router-dom';
 import { getConfig } from '@edx/frontend-platform';
 import { useModel } from '../../generic/model-store';
+import { useCourseOutline } from '../../course-outline/hooks';
 
 export default function CourseTitleHeader() {
   const { courseId: courseIdFromUrl } = useParams();
+  const { handlePublishAllSubmit } = useCourseOutline({ courseId: courseIdFromUrl });
   const courseDetail = useModel('courseDetails', courseIdFromUrl);
   const courseTitle = courseDetail ? courseDetail.name : courseIdFromUrl;
   const lmsApiBaseUrl = getConfig().LMS_BASE_URL;
@@ -33,6 +35,8 @@ export default function CourseTitleHeader() {
           View as a Viewer
         </Button>
         <Button
+          type="button"
+          onClick={handlePublishAllSubmit}
           data-testid="course-reindex"
           variant="outline-primary"
         >

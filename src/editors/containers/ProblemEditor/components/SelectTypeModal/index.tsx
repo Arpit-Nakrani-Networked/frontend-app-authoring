@@ -12,6 +12,8 @@ import {
   ProblemType,
   ProblemTypeKeys,
 } from '../../../../data/constants/problem';
+import { useDispatch, useSelector } from 'react-redux';
+import { actions, selectors } from '../../../../../editors/data/redux';
 
 interface Props {
   onClose: (() => void) | null;
@@ -20,15 +22,24 @@ interface Props {
 const SelectTypeModal: React.FC<Props> = ({
   onClose,
 }) => {
-  const [selected, setSelected] = React.useState<ProblemType | AdvancedProblemType>(ProblemTypeKeys.SINGLESELECT);
+  const [selected, setSelected] = React.useState<ProblemType | AdvancedProblemType | any>(ProblemTypeKeys.SINGLESELECT);
   hooks.useArrowNav(selected, setSelected);
-
+  const defaultSettings = useSelector(selectors.problem.defaultSettings);
+  const dispatch = useDispatch();
+  const updateField = React.useCallback((data) => dispatch(actions.problem.updateField(data)), [dispatch]);
+  const setBlockTitle = React.useCallback((title) => dispatch(actions.app.setBlockTitle(title)), [dispatch]);
+  const onSelectFinal = () => hooks.onSelect({
+                selected,
+                updateField,
+                setBlockTitle,
+                defaultSettings,
+              })
   return (
     <SelectTypeWrapper onClose={onClose} selected={selected}>
       <Row className="justify-content-center">
         {(!isAdvancedProblemType(selected)) ? (
-          <Stack direction="horizontal" gap={4} className="flex-wrap mb-6">
-            <ProblemTypeSelect selected={selected} setSelected={setSelected} />
+          <Stack direction="horizontal" gap={4} className="flex-wrap w-100 h-100">
+            <ProblemTypeSelect selected={selected} setSelected={setSelected} onSelectFinal={onSelectFinal} />
             {/* <Preview problemType={selected} /> */}
           </Stack>
         ) : <AdvanceTypeSelect selected={selected} setSelected={setSelected} />}

@@ -118,7 +118,7 @@ const EditProblemView = ({
           <span className="flex-grow-1 mb-5">
             <Stack gap={3}>
               <QuestionWidget />
-              <ExplanationWidget />
+              {/* <ExplanationWidget /> */}
               <AnswerWidget problemType={problemType} />
             </Stack>
           </span>

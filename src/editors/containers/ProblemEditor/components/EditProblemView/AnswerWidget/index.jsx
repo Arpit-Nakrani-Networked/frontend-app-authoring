@@ -16,8 +16,8 @@ const AnswerWidget = ({
 }) => {
   const problemStaticData = ProblemTypes[problemType];
   return (
-    <Stack gap={3}>
-      <div className="text-primary-500">
+    <Stack gap={1}>
+      <div className="text-dark-800">
         <div className="text-base font-weight-semibold">
           <FormattedMessage {...messages.answerWidgetTitle} />
         </div>

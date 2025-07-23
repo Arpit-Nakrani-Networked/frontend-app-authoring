@@ -105,7 +105,7 @@ const AnswerOption = ({
           disabled={problemType === ProblemTypeKeys.NUMERIC}
         />
       </div>
-      <div className="ml-1 flex-grow-1">
+      <div className="flex-grow-1 ml-2 d-flex align-items-center w-100">
         {getInputArea()}
         <Collapsible.Body>
           <FeedbackBox
@@ -122,20 +122,24 @@ const AnswerOption = ({
           />
         </Collapsible.Body>
       </div>
-      <div className="d-flex flex-row flex-nowrap ml-1">
+      <div className="d-flex flex-row flex-nowrap ml-2 d-flex flex-column justify-content-center">
         {/* <Collapsible.Trigger aria-label="Toggle feedback" className="btn-icon btn-icon-primary btn-icon-md align-items-center">
           <Icon
             src={FeedbackOutline}
             alt={intl.formatMessage(messages.feedbackToggleIconAltText)}
           />
         </Collapsible.Trigger> */}
-        <IconButton
+        <span onClick={removeAnswer} className='p-3 d-flex flex-column justify-content-center cursor-c-pointer'><svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M5.99962 4.82227L10.1246 0.697266L11.303 1.8756L7.17795 6.0006L11.303 10.1256L10.1246 11.3039L5.99962 7.17893L1.87462 11.3039L0.696289 10.1256L4.82129 6.0006L0.696289 1.8756L1.87462 0.697266L5.99962 4.82227Z" fill="black" fill-opacity="0.6" />
+        </svg>
+        </span>
+        {/* <IconButton
           src={DeleteOutline}
           iconAs={Icon}
           alt={intl.formatMessage(messages.answerDeleteIconAltText)}
           onClick={removeAnswer}
           variant="primary"
-        />
+        /> */}
       </div>
     </Collapsible.Advanced>
   );

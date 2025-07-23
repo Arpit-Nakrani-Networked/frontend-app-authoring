@@ -241,15 +241,15 @@ export function updateCourseSectionHighlightsQuery(sectionId, highlights) {
   };
 }
 
-export function publishCourseItemQuery(itemId, sectionId) {
+export function publishCourseItemQuery(itemId, sectionId,refetchSection = true,ids=[]) {
   return async (dispatch) => {
     dispatch(updateSavingStatus({ status: RequestStatus.PENDING }));
     dispatch(showProcessingNotification(NOTIFICATION_MESSAGES.saving));
 
     try {
       await publishCourseSection(itemId).then(async (result) => {
-        if (result) {
-          await dispatch(fetchCourseSectionQuery([sectionId]));
+        if (result && refetchSection) {
+          await dispatch(fetchCourseSectionQuery([sectionId,...ids]));
           dispatch(hideProcessingNotification());
           dispatch(updateSavingStatus({ status: RequestStatus.SUCCESSFUL }));
         }

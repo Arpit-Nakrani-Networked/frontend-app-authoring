@@ -23,7 +23,7 @@ const Checker = ({
         disabled={disabled}
       />
       <Form.Label
-        className="pt-2"
+        className="pt-2 pl-2"
       >
         {answer.id}
       </Form.Label>

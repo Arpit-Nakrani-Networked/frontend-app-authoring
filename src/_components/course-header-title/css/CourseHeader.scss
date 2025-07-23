@@ -1,0 +1,61 @@
+.community-image-wrapper {
+    border-radius: 14px;
+    border: none;
+}
+
+.imageFrame-asm {
+    height: 40px;
+    width: 40px;
+    min-width: 40px;
+    max-width: 40px !important;
+    // border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 14px;
+    display: flex;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+}
+
+.textImage {
+    max-width: inherit !important;
+}
+
+.textImage {
+    margin: 0;
+}
+
+.community-image-wrapper .textImage {
+    font-size: 18px;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    color: rgba(0, 0, 0, 0.60);
+    background-color: rgba(0, 0, 0, 0.04);
+    max-width: 40px;
+    max-height: 40px;
+    min-width: 40px;
+    width: 40px;
+    height: 40px;
+    border-radius: 14px;
+}
+
+.profile-image-wrapper .textImage {
+    font-size: 16px;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    color: rgba(0, 0, 0, 0.60);
+    background-color: rgba(0, 0, 0, 0.04);
+    max-width: 40px;
+    max-height: 40px;
+    min-width: 40px;
+    width: 40px;
+    height: 40px;
+    border-radius: 14px;
+}
+
+.text-center {
+    text-align: center !important;
+}

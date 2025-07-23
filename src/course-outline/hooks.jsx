@@ -172,10 +172,27 @@ const useCourseOutline = ({ courseId }) => {
   };
 
   const handlePublishItemSubmit = () => {
-    dispatch(publishCourseItemQuery(currentItem.id, currentSection.id));
+    console.log("only-one----", currentItem, currentSection);
+    // dispatch(publishCourseItemQuery(currentItem.id, currentSection.id));
 
     closePublishModal();
   };
+
+  const handlePublishAllSubmit = async () => {
+    const sections = sectionsList.filter(val => val.hasChanges);
+    const ids = sections.map(section => section.id);
+    console.log("publish-all-sections", ids);
+    for (let i = 0; i < ids.length; i++) {
+      const sectionId = ids[i];
+      const isLast = i === ids.length - 1;
+      console.log("publish-all-section-id", sectionId, isLast);
+      
+      await dispatch(publishCourseItemQuery(sectionId, sectionId, isLast, isLast ? [...ids] : []));
+    }
+
+    closePublishModal();
+  };
+
 
   const handleConfigureModalClose = () => {
     closeConfigureModal();
@@ -357,6 +374,7 @@ const useCourseOutline = ({ courseId }) => {
     handleUnitDragAndDrop,
     handleCreateNewCourseXBlock,
     errors,
+    handlePublishAllSubmit
   };
 };
 

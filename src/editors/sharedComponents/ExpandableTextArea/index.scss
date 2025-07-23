@@ -4,7 +4,11 @@
   }
 
   .mce-content-body {
-    padding: 10px;
+    outline: none !important;
+    border: 1px solid #0000001F;
+    padding: 5px 10px;
+    border-radius: 12px;
+    font-size: 14px;
 
     p {
       margin: 0;
@@ -13,17 +17,31 @@
     blockquote {
       margin: 16px 40px;
     }
+
   }
-  
+
+  .mce-content-body[data-mce-placeholder] {
+    position: relative;
+    /* font-family: Proxima Nova; */
+    font-weight: 400;
+    // font-style: Regular;
+    font-size: 14px;
+    // leading-trim: NONE;
+    line-height: 24px;
+    letter-spacing: 0%;
+    vertical-align: middle;
+  }
+
   *[contentEditable="false"] {
-    outline: 1px solid #D7D3D1;
+    outline: none !important;
   }
 
   *[contentEditable="true"] {
-    outline: 1px solid #707070;
+    outline: none !important;
 
-    &:focus, &:active {
-      outline: 2px solid #000000;
+    &:focus,
+    &:active {
+      outline: none !important;
     }
   }
 }

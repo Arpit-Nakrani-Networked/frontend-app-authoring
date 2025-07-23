@@ -16,36 +16,47 @@ import messages from './messages';
 interface Props {
   selected: ProblemType;
   setSelected: (selected: ProblemType | AdvancedProblemType) => void;
+  onSelectFinal: () => void;
 }
 
 const ProblemTypeSelect: React.FC<Props> = ({
   selected,
   setSelected,
+  onSelectFinal
 }) => {
-  const handleChange = e => setSelected(e.target.value);
+  const handleChange = e => {
+    console.log("111111111",e.target.value);
+    setSelected(e.target.value)
+  };
   const handleClick = () => setSelected(AdvanceProblemKeys.BLANK);
   const settings = { type: 'radio' };
 
   const currentReleaseVersionSupportedProblemTypes = [ProblemTypeKeys.SINGLESELECT, ProblemTypeKeys.MULTISELECT];
   return (
-    <Container style={{ width: '494px', height: '400px' }}>
+    <Container style={{ width: '100%', height: '186px' }}>
       <SelectableBox.Set
         name="problem-type"
-        columns={1}
+        columns={2}
         onChange={handleChange}
         type={settings.type}
         value={selected}
+        style={{ height: '100%' }}
+        onDoubleClick={onSelectFinal}
       >
         {Object.values(ProblemTypeKeys).filter((problemType) => currentReleaseVersionSupportedProblemTypes.includes(problemType)).map((key) => (
           key !== 'advanced'
             ? (
               <SelectableBox
-                className="border border-light-400 text-primary-500 shadow-none"
+                className="border border-light-400 _text-black-400 shadow-none h-100 d-flex flex-column justify-content-center align-items-center"
                 id={key}
                 key={key}
                 value={key}
                 {...settings}
               >
+                <span
+                  className="mb-2"
+                  dangerouslySetInnerHTML={{ __html: ProblemTypes[key]?.icon }}
+                />
                 {ProblemTypes[key].title}
               </SelectableBox>
             )

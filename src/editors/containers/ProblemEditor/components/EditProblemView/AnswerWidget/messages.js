@@ -13,8 +13,13 @@ const messages = defineMessages({
   },
   addAnswerButtonText: {
     id: 'authoring.answerwidget.answer.addAnswerButton',
-    defaultMessage: 'Add answer',
-    description: 'Button text to add answer',
+    defaultMessage: 'Add Option',
+    description: 'Button text to add option',
+  },
+  toggleAnswerInputLabel: {
+    id: 'authoring.answerwidget.answer.toggleAnswerInput',
+    defaultMessage: 'Allow Multiple Answer',
+    description: 'Label text to toggle input',
   },
   answerTextboxPlaceholder: {
     id: 'authoring.answerwidget.answer.placeholder',

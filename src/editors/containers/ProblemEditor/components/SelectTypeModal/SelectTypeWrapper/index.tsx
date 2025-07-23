@@ -38,7 +38,7 @@ const SelectTypeWrapper: React.FC<Props> = ({
   return (
     <EditorModalWrapper onClose={handleCancel}>
       <ModalDialog.Header className="zindex-10">
-        <span className="font-weight-medium text-secondory">
+        <span className="font-weight-medium _text-black-400">
           <FormattedMessage {...messages.selectTypeTitle} />
         </span>
         <div className="pgn__modal-close-container">
@@ -53,7 +53,7 @@ const SelectTypeWrapper: React.FC<Props> = ({
       <EditorModalBody>
         {children}
       </EditorModalBody>
-      <ModalDialog.Footer className="border-top-0">
+      {<ModalDialog.Footer className="border-top-0">
         <ActionRow>
           <ActionRow.Spacer />
           <Button
@@ -79,7 +79,7 @@ const SelectTypeWrapper: React.FC<Props> = ({
             <FormattedMessage {...messages.selectButtonLabel} />
           </Button>
         </ActionRow>
-      </ModalDialog.Footer>
+      </ModalDialog.Footer>}
     </EditorModalWrapper>
   );
 };

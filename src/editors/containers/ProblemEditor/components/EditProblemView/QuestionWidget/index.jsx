@@ -27,7 +27,7 @@ const QuestionWidget = ({
   if (!refReady) { return null; }
   return (
     <div className="tinyMceWidget">
-      <div className="text-sm mb-2 text-gray-500">
+      <div className="text-sm mb-2 _text-black-600 font-weight-medium">
         <FormattedMessage {...messages.questionWidgetTitle} />
       </div>
       <TinyMceWidget

@@ -142,7 +142,7 @@ const EditorContainer: React.FC<Props> = ({
         </div>
       </ModalDialog.Header>
       <EditorModalBody>
-        {!!isInitialized && children}
+        {children}
       </EditorModalBody>
       <ModalDialog.Footer className="shadow-sm px-4 pb-4 pt-0">
         <ActionRow>

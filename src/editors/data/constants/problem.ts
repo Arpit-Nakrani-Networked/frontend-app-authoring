@@ -19,6 +19,9 @@ export type ProblemType = typeof ProblemTypeKeys[keyof typeof ProblemTypeKeys];
 
 export const ProblemTypes = StrictDict({
   [ProblemTypeKeys.SINGLESELECT]: {
+    icon: `<svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M6.5 4C6.5 2.89543 5.60457 2 4.5 2C3.39543 2 2.5 2.89543 2.5 4C2.5 5.10457 3.39543 6 4.5 6C5.60457 6 6.5 5.10457 6.5 4ZM8.5 4C8.5 6.20914 6.70914 8 4.5 8C2.29086 8 0.5 6.20914 0.5 4C0.5 1.79086 2.29086 0 4.5 0C6.70914 0 8.5 1.79086 8.5 4ZM19 1H11V3H19V1ZM19 8H11V10H19V8ZM19 15H11V17H19V15ZM4.5 16C3.39543 16 2.5 15.1046 2.5 14C2.5 12.8954 3.39543 12 4.5 12C5.60457 12 6.5 12.8954 6.5 14C6.5 15.1046 5.60457 16 4.5 16ZM4.5 18C6.70914 18 8.5 16.2091 8.5 14C8.5 11.7909 6.70914 10 4.5 10C2.29086 10 0.5 11.7909 0.5 14C0.5 16.2091 2.29086 18 4.5 18ZM4.5 5C5.05228 5 5.5 4.55228 5.5 4C5.5 3.44772 5.05228 3 4.5 3C3.94772 3 3.5 3.44772 3.5 4C3.5 4.55228 3.94772 5 4.5 5Z" fill="black" fill-opacity="0.6"/>
+</svg>`,
     title: 'Single select',
     preview: singleSelect,
     previewDescription: 'Learners must select the correct answer from a list of possible options.',
@@ -30,6 +33,9 @@ export const ProblemTypes = StrictDict({
 
   },
   [ProblemTypeKeys.MULTISELECT]: {
+    icon: `<svg width="19" height="17" viewBox="0 0 19 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M6.00008 2V5H3.00008V2H6.00008ZM1.00008 0V7H8.0001V0H1.00008ZM11.0001 0H19.0001V2H11.0001V0ZM11.0001 7H19.0001V9H11.0001V7ZM11.0001 14H19.0001V16H11.0001V14ZM8.7072 12.2071L7.29297 10.7929L4.00008 14.0858L2.20718 12.2929L0.792969 13.7071L4.00008 16.9142L8.7072 12.2071Z" fill="black" fill-opacity="0.6"/>
+</svg>`,
     title: 'Multi-select',
     preview: multiSelect,
     previewDescription: 'Learners must select all correct answers from a list of possible options.',
