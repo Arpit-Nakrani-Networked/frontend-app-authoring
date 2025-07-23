@@ -14,7 +14,6 @@ export function fetchCourseDetail(courseId) {
 
     try {
       const hasPermission = await getCourseDetailPermissions(courseId);
-      console.log('hasPermission', hasPermission);
 
       if (!hasPermission) {
         dispatch(updateStatus({ courseId, status: RequestStatus.NO_PERMISSION }));

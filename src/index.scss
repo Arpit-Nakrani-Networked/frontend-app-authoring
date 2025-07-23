@@ -1,5 +1,4 @@
-// overwirte variables
-$primary-500: #0566FA !default; 
+ @import url('https://cdn.jsdelivr.net/npm/@dannymichel/proxima-nova@4.5.2/index.min.css');
 
 @import "~@edx/brand/paragon/fonts";
 @import "~@edx/brand/paragon/variables";
@@ -37,26 +36,14 @@ $primary-500: #0566FA !default;
 @import 'variables';
 @import 'base/module';
 
-//  Networked Common Styles
 
-
-body {
+html > body {
   font-size: 1rem;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   scrollbar-width: none;
-  // font-family: "Proxima Nova","Open Sans","Helvetica Neue Light","Helvetica Neue","Helvetica","Arial",sans-serif !important;
+  font-family: 'Proxima Nova", "Open Sans", "Helvetica Neue Light", "Helvetica Neue", "Helvetica", "Arial", sans-serif';
 }
-
-// code {
-//   font-family: "Proxima Nova", "Open Sans", "Helvetica Neue Light",
-//     "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-// }
-
-
-
-
-// OpendEDX Styles---
 
 // To apply the glow effect to the selected Section/Subsection, in the Course Outline
 div.row:has(> div > div.highlight) {
