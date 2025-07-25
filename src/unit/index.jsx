@@ -124,7 +124,7 @@ const Unit = ({ courseId }) => {
 
   return (
     <Container size="xl" className="px-4 rounded p-4">
-      <div className="bg-white rounded-c-lg border border-light">
+      <div className="bg-white _rounded-lg border border-light">
         <div className="d-flex justify-content-between align-items-center">
           <h2 className="sub-header-title p-4">{verticleBlock?.displayName}</h2>
         </div>
@@ -148,9 +148,9 @@ const Unit = ({ courseId }) => {
             </DndContext>
           )}
         </div>
-        <div className="bg-gray-c-50 p-4 d-flex flex-column align-items-center justify-content-between rounded-c-b-lg">
+        <div className="_bg-gray-50 p-4 d-flex flex-column align-items-center justify-content-between _rounded-b-lg">
           <h2 className="sub-header-title">Add Content</h2>
-          <span className="text-gray-500 font-weight-c-light">Please select the one of the below type</span>
+          <span className="text-gray-500 _font-weight-light">Please select the one of the below type</span>
           <div className="d-flex justify-content-between w-100 mt-4" style={{ gap: '1rem' }}>
             {
               availableComponents.map((component, index) => <AvailableComponentCard key={index} {...component} onSuccess={onSuccessComponentBlockCreate} />)

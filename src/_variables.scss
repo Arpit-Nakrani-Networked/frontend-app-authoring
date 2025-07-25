@@ -4,6 +4,7 @@ $v2-info-100: #F5F6FF;
 $v2-info-200: #F5F5F5;
 $v2-info-300: #EFF4FF;
 $v2-info-400: #F6F7FA;
+$v2-info-500: #F8F8F8;
 
 $v2-blue-500: #0566FA;
 $v2-blue-600: #0D68F9;
@@ -42,42 +43,66 @@ $primary-500: #0566FA !default;
   color: $v2-black-600 !important;
 }
 
+.text-primary {
+  color: black !important;
+  opacity: .8
+}
+
+._text-black {
+  color: black;
+}
+
+.text-secondory {
+  color: black !important;
+  opacity: .6;
+}
+
 // Background colors
-.bg-info-100 {
+._bg-info-100 {
   background-color: $v2-info-100 !important;
 }
 
-.bg-blue-500 {
+._bg-blue-500 {
   background-color: $v2-blue-500 !important;
 }
+._bg-black-500 {
+  background-color: $v2-black-500 !important;
+}
+._bg-white{
+  background-color: white !important;
+}
+._bg-gray-50 {
+  background-color: #F5F5F5 !important;
+}
+
 
 // font sizes and weights
-.text-base {
+._text-base {
   font-size: 16px;
 }
 
-.text-sm {
+._text-sm {
   font-size: 14px;
 }
 
-.font-weight-c-light {
+._font-weight-light {
   font-weight: 400;
 }
 
-.font-weight-medium {
+._font-weight-medium {
   font-weight: 500;
 }
 
-.font-weight-semibold {
+._font-weight-semibold {
   font-weight: 600;
 }
 
 // utils
-.border-none {
+._border-none {
   border: none !important;
 }
 
-.container-fluid {
+._container-fluid {
   max-width: 100%;
   width: 100%;
   padding: 0 15px;
@@ -100,37 +125,23 @@ $primary-500: #0566FA !default;
 }
 
 //custom variable. i am adding prefix c to let know that variable is custom
-.rounded-c-md {
+._rounded-md {
   border-radius: .75rem;
 }
 
-.rounded-c-lg {
+._rounded-lg {
   border-radius: 1rem;
 }
 
-.rounded-c-b-lg {
+._rounded-b-lg {
   border-bottom-left-radius: 1rem;
   border-bottom-right-radius: 1rem;
 }
 
-.cursor-c-pointer {
+._cursor-pointer {
   cursor: pointer;
 }
 
-.bg-gray-c-50 {
-  background-color: #F5F5F5;
-}
-
-.text-primary {
-  color: black;
-  opacity: .8
-}
-
-.text-secondory {
-  color: black;
-  opacity: .6;
-}
-
-.flex-c-1 {
+._flex-1 {
   flex: 1
 }

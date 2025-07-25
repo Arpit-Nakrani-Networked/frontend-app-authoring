@@ -2,7 +2,18 @@
   flex-grow: 1;
 
   .section-card__subsections {
+
     // margin-top: $spacer;
+     .unit-card:last-child {
+      &:hover .item-card-header {
+        background-color: $v2-info-500 !important;
+        border-radius: 0px 0px 16px 16px !important;
+
+        button {
+          opacity: 1;
+        }
+      }
+    }
   }
 
   .item-card-header {
@@ -32,7 +43,7 @@
     font-weight: 600;
     font-size: 16px;
     line-height: 100%;
-    letter-spacing: 0%;
+    // letter-spacing: 0%;
     color: #000000CC;
   }
 

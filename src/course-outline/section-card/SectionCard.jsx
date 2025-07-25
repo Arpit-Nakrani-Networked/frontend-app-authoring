@@ -10,7 +10,7 @@ import { Add as IconAdd } from '@openedx/paragon/icons';
 import { useSearchParams } from 'react-router-dom';
 import classNames from 'classnames';
 
-import { setCurrentItem, setCurrentSection } from '../data/slice';
+import { setCurrentItem, setCurrentSection, updateSectionList } from '../data/slice';
 import { RequestStatus } from '../../data/constants';
 import CardHeader from '../card-header/CardHeader';
 import SortableItem from '../../generic/drag-helper/SortableItem';
@@ -91,6 +91,18 @@ const SectionCard = ({
     isHeaderVisible = true,
   } = section;
 
+  const closeTitleForm = () => {
+      if(section?.edit){
+         dispatch(updateSectionList({
+          [id]: {
+            ...section,
+            edit: false,
+          },
+         }));
+      }
+      closeForm();
+    }
+
   useEffect(() => {
     if (activeId === id && isExpanded) {
       setIsExpanded(false);
@@ -112,6 +124,15 @@ const SectionCard = ({
     // if it contains the result, in order to scroll to it
     setIsExpanded((prevState) => containsSearchResult() || prevState);
   }, [locatorId, setIsExpanded]);
+
+  useEffect(() => {
+    // If the locatorId is set/changed, we need to make sure that the section is expanded
+    // if it contains the result, in order to scroll to it
+    if (section?.edit) {
+      console.log("000000000000", section?.edit);
+      openForm();
+    }
+  }, [section]);
 
   // re-create actions object for customizations
   const actions = { ...sectionActions };
@@ -182,6 +203,9 @@ const SectionCard = ({
     />
   );
 
+  console.log("isFormOpen---->>>", isFormOpen, displayName);
+
+
   const isDraggable = actions.draggable && (actions.allowMoveUp || actions.allowMoveDown);
 
   return (
@@ -210,29 +234,29 @@ const SectionCard = ({
       >
         <div>
           {isHeaderVisible && (
-          <CardHeader
-            cardId={id}
-            title={displayName}
-            status={sectionStatus}
-            hasChanges={hasChanges}
-            onClickMenuButton={handleClickMenuButton}
-            onClickPublish={onOpenPublishModal}
-            onClickConfigure={onOpenConfigureModal}
-            onClickEdit={openForm}
-            onClickDelete={onOpenDeleteModal}
-            onClickMoveUp={handleSectionMoveUp}
-            onClickMoveDown={handleSectionMoveDown}
-            isFormOpen={isFormOpen}
-            closeForm={closeForm}
-            onEditSubmit={handleEditSubmit}
-            isDisabledEditField={savingStatus === RequestStatus.IN_PROGRESS}
-            onClickDuplicate={onDuplicateSubmit}
-            titleComponent={titleComponent}
-            handleNewButtonClick={handleNewSubsectionSubmit}
-            showNewButton
-            namePrefix={namePrefix}
-            actions={actions}
-          />
+            <CardHeader
+              cardId={id}
+              title={displayName}
+              status={sectionStatus}
+              hasChanges={hasChanges}
+              onClickMenuButton={handleClickMenuButton}
+              onClickPublish={onOpenPublishModal}
+              onClickConfigure={onOpenConfigureModal}
+              onClickEdit={openForm}
+              onClickDelete={onOpenDeleteModal}
+              onClickMoveUp={handleSectionMoveUp}
+              onClickMoveDown={handleSectionMoveDown}
+              isFormOpen={isFormOpen || section?.edit}
+              closeForm={closeTitleForm}
+              onEditSubmit={handleEditSubmit}
+              isDisabledEditField={savingStatus === RequestStatus.IN_PROGRESS}
+              onClickDuplicate={onDuplicateSubmit}
+              titleComponent={titleComponent}
+              handleNewButtonClick={handleNewSubsectionSubmit}
+              showNewButton
+              namePrefix={namePrefix}
+              actions={actions}
+            />
           )}
           {/* <div className="section-card__content" data-testid="section-card__content">
               <div className="outline-section__status mb-1">
@@ -255,12 +279,12 @@ const SectionCard = ({
               />
             </div> */}
           {isExpanded && (
-          <div
-            data-testid="section-card__subsections"
-            className={classNames('section-card__subsections', { 'item-children': isDraggable })}
-          >
-            {children}
-            {/* {actions.childAddable && (
+            <div
+              data-testid="section-card__subsections"
+              className={classNames('section-card__subsections', { 'item-children': isDraggable })}
+            >
+              {children}
+              {/* {actions.childAddable && (
                 <Button
                   data-testid="new-subsection-button"
                   className="mt-4"
@@ -272,7 +296,7 @@ const SectionCard = ({
                   {intl.formatMessage(messages.newSubsectionButton)}
                 </Button>
               )} */}
-          </div>
+            </div>
           )}
         </div>
       </div>

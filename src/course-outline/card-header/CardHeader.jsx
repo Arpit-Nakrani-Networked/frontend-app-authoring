@@ -11,14 +11,16 @@ import {
   Hyperlink,
   Icon,
   IconButton,
+  Stack,
   useToggle,
 } from '@openedx/paragon';
 import {
   Add as IconAdd,
   MoreVert as MoveVertIcon,
   EditOutline as EditIcon,
+  Check
 } from '@openedx/paragon/icons';
-
+import { Close as CloseSmall } from '@openedx/paragon/icons';
 import { useContentTagsCount } from '../../generic/data/apiHooks';
 import { ContentTagsDrawerSheet } from '../../content-tags-drawer';
 import TagCount from '../../generic/tag-count';
@@ -56,8 +58,9 @@ const CardHeader = ({
   proctoringExamConfigurationLink,
   discussionEnabled,
   discussionsSettings,
-  handleNewButtonClick = () => {},
+  handleNewButtonClick = () => { },
   showNewButton = false,
+  showEditButton = false,
   parentInfo,
 }) => {
   const intl = useIntl();
@@ -114,7 +117,7 @@ const CardHeader = ({
         ref={cardHeaderRef}
       >
         {isFormOpen ? (
-          <Form.Group className="m-0 w-75">
+          <Form.Group className="m-0 w-75 position-relative">
             <Form.Control
               data-testid={`${namePrefix}-edit-field`}
               ref={(e) => e && e.focus()}
@@ -122,7 +125,7 @@ const CardHeader = ({
               name="displayName"
               onChange={(e) => setTitleValue(e.target.value)}
               aria-label="edit field"
-              onBlur={() => onEditSubmit(titleValue)}
+              // onBlur={() => onEditSubmit(titleValue)}
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {
                   onEditSubmit(titleValue);
@@ -130,6 +133,21 @@ const CardHeader = ({
               }}
               disabled={isDisabledEditField}
             />
+            <Stack gap={2} direction="horizontal" className="btn-icon__icon-container d-flex" style={{
+              position:"absolute",
+              right:'15px',
+              top:"50%",
+              transform:"translateY(-50%)"
+            }}>
+              <span className='pgn__icon btn-icon__icon rounded _cursor-pointer d-flex justify-content-center align-items-center' onClick={(e) => {
+                 e?.stopPropagation()
+                setTitleValue(title)
+                closeForm();
+              }}><Icon src={CloseSmall} size='sm' /></span>
+              <span className='pgn__icon btn-icon__icon _bg-gray-50 rounded _cursor-pointer d-flex justify-content-center align-items-center' onClick={(e) => {
+                 e?.stopPropagation()
+                onEditSubmit(titleValue)}}><Icon src={Check} size='sm' /></span>
+            </Stack>
           </Form.Group>
         ) : (
           <>
@@ -139,22 +157,28 @@ const CardHeader = ({
               data-testid={`${namePrefix}-edit-button`}
               alt={intl.formatMessage(messages.altButtonEdit)}
               iconAs={EditIcon}
-              onClick={onClickEdit}
+              onClick={(e)=>{
+                e?.stopPropagation()
+                onClickEdit()
+              }}
             />
           </>
         )}
         <div className="ml-auto d-flex align-items-center">
           {showNewButton && (
-          <Button
-            data-testid="new-unit-button"
-            className="mr-3"
-            variant="outline-third"
-            iconBefore={IconAdd}
-            block
-            onClick={handleNewButtonClick || (() => { })}
-          >
-            {intl.formatMessage(unitMessage.newUnitButton)}
-          </Button>
+            <Button
+              data-testid="new-unit-button"
+              className="mr-3 bg-white"
+              variant="outline-third"
+              iconBefore={IconAdd}
+              block
+               onClick={(e)=>{
+                e?.stopPropagation()
+                handleNewButtonClick && handleNewButtonClick()
+              }}
+            >
+              {intl.formatMessage(unitMessage.newUnitButton)}
+            </Button>
           )}
           {(isVertical || isSequential) && (
             <CardStatus status={status} showDiscussionsEnabledBadge={showDiscussionsEnabledBadge} />
@@ -162,7 +186,25 @@ const CardHeader = ({
           {getConfig().ENABLE_TAGGING_TAXONOMY_PAGES === 'true' && !!contentTagCount && (
             <TagCount count={contentTagCount} onClick={openManageTagsDrawer} />
           )}
-          <Dropdown data-testid={`${namePrefix}-card-header__menu`} onClick={onClickMenuButton}>
+          {showEditButton && (
+            <Button
+              data-testid="edit-unit-button"
+              className="mr-3 _bg-white"
+              variant="outline-third"
+              iconBefore={EditIcon}
+              block
+              //  onClick={(e)=>{
+              //   e?.stopPropagation()
+              //   // handleNewButtonClick && handleNewButtonClick()
+              // }}
+            >
+              {intl.formatMessage(unitMessage.editUnitButton)}
+            </Button>
+          )}
+          <Dropdown data-testid={`${namePrefix}-card-header__menu`} onClick={(e)=>{
+            e?.stopPropagation()
+            onClickMenuButton()
+          }}>
             <Dropdown.Toggle
               className="item-card-header__menu"
               id={`${namePrefix}-card-header__menu`}

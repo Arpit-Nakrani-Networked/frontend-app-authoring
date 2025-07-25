@@ -30,7 +30,7 @@ export const EditorModalWrapper: React.FC<WrapperProps & { onClose: () => void }
   const intl = useIntl();
   const title = intl.formatMessage(messages.modalTitle);
   return (
-    <ModalDialog isOpen size="lg" className="rounded-c-md" isOverflowVisible={false} onClose={onClose} title={title}>{children}</ModalDialog>
+    <ModalDialog isOpen size="lg" className="_rounded-md" isOverflowVisible={false} onClose={onClose} title={title}>{children}</ModalDialog>
   );
 };
 
@@ -129,7 +129,7 @@ const EditorContainer: React.FC<Props> = ({
       </BaseModal>
       <ModalDialog.Header className="shadow-sm zindex-10 editor-container_header">
         <div className="d-flex flex-row justify-content-between align-items-center">
-          <span className="col pl-0 font-weight-semibold">
+          <span className="col pl-0 _font-weight-semibold">
             <TitleHeader isInitialized={isInitialized} />
           </span>
           <IconButton

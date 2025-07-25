@@ -131,7 +131,10 @@ const slice = createSlice({
     addSection: (state, { payload }) => {
       state.sectionsList = [
         ...state.sectionsList,
-        payload,
+        {
+          ...payload,
+          edit:payload?.edit ?? true,
+        },
       ];
     },
     addSubsection: (state, { payload }) => {
@@ -151,7 +154,10 @@ const slice = createSlice({
           if (subsection.id === payload.parentLocator) {
             subsection.childInfo.children = [
               ...subsection.childInfo.children,
-              payload.data,
+              {
+                ...payload.data,
+                edit:payload?.edit ?? true
+              },
             ];
           }
         });

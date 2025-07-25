@@ -80,7 +80,7 @@ const VideoSourceWidget = ({
           </Form.Control.Feedback>
         </Form.Group> */}
         <Form.Group size="sm">
-          <Form.Label className="text-secondory font-weight-medium">Video URL</Form.Label>
+          <Form.Label className="text-secondory _font-weight-medium">Video URL</Form.Label>
           <Form.Control
             onChange={source.onChange}
             onBlur={(e) => updateVideoURL(e, videoId.local)}

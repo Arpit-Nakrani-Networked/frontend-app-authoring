@@ -129,7 +129,7 @@ const AnswerOption = ({
             alt={intl.formatMessage(messages.feedbackToggleIconAltText)}
           />
         </Collapsible.Trigger> */}
-        <span onClick={removeAnswer} className='p-3 d-flex flex-column justify-content-center cursor-c-pointer'><svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <span onClick={removeAnswer} className='p-3 d-flex flex-column justify-content-center _cursor-pointer'><svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M5.99962 4.82227L10.1246 0.697266L11.303 1.8756L7.17795 6.0006L11.303 10.1256L10.1246 11.3039L5.99962 7.17893L1.87462 11.3039L0.696289 10.1256L4.82129 6.0006L0.696289 1.8756L1.87462 0.697266L5.99962 4.82227Z" fill="black" fill-opacity="0.6" />
         </svg>
         </span>

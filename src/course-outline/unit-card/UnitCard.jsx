@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { useToggle } from '@openedx/paragon';
 import { isEmpty } from 'lodash';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import { getConfig } from '@edx/frontend-platform';
 import { PageWrap } from '@edx/frontend-platform/react';
-import { setCurrentItem, setCurrentSection, setCurrentSubsection } from '../data/slice';
+import { setCurrentItem, setCurrentSection, setCurrentSubsection, updateSectionList } from '../data/slice';
 import { RequestStatus } from '../../data/constants';
 import CardHeader from '../card-header/CardHeader';
 import SortableItem from '../../generic/drag-helper/SortableItem';
@@ -38,6 +38,7 @@ const UnitCard = ({
   handleCreateNewCourseXBlock,
 }) => {
   const currentRef = useRef(null);
+  const navigate = useNavigate()
   const dispatch = useDispatch();
   const [searchParams] = useSearchParams();
   const locatorId = searchParams.get('show');
@@ -83,6 +84,11 @@ const UnitCard = ({
   });
   const borderStyle = getItemStatusBorder(unitStatus);
 
+  const handleViewEdit = () => {
+    const url = getTitleLink(id)
+    navigate(url)
+  }
+
   const handleClickMenuButton = () => {
     dispatch(setCurrentItem(unit));
     dispatch(setCurrentSection(section));
@@ -122,6 +128,24 @@ const UnitCard = ({
     copyToClipboard(id);
   };
 
+  const closeTitleForm = () => {
+    if (unit?.edit) {
+      const newSection = structuredClone(section)
+      
+      const subSectionIndex = newSection.childInfo.children.findIndex((subsec) => subsec.id === subsection.id);
+      
+      const newsubsection = newSection.childInfo.children[subSectionIndex];
+      const unitIndex = newsubsection.childInfo.children.findIndex((u) => u.id === id);
+      newSection.childInfo.children[subSectionIndex].childInfo.children[unitIndex]['edit'] = false;
+      dispatch(updateSectionList({
+        [section?.id]: {
+          ...newSection,
+        }
+      }));
+    }
+    closeForm();
+  }
+
   const titleComponent = (
     <TitleLink
       title={displayName}
@@ -129,6 +153,18 @@ const UnitCard = ({
       namePrefix={namePrefix}
     />
   );
+
+  useEffect(() => {
+    // If the locatorId is set/changed, we need to make sure that the section is expanded
+    // if it contains the result, in order to scroll to it
+    if (unit?.edit) {
+      openForm();
+    }
+  }, [unit]);
+
+
+  console.log("Unit---isFormOpen---->>>", isFormOpen, displayName);
+
 
   useEffect(() => {
     // if this items has been newly added, scroll to it.
@@ -181,6 +217,7 @@ const UnitCard = ({
           className={`unit-card ${isScrolledToElement ? 'highlight' : ''}`}
           data-testid="unit-card"
           ref={currentRef}
+          onClick={handleViewEdit}
         >
           <CardHeader
             title={displayName}
@@ -194,8 +231,8 @@ const UnitCard = ({
             onClickDelete={onOpenDeleteModal}
             onClickMoveUp={handleUnitMoveUp}
             onClickMoveDown={handleUnitMoveDown}
-            isFormOpen={isFormOpen}
-            closeForm={closeForm}
+            isFormOpen={isFormOpen || unit?.edit}
+            closeForm={closeTitleForm}
             onEditSubmit={handleEditSubmit}
             isDisabledEditField={savingStatus === RequestStatus.IN_PROGRESS}
             onClickDuplicate={onDuplicateSubmit}
@@ -208,6 +245,7 @@ const UnitCard = ({
             discussionEnabled={discussionEnabled}
             discussionsSettings={discussionsSettings}
             parentInfo={parentInfo}
+            showEditButton={true}
           />
           {/* <div className="unit-card__content item-children" data-testid="unit-card__content">
             <XBlockStatus
@@ -222,25 +260,25 @@ const UnitCard = ({
       {/* <h1>Hello This is {displayName} + {category}</h1>
       <button onClick={onCreateNewCourseXBlock}>Textblock</button> */}
       {isOpenText && blockId && courseId && (
-      <div
-        className="pgn__modal-fullscreen h-100"
-        role="dialog"
-        aria-label="html"
-      >
-        <PageWrap>
-          <EditorPage
-            courseId={courseId}
-            blockType="html"
-            blockId={blockId}
-            studioEndpointUrl={getConfig().STUDIO_BASE_URL}
-            lmsEndpointUrl={getConfig().LMS_BASE_URL}
-            onClose={() => {
-              closeText();
-              setBlockId(null);
-            }}
-          />
-        </PageWrap>
-      </div>
+        <div
+          className="pgn__modal-fullscreen h-100"
+          role="dialog"
+          aria-label="html"
+        >
+          <PageWrap>
+            <EditorPage
+              courseId={courseId}
+              blockType="html"
+              blockId={blockId}
+              studioEndpointUrl={getConfig().STUDIO_BASE_URL}
+              lmsEndpointUrl={getConfig().LMS_BASE_URL}
+              onClose={() => {
+                closeText();
+                setBlockId(null);
+              }}
+            />
+          </PageWrap>
+        </div>
       )}
     </>
   );

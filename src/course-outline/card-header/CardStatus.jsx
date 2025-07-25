@@ -25,7 +25,9 @@ const CardStatus = ({
         <StatusBadge
           text={badgeTitle}
           icon={badgeIcon}
-          iconClassName={classNames({ 'text-success-500': status === ITEM_BADGE_STATUS.live })}
+          iconSize="xs"
+          iconClassName={classNames({ 'text-success-500': status === ITEM_BADGE_STATUS.live,'text-secondory': status === ITEM_BADGE_STATUS.draft})}
+          className={classNames({'_bg-gray-50 _text-sm py-0 _text-black': status === ITEM_BADGE_STATUS.draft })}
         />
       )}
     </>

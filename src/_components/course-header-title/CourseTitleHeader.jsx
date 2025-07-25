@@ -17,8 +17,8 @@ export default function CourseTitleHeader() {
   const isUnitPage = pathname.includes('/container');
   const backToOutlinePage = `/course/${courseIdFromUrl}/`;
   return (
-    <div className="container-fluid main-course-header">
-      {isUnitPage ? <Button as={Link} to={backToOutlinePage} variant="link" className="text-black font-weight-semibold" style={{ textDecoration: 'none' }} iconBefore={ArrowBack}>Back To Outline</Button>
+    <div className="_container-fluid main-course-header">
+      {isUnitPage ? <Button as={Link} to={backToOutlinePage} variant="link" className="text-black _font-weight-semibold" style={{ textDecoration: 'none' }} iconBefore={ArrowBack}>Back To Outline</Button>
         : (
           <h1 className="h2" data-course-id={courseIdFromUrl}>
             {courseTitle}

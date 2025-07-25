@@ -39,7 +39,7 @@ export const DraggableComponent = ({
 
   return (
     <Row className="mx-0" ref={setNodeRef} style={style}>
-      <div className="d-flex align-items-center rounded bg-gray-c-50">
+      <div className="d-flex align-items-center rounded _bg-gray-50">
         <button
           ref={setActivatorNodeRef}
           key="drag-to-reorder-icon"

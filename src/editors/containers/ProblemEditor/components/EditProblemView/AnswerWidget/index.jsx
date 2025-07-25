@@ -18,10 +18,10 @@ const AnswerWidget = ({
   return (
     <Stack gap={1}>
       <div className="text-dark-800">
-        <div className="text-base font-weight-semibold">
+        <div className="_text-base _font-weight-semibold">
           <FormattedMessage {...messages.answerWidgetTitle} />
         </div>
-        <div className="text-sm text-gray-500">
+        <div className="_text-sm text-gray-500">
           {intl.formatMessage(messages.answerHelperText, { helperText: problemStaticData.description })}
         </div>
       </div>

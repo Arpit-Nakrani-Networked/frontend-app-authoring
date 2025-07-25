@@ -35,7 +35,7 @@ const CertificateEditForm = ({ courseId }) => {
               <Form className="certificates-card-form" data-testid="certificates-edit-form">
                 <Card>
                   <Card.Section>
-                    <Stack gap="4">
+                    <Stack gap="4" >
                       <CertificateDetailsForm
                         courseTitleOverride={values.courseTitle}
                         detailsCourseTitle={courseTitle}

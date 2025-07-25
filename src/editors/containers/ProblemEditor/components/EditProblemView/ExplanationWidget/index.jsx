@@ -27,7 +27,7 @@ const ExplanationWidget = ({
   if (!refReady) { return null; }
   return (
     <div className="tinyMceWidget text-primary-500">
-      <div className="text-sm mb-2 text-gray-500">
+      <div className="_text-sm mb-2 text-gray-500">
         <FormattedMessage {...messages.solutionWidgetTitle} />
       </div>
       {/* <div className="small mb-3">

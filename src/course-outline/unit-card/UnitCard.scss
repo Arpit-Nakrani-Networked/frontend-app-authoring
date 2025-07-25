@@ -1,5 +1,17 @@
 .unit-card {
   flex-grow: 1;
+  cursor: pointer;
+
+  &:hover .item-card-header{
+    background-color: $v2-info-500 !important;
+    button {
+      opacity: 1;
+    }
+  }
+
+  button {
+    opacity: 0;
+  }
 
   // used in src/course-outline/card-header/TitleLink.jsx &
   // src/course-outline/card-header/TitleButton.jsx as

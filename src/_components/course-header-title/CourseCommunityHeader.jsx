@@ -4,10 +4,6 @@ import { NETWORKED_FRONTEND_URL } from '../../helper/constants';
 import { HttpMethod, HttpWrapper } from '../../helper/httpWrapper';
 import './css/CourseHeader.scss'
 
-const DEFAULT_COMMUNITY_IMAGE = 'https://wellness.mcmaster.ca/app/uploads/2020/01/23-SWNL_Photo-Hearders_72_4.jpg';
-const DEFAULT_COMMUNITY_NAME = 'How women lead';
-const DEFAULT_USER_PROFILE = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDJzEaxLN-jGRYYUO65pWu7Q9GXoNt4LUSSA&s';
-
 export default function CourseCommunityHeader() {
   const { courseId } = useParams();
   const user = JSON.parse(localStorage.getItem('user') || '{}');
@@ -75,12 +71,12 @@ export default function CourseCommunityHeader() {
 
       const newCommunityName = user?.community?.name;
       const newCommunityImage = user?.community?.image?.url;
-      const newUser = user?.user || "NE";
+      const newUser = user?.user || "-";
 
       // Update localStorage
       localStorage.setItem('communityName', newCommunityName);
       localStorage.setItem('communityImage', newCommunityImage);
-      localStorage.setItem('user', newUser);
+      localStorage.setItem('user', JSON.stringify(newUser));
 
       // Update state
       setCommunityName(newCommunityName);
@@ -103,7 +99,7 @@ export default function CourseCommunityHeader() {
   }, []);
 
   return !isLoading && (
-    <div className="container-fluid community-header">
+    <div className="_container-fluid community-header">
       <div className="course-content">
         <div className="course-info">
           {getDefaultCommunityImage()}

@@ -31,8 +31,8 @@ export const AvailableComponentCard = ({
   };
 
   return (
-    <Button variant="outline-dark" size="lg" className="flex-c-1 bg-white border-none rounded-c-lg justify-content-between" iconBefore={icon} onClick={handleCreate} disabled={isCreating}>
-      <div className="d-flex align-items-center justify-content-between flex-c-1">
+    <Button variant="outline-dark" size="lg" className="_flex-1 bg-white _border-none _rounded-lg justify-content-between" iconBefore={icon} onClick={handleCreate} disabled={isCreating}>
+      <div className="d-flex align-items-center justify-content-between _flex-1">
         <span>{label}</span>
         {isCreating && <Spinner animation="border" size="sm" className="ms-2" />}
       </div>

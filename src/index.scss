@@ -1,4 +1,8 @@
- @import url('https://cdn.jsdelivr.net/npm/@dannymichel/proxima-nova@4.5.2/index.min.css');
+@import url('https://cdn.jsdelivr.net/npm/@dannymichel/proxima-nova@4.5.2/index.min.css');
+@import 'variables';
+@import 'base/module';
+
+$font-family-base:'Proxima Nova' !important;
 
 @import "~@edx/brand/paragon/fonts";
 @import "~@edx/brand/paragon/variables";
@@ -34,15 +38,15 @@
 @import "certificates/scss/Certificates";
 @import "group-configurations/GroupConfigurations";
 @import 'variables';
-@import 'base/module';
 
-
-html > body {
+html>body>#root,* {
   font-size: 1rem;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   scrollbar-width: none;
-  font-family: 'Proxima Nova", "Open Sans", "Helvetica Neue Light", "Helvetica Neue", "Helvetica", "Arial", sans-serif';
+  font-family: 'Proxima Nova' !important;
+  line-height: 100%;
+  letter-spacing: 0.5px !important;
 }
 
 // To apply the glow effect to the selected Section/Subsection, in the Course Outline
@@ -113,7 +117,7 @@ mark {
     font-weight: 600 !important;
     font-size: 20px !important;
     line-height: 100% !important;
-    letter-spacing: 0% !important;
+    // letter-spacing: 0% !important;
     color: $v2-black-400 !important;
     margin: 0;
   }
@@ -150,7 +154,7 @@ mark {
   font-weight: 600 !important;
   font-size: 20px !important;
   line-height: 100% !important;
-  letter-spacing: 0% !important;
+  // letter-spacing: 0% !important;
   color: $v2-black-600 !important;
   margin: 0;
 }
@@ -170,7 +174,7 @@ mark {
   font-weight: 500;
   font-size: 14px;
   line-height: 20px;
-  letter-spacing: 0%;
+  // letter-spacing: 0%;
   vertical-align: middle;
   color: $v2-black-400;
 }
@@ -193,7 +197,7 @@ mark {
   font-weight: 500 !important;
   font-size: 14px !important;
   line-height: 20px !important;
-  letter-spacing: 0% !important;
+  // letter-spacing: 0% !important;
   vertical-align: middle !important;
 }
 
@@ -206,7 +210,7 @@ mark {
   font-weight: 500 !important;
   font-size: 14px !important;
   line-height: 20px !important;
-  letter-spacing: 0% !important;
+  // letter-spacing: 0% !important;
   vertical-align: middle !important;
 }
 
@@ -214,14 +218,14 @@ mark {
   height: fit-content !important;
   padding: 6px 12px !important;
   width: fit-content !important;
-  background-color: transparent !important;
+  background-color: white !important;
   border-color: $v2-black-500 !important;
   color: $v2-black-400 !important;
   border-radius: 12px !important;
   font-weight: 500 !important;
   font-size: 14px !important;
   line-height: 20px !important;
-  letter-spacing: 0% !important;
+  // letter-spacing: 0% !important;
   vertical-align: middle !important;
 }
 
@@ -237,7 +241,7 @@ mark {
     font-weight: 600 !important;
     font-size: 20px !important;
     line-height: 100% !important;
-    letter-spacing: 0% !important;
+    // letter-spacing: 0% !important;
     // color: $v2-black-400 !important;
   }
 
@@ -274,7 +278,7 @@ mark {
     .btn-icon.btn-icon-primary:hover,
     .btn-icon.btn-icon-primary.active,
     .btn-icon.btn-icon-primary:active {
-      background-color: transparent;
+      background-color: $v2-info-200;
       color: #0A3055;
     }
   }
@@ -295,7 +299,7 @@ mark {
     font-size: 16px;
     // leading-trim: NONE;
     line-height: 100%;
-    letter-spacing: 0%;
+    // letter-spacing: 0%;
   }
 
   .unit-card {
@@ -324,7 +328,7 @@ mark {
   font-size: 14px;
   // leading-trim: NONE;
   line-height: 100%;
-  letter-spacing: 0%;
+  // letter-spacing: 0%;
   color: #000000CC;
   border: none;
   padding: 8.5px 16px;
@@ -358,7 +362,7 @@ mark {
   font-style: Medium;
   font-size: 16px;
   // line-height: 120%;
-  letter-spacing: 0%;
+  // letter-spacing: 0%;
   color: #000000CC;
 }
 
@@ -431,6 +435,7 @@ input.pgn__form-switch-input {
 // btn-icon threedot 
 .btn-icon {
   color: $v2-black-400 !important;
+  border-radius: 12px !important;
 }
 
 .btn-icon.btn-icon-primary.focus,
@@ -479,7 +484,7 @@ input.pgn__form-switch-input {
     font-weight: 400;
     font-size: 14px;
     line-height: 100%;
-    letter-spacing: 0%;
+    // letter-spacing: 0%;
     color: rgba(0, 0, 0, 0.8);
     border: none;
     padding: 8.5px 16px;
@@ -490,4 +495,8 @@ input.pgn__form-switch-input {
       cursor: not-allowed !important;
     }
   }
+}
+
+.dropdown-item.active, .dropdown-item:active {
+    color: white !important;
 }

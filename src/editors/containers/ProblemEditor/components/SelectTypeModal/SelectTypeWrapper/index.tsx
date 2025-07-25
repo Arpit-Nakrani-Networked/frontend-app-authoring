@@ -38,7 +38,7 @@ const SelectTypeWrapper: React.FC<Props> = ({
   return (
     <EditorModalWrapper onClose={handleCancel}>
       <ModalDialog.Header className="zindex-10">
-        <span className="font-weight-medium _text-black-400">
+        <span className="_font-weight-medium _text-black-400">
           <FormattedMessage {...messages.selectTypeTitle} />
         </span>
         <div className="pgn__modal-close-container">
