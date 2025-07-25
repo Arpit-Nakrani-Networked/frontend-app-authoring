@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { NETWORKED_FRONTEND_URL } from '../../helper/constants';
 import { HttpMethod, HttpWrapper } from '../../helper/httpWrapper';
-import './css/CourseHeader.scss'
+import './css/CourseHeader.scss'  
 
 export default function CourseCommunityHeader() {
   const { courseId } = useParams();
@@ -81,7 +81,7 @@ export default function CourseCommunityHeader() {
       // Update state
       setCommunityName(newCommunityName);
       setCommunityImage(newCommunityImage);
-      setUserProfile(newUserProfile);
+      setUserProfile(newUser?.image?.url);
       setUserName(newUser?.name);
     } catch (error) {
        setCommunityName('');
