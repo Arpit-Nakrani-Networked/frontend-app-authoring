@@ -4,11 +4,20 @@
   }
 
   .mce-content-body {
+    height: 100%;
     outline: none !important;
     border: 1px solid #0000001F;
     padding: 5px 10px;
     border-radius: 12px;
     font-size: 14px;
+    display: flex;
+    align-items: center;
+
+    &:not([dir=rtl])[data-mce-placeholder]:not(.mce-visualblocks)::before {
+      margin: 5px;
+      display: flex;
+      align-items: center;
+    }
 
     p {
       margin: 0;

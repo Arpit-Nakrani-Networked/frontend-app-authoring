@@ -18,7 +18,7 @@ const AnswerWidget = ({
   return (
     <Stack gap={1}>
       <div className="text-dark-800">
-        <div className="_text-base _font-weight-semibold">
+        <div className="_text-base _font-weight-semibold mb-1">
           <FormattedMessage {...messages.answerWidgetTitle} />
         </div>
         <div className="_text-sm text-gray-500">

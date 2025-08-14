@@ -190,6 +190,7 @@ mark {
 .btn-primary,
 .btn-outline-primary {
   width: fit-content !important;
+    // padding: 6px 12px !important;
   background-color: $v2-blue-600 !important;
   border-color: $v2-blue-600 !important;
   color: $v2-white-100 !important;
@@ -216,7 +217,7 @@ mark {
 
 .btn-outline-third {
   height: fit-content !important;
-  padding: 6px 12px !important;
+  // padding: 6px 12px !important;
   width: fit-content !important;
   background-color: white !important;
   border-color: $v2-black-500 !important;
@@ -227,6 +228,10 @@ mark {
   line-height: 20px !important;
   // letter-spacing: 0% !important;
   vertical-align: middle !important;
+}
+
+._btn-sm{
+    padding: 6px 12px !important;
 }
 
 // common card
@@ -364,6 +369,8 @@ mark {
   // line-height: 120%;
   // letter-spacing: 0%;
   color: #000000CC;
+  display: flex;
+  align-items: center;
 }
 
 input.pgn__form-switch-input {
@@ -410,6 +417,9 @@ input.pgn__form-switch-input {
 }
 
 // models
+.pgn__modal{
+  border-radius: 0.75rem !important;
+}
 .pgn__modal.pgn__modal-lg.pgn__modal-default {
   min-width: 489px;
   width: auto;

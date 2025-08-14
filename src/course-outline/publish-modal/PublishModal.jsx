@@ -19,9 +19,9 @@ const PublishModal = ({
   onPublishSubmit,
 }) => {
   const intl = useIntl();
-  const { displayName, childInfo, category } = useSelector(getCurrentItem);
+  const { displayName, category } = useSelector(getCurrentItem);
   const categoryName = COURSE_BLOCK_NAMES[category]?.name.toLowerCase();
-  const children = childInfo?.children || [];
+  // const children = childInfo?.children || [];
 
   return (
     <ModalDialog
@@ -41,7 +41,7 @@ const PublishModal = ({
         <p className="small">
           {intl.formatMessage(messages.description, { category: categoryName })}
         </p>
-        {children.filter(child => child.hasChanges).map((child) => {
+        {/* {children.filter(child => child.hasChanges).map((child) => {
           let grandChildren = child.childInfo?.children || [];
           grandChildren = grandChildren.filter(grandChild => grandChild.hasChanges);
 
@@ -65,16 +65,17 @@ const PublishModal = ({
               {child.displayName}
             </div>
           );
-        })}
+        })} */}
       </ModalDialog.Body>
       <ModalDialog.Footer className="pt-1">
         <ActionRow>
-          <ModalDialog.CloseButton variant="tertiary">
+          <ModalDialog.CloseButton variant="tertiary" className="btn-sm btn-outline-third">
             {intl.formatMessage(messages.cancelButton)}
           </ModalDialog.CloseButton>
           <Button
             data-testid="publish-confirm-button"
             onClick={onPublishSubmit}
+            className="btn-sm btn-outline-primary"
           >
             {intl.formatMessage(messages.publishButton)}
           </Button>
