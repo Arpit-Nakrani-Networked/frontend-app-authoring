@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig, CancelToken } from 'axios';
 import Cookies from 'universal-cookie';
 import cacheService from './cache.service';
-import { NETWORKED_BACKEND_URL } from './constants';
+import { NETWORKED_BACKEND_URL, NETWORKED_FRONTEND_URL } from './constants';
 
 // --- ENUMS & INTERFACES ---
 
@@ -113,13 +113,16 @@ export class HttpWrapper {
       return { message: 'Network error', status: 503 };
     }
 
-    const { status } = error.response;
+      const { status } = error;
     const message = error.response.data?.message || error.response.statusText || 'Something went wrong';
 
-    if (status === 401) {
-      localStorage.removeItem('user');
-      window.location.href = `${BASE_URL}/login`;
+    if (status === 401 || status === 552) {
+        localStorage.removeItem('communityName');
+        localStorage.removeItem('user');
+        localStorage.removeItem('communityImage');
+        window.location.href = `${NETWORKED_FRONTEND_URL}/login`; 
     }
+
 
     return {
       message,
