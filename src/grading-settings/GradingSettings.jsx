@@ -5,14 +5,13 @@ import { injectIntl, intlShape } from '@edx/frontend-platform/i18n';
 import {
   Container, Layout, Button, StatefulButton,
 } from '@openedx/paragon';
-import { CheckCircle, Warning, Add as IconAdd } from '@openedx/paragon/icons';
-
+import { CheckCircle, Warning, Add as IconAdd, EditOutline as IconEdit } from '@openedx/paragon/icons';
 import { useModel } from '../generic/model-store';
 import AlertMessage from '../generic/alert-message';
 import { RequestStatus } from '../data/constants';
 import InternetConnectionAlert from '../generic/internet-connection-alert';
 import SubHeader from '../generic/sub-header/SubHeader';
-import SectionSubHeader from '../generic/section-sub-header';
+// import SectionSubHeader from '../generic/section-sub-header';
 import { STATEFUL_BUTTON_STATES } from '../constants';
 import {
   getGradingSettings,
@@ -22,14 +21,16 @@ import {
   getCourseSettings,
 } from './data/selectors';
 import { fetchGradingSettings, sendGradingSetting, fetchCourseSettingsQuery } from './data/thunks';
-import GradingScale from './grading-scale/GradingScale';
-import GradingSidebar from './grading-sidebar';
+// import GradingScale from './grading-scale/GradingScale';
+// import GradingSidebar from './grading-sidebar';
 import messages from './messages';
 import AssignmentSection from './assignment-section';
-import CreditSection from './credit-section';
-import DeadlineSection from './deadline-section';
+// import CreditSection from './credit-section';
+// import DeadlineSection from './deadline-section';
 import { useConvertGradeCutoffs, useUpdateGradingData } from './hooks';
 import getPageHeadTitle from '../generic/utils';
+import GradingModal from './grading-modal/GradingModal';
+import GradingScaleModel from './grading-scale/GradingScaleModel';
 
 const GradingSettings = ({ intl, courseId }) => {
   const gradingSettingsData = useSelector(getGradingSettings);
@@ -38,11 +39,14 @@ const GradingSettings = ({ intl, courseId }) => {
   const savingStatus = useSelector(getSavingStatus);
   const loadingStatus = useSelector(getLoadingStatus);
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+  const [showGradeModal, setShowGradeModal] = useState(false);
   const dispatch = useDispatch();
   const isLoading = loadingStatus === RequestStatus.IN_PROGRESS;
   const [isQueryPending, setIsQueryPending] = useState(false);
   const [showOverrideInternetConnectionAlert, setOverrideInternetConnectionAlert] = useState(false);
   const [eligibleGrade, setEligibleGrade] = useState(null);
+  
+  const [editId, setEditId] = useState(null);
 
   const courseDetails = useModel('courseDetails', courseId);
   document.title = getPageHeadTitle(courseDetails?.name, intl.formatMessage(messages.headingTitle));
@@ -72,11 +76,18 @@ const GradingSettings = ({ intl, courseId }) => {
     if (savingStatus === RequestStatus.SUCCESSFUL) {
       setShowSuccessAlert(!showSuccessAlert);
       setShowSavePrompt(!showSavePrompt);
+      setEditId(null);
+      setShowGradeModal(false)
       setTimeout(() => setShowSuccessAlert(false), 15000);
       setIsQueryPending(!isQueryPending);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   }, [savingStatus]);
+  useEffect(() => {
+    if (!showSavePrompt) {
+      setEditId(null);
+    }
+  }, [showSavePrompt]);
 
   useEffect(() => {
     dispatch(fetchGradingSettings(courseId));
@@ -113,10 +124,18 @@ const GradingSettings = ({ intl, courseId }) => {
     disabledStates: [RequestStatus.PENDING],
   };
 
+  const onReset = ()=>{
+    if(!showSavePrompt) return;
+    handleResetPageData()
+  }
+
+  console.log("gradingSettingsData",gradingSettingsData,graders);
+  
+
   return (
     <>
-      <Container size="xl" className="grading px-4">
-        <div className="mt-5">
+      <Container size="xl" className="grading px-4 pt-4">
+        {/* <div className="mt-5">
           <AlertMessage
             show={showSuccessAlert}
             variant="success"
@@ -126,26 +145,34 @@ const GradingSettings = ({ intl, courseId }) => {
             aria-labelledby={intl.formatMessage(messages.alertSuccessAriaLabelledby)}
             aria-describedby={intl.formatMessage(messages.alertSuccessAriaDescribedby)}
           />
-        </div>
+        </div> */}
         <div>
           <section className="setting-items mb-4">
-            <Layout
-              lg={[{ span: 9 }, { span: 3 }]}
-              md={[{ span: 9 }, { span: 3 }]}
-              sm={[{ span: 9 }, { span: 3 }]}
-              xs={[{ span: 9 }, { span: 3 }]}
-              xl={[{ span: 9 }, { span: 3 }]}
-            >
-              <Layout.Element>
+            {/* <Layout
+              lg={[{ span: 12 }]}
+              md={[{ span: 12 }]}
+              sm={[{ span: 12 }]}
+              xs={[{ span: 12 }]}
+              xl={[{ span: 12 }]}
+            > */}
+              <Container size="xl" className="px-0">
                 <article>
                   <SubHeader
                     title={intl.formatMessage(messages.headingTitle)}
-                    subtitle={intl.formatMessage(messages.headingSubtitle)}
-                    contentTitle={intl.formatMessage(messages.policy)}
-                    description={intl.formatMessage(messages.policiesDescription)}
+                    description={<span className="_text-black-400">{intl.formatMessage(messages.setPassingGradePre)} <span className='_text-2xl _font-weight-semibold'>{gradeValues[0]}% </span>{intl.formatMessage(messages.setPassingGradePost)}</span>}
+                    headerActions={
+                      <Button
+                        variant="outline-secondary"
+                        size="sm"
+                        iconBefore={IconEdit}
+                        onClick={() => setShowGradeModal(true)}
+                      >
+                        {intl.formatMessage(messages.editGrade)}
+                      </Button>
+                    }
                   />
                   <section>
-                    <GradingScale
+                    <GradingScaleModel
                       gradeCutoffs={gradeCutoffs}
                       showSavePrompt={setShowSavePrompt}
                       gradeLetters={gradeLetters}
@@ -156,9 +183,17 @@ const GradingSettings = ({ intl, courseId }) => {
                       resetDataRef={resetDataRef}
                       setOverrideInternetConnectionAlert={setOverrideInternetConnectionAlert}
                       setEligibleGrade={setEligibleGrade}
+                      isOpen={showGradeModal}
+                      onClose={() => {
+                        setShowGradeModal(false);
+                        onReset();
+                      }}
+                      onSubmit={handleSendGradingSettingsData}
+                      isLoading={isQueryPending}
+                      isDisabled={gradingSettingsData?.gradeCutoffs['Pass'] === gradeCutoffs['Pass'] || isQueryPending}
                     />
                   </section>
-                  {courseSettingsData.creditEligibilityEnabled && courseSettingsData.isCreditCourse && (
+                  {/* {courseSettingsData.creditEligibilityEnabled && courseSettingsData.isCreditCourse && (
                     <section>
                       <SectionSubHeader
                         title={intl.formatMessage(messages.creditEligibilitySectionTitle)}
@@ -172,8 +207,8 @@ const GradingSettings = ({ intl, courseId }) => {
                         setShowSuccessAlert={setShowSuccessAlert}
                       />
                     </section>
-                  )}
-                  <section>
+                  )} */}
+                  {/* <section>
                     <SectionSubHeader
                       title={intl.formatMessage(messages.gradingRulesPoliciesSectionTitle)}
                       description={intl.formatMessage(messages.gradingRulesPoliciesSectionDescription)}
@@ -184,15 +219,20 @@ const GradingSettings = ({ intl, courseId }) => {
                       setGradingData={setGradingData}
                       setShowSuccessAlert={setShowSuccessAlert}
                     />
-                  </section>
-                  <section>
-                    <header className="row justify-content-between align-items-center mt-4 mx-0 mb-2">
-                      <h2 className="lead">
+                  </section> */}
+                  <section className="card pt-3 px-0 overflow-hidden">
+                    <header className="px-4 row justify-content-between align-items-center mx-0 mb-2">
+                      <h2 className="lead _text-xl">
                         {intl.formatMessage(messages.assignmentTypeSectionTitle)}
                       </h2>
-                      <span className="small text-gray-700">
-                        {intl.formatMessage(messages.assignmentTypeSectionDescription)}
-                      </span>
+                      <Button
+                        variant="primary"
+                        iconBefore={IconAdd}
+                        onClick={handleAddAssignment}
+                        size='sm'
+                      >
+                        {intl.formatMessage(messages.addNewAssignmentTypeBtn)}
+                      </Button>
                     </header>
                     <AssignmentSection
                       handleRemoveAssignment={handleRemoveAssignment}
@@ -201,25 +241,26 @@ const GradingSettings = ({ intl, courseId }) => {
                       setGradingData={setGradingData}
                       courseAssignmentLists={courseAssignmentLists}
                       setShowSuccessAlert={setShowSuccessAlert}
+                      onReset={()=>{
+                        onReset();
+                        setEditId(null);
+                      }}
+                      onSubmit={handleSendGradingSettingsData}
+                      setEditId={setEditId}
+                      editId={editId}
+                      isLoading={isQueryPending}
                     />
-                    <Button
-                      variant="primary"
-                      iconBefore={IconAdd}
-                      onClick={handleAddAssignment}
-                    >
-                      {intl.formatMessage(messages.addNewAssignmentTypeBtn)}
-                    </Button>
                   </section>
                 </article>
-              </Layout.Element>
-              <Layout.Element>
+              </Container>
+              {/* <Layout.Element>
                 <GradingSidebar
                   courseId={courseId}
                   intl={intl}
                   proctoredExamSettingsUrl={courseSettingsData.mfeProctoredExamSettingsUrl}
                 />
-              </Layout.Element>
-            </Layout>
+              </Layout.Element> */}
+            {/* </Layout> */}
           </section>
         </div>
       </Container>

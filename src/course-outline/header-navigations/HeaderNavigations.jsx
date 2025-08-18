@@ -30,6 +30,7 @@ const HeaderNavigations = ({
         <Button
           variant="outline-secondary"
           onClick={handleExpandAll}
+           size='sm'
         >
           {isSectionsExpanded
             ? intl.formatMessage(messages.collapseAllButton)
@@ -48,6 +49,7 @@ const HeaderNavigations = ({
           <Button
             iconBefore={IconAdd}
             onClick={handleNewSection}
+            size='sm'
             // disabled={errors?.outlineIndexApi}
           >
             {intl.formatMessage(messages.newSectionButton)}
@@ -68,6 +70,7 @@ const HeaderNavigations = ({
             data-testid="course-reindex"
             variant="outline-primary"
             disabled={isDisabledReindexButton}
+             size='sm'
           >
             {intl.formatMessage(messages.reindexButton)}
           </Button>

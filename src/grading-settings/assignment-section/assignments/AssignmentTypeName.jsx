@@ -8,31 +8,32 @@ import { ASSIGNMENT_TYPES, DUPLICATE_ASSIGNMENT_NAME } from '../utils/enum';
 import messages from '../messages';
 
 const AssignmentTypeName = ({
-  intl, value, errorEffort, onChange,
+  intl, value, errorEffort, onChange,className = '',isLabelShow,isFormOpen,isLoading
 }) => {
   const initialAssignmentName = useRef(value);
 
   return (
-    <li className="course-grading-assignment-type-name">
-      <Form.Group className={classNames('form-group-custom', {
+    <li className={`course-grading-assignment-type-name ${className}`}>
+      <Form.Group className={classNames('form-group-custom mb-0', {
         'form-group-custom_isInvalid': errorEffort,
       })}
       >
-        <Form.Label className="grading-label">
+        {isLabelShow && <Form.Label className="grading-label">
           {intl.formatMessage(messages.assignmentTypeNameTitle)}
-        </Form.Label>
-        <Form.Control
+        </Form.Label>}
+        {isFormOpen ? <Form.Control
           data-testid="assignment-type-name-input"
           type="text"
           name={ASSIGNMENT_TYPES.type}
           onChange={onChange}
           value={value}
           isInvalid={Boolean(errorEffort)}
-        />
-        <Form.Control.Feedback className="grading-description">
+          disabled={isLoading}
+        /> :<div className='py-3 _text-black-400 _font-weight-medium _text-xl'>{value}</div>}
+        {/* <Form.Control.Feedback className="grading-description">
           {intl.formatMessage(messages.assignmentTypeNameDescription)}
-        </Form.Control.Feedback>
-        {errorEffort && errorEffort !== DUPLICATE_ASSIGNMENT_NAME && (
+        </Form.Control.Feedback> */}
+        {/* {errorEffort && errorEffort !== DUPLICATE_ASSIGNMENT_NAME && (
           <Form.Control.Feedback className="feedback-error" type="invalid">
             {intl.formatMessage(messages.assignmentTypeNameErrorMessage1)}
           </Form.Control.Feedback>
@@ -49,7 +50,7 @@ const AssignmentTypeName = ({
           <Form.Control.Feedback className="feedback-error" type="invalid">
             {intl.formatMessage(messages.assignmentTypeNameErrorMessage3)}
           </Form.Control.Feedback>
-        )}
+        )} */}
       </Form.Group>
     </li>
   );
@@ -57,10 +58,17 @@ const AssignmentTypeName = ({
 
 AssignmentTypeName.defaultProps = {
   errorEffort: false,
+  isLabelShow: false,
+  isFormOpen: false,
+  isLoading: false,
 };
 
 AssignmentTypeName.propTypes = {
   intl: intlShape.isRequired,
+  isLoading: PropTypes.bool,
+  isFormOpen: PropTypes.bool,
+  isLabelShow: PropTypes.bool,
+  className: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   errorEffort: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]).isRequired,

@@ -3,7 +3,7 @@ import { defineMessages } from '@edx/frontend-platform/i18n';
 const messages = defineMessages({
   newSectionButton: {
     id: 'course-authoring.course-outline.header-navigations.button.new-section',
-    defaultMessage: 'New section',
+    defaultMessage: 'Add Section',
   },
   newSectionButtonTooltip: {
     id: 'course-authoring.course-outline.header-navigations.button.new-section.tooltip',

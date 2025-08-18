@@ -117,7 +117,7 @@ const CardHeader = ({
         ref={cardHeaderRef}
       >
         {isFormOpen ? (
-          <Form.Group className="m-0 w-75 position-relative">
+          <Form.Group className="m-0 w-75 position-relative flex-1">
             <Form.Control
               data-testid={`${namePrefix}-edit-field`}
               ref={(e) => e && e.focus()}

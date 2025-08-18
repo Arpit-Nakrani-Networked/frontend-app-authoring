@@ -14,10 +14,10 @@ const SubHeader = ({
   hideBorder,
   withSubHeaderContent,
 }) => (
-  <div className={`${!hideBorder && ''} mb-3`}>
-    <header className="sub-header">
+  <div className={`${!hideBorder && ''} mb-3 card px-4 py-2`}>
+    {/* <header className="sub-header">
       <h2 className="sub-header-title m-0">
-        {/* <small className="sub-header-title-subtitle">{subtitle}</small> */}
+        <small className="sub-header-title-subtitle">{subtitle}</small>
         {breadcrumbs && (
           <div className="sub-header-breadcrumbs">{breadcrumbs}</div>
         )}
@@ -33,16 +33,25 @@ const SubHeader = ({
           {headerActions}
         </ActionRow>
       )}
-    </header>
-    {contentTitle && withSubHeaderContent && (
-      <header className="sub-header-content">
-        <h2 className="sub-header-content-title">{contentTitle}</h2>
-        <span className="small text-gray-700">{description}</span>
+    </header> */}
+    {title && (
+      <header className="sub-header-content m-0">
+        <h2 className="sub-header-content-title _text-xl">{title}</h2>
+        {
+          Boolean(description || headerActions) && <div style={{ display: 'flex', alignItems: 'center',gap: '8px' }}>
+            {description && <span className="small text-gray-700">{description}</span>}
+            {headerActions && (
+              <ActionRow className="ml-auto flex-shrink-0 sub-header-actions m-0">
+                {headerActions}
+              </ActionRow>
+            )}
+          </div>
+        }
       </header>
     )}
-    {instruction && (
+    {/* {instruction && (
       <p className="sub-header-instructions mb-4">{instruction}</p>
-    )}
+    )} */}
   </div>
 );
 

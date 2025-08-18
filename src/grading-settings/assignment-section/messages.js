@@ -25,6 +25,14 @@ const messages = defineMessages({
     id: 'course-authoring.grading-settings.assignment.abbreviation.title',
     defaultMessage: 'Abbreviation',
   },
+     buttonSaveText: {
+    id: 'course-authoring.grading-settings.alert.button.save',
+    defaultMessage: 'Save',
+  },
+  buttonSavingText: {
+    id: 'course-authoring.grading-settings.alert.button.saving',
+    defaultMessage: 'Saving',
+  },
   abbreviationDescription: {
     id: 'course-authoring.grading-settings.assignment.abbreviation.description',
     defaultMessage: "This short name for the assignment type (for example, HW or Midterm) appears next to assignments on a learner's Progress page.",

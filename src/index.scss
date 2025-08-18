@@ -1,8 +1,8 @@
-@import url('https://cdn.jsdelivr.net/npm/@dannymichel/proxima-nova@4.5.2/index.min.css');
+@import 'https://cdn.jsdelivr.net/npm/@dannymichel/proxima-nova@4.5.2/index.min.css';
 @import 'variables';
 @import 'base/module';
 
-$font-family-base:'Proxima Nova' !important;
+$font-family-base: 'Proxima Nova' !important;
 
 @import "~@edx/brand/paragon/fonts";
 @import "~@edx/brand/paragon/variables";
@@ -46,7 +46,7 @@ html>body>#root,* {
   scrollbar-width: none;
   font-family: 'Proxima Nova' !important;
   line-height: 100%;
-  letter-spacing: 0.5px !important;
+  letter-spacing: .5px !important;
 }
 
 // To apply the glow effect to the selected Section/Subsection, in the Course Outline
@@ -187,7 +187,10 @@ mark {
 }
 
 .btn-filled,
+.btn-filled>span>span,
 .btn-primary,
+.btn-primary>span>span,
+.btn-outline-primary>span>span, 
 .btn-outline-primary {
   width: fit-content !important;
     // padding: 6px 12px !important;
@@ -308,7 +311,6 @@ mark {
   }
 
   .unit-card {
-
     .form-control,
     .form-control:focus-visible,
     .form-control:focus-within,
@@ -364,7 +366,7 @@ mark {
 .editProblemView .answer-option .pgn__form-checkbox+.pgn__form-label,
 .editProblemView .answer-option .pgn__form-radio+.pgn__form-label {
   font-weight: 500;
-  font-style: Medium;
+  font-style: medium;
   font-size: 16px;
   // line-height: 120%;
   // letter-spacing: 0%;
@@ -375,11 +377,11 @@ mark {
 
 input.pgn__form-switch-input {
   appearance: none;
-  -webkit-appearance: none;
+  appearance: none;
   border: none;
   height: 14px;
   width: 34px;
-  background-color: #d8d8d8;
+  background-color: #D8D8D8;
   border-radius: 20px;
   position: relative;
   cursor: pointer;
@@ -394,20 +396,20 @@ input.pgn__form-switch-input {
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background-color: #5c5757;
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
+    background-color: #5C5757;
+    box-shadow: 0 0 2px rgb(0 0 0 / .2);
+    transition: transform .3s ease-in-out, background-color .3s ease-in-out;
   }
 
   &:checked::before {
     transform: translate(15px, -50%);
-    background-color: #0c08f7;
+    background-color: #0C08F7;
   }
 }
 
 // .pgn__selectable_box.taxonomy-tags-selectable-box input.pgn__form-switch-input.pgn__form-checkbox-input:indeterminate 
 .pgn__form-switch-input:checked {
-  background-color: #0785ff1A;
+  background-color: #0785FF1A;
   background-image: none !important;
 }
 
@@ -418,8 +420,9 @@ input.pgn__form-switch-input {
 
 // models
 .pgn__modal{
-  border-radius: 0.75rem !important;
+  border-radius: .75rem !important;
 }
+
 .pgn__modal.pgn__modal-lg.pgn__modal-default {
   min-width: 489px;
   width: auto;
@@ -495,13 +498,13 @@ input.pgn__form-switch-input {
     font-size: 14px;
     line-height: 100%;
     // letter-spacing: 0%;
-    color: rgba(0, 0, 0, 0.8);
+    color: rgb(0 0 0 / .8);
     border: none;
     padding: 8.5px 16px;
 
     &:disabled,
-    &[aria-disabled=true] {
-      color: rgba(0, 0, 0, 0.4) !important;
+    &[aria-disabled="true"] {
+      color: rgb(0 0 0 / .4) !important;
       cursor: not-allowed !important;
     }
   }
@@ -509,4 +512,9 @@ input.pgn__form-switch-input {
 
 .dropdown-item.active, .dropdown-item:active {
     color: white !important;
+}
+
+// common utils
+.flex-1 {
+  flex: 1;
 }

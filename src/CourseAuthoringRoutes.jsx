@@ -15,7 +15,7 @@ import VideoSelectorContainer from './selectors/VideoSelectorContainer';
 import { CourseOutline } from './course-outline';
 // import ScheduleAndDetails from './schedule-and-details';
 import Unit from './unit';
-// import { GradingSettings } from './grading-settings';
+import { GradingSettings } from './grading-settings';
 // import CourseTeam from './course-team/CourseTeam';
 // import { CourseUpdates } from './course-updates';
 import { CourseUnit } from './course-unit';
@@ -96,13 +96,15 @@ const CourseAuthoringRoutes = () => {
           path="editor/course-videos/:blockId"
           element={<PageWrap><VideoSelectorContainer courseId={courseId} /></PageWrap>}
         />
-        {/* <Route
-          path="settings/details"
-          element={<PageWrap><ScheduleAndDetails courseId={courseId} /></PageWrap>}
-        />
+
         <Route
           path="settings/grading"
           element={<PageWrap><GradingSettings courseId={courseId} /></PageWrap>}
+        />
+
+        {/* <Route
+          path="settings/details"
+          element={<PageWrap><ScheduleAndDetails courseId={courseId} /></PageWrap>}
         />
         <Route
           path="course_team"

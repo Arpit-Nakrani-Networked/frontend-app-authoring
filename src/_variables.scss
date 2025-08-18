@@ -16,19 +16,19 @@ $v2-black-600: #00000099;
 
 $v2-white-100: #FFFFFF;
 
-$primary-color: #166de0;
+$primary-color: #166DE0;
 $primary-color--hover: darken($primary-color, 10%);
-$bg--gray: rgb(245, 245, 245);
-$white: rgb(255, 255, 255);
-$black: rgb(0, 0, 0);
-$red: rgb(214, 73, 70);
-$yellow: rgb(255, 255, 0);
-$light-gray: rgba(0, 0, 0, 0.15);
-$gray: rgba(0, 0, 0, 0.3);
-$dark-gray: rgba(0, 0, 0, 0.5);
-$link-color: rgb(35, 137, 215);
-$transparent: rgba(0, 0, 0, 0);
-$highlight-color: #fcea8d;
+$bg--gray: rgb(245 245 245);
+$white: rgb(255 255 255);
+$black: rgb(0 0 0);
+$red: rgb(214 73 70);
+$yellow: rgb(255 255 0);
+$light-gray: rgb(0 0 0 / .15);
+$gray: rgb(0 0 0 / .3);
+$dark-gray: rgb(0 0 0 / .5);
+$link-color: rgb(35 137 215);
+$transparent: rgb(0 0 0 / 0);
+$highlight-color: #FCEA8D;
 
 //custom color variables for networked
 $primary-500: #0566FA !default; 
@@ -65,18 +65,37 @@ $primary-500: #0566FA !default;
 ._bg-blue-500 {
   background-color: $v2-blue-500 !important;
 }
+
 ._bg-black-500 {
   background-color: $v2-black-500 !important;
 }
+
 ._bg-white{
   background-color: white !important;
 }
+
 ._bg-gray-50 {
   background-color: #F5F5F5 !important;
 }
 
+// Border colors
+._border-black-500 {
+  border-color: $v2-black-500 !important;
+}
 
 // font sizes and weights
+._text-2xl {
+  font-size: 24px;
+}
+
+._text-xl {
+  font-size: 20px;
+}
+
+._text-lg {
+  font-size: 18px;
+}
+
 ._text-base {
   font-size: 16px;
 }
@@ -144,4 +163,9 @@ $primary-500: #0566FA !default;
 
 ._flex-1 {
   flex: 1
+}
+
+// text utils
+._uppercase{
+  text-transform: uppercase;
 }

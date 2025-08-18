@@ -7,12 +7,12 @@ import { injectIntl, intlShape } from '@edx/frontend-platform/i18n';
 import { useRanger } from './react-ranger';
 import messages from './messages';
 import { convertGradeData, MAXIMUM_SCALE_LENGTH } from './utils';
-import { GradingScaleTicks, GradingScaleHandle, GradingScaleSegment } from './components';
+import GradingModal from '../grading-modal/GradingModal';
 
 const DEFAULT_LETTERS = ['A', 'B', 'C', 'D'];
 const getDefaultPassText = intl => intl.formatMessage(messages.defaultPassText);
 
-const GradingScale = ({
+const GradingScaleModel = ({
   intl,
   showSavePrompt,
   gradeCutoffs,
@@ -23,6 +23,11 @@ const GradingScale = ({
   sortedGrades,
   setOverrideInternetConnectionAlert,
   setEligibleGrade,
+  onClose,
+  isOpen,
+  onSubmit,
+  isLoading=false,
+  isDisabled=false
 }) => {
   const [gradingSegments, setGradingSegments] = useState(sortedGrades);
   const [letters, setLetters] = useState(gradeLetters);
@@ -46,8 +51,8 @@ const GradingScale = ({
 
   useEffect(() => {
     setGradingData(prevData => ({ ...prevData, gradeCutoffs: convertedResult }));
-    console.log("eligibleValue", convertedResult,eligibleValue?.current,gradeCutoffs);
-    
+    console.log("eligibleValue", convertedResult, eligibleValue?.current, gradeCutoffs);
+
     setEligibleGrade(eligibleValue?.current);
   }, [JSON.stringify(convertedResult)]);
 
@@ -94,12 +99,12 @@ const GradingScale = ({
 
   const updateGradingSegments = (newGradingSegmentData, activeHandleIndex) => {
     console.log("newGradingSegmentData", newGradingSegmentData, activeHandleIndex);
-    
+
     const gapToSegment = 1;
     const sortedSegments = newGradingSegmentData.sort((currentValue, previousValue) => currentValue - previousValue);
     const newSegmentValue = sortedSegments[sortedSegments.length - 1 - activeHandleIndex];
     const prevSegmentBoundary = (gradingSegments[activeHandleIndex + 1]
-        && gradingSegments[activeHandleIndex + 1].current) || 0;
+      && gradingSegments[activeHandleIndex + 1].current) || 0;
     const nextSegmentBoundary = gradingSegments[activeHandleIndex - 1].current;
 
     showSavePrompt(true);
@@ -155,8 +160,8 @@ const GradingScale = ({
 
   const handleLetterChange = (e, idx) => {
     const { value } = e.target;
-    console.log("valuevaluevalue",value);
-    
+    console.log("valuevaluevalue", value);
+
     showSavePrompt(true);
     setShowSuccessAlert(false);
     setOverrideInternetConnectionAlert(false);
@@ -176,67 +181,36 @@ const GradingScale = ({
     setGradingData(prevData => ({ ...prevData, gradeCutoffs: convertedResult }));
   };
 
-  const {
-    getTrackProps,
-    ticks,
-    segments,
-    handles,
-    activeHandleIndex,
-  } = useRanger({
-    min: 0,
-    max: MAXIMUM_SCALE_LENGTH,
-    stepSize: 1,
-    values: gradingSegments?.map(segment => segment.current),
-    onDrag: (segmentDataArray) => updateGradingSegments(segmentDataArray, activeHandleIndex),
-    onChange: handleSegmentChange,
-  });
+  // const {
+  //   getTrackProps,
+  //   ticks,
+  //   segments,
+  //   handles,
+  //   activeHandleIndex,
+  // } = useRanger({
+  //   min: 0,
+  //   max: MAXIMUM_SCALE_LENGTH,
+  //   stepSize: 1,
+  //   values: gradingSegments?.map(segment => segment.current),
+  //   onDrag: (segmentDataArray) => updateGradingSegments(segmentDataArray, 1),
+  //   onChange: handleSegmentChange,
+  // });
 
   return (
-    <div className="grading-scale">
-      <IconButtonWithTooltip
-        tooltipPlacement="top"
-        tooltipContent={intl.formatMessage(messages.addNewSegmentButtonAltText)}
-        disabled={gradingSegments.length >= 5}
-        data-testid="grading-scale-btn-add-segment"
-        className="mr-3"
-        src={IconAdd}
-        iconAs={Icon}
-        alt={intl.formatMessage(messages.addNewSegmentButtonAltText)}
-        onClick={addNewGradingSegment}
-      />
-      <div className="grading-scale-segments-and-ticks" {...getTrackProps()}>
-        {ticks.map(({ value, getTickProps }) => (
-          <GradingScaleTicks key={value} value={value} getTickProps={getTickProps} />
-        ))}
-        {segments.reverse().map(({ value, getSegmentProps }, idx = 1) => (
-          <GradingScaleSegment
-            key={idx}
-            getSegmentProps={getSegmentProps}
-            removeGradingSegment={removeGradingSegment}
-            gradingSegments={gradingSegments}
-            value={value}
-            idx={idx}
-            handleLetterChange={handleLetterChange}
-            letters={letters}
-          />
-        ))}
-        {handles.map(({ value, getHandleProps }, idx) => (
-          <GradingScaleHandle
-            key={value}
-            getHandleProps={getHandleProps}
-            gradingSegments={gradingSegments}
-            value={value}
-            idx={idx}
-          />
-        ))}
-      </div>
-    </div>
+    <GradingModal isOpen={isOpen} onClose={onClose} onSubmit={onSubmit} setEligibleGrade={(val) => {
+      updateGradingSegments([val,100], 1);
+    }} eligibleGrade={eligibleValue?.current} isLoading={isLoading} isDisabled={isDisabled} />
   );
 };
 
-GradingScale.propTypes = {
+GradingScaleModel.propTypes = {
   intl: intlShape.isRequired,
   showSavePrompt: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
+  isDisabled: PropTypes.bool.isRequired,
+  isOpen: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool.isRequired,
   gradeCutoffs: PropTypes.objectOf(PropTypes.number).isRequired,
   gradeLetters: PropTypes.arrayOf(PropTypes.string).isRequired,
   setShowSuccessAlert: PropTypes.func.isRequired,
@@ -252,4 +226,4 @@ GradingScale.propTypes = {
   setEligibleGrade: PropTypes.func.isRequired,
 };
 
-export default injectIntl(GradingScale);
+export default injectIntl(GradingScaleModel);

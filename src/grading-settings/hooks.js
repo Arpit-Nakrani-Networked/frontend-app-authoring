@@ -51,7 +51,7 @@ const useUpdateGradingData = (gradingSettingsData, setOverrideInternetConnection
         dropCount: 0,
         minCount: 1,
         shortLabel: '',
-        type: '',
+        type: 'Homework',
         weight: 0,
       }],
     }));

@@ -7,7 +7,7 @@
      .unit-card:last-child {
       &:hover .item-card-header {
         background-color: $v2-info-500 !important;
-        border-radius: 0px 0px 16px 16px !important;
+        border-radius: 0 0 16px 16px !important;
 
         button {
           opacity: 1;

@@ -13,7 +13,7 @@
     display: flex;
     align-items: center;
 
-    &:not([dir=rtl])[data-mce-placeholder]:not(.mce-visualblocks)::before {
+    &:not([dir="rtl"])[data-mce-placeholder]:not(.mce-visualblocks)::before {
       margin: 5px;
       display: flex;
       align-items: center;
@@ -31,6 +31,7 @@
 
   .mce-content-body[data-mce-placeholder] {
     position: relative;
+    
     /* font-family: Proxima Nova; */
     font-weight: 400;
     // font-style: Regular;

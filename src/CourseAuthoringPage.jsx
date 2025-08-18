@@ -14,9 +14,33 @@ import { getCourseAppsApiStatus } from './pages-and-resources/data/selectors';
 import { RequestStatus } from './data/constants';
 import Loading from './generic/Loading';
 import CourseMultiHeader from './_components/course-header-title/CourseMultiHeader';
+import { CourseTabsNavigation } from './course-tabs';
+
 
 const CourseAuthoringPage = ({ courseId, children }) => {
   const dispatch = useDispatch();
+  const tabs = [
+    {
+      title: 'Course Outline',
+      slug: `/course/${courseId}`,
+      url: `/authoring/course/${courseId}`,
+    },
+    {
+      title: 'Student Overview',
+      slug: `/course/${courseId}/settings/details`,
+      url: `/authoring/course/${courseId}/settings/details`,
+    },
+    {
+      title: 'Score board',
+      slug: `/course/${courseId}/settings/score`,
+      url: `/authoring/course/${courseId}/settings/score`,
+    },
+    {
+      title: 'Grading',
+      slug: `/course/${courseId}/settings/grading`,
+      url: `/authoring/course/${courseId}/settings/grading`,
+    }
+  ]
 
   useEffect(() => {
     dispatch(fetchCourseDetail(courseId));
@@ -54,7 +78,8 @@ const CourseAuthoringPage = ({ courseId, children }) => {
       using url pattern containing /editor/,
       we shouldn't have the header and footer on these pages.
       This functionality will be removed in TNL-9591 */}
-      {inProgress ? <Loading /> : <CourseMultiHeader  />}
+      {inProgress ? <Loading /> : <CourseMultiHeader />}
+      {inProgress ? <Loading /> : <CourseTabsNavigation tabs={tabs} activeTabSlug={`${window.location.pathname}`} />}
       {children}
       {/* {!inProgress && !isEditor && <StudioFooter />} */}
     </div>

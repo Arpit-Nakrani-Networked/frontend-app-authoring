@@ -5,6 +5,10 @@ const messages = defineMessages({
     id: 'course-authoring.grading-settings.heading.title',
     defaultMessage: 'Grading',
   },
+  editGrade: {
+    id: 'course-authoring.grading-settings.heading.edit',
+    defaultMessage: 'Edit',
+  },
   headingSubtitle: {
     id: 'course-authoring.grading-settings.heading.subtitle',
     defaultMessage: 'Settings',
@@ -16,6 +20,14 @@ const messages = defineMessages({
   policiesDescription: {
     id: 'course-authoring.grading-settings.policies.description',
     defaultMessage: 'Your overall grading scale for student final grades',
+  },
+  setPassingGradePre: {
+    id: 'course-authoring.grading-settings.pre.description',
+    defaultMessage: 'Set Passing Grade',
+  },
+  setPassingGradePost: {
+    id: 'course-authoring.grading-settings.post.description',
+    defaultMessage: '/ or above',
   },
   alertWarning: {
     id: 'course-authoring.grading-settings.alert.warning',
@@ -83,7 +95,7 @@ const messages = defineMessages({
   },
   addNewAssignmentTypeBtn: {
     id: 'course-authoring.grading-settings.add-new-assignment-type.btn',
-    defaultMessage: 'New assignment type',
+    defaultMessage: 'Add',
   },
 });
 
