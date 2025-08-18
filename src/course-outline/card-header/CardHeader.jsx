@@ -168,9 +168,10 @@ const CardHeader = ({
           {showNewButton && (
             <Button
               data-testid="new-unit-button"
-              className="mr-3 bg-white"
+              className="mr-3 bg-white btn-sm"
               variant="outline-third"
               iconBefore={IconAdd}
+              size='sm'
               block
                onClick={(e)=>{
                 e?.stopPropagation()
@@ -189,10 +190,11 @@ const CardHeader = ({
           {showEditButton && (
             <Button
               data-testid="edit-unit-button"
-              className="mr-3 _bg-white"
+              className="mr-3 _bg-white btn-sm"
               variant="outline-third"
               iconBefore={EditIcon}
               block
+              size='sm'
               //  onClick={(e)=>{
               //   e?.stopPropagation()
               //   // handleNewButtonClick && handleNewButtonClick()
@@ -234,12 +236,12 @@ const CardHeader = ({
               >
                 {intl.formatMessage(messages.menuPublish)}
               </Dropdown.Item>
-              {/* <Dropdown.Item
+              <Dropdown.Item
                 data-testid={`${namePrefix}-card-header__menu-configure-button`}
                 onClick={onClickConfigure}
               >
                 {intl.formatMessage(messages.menuConfigure)}
-              </Dropdown.Item> */}
+              </Dropdown.Item>
               {/* {getConfig().ENABLE_TAGGING_TAXONOMY_PAGES === 'true' && (
                 <Dropdown.Item
                   data-testid={`${namePrefix}-card-header__menu-manage-tags-button`}

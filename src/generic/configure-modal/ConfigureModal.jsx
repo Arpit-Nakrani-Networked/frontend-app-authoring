@@ -20,6 +20,7 @@ import BasicTab from './BasicTab';
 import VisibilityTab from './VisibilityTab';
 import AdvancedTab from './AdvancedTab';
 import UnitTab from './UnitTab';
+import QuizSettings from './QuizSettings';
 
 const ConfigureModal = ({
   isOpen,
@@ -60,6 +61,7 @@ const ConfigureModal = ({
     showReviewRules,
     onlineProctoringRules,
     discussionEnabled,
+    childInfo
   } = currentItemData;
 
   const getSelectedGroups = () => {
@@ -134,10 +136,11 @@ const ConfigureModal = ({
   });
 
   const isSubsection = category === COURSE_BLOCK_NAMES.sequential.id;
-
-  const dialogTitle = isXBlockComponent
-    ? intl.formatMessage(messages.componentTitle, { title: displayName })
-    : intl.formatMessage(messages.title, { title: displayName });
+  // const subSectionTitle = isSubsection && childInfo?.children?.length > 0 ? childInfo.children[0]?.displayName : null
+  const dialogTitle = intl.formatMessage(messages.configureTitle);
+  // const dialogTitle = isXBlockComponent
+  //   ? intl.formatMessage(messages.componentTitle, { title: subSectionTitle || displayName })
+  //   : intl.formatMessage(messages.title, { title: subSectionTitle || displayName });
 
   const handleSave = (data) => {
     const groupAccess = {};
@@ -167,7 +170,7 @@ const ConfigureModal = ({
         break;
       case COURSE_BLOCK_NAMES.vertical.id:
       case COURSE_BLOCK_NAMES.component.id:
-      // groupAccess should be {partitionId: [group1, group2]} or {} if selectedPartitionIndex === -1
+        // groupAccess should be {partitionId: [group1, group2]} or {} if selectedPartitionIndex === -1
         if (data.selectedPartitionIndex >= 0) {
           const partitionId = userPartitionInfo.selectablePartitions[data.selectedPartitionIndex].id;
           groupAccess[partitionId] = data.selectedGroups.map(g => parseInt(g, 10));
@@ -180,6 +183,8 @@ const ConfigureModal = ({
   };
 
   const renderModalBody = (values, setFieldValue) => {
+    console.log("values", values);
+
     switch (category) {
       case COURSE_BLOCK_NAMES.chapter.id:
         return (
@@ -206,41 +211,75 @@ const ConfigureModal = ({
         );
       case COURSE_BLOCK_NAMES.sequential.id:
         return (
-          <Tabs>
-            <Tab eventKey="basic" title={intl.formatMessage(messages.basicTabTitle)}>
-              <BasicTab
-                values={values}
-                setFieldValue={setFieldValue}
-                isSubsection={isSubsection}
-                courseGraders={courseGraders === 'undefined' ? [] : courseGraders}
-                isSelfPaced={isSelfPaced}
-              />
-            </Tab>
-            <Tab eventKey="visibility" title={intl.formatMessage(messages.visibilityTabTitle)}>
-              <VisibilityTab
-                values={values}
-                setFieldValue={setFieldValue}
-                category={category}
-                isSubsection={isSubsection}
-                showWarning={visibilityState === VisibilityTypes.STAFF_ONLY}
-                isSelfPaced={isSelfPaced}
-              />
-            </Tab>
-            <Tab eventKey="advanced" title={intl.formatMessage(messages.advancedTabTitle)}>
-              <AdvancedTab
-                values={values}
-                setFieldValue={setFieldValue}
-                prereqs={prereqs}
-                releasedToStudents={releasedToStudents}
-                wasExamEverLinkedWithExternal={wasExamEverLinkedWithExternal}
-                enableProctoredExams={enableProctoredExams}
-                supportsOnboarding={supportsOnboarding}
-                showReviewRules={showReviewRules}
-                wasProctoredExam={isProctoredExam}
-                onlineProctoringRules={onlineProctoringRules}
-              />
-            </Tab>
-          </Tabs>
+          <>
+            <QuizSettings
+              values={values}
+              setFieldValue={setFieldValue}
+              courseGraders={courseGraders === 'undefined' ? [] : courseGraders}
+            />
+            {/* <BasicTab
+              values={values}
+              setFieldValue={setFieldValue}
+              isSubsection={isSubsection}
+              courseGraders={courseGraders === 'undefined' ? [] : courseGraders}
+              isSelfPaced={isSelfPaced}
+            />
+            <VisibilityTab
+              values={values}
+              setFieldValue={setFieldValue}
+              category={category}
+              isSubsection={isSubsection}
+              showWarning={visibilityState === VisibilityTypes.STAFF_ONLY}
+              isSelfPaced={isSelfPaced}
+            />
+            <AdvancedTab
+              values={values}
+              setFieldValue={setFieldValue}
+              prereqs={prereqs}
+              releasedToStudents={releasedToStudents}
+              wasExamEverLinkedWithExternal={wasExamEverLinkedWithExternal}
+              enableProctoredExams={enableProctoredExams}
+              supportsOnboarding={supportsOnboarding}
+              showReviewRules={showReviewRules}
+              wasProctoredExam={isProctoredExam}
+              onlineProctoringRules={onlineProctoringRules}
+            /> */}
+          </>
+          // <Tabs>
+          //   <Tab eventKey="basic" title={intl.formatMessage(messages.basicTabTitle)}>
+          //     <BasicTab
+          //       values={values}
+          //       setFieldValue={setFieldValue}
+          //       isSubsection={isSubsection}
+          //       courseGraders={courseGraders === 'undefined' ? [] : courseGraders}
+          //       isSelfPaced={isSelfPaced}
+          //     />
+          //   </Tab>
+          //   <Tab eventKey="visibility" title={intl.formatMessage(messages.visibilityTabTitle)}>
+          // <VisibilityTab
+          //   values={values}
+          //   setFieldValue={setFieldValue}
+          //   category={category}
+          //   isSubsection={isSubsection}
+          //   showWarning={visibilityState === VisibilityTypes.STAFF_ONLY}
+          //   isSelfPaced={isSelfPaced}
+          // />
+          //   </Tab>
+          //   <Tab eventKey="advanced" title={intl.formatMessage(messages.advancedTabTitle)}>
+          // <AdvancedTab
+          //   values={values}
+          //   setFieldValue={setFieldValue}
+          //   prereqs={prereqs}
+          //   releasedToStudents={releasedToStudents}
+          //   wasExamEverLinkedWithExternal={wasExamEverLinkedWithExternal}
+          //   enableProctoredExams={enableProctoredExams}
+          //   supportsOnboarding={supportsOnboarding}
+          //   showReviewRules={showReviewRules}
+          //   wasProctoredExam={isProctoredExam}
+          //   onlineProctoringRules={onlineProctoringRules}
+          // />
+          //   </Tab>
+          // </Tabs>
         );
       case COURSE_BLOCK_NAMES.vertical.id:
       case COURSE_BLOCK_NAMES.component.id:
@@ -292,14 +331,14 @@ const ConfigureModal = ({
               </ModalDialog.Body>
               <ModalDialog.Footer className="pt-1">
                 <ActionRow>
-                  <ModalDialog.CloseButton variant="tertiary">
+                  <ModalDialog.CloseButton variant="outline-third">
                     {intl.formatMessage(messages.cancelButton)}
                   </ModalDialog.CloseButton>
                   <Button
                     data-testid="configure-save-button"
                     onClick={handleSubmit}
                   >
-                    {intl.formatMessage(messages.saveButton)}
+                    {intl.formatMessage(messages.saveSettingButton)}
                   </Button>
                 </ActionRow>
               </ModalDialog.Footer>

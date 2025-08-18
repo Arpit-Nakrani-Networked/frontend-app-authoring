@@ -274,7 +274,7 @@ const GradingSettings = ({ intl, courseId }) => {
           />
         )}
         <AlertMessage
-          show={showSavePrompt}
+          show={false}//showSavePrompt
           aria-hidden={!showSavePrompt}
           aria-labelledby={intl.formatMessage(messages.alertWarningAriaLabelledby)}
           aria-describedby={intl.formatMessage(messages.alertWarningAriaDescribedby)}

@@ -37,6 +37,7 @@ const TitleButton = ({
         variant="tertiary"
         data-testid={`${namePrefix}-card-header__expanded-btn`}
         className="item-card-header__title-btn"
+        size="sm"
         onClick={onTitleClick}
       >
         <Truncate lines={1} className={`${namePrefix}-card-title mb-0`}>{title}</Truncate>

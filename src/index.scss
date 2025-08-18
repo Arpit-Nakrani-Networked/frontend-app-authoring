@@ -377,7 +377,6 @@ mark {
 
 input.pgn__form-switch-input {
   appearance: none;
-  appearance: none;
   border: none;
   height: 14px;
   width: 34px;
@@ -396,14 +395,14 @@ input.pgn__form-switch-input {
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background-color: #5C5757;
+    background-color: #9D9D9D;
     box-shadow: 0 0 2px rgb(0 0 0 / .2);
     transition: transform .3s ease-in-out, background-color .3s ease-in-out;
   }
 
   &:checked::before {
     transform: translate(15px, -50%);
-    background-color: #0C08F7;
+    background-color: $primary-color;
   }
 }
 

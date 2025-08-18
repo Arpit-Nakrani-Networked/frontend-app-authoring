@@ -90,7 +90,7 @@ const UnitCard = ({
   }
 
   const handleClickMenuButton = () => {
-    dispatch(setCurrentItem(unit));
+    dispatch(setCurrentItem(subsection));
     dispatch(setCurrentSection(section));
     dispatch(setCurrentSubsection(subsection));
   };

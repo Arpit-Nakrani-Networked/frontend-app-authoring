@@ -10,6 +10,11 @@ const messages = defineMessages({
     defaultMessage: 'Editing access for: {title}',
     description: 'The visibility modal title for unit',
   },
+  configureTitle: {
+    id: 'course-authoring.course-outline.configure-modal.quiz.title',
+    defaultMessage: 'Configure Quiz',
+    description: 'The visibility modal title for unit',
+  },
   basicTabTitle: {
     id: 'course-authoring.course-outline.configure-modal.basic-tab.title',
     defaultMessage: 'Basic',
@@ -102,6 +107,10 @@ const messages = defineMessages({
   saveButton: {
     id: 'course-authoring.course-outline.configure-modal.button.label',
     defaultMessage: 'Save',
+  },
+  saveSettingButton: {
+    id: 'course-authoring.course-outline.configure-modal.button.setting-label',
+    defaultMessage: 'Save settings',
   },
   grading: {
     id: 'course-authoring.course-outline.configure-modal.basic-tab.grading',
@@ -298,6 +307,30 @@ const messages = defineMessages({
   reviewRulesDescriptionLinkText: {
     id: 'course-authoring.course-outline.configure-modal.advanced-tab.reviewRulesDescriptionLinkText',
     defaultMessage: 'general proctored exam rules',
+  },
+  includePassingScoreTitle: {
+    id: 'course-authoring.course-outline.configure-modal.quiz-tab.includePassingScore.title',
+    defaultMessage: 'Included Passing Score?',
+  },
+  includePassingScoreDesc: {
+    id: 'course-authoring.course-outline.configure-modal.quiz-tab.includePassingScore.desc',
+    defaultMessage: 'Learners will not see correct answers after submitting',
+  },
+  showAnserOnResultTitle: {
+    id: 'course-authoring.course-outline.configure-modal.quiz-tab.showAnserOnResult.title',
+    defaultMessage: 'Show Answers on Result Page',
+  },
+  showAnserOnResultDesc: {
+    id: 'course-authoring.course-outline.configure-modal.quiz-tab.showAnserOnResult.desc',
+    defaultMessage: 'Learners will not see correct answers after submitting',
+  },
+  includeGradeTitle: {
+    id: 'course-authoring.course-outline.configure-modal.quiz-tab.includeGrade.title',
+    defaultMessage: 'Include in Graded',
+  },
+  includeGradeDesc: {
+    id: 'course-authoring.course-outline.configure-modal.quiz-tab.includeGrade.desc',
+    defaultMessage: 'If enabled, this quiz will be counted in the final course grade.',
   },
 });
 
