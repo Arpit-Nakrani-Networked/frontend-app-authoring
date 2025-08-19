@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape } from '@edx/frontend-platform/i18n';
 import { Button, Form, Icon, Stack, StatefulButton } from '@openedx/paragon';
@@ -86,17 +86,24 @@ const AssignmentSection = ({
     disabledStates: [RequestStatus.PENDING],
   };
 
+
+  const isDisabledActions = Boolean(Object.values(errorList).length > 0 && Object.values(errorList).includes(true)) || isLoading;
+
+  const action = (func) => {
+    if (isDisabledActions) return;
+    func();
+  }
+
+  const isHiddenRemoveButton = graders?.length === 1;
+
   return (
     <div className="assignment-items pb-2">
       <div className='d-flex align-items-center gap-3 px-4 py-3 border-bottom mb-2 _border-black-500'>
         <div className='course-grading-assignment-total-grade w-25 _text-black-600 _text-sm _uppercase'>Weight of total grade</div>
-      <div className='course-grading-assignment-total-grade w-25 _text-black-600 _text-sm _uppercase'>Assignment Name</div>
-        </div>
+        <div className='course-grading-assignment-total-grade w-25 _text-black-600 _text-sm _uppercase'>Assignment Name</div>
+      </div>
       {graders?.map((gradeField, i) => {
         const courseAssignmentUsage = courseAssignmentLists[gradeField.type];
-        const showDefinedCaseAlert = gradeField.minCount !== courseAssignmentUsage?.length
-          && Boolean(courseAssignmentUsage?.length);
-        const showNotDefinedCaseAlert = !courseAssignmentUsage?.length && Boolean(gradeField.type);
         const isFormOpen = Boolean(editId === gradeField.id);
         return (
           <div key={gradeField.id} className="px-4 course-grading-assignment-wrapper d-flex py-0 border-0 align-items-center gap-3">
@@ -207,19 +214,28 @@ const AssignmentSection = ({
                 aria-hidden="true"
               />
             )} */}
-            <Stack gap={2} direction="horizontal" className={classNames('btn-icon__icon-container d-flex', {  })}>
+            <Stack gap={2} direction="horizontal" className={classNames('btn-icon__icon-container d-flex', {})}>
               {isFormOpen && <span className='pgn__icon btn-icon__icon _cursor-pointer d-flex justify-content-center align-items-center' onClick={(e) => {
-                onReset()
+                action(() => {
+                  onReset();
+                  setEditId(null);
+                })
               }}><Icon src={CloseSmall} size='md' /></span>}
               {isFormOpen && <span className='pgn__icon btn-icon__icon _cursor-pointer d-flex justify-content-center align-items-center' onClick={(e) => {
-                onSubmit();
+                action(() => {
+                  onSubmit();
+                  setEditId(null);
+                })
               }}><Icon src={Check} size='md' /></span>}
-              {!isFormOpen && <span className='pgn__icon btn-icon__icon _cursor-pointer d-flex justify-content-center align-items-center' onClick={(e) => {
-                handleRemoveAssignment(gradeField.id)
-                onSubmit();
+              {!isFormOpen && !isHiddenRemoveButton && <span className='pgn__icon btn-icon__icon _cursor-pointer d-flex justify-content-center align-items-center' onClick={(e) => {
+                action(() => {
+                  handleRemoveAssignment(gradeField.id)
+                })
               }}><Icon src={DeleteIcon} size='md' /></span>}
               {!isFormOpen && <span className='pgn__icon btn-icon__icon _cursor-pointer d-flex justify-content-center align-items-center' onClick={(e) => {
-                setEditId(gradeField.id)
+                action(() => {
+                  setEditId(gradeField.id)
+                })
               }}><Icon src={EditIcon} size='md' /></span>}
             </Stack>
           </div>

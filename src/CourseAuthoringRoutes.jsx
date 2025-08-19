@@ -23,6 +23,8 @@ import { CourseUnit } from './course-unit';
 // import CourseExportPage from './export-page/CourseExportPage';
 // import CourseImportPage from './import-page/CourseImportPage';
 import { DECODED_ROUTES } from './constants';
+import { StudentOverview } from './student-overview';
+import {ScoreBoard} from './score-board';
 // import CourseChecklist from './course-checklist';
 // import GroupConfigurations from './group-configurations';
 
@@ -100,6 +102,14 @@ const CourseAuthoringRoutes = () => {
         <Route
           path="settings/grading"
           element={<PageWrap><GradingSettings courseId={courseId} /></PageWrap>}
+        />
+        <Route
+          path="settings/student-overview"
+          element={<PageWrap><StudentOverview courseId={courseId} /></PageWrap>}
+        />
+        <Route
+          path="settings/score-board"
+          element={<PageWrap><ScoreBoard courseId={courseId} /></PageWrap>}
         />
 
         {/* <Route

@@ -12,12 +12,15 @@ const SHOWASSESMENTANSWERS = {
 const QuizSettings = ({ setFieldValue, values, courseGraders }) => {
   const intl = useIntl();
   const [passingScore, setPassingScore] = useState(false);
-  const [showAnswers, setShowAnswers] = useState(false);
+  const [showAnswers, setShowAnswers] = useState(values.showCorrectness === SHOWASSESMENTANSWERS.ALWAYS);
+  const [showGrade, setShowGrade] = useState(values.graderType !== 'notgraded');
   const onChangeGraderType = (e) => setFieldValue('graderType', e.target.value);
 
   const createOptions = () => courseGraders.map((option) => (
     <option key={option} value={option}> {option} </option>
   ));
+
+  const onChangeAnswerVisibility = (e) => values.showCorrectness === SHOWASSESMENTANSWERS.ALWAYS ? setFieldValue('showCorrectness', SHOWASSESMENTANSWERS.NEVER) : setFieldValue('showCorrectness', SHOWASSESMENTANSWERS.ALWAYS)
   return (
     <div>
       <ToggleItem
@@ -25,21 +28,53 @@ const QuizSettings = ({ setFieldValue, values, courseGraders }) => {
         description={intl.formatMessage(messages.includePassingScoreDesc)}
         checked={passingScore}
         onChange={() => setPassingScore(!passingScore)}
-      />
+      >
+        {passingScore&& <div className="mt-1">
+          <Form.Group className="mb-0">
+            <Form.Control
+              as="select"
+              defaultValue={values.graderType}
+              onChange={onChangeGraderType}
+              data-testid="grader-type-select"
+            >
+              <option key="notgraded" value="notgraded">
+                {intl.formatMessage(messages.passingScoreLimit)}
+              </option>
+              {createOptions()}
+            </Form.Control>
+          </Form.Group>
+        </div>}
+      </ToggleItem>
       <ToggleItem
         label={intl.formatMessage(messages.showAnserOnResultTitle)}
         description={intl.formatMessage(messages.showAnserOnResultDesc)}
-        checked={values.showCorrectness === SHOWASSESMENTANSWERS.ALWAYS}
-        onChange={() => values.showCorrectness === SHOWASSESMENTANSWERS.ALWAYS ? setFieldValue('showCorrectness', SHOWASSESMENTANSWERS.NEVER) : setFieldValue('showCorrectness', SHOWASSESMENTANSWERS.ALWAYS)}
-      />
+        checked={showAnswers}
+        onChange={() => setShowAnswers(!showAnswers)}
+      >
+        {showAnswers&& <div className="mt-1">
+          <Form.Group className="mb-0">
+            <Form.Control
+              as="select"
+              defaultValue={values.graderType}
+              onChange={onChangeGraderType}
+              data-testid="grader-type-select"
+            >
+              <option key="notgraded" value="notgraded">
+                {intl.formatMessage(messages.selectAnswer)}
+              </option>
+              {createOptions()}
+            </Form.Control>
+          </Form.Group>
+        </div>}
+      </ToggleItem>
       <ToggleItem
         label={intl.formatMessage(messages.includeGradeTitle)}
         description={intl.formatMessage(messages.includeGradeDesc)}
-        checked={values.graderType !== 'notgraded'}
-        onChange={() => setShowAnswers(!showAnswers)}
+        checked={showGrade}
+        onChange={() => setShowGrade(!showGrade)}
       >
-        <div className="mt-1">
-          <Form.Group>
+       {showGrade&& <div className="mt-1">
+          <Form.Group className="mb-0">
             <Form.Control
               as="select"
               defaultValue={values.graderType}
@@ -52,7 +87,7 @@ const QuizSettings = ({ setFieldValue, values, courseGraders }) => {
               {createOptions()}
             </Form.Control>
           </Form.Group>
-        </div>
+        </div>}
       </ToggleItem>
     </div>
   );

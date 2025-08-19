@@ -23,6 +23,14 @@ const messages = defineMessages({
     id: 'course-authoring.course-outline.configure-modal.basic-tab.notGradedTypeOption',
     defaultMessage: 'Not Graded',
   },
+  selectAnswer: {
+    id: 'course-authoring.course-outline.configure-modal.basic-tab.notGradedTypeOption',
+    defaultMessage: 'Select Answer',
+  },
+  passingScoreLimit: {
+    id: 'course-authoring.course-outline.configure-modal.basic-tab.notGradedTypeOption',
+    defaultMessage: 'Enter value between 0 - 100%',
+  },
   releaseDateAndTime: {
     id: 'course-authoring.course-outline.configure-modal.basic-tab.release-date-and-time',
     defaultMessage: 'Release date and time',

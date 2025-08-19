@@ -39,7 +39,7 @@ const SubHeader = ({
         <h2 className="sub-header-content-title _text-xl">{title}</h2>
         {
           Boolean(description || headerActions) && <div style={{ display: 'flex', alignItems: 'center',gap: '8px' }}>
-            {description && <span className="small text-gray-700">{description}</span>}
+            {description && <span className="small text-gray-700 py-3">{description}</span>}
             {headerActions && (
               <ActionRow className="ml-auto flex-shrink-0 sub-header-actions m-0">
                 {headerActions}

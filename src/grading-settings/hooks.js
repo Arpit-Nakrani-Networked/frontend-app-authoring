@@ -43,7 +43,7 @@ const useUpdateGradingData = (gradingSettingsData, setOverrideInternetConnection
     setOverrideInternetConnectionAlert(false);
   };
 
-  const handleAddAssignment = () => {
+  const handleAddAssignment = (callback=()=>{}) => {
     setGradingData(prevState => ({
       ...prevState,
       graders: [...prevState.graders, {
@@ -55,14 +55,18 @@ const useUpdateGradingData = (gradingSettingsData, setOverrideInternetConnection
         weight: 0,
       }],
     }));
+    callback(gradingData);
     setShowSuccessAlert(false);
   };
 
-  const handleRemoveAssignment = (assignmentId) => {
+  const handleRemoveAssignment = (assignmentId,callback=()=>{}) => {
+    const newGraders = graders.filter((grade) => grade.id !== assignmentId);
     setGradingData((prevState) => ({
       ...prevState,
-      graders: prevState.graders.filter((grade) => grade.id !== assignmentId),
+      graders: newGraders,
     }));
+    console.log("remove block--->>>",assignmentId,newGraders);
+    callback({...gradingData, graders: newGraders });
     setShowSuccessAlert(false);
     setShowSavePrompt(true);
   };

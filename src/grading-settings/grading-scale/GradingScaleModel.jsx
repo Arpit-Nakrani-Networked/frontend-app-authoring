@@ -44,6 +44,9 @@ const GradingScaleModel = ({
     }
   }, [gradeCutoffs]);
 
+  console.log("sortedGrades",sortedGrades,gradingSegments,gradeLetters,letters);
+  
+
   useEffect(() => {
     setGradingSegments(sortedGrades);
     setLetters(gradeLetters);

@@ -14,7 +14,7 @@ const ToggleItem = ({ label, description, checked, onChange,children }) => {
         <span className="slider"></span> */}
       <Form.Switch checked={checked} onChange={onChange} label="Allow Check Answer" />
       {/* </label> */}
-      <div className="content">
+      <div className="content flex-1">
         <p className="label">{label}</p>
         <p className="description">{description}</p>
         {children}

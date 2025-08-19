@@ -256,6 +256,7 @@ const SectionCard = ({
               showNewButton
               namePrefix={namePrefix}
               actions={actions}
+              showConfigure={false}
             />
           )}
           {/* <div className="section-card__content" data-testid="section-card__content">

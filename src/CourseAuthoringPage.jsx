@@ -27,13 +27,13 @@ const CourseAuthoringPage = ({ courseId, children }) => {
     },
     {
       title: 'Student Overview',
-      slug: `/course/${courseId}/settings/details`,
-      url: `/authoring/course/${courseId}/settings/details`,
+      slug: `/course/${courseId}/settings/student-overview`,
+      url: `/authoring/course/${courseId}/settings/student-overview`,
     },
     {
       title: 'Score board',
-      slug: `/course/${courseId}/settings/score`,
-      url: `/authoring/course/${courseId}/settings/score`,
+      slug: `/course/${courseId}/settings/score-board`,
+      url: `/authoring/course/${courseId}/settings/score-board`,
     },
     {
       title: 'Grading',

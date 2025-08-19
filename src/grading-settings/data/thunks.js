@@ -37,6 +37,19 @@ export function sendGradingSetting(courseId, settings) {
     }
   };
 }
+export function sendGradingPassSetting(courseId, settings) {
+  return async (dispatch) => {
+    dispatch(updateSavingStatus({ status: RequestStatus.IN_PROGRESS }));
+    try {
+      await sendGradingSettings(courseId, settings);
+      const settingValues = await getGradingSettings(courseId);
+      dispatch(sendGradingSettingsSuccess(settingValues));
+      dispatch(updateSavingStatus({ status: RequestStatus.SUCCESSFUL }));
+    } catch (error) {
+      dispatch(updateLoadingStatus({ status: RequestStatus.FAILED }));
+    }
+  };
+}
 
 export function fetchCourseSettingsQuery(courseId) {
   return async (dispatch) => {

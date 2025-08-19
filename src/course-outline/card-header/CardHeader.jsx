@@ -61,6 +61,7 @@ const CardHeader = ({
   handleNewButtonClick = () => { },
   showNewButton = false,
   showEditButton = false,
+  showConfigure = true,
   parentInfo,
 }) => {
   const intl = useIntl();
@@ -236,12 +237,12 @@ const CardHeader = ({
               >
                 {intl.formatMessage(messages.menuPublish)}
               </Dropdown.Item>
-              <Dropdown.Item
+             {showConfigure && <Dropdown.Item
                 data-testid={`${namePrefix}-card-header__menu-configure-button`}
                 onClick={onClickConfigure}
               >
                 {intl.formatMessage(messages.menuConfigure)}
-              </Dropdown.Item>
+              </Dropdown.Item>}
               {/* {getConfig().ENABLE_TAGGING_TAXONOMY_PAGES === 'true' && (
                 <Dropdown.Item
                   data-testid={`${namePrefix}-card-header__menu-manage-tags-button`}
