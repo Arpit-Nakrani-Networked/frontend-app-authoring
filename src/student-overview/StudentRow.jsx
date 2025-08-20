@@ -3,7 +3,11 @@ import React from "react";
 export default function StudentRow({ student }) {
   return (
     <tr className="student-row">
-      <td><input type="checkbox" /></td>
+
+      {
+        student.map((entry) =><td>{entry}</td> )
+      }
+      {/* <td><input type="checkbox" /></td>
       <td className="student-name">
         <img src={student.avatar} alt={student.name} className="student-avatar" />
         <span>{student.name}</span>
@@ -16,7 +20,7 @@ export default function StudentRow({ student }) {
       </td>
       <td>
         <button className="student-more">⋮</button>
-      </td>
+      </td> */}
     </tr>
   );
 }

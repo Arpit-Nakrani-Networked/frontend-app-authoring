@@ -11,6 +11,10 @@ import getPageHeadTitle from '../generic/utils';
 import "./StudentOverview.scss";
 import StudentRow from "./StudentRow";
 import messages from './messages';
+import { RequestStatus } from '../data/constants';
+import { useStudentsTableData } from './hooks';
+import { useDispatch } from 'react-redux';
+import { fetchStudents } from './data/thunks';
 
 const students = [
     {
@@ -48,18 +52,22 @@ const students = [
 ];
 
 const StudentOverview = ({ intl, courseId }) => {
-    const isLoading = false
+    const dispatch = useDispatch();
+    const {
+        data,
+        studentsData,
+        isLoading
+    } = useStudentsTableData();
 
+    useEffect(() => {
+        dispatch(fetchStudents(courseId));
+    }, [])
 
     const courseDetails = useModel('courseDetails', courseId);
     document.title = getPageHeadTitle(courseDetails?.name, "Student Overview");
 
 
-    useEffect(() => {
-        // dispatch(fetchCourseSettingsQuery(courseId));
-    }, [courseId]);
-
-    if (isLoading) {
+    if (isLoading === RequestStatus.IN_PROGRESS) {
         // eslint-disable-next-line react/jsx-no-useless-fragment
         return <></>;
     }
@@ -91,7 +99,7 @@ const StudentOverview = ({ intl, courseId }) => {
                             </tr>
                         </thead>
                         <tbody>
-                            {students.length !== 0 ? (
+                            {students.length === 0 ? (
                                 <tr>
                                     <td colSpan="7" className="student-empty">
                                         <div className="student-empty-content">
@@ -103,7 +111,7 @@ const StudentOverview = ({ intl, courseId }) => {
                                     </td>
                                 </tr>
                             ) : (
-                                students.map((student, idx) => (
+                                data.map((student, idx) => (
                                     <StudentRow key={idx} student={student} />
                                 ))
                             )}

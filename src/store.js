@@ -13,6 +13,8 @@ import { reducer as advancedSettingsReducer } from './advanced-settings/data/sli
 import { reducer as gradingSettingsReducer } from './grading-settings/data/slice';
 import { reducer as studioHomeReducer } from './studio-home/data/slice';
 import { reducer as scheduleAndDetailsReducer } from './schedule-and-details/data/slice';
+import { reducer as scoreBoardReducer } from './score-board/data/slice';
+import { reducer as studentsReducer } from './student-overview/data/slice';
 import { reducer as filesReducer } from './files-and-videos/files-page/data/slice';
 import { reducer as courseTeamReducer } from './course-team/data/slice';
 import { reducer as CourseUpdatesReducer } from './course-updates/data/slice';
@@ -39,6 +41,8 @@ export default function initializeStore(preloadedState = undefined) {
       assets: filesReducer,
       pagesAndResources: pagesAndResourcesReducer,
       scheduleAndDetails: scheduleAndDetailsReducer,
+      scoreBoard: scoreBoardReducer,
+      students: studentsReducer,
       advancedSettings: advancedSettingsReducer,
       gradingSettings: gradingSettingsReducer,
       studioHome: studioHomeReducer,

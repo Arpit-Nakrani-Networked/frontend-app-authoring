@@ -110,7 +110,7 @@
 
     .score-td,
     .score-th {
-        border-left: 1px solid #0000001F;
+        // border-left: 1px solid #0000001F;
     }
 
     .score-td {
@@ -118,8 +118,8 @@
         font-size: 20px;
     }
 
-    .result {
-        span {
+    // .result {
+        .score-result {
             border-radius: 8px;
             width: fit-content;
             height: fit-content;
@@ -127,15 +127,15 @@
             color: $v2-black-400;
         }
 
-        &.pass span {
+        .score-result.pass {
             background: $v2-green-100;
 
         }
 
-        &.fail span {
+        .score-result.fail {
             background: $v2-red-100;
         }
-    }
+    // }
 }
 
 .score-row {
