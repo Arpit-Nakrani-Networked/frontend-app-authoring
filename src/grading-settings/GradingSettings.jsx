@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { injectIntl, intlShape } from '@edx/frontend-platform/i18n';
 import {
   Container, Layout, Button, StatefulButton,
+  Row,
 } from '@openedx/paragon';
 import { CheckCircle, Warning, Add as IconAdd, EditOutline as IconEdit } from '@openedx/paragon/icons';
 import { useModel } from '../generic/model-store';
@@ -32,6 +33,7 @@ import getPageHeadTitle from '../generic/utils';
 import GradingModal from './grading-modal/GradingModal';
 import GradingScaleModel from './grading-scale/GradingScaleModel';
 import ProcessingNotification from '../generic/processing-notification';
+import { LoadingSpinner } from '../generic/Loading';
 
 const GradingSettings = ({ intl, courseId }) => {
   const gradingSettingsData = useSelector(getGradingSettings);
@@ -96,11 +98,6 @@ const GradingSettings = ({ intl, courseId }) => {
     dispatch(fetchCourseSettingsQuery(courseId));
   }, [courseId]);
 
-  if (isLoading) {
-    // eslint-disable-next-line react/jsx-no-useless-fragment
-    return <></>;
-  }
-
   const handleQueryProcessing = () => {
     setShowSuccessAlert(false);
     dispatch(sendGradingSetting(courseId, gradingData));
@@ -139,6 +136,14 @@ const GradingSettings = ({ intl, courseId }) => {
 
   console.log("gradingSettingsData", gradingSettingsData, graders);
 
+  if (isLoading) {
+    // eslint-disable-next-line react/jsx-no-useless-fragment
+    return (
+      <Row className="m-0 mt-4 justify-content-center">
+        <LoadingSpinner />
+      </Row>
+    );
+  }
 
   return (
     <>

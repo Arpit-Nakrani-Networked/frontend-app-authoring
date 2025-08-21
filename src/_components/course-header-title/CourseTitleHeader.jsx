@@ -8,7 +8,7 @@ import { useCourseOutline } from '../../course-outline/hooks';
 
 export default function CourseTitleHeader() {
   const { courseId: courseIdFromUrl } = useParams();
-  const { handlePublishAllSubmit } = useCourseOutline({ courseId: courseIdFromUrl });
+  const { handlePublishAllSubmit,sectionsList } = useCourseOutline({ courseId: courseIdFromUrl });
   const courseDetail = useModel('courseDetails', courseIdFromUrl);
   const courseTitle = courseDetail ? courseDetail.name : courseIdFromUrl;
   const lmsApiBaseUrl = getConfig().LMS_BASE_URL;
@@ -39,6 +39,7 @@ export default function CourseTitleHeader() {
           onClick={handlePublishAllSubmit}
           data-testid="course-reindex"
           variant="outline-primary"
+          disabled={!sectionsList.some(section => section.hasChanges)}
         >
           Publish
         </Button>

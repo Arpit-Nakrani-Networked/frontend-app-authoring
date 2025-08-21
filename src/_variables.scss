@@ -35,7 +35,7 @@ $transparent: rgb(0 0 0 / 0);
 $highlight-color: #FCEA8D;
 
 //custom color variables for networked
-$primary-500: #0566FA !default; 
+$primary-500: #0566FA !default;
 
 
 // colors
@@ -74,7 +74,7 @@ $primary-500: #0566FA !default;
   background-color: $v2-black-500 !important;
 }
 
-._bg-white{
+._bg-white {
   background-color: white !important;
 }
 
@@ -170,6 +170,11 @@ $primary-500: #0566FA !default;
 }
 
 // text utils
-._uppercase{
+._uppercase {
   text-transform: uppercase;
+}
+
+._intialism {
+  letter-spacing: normal !important;
+  line-height: normal !important;
 }

@@ -85,8 +85,10 @@ const UnitCard = ({
   const borderStyle = getItemStatusBorder(unitStatus);
 
   const handleViewEdit = () => {
-    const url = getTitleLink(id)
-    navigate(url)
+    if(!Boolean(isFormOpen || unit?.edit)){
+      const url = getTitleLink(id)
+      navigate(url)
+    }
   }
 
   const handleClickMenuButton = () => {
