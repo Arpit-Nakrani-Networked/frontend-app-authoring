@@ -19,7 +19,7 @@ const PublishModal = ({
   onPublishSubmit,
 }) => {
   const intl = useIntl();
-  const { displayName, category } = useSelector(getCurrentItem);
+  const { displayName, childInfo, category } = useSelector(getCurrentItem);
   const categoryName = COURSE_BLOCK_NAMES[category]?.name.toLowerCase();
   // const children = childInfo?.children || [];
 
@@ -69,13 +69,12 @@ const PublishModal = ({
       </ModalDialog.Body>
       <ModalDialog.Footer className="pt-1">
         <ActionRow>
-          <ModalDialog.CloseButton variant="tertiary" className="btn-sm btn-outline-third">
+          <ModalDialog.CloseButton variant="tertiary">
             {intl.formatMessage(messages.cancelButton)}
           </ModalDialog.CloseButton>
           <Button
             data-testid="publish-confirm-button"
             onClick={onPublishSubmit}
-            className="btn-sm btn-outline-primary"
           >
             {intl.formatMessage(messages.publishButton)}
           </Button>

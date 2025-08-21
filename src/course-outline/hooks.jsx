@@ -172,9 +172,7 @@ const useCourseOutline = ({ courseId }) => {
   };
 
   const handlePublishItemSubmit = () => {
-    console.log("only-one----", currentItem, currentSection);
-    // dispatch(publishCourseItemQuery(currentItem.id, currentSection.id));
-
+    dispatch(publishCourseItemQuery(currentItem.id, currentSection.id));
     closePublishModal();
   };
 
