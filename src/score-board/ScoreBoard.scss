@@ -1,6 +1,6 @@
 @import '../variables';
 
-.score-container.card{
+.score-container.card {
     height: calc(100vh - 250px) !important;
     overflow: auto !important;
 }
@@ -23,17 +23,79 @@
     gap: 10px;
 
     .score-search {
-        border: 1px solid #DDDDDD;
+        background-color: #F5F5F5;
+        width: 35px;
+        height: 35px;
         border-radius: 8px;
-        padding: 6px 10px;
         font-size: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid transparent;
+        overflow: hidden;
+        transition: ease-in .3s ease;
+
+        input {
+            width: 0;
+            opacity: 0;
+            padding: 4px 0;
+            margin-right: 0;
+            border-radius: 6px;
+            transition: all .3s ease;
+            overflow: hidden;
+            border: none;
+
+            &:focus,
+            &:focus-visible,
+            &:focus-within {
+                border: none;
+                outline: none;
+                box-shadow: none;
+            }
+        }
+
+        .close-icon {
+            opacity: 0;
+        }
+
+        &.active {
+            width: auto;
+            background: #FFFFFF;
+            border: 1px solid rgb(0 0 0 / .267);
+            transition: ease-in .1s ease;
+
+            input {
+                transition: all .1s ease;
+                width: 160px; // adjust size
+                opacity: 1;
+                padding: 4px 8px;
+                margin-right: 8px;
+            }
+
+            .close-icon {
+                opacity: 1;
+                background: #F5F5F5;
+                padding: 1px;
+                margin: 3px 0;
+                width: 25px;
+                height: 25px;
+                border-radius: 7px;
+            }
+        }
     }
 
     .score-filter {
-        background: #F5F5F5;
-        border: none;
-        padding: 6px 10px;
+        background-color: #F5F5F5;
+        width: 35px;
+        height: 35px;
         border-radius: 8px;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid transparent;
+        overflow: hidden;
+        transition: ease-in .3s ease;
         cursor: pointer;
     }
 
@@ -52,7 +114,9 @@
     width: 100%;
     border-collapse: collapse;
 
-    &>td span,td ,th {
+    &>td span,
+    td,
+    th {
         letter-spacing: 0 !important;
     }
 
@@ -119,22 +183,23 @@
     }
 
     // .result {
-        .score-result {
-            border-radius: 8px;
-            width: fit-content;
-            height: fit-content;
-            padding: 4px 8px;
-            color: $v2-black-400;
-        }
+    .score-result {
+        border-radius: 8px;
+        width: fit-content;
+        height: fit-content;
+        padding: 4px 8px;
+        color: $v2-black-400;
+    }
 
-        .score-result.pass {
-            background: $v2-green-100;
+    .score-result.pass {
+        background: $v2-green-100;
 
-        }
+    }
 
-        .score-result.fail {
-            background: $v2-red-100;
-        }
+    .score-result.fail {
+        background: $v2-red-100;
+    }
+
     // }
 }
 
@@ -162,6 +227,8 @@
         width: 40px;
         height: 40px;
         border-radius: 14px;
+        background-color: $v2-info-200;
+        border: 1px solid $v2-info-200;
     }
 }
 

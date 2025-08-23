@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { getLocale, isRtl, useIntl } from '@edx/frontend-platform/i18n';
-
+import { getConfig } from '@edx/frontend-platform';
 import messages from './messages';
 import { getGradebook, getGradesHeading, getLoadingGradeStatus } from './data/selectors';
 import { useSelector } from 'react-redux';
@@ -28,7 +28,7 @@ export const useGradebookTableData = () => {
   const mapRows = entry => ([
     <input type="checkbox" />,
     <div className="score-name">
-      <img src={`https://i.pravatar.cc/40?img=1`} alt={entry.username} className="score-avatar" />
+      <img src={`${getConfig().LMS_BASE_URL}${entry?.profile_image?.image_url_small}`} alt={entry.username} className="score-avatar" />
       <span>
         <span>{entry.username}</span><br />
         </span>

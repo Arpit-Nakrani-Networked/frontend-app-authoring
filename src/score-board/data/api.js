@@ -3,9 +3,11 @@ import { getConfig } from '@edx/frontend-platform';
 import { getAuthenticatedHttpClient } from '@edx/frontend-platform/auth';
 
 
-export async function getCourseGradebook(courseId, url = null) {
+export async function getCourseGradebook(courseId, url = null,params) {
   const { data } = await getAuthenticatedHttpClient()
-    .get(url || `${getConfig().LMS_BASE_URL}/api/grades/v1/gradebook/${courseId}/?excluded_course_roles=all&page_size=25`);
+    .get(url || `${getConfig().LMS_BASE_URL}/api/grades/v1/gradebook/${courseId}/`,{
+      params:params
+    });
   return data;
 }
 

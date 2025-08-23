@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { injectIntl, intlShape } from '@edx/frontend-platform/i18n';
 import messages from './messages';
 import './ScoreBoard.scss';
 import PropTypes from 'prop-types';
-import { Add as IconAdd, FilterAlt as IconFilter, Search as IconSearch } from '@openedx/paragon/icons';
+import { Add as IconAdd, FilterAlt as IconFilter, Search as IconSearch, CloseSmall as IconClose } from '@openedx/paragon/icons';
 import { Button, Container, Icon, Row } from '@openedx/paragon';
 import ScoreRow from './ScoreRow';
 import { useDispatch } from 'react-redux';
@@ -14,6 +14,8 @@ import PageButtons from '../PageButtons';
 import { LoadingSpinner } from '../generic/Loading';
 
 const ScoreBoard = ({ intl, courseId }) => {
+  const [showSearch, setShowSearch] = useState(false);
+  const [searchText, setSearchText] = useState("");
   const dispatch = useDispatch();
   const {
     columns,
@@ -27,6 +29,10 @@ const ScoreBoard = ({ intl, courseId }) => {
     dispatch(fetchGradesHeading(courseId));
   }, [])
 
+  useEffect(() => {
+    dispatch(fetchGrades(courseId, null, searchText));
+  }, [searchText])
+
 
   const handleNext = () => {
     if (grades?.next) dispatch(fetchGrades(courseId, grades?.next));
@@ -36,7 +42,7 @@ const ScoreBoard = ({ intl, courseId }) => {
     if (grades?.previous) dispatch(fetchGrades(courseId, grades?.previous));
   };
 
-  if (isLoading === RequestStatus.IN_PROGRESS) {
+  if (isLoading === RequestStatus.IN_PROGRESS && !searchText) {
     // eslint-disable-next-line react/jsx-no-useless-fragment
     return (
       <Row className="m-0 mt-4 justify-content-center">
@@ -51,15 +57,31 @@ const ScoreBoard = ({ intl, courseId }) => {
         <header className="score-header">
           <h2 className="score-title">{intl.formatMessage(messages.headingTitle)}</h2>
           <div className="score-actions">
-            <button className="score-filter"><Icon src={IconSearch} /></button>
-            <button className="score-filter"><Icon src={IconFilter} /></button>
-            <Button variant="primary" className="" size="sm" iconBefore={IconAdd}>
+            <button
+              className={`score-search d-flex ${showSearch ? 'active' : ''}`}
+            >
+              {showSearch && <span className={showSearch ? 'search-expand-icon' : ''}><Icon className={showSearch ? '' : 'search-icon'} size={showSearch ? 'md' : 'sm'} src={IconSearch} onClick={() => setShowSearch(!showSearch)} /></span>}
+
+              {<input
+                type="text"
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)}
+                placeholder="Search..."
+              />}
+              {showSearch ? <Icon className='close-icon' size='sm' src={IconClose} onClick={() => {
+                setSearchText('')
+                setShowSearch(!showSearch)
+              }} /> : <Icon className={'search-icon'} size={'sm'} src={IconSearch} onClick={() => setShowSearch(!showSearch)} />}
+
+            </button>
+            <button className="score-filter h-fit"><Icon src={IconFilter} size={'sm'}  /></button>
+            <Button variant="primary" className="h-fit" size="sm" iconBefore={IconAdd}>
               {intl.formatMessage(messages.inviteButtonText)}
             </Button>
           </div>
         </header>
 
-        <table className="score-table">
+        <table className="score-table" style={{ position: 'relative' }}>
           <thead>
             <tr>
               <th><input type="checkbox" /></th>
@@ -71,7 +93,7 @@ const ScoreBoard = ({ intl, courseId }) => {
             </tr>
           </thead>
           <tbody>
-            {data.length === 0 ? (
+            {data.length === 0 && !Boolean(isLoading === RequestStatus.IN_PROGRESS && searchText) ? (
               <tr>
                 <td colSpan="9" className="score-empty">
                   <div className="score-empty-content">
@@ -82,13 +104,19 @@ const ScoreBoard = ({ intl, courseId }) => {
                   </div>
                 </td>
               </tr>
-            ) : (
+            ) : !Boolean(isLoading === RequestStatus.IN_PROGRESS && searchText) ? (
               data.map((row, index) => (
                 <ScoreRow row={row} />
               ))
-            )}
+            ) : null}
           </tbody>
         </table>
+        {
+          Boolean(isLoading === RequestStatus.IN_PROGRESS && searchText) ? <div className="d-flex justify-content-center align-items-center" style={{ flex: 1, backgroundColor: "whitesmoke" }}>
+            <LoadingSpinner />
+          </div> : null
+        }
+
         <PageButtons next={{
           disabled: !grades?.next,
           onClick: handleNext

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape } from '@edx/frontend-platform/i18n';
 import {
@@ -6,7 +6,7 @@ import {
     Icon,
     Row,
 } from '@openedx/paragon';
-import { Add as IconAdd, FilterAlt as IconFilter, Search as IconSearch } from '@openedx/paragon/icons';
+import { Add as IconAdd, FilterAlt as IconFilter, Search as IconSearch, CloseSmall as IconClose } from '@openedx/paragon/icons';
 import { useModel } from '../generic/model-store';
 import getPageHeadTitle from '../generic/utils';
 import "./StudentOverview.scss";
@@ -20,6 +20,8 @@ import { LoadingSpinner } from '../generic/Loading';
 
 
 const StudentOverview = ({ intl, courseId }) => {
+    const [showSearch, setShowSearch] = useState(false);
+    const [searchText, setSearchText] = useState("");
     const dispatch = useDispatch();
     const {
         data,
@@ -31,12 +33,16 @@ const StudentOverview = ({ intl, courseId }) => {
         dispatch(fetchStudents(courseId));
     }, [])
 
+    useEffect(() => {
+        dispatch(fetchStudents(courseId,null,searchText));
+    }, [searchText])
+
     const courseDetails = useModel('courseDetails', courseId);
     document.title = getPageHeadTitle(courseDetails?.name, "Student Overview");
 
 
 
-    if (isLoading === RequestStatus.IN_PROGRESS) {
+    if (isLoading === RequestStatus.IN_PROGRESS && !searchText) {
         // eslint-disable-next-line react/jsx-no-useless-fragment
         return (
             <Row className="m-0 mt-4 justify-content-center">
@@ -51,8 +57,24 @@ const StudentOverview = ({ intl, courseId }) => {
                     <header className="student-header">
                         <h2 className="student-title">{intl.formatMessage(messages.headingTitle)}</h2>
                         <div className="student-actions">
-                            <button className="student-filter"><Icon src={IconSearch} /></button>
-                            <button className="student-filter"><Icon src={IconFilter} /></button>
+                            <button
+                                className={`student-search d-flex ${showSearch ? 'active' : ''}`}
+                            >
+                                {showSearch && <span className={showSearch ? 'search-expand-icon' : ''}><Icon className={showSearch ? '' : 'search-icon'} size={showSearch ? 'md' : 'sm'} src={IconSearch} onClick={() => setShowSearch(!showSearch)} /></span>}
+
+                                {<input
+                                    type="text"
+                                    value={searchText}
+                                    onChange={(e) => setSearchText(e.target.value)}
+                                    placeholder="Search..."
+                                />}
+                                {showSearch ? <Icon className='close-icon' size='sm' src={IconClose} onClick={() => {
+                                    setSearchText('')
+                                    setShowSearch(!showSearch)
+                                }} /> : <Icon className={'search-icon'} size={'sm'} src={IconSearch} onClick={() => setShowSearch(!showSearch)} />}
+
+                            </button>
+                            <button className="student-filter h-fit"><Icon src={IconFilter} size={'sm'} /></button>
                             <Button variant="primary" className="" size="sm" iconBefore={IconAdd}>
                                 {intl.formatMessage(messages.inviteButtonText)}
                             </Button>
@@ -72,7 +94,7 @@ const StudentOverview = ({ intl, courseId }) => {
                             </tr>
                         </thead>
                         <tbody>
-                            {data.length === 0 ? (
+                            {Boolean(isLoading === RequestStatus.IN_PROGRESS && searchText) ? null : data.length === 0 ? (
                                 <tr>
                                     <td colSpan="7" className="student-empty">
                                         <div className="student-empty-content">
@@ -90,6 +112,12 @@ const StudentOverview = ({ intl, courseId }) => {
                             )}
                         </tbody>
                     </table>
+                    {
+                        Boolean(isLoading === RequestStatus.IN_PROGRESS && searchText) ? <div className="d-flex justify-content-center align-items-center" style={{ flex: 1, backgroundColor: "whitesmoke" }}>
+                            <LoadingSpinner />
+                        </div> : null
+                    }
+
                 </div>
             </Container>
         </>

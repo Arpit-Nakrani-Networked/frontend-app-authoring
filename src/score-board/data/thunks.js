@@ -9,19 +9,23 @@ import {
   updateLoadingGradesStatus,
 } from './slice';
 
-export function fetchGrades(courseId,url=null) {
+export function fetchGrades(courseId, url = null, searchText = "") {
   return async (dispatch) => {
     dispatch(updateLoadingGradesStatus({ status: RequestStatus.IN_PROGRESS }));
-
+    const params = {
+      excluded_course_roles: "all",
+      page_size: 25,
+      user_contains: searchText
+    }
     try {
       const detailsValues = url
-        ? await getCourseGradebook(null, url) // pass URL directly
-        : await getCourseGradebook(courseId);
+        ? await getCourseGradebook(null, url, params) // pass URL directly
+        : await getCourseGradebook(courseId, '', params);
       dispatch(fetchGradesSuccess(detailsValues));
       dispatch(updateLoadingGradesStatus({ status: RequestStatus.SUCCESSFUL }));
     } catch (error) {
       console.log("error-->>", error);
-      
+
       if (error.response && error.response.status === 403) {
         dispatch(updateLoadingGradesStatus({ status: RequestStatus.DENIED }));
       } else {
@@ -40,7 +44,7 @@ export function fetchGradesHeading(courseId) {
       dispatch(fetchHeadingSuccess(detailsValues));
       // dispatch(updateLoadingGradesStatus({ status: RequestStatus.SUCCESSFUL }));
     } catch (error) {
-            console.log("error-->>", error);
+      console.log("error-->>", error);
 
       if (error.response && error.response.status === 403) {
         // dispatch(updateLoadingGradesStatus({ status: RequestStatus.DENIED }));

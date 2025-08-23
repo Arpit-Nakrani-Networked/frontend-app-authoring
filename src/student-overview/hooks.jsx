@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { getLocale, isRtl, useIntl } from '@edx/frontend-platform/i18n';
-
+import { getConfig } from '@edx/frontend-platform';
 import { getLoadingStatus, getStudents } from './data/selectors';
 import { useSelector } from 'react-redux';
 import { formatDate, timeAgo } from '../utils';
@@ -23,24 +23,37 @@ export const useStudentsTableData = () => {
   const studentsData = useSelector(getStudents);
   const students = studentsData?.students || [];
 
+  const getProgress = (entry) => {
+    const { completion_summary = {} } = entry
+    const total = entry?.completion_summary ? completion_summary.complete_count
+      + completion_summary.incomplete_count
+      + completion_summary.locked_count : 0;
+
+    const progress = total > 0
+      ? Math.round((completion_summary.complete_count / total) * 100)
+      : 0;
+    return progress
+  }
+  
+
   const mapRows = entry => ([
     <input type="checkbox" />,
-    <div className="score-name">
-      <img src={`https://i.pravatar.cc/40?img=1`} alt={entry.username} className="score-avatar" />
+    <div className="student-name">
+      <img src={`${getConfig().LMS_BASE_URL}${entry?.profile_image?.image_url_small}`} alt={entry.username} className="student-avatar" />
       <span>
         <span>{entry.username}</span><br />
-        </span>
+      </span>
     </div>,
     entry?.email || '-',
     formatDate(entry.date_joined),
     timeAgo(entry.last_login),
-    <span className='score-td'>{`${(entry?.percent || 0) * 100}${getLocalizedPercentSign()}`}</span>
+    <span className='student-td'>{`${getProgress(entry)}${getLocalizedPercentSign()}`}</span>
   ]);
-  
+
 
   return {
     data: students.map(mapRows),
-    studentsData:studentsData,
+    studentsData: studentsData,
     isLoading
   };
 };
