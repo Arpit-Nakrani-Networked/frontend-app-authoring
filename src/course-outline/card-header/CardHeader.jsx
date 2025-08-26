@@ -35,7 +35,7 @@ import unitMessage from '../subsection-card/messages';
 import DeleteIcon from '../../assets/images/deleteIcon.svg'
 import PublishIcon from '../../assets/images/publishIcon.svg'
 import SettingIcon from '../../assets/images/settingIcon.svg'
-import SolidSvgComponent from '../../_components/solid-svg/SolidSvgComponent';
+// import SolidSvgComponent from '../../_components/solid-svg/SolidSvgComponent';
 
 const CardHeader = ({
   title,
@@ -242,7 +242,8 @@ const CardHeader = ({
                 disabled={isDisabledPublish}
                 onClick={onClickPublish}
               >
-                <SolidSvgComponent url={PublishIcon} width={20} height={20} iconColor='#000' defaultClass={`mr-2`} />
+                {/* <SolidSvgComponent url={PublishIcon} width={20} height={20} iconColor='#000' defaultClass={`mr-2`} /> */}
+                <img src={PublishIcon} alt="icon" className={`mr-2`}  />
                 {intl.formatMessage(messages.menuPublish, { type: isVertical ? "Lesson" : 'Section' })}
               </Dropdown.Item>
               {showConfigure && <Dropdown.Item
@@ -250,7 +251,9 @@ const CardHeader = ({
                 onClick={onClickConfigure}
                 iconBefore={IconAdd}
               >
-                <SolidSvgComponent url={SettingIcon} width={20} height={20} iconColor='#000' defaultClass={`mr-2`} /> {intl.formatMessage(messages.menuConfigure)}
+                <img src={SettingIcon} alt="icon" className={`mr-2`}  />
+                {/* <SolidSvgComponent url={SettingIcon} width={20} height={20} iconColor='#000' defaultClass={`mr-2`} />  */}
+                {intl.formatMessage(messages.menuConfigure)}
               </Dropdown.Item>}
               {/* {getConfig().ENABLE_TAGGING_TAXONOMY_PAGES === 'true' && (
                 <Dropdown.Item
@@ -302,7 +305,9 @@ const CardHeader = ({
                   onClick={onClickDelete}
                   iconBefore={IconAdd}
                 >
-                  <SolidSvgComponent url={DeleteIcon} width={20} height={20} iconColor='#E13737' defaultClass={`mr-2`} /> {intl.formatMessage(messages.menuDelete, { type: isVertical ? "Lesson" : 'Section' })}
+                  <img src={DeleteIcon} alt="icon" className={`mr-2`}  />
+                  {/* <SolidSvgComponent url={DeleteIcon} width={20} height={20} iconColor='#E13737' defaultClass={`mr-2`} />  */}
+                  {intl.formatMessage(messages.menuDelete, { type: isVertical ? "Lesson" : 'Section' })}
                 </Dropdown.Item>
               )}
             </Dropdown.Menu>

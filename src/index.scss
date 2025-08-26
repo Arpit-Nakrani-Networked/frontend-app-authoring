@@ -519,10 +519,17 @@ input.pgn__form-switch-input {
 .flex-1 {
   flex: 1;
 }
-
+.dropdown-menu > hr{
+  margin-top: 5px !important;
+  margin-bottom: 5px !important;
+}
 .dropdown-item.active,
 .dropdown-item:active {
   color: $v2-black-400 !important;
   background-color: $v2-info-200 !important;
   outline: none !important;
+}
+a.disabled{
+  cursor: not-allowed !important;
+  pointer-events:visible !important;
 }
