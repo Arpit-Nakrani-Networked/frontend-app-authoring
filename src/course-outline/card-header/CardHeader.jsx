@@ -35,7 +35,7 @@ import unitMessage from '../subsection-card/messages';
 import DeleteIcon from '../../assets/images/deleteIcon.svg'
 import PublishIcon from '../../assets/images/publishIcon.svg'
 import SettingIcon from '../../assets/images/settingIcon.svg'
-import SolidSvgComponent from '_components/solid-svg/SolidSvgComponent';
+import SolidSvgComponent from '../../_components/solid-svg/SolidSvgComponent';
 
 const CardHeader = ({
   title,
