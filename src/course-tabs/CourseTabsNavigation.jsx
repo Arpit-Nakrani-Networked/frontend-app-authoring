@@ -22,10 +22,10 @@ const CourseTabsNavigation = ({
               className=""
               aria-label={intl.formatMessage(messages.courseMaterial)}
             >
-              {tabs.map(({ title, slug,url }) => (
+              {tabs.map(({ title, slug }) => (
                 <Link
-                  key={url}
-                  className={classNames('nav-item flex-shrink-0 nav-link', { active: url === activeTabSlug })}
+                  key={slug}
+                  className={classNames('nav-item flex-shrink-0 nav-link', { active: slug === activeTabSlug })}
                   to={slug}
                 >
                   {title}

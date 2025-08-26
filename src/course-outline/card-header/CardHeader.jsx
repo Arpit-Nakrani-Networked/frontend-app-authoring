@@ -155,6 +155,9 @@ const CardHeader = ({
               <span className='pgn__icon btn-icon__icon _bg-gray-50 rounded _cursor-pointer d-flex justify-content-center align-items-center' onClick={(e) => {
                 e?.stopPropagation()
                 onEditSubmit(titleValue)
+                if(title === titleValue){
+                  closeForm();
+                }
               }}><Icon src={Check} size='sm' /></span>
             </Stack>
           </Form.Group>

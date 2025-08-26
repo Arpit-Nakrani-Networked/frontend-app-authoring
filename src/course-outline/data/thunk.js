@@ -345,12 +345,15 @@ export function configureCourseUnitQuery(itemId, sectionId, isVisibleToStaffOnly
   };
 }
 
-export function editCourseItemQuery(itemId, sectionId, displayName) {
+export function editCourseItemQuery(itemId, sectionId, displayName,subSectionId=null) {
   return async (dispatch) => {
     dispatch(updateSavingStatus({ status: RequestStatus.PENDING }));
     dispatch(showProcessingNotification(NOTIFICATION_MESSAGES.saving));
 
     try {
+      if(subSectionId){
+        await editItemDisplayName(subSectionId, displayName)
+      }
       await editItemDisplayName(itemId, displayName).then(async (result) => {
         if (result) {
           await dispatch(fetchCourseSectionQuery([sectionId]));
