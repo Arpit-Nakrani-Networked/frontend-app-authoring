@@ -254,6 +254,7 @@ const SectionCard = ({
               titleComponent={titleComponent}
               handleNewButtonClick={handleNewSubsectionSubmit}
               showNewButton
+              isChapter
               namePrefix={namePrefix}
               actions={actions}
               showConfigure={false}

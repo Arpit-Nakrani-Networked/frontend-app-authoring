@@ -18,6 +18,8 @@ import {
   Add as IconAdd,
   MoreVert as MoveVertIcon,
   EditOutline as EditIcon,
+  // DeleteOutline as DeleteIcon,
+  // CloudUpload as PublishIcon,
   Check
 } from '@openedx/paragon/icons';
 import { Close as CloseSmall } from '@openedx/paragon/icons';
@@ -30,6 +32,10 @@ import { scrollToElement } from '../utils';
 import CardStatus from './CardStatus';
 import messages from './messages';
 import unitMessage from '../subsection-card/messages';
+import DeleteIcon from '../../assets/images/deleteIcon.svg'
+import PublishIcon from '../../assets/images/publishIcon.svg'
+import SettingIcon from '../../assets/images/settingIcon.svg'
+import SolidSvgComponent from '_components/solid-svg/SolidSvgComponent';
 
 const CardHeader = ({
   title,
@@ -53,8 +59,9 @@ const CardHeader = ({
   namePrefix,
   actions,
   enableCopyPasteUnits,
-  isVertical,
-  isSequential,
+  isChapter = false,
+  isVertical = false,
+  isSequential = false,
   proctoringExamConfigurationLink,
   discussionEnabled,
   discussionsSettings,
@@ -135,19 +142,20 @@ const CardHeader = ({
               disabled={isDisabledEditField}
             />
             <Stack gap={2} direction="horizontal" className="btn-icon__icon-container d-flex" style={{
-              position:"absolute",
-              right:'15px',
-              top:"50%",
-              transform:"translateY(-50%)"
+              position: "absolute",
+              right: '15px',
+              top: "50%",
+              transform: "translateY(-50%)"
             }}>
               <span className='pgn__icon btn-icon__icon rounded _cursor-pointer d-flex justify-content-center align-items-center' onClick={(e) => {
-                 e?.stopPropagation()
+                e?.stopPropagation()
                 setTitleValue(title)
                 closeForm();
               }}><Icon src={CloseSmall} size='sm' /></span>
               <span className='pgn__icon btn-icon__icon _bg-gray-50 rounded _cursor-pointer d-flex justify-content-center align-items-center' onClick={(e) => {
-                 e?.stopPropagation()
-                onEditSubmit(titleValue)}}><Icon src={Check} size='sm' /></span>
+                e?.stopPropagation()
+                onEditSubmit(titleValue)
+              }}><Icon src={Check} size='sm' /></span>
             </Stack>
           </Form.Group>
         ) : (
@@ -158,7 +166,7 @@ const CardHeader = ({
               data-testid={`${namePrefix}-edit-button`}
               alt={intl.formatMessage(messages.altButtonEdit)}
               iconAs={EditIcon}
-              onClick={(e)=>{
+              onClick={(e) => {
                 e?.stopPropagation()
                 onClickEdit()
               }}
@@ -174,7 +182,7 @@ const CardHeader = ({
               iconBefore={IconAdd}
               size='sm'
               block
-               onClick={(e)=>{
+              onClick={(e) => {
                 e?.stopPropagation()
                 handleNewButtonClick && handleNewButtonClick()
               }}
@@ -196,15 +204,15 @@ const CardHeader = ({
               iconBefore={EditIcon}
               block
               size='sm'
-              //  onClick={(e)=>{
-              //   e?.stopPropagation()
-              //   // handleNewButtonClick && handleNewButtonClick()
-              // }}
+            //  onClick={(e)=>{
+            //   e?.stopPropagation()
+            //   // handleNewButtonClick && handleNewButtonClick()
+            // }}
             >
               {intl.formatMessage(unitMessage.editUnitButton)}
             </Button>
           )}
-          <Dropdown data-testid={`${namePrefix}-card-header__menu`} onClick={(e)=>{
+          <Dropdown data-testid={`${namePrefix}-card-header__menu`} onClick={(e) => {
             e?.stopPropagation()
             onClickMenuButton()
           }}>
@@ -217,7 +225,7 @@ const CardHeader = ({
               alt={`${namePrefix}-card-header__menu`}
               iconAs={Icon}
             />
-            <Dropdown.Menu className="card p-3" style={{ width: '207px' }}>
+            <Dropdown.Menu className="card p-3" style={{ width: '217px', maxWidth: "217px", minWidth: "217px" }}>
               {/* {isSequential && proctoringExamConfigurationLink && (
                 <Dropdown.Item
                   as={Hyperlink}
@@ -233,15 +241,16 @@ const CardHeader = ({
                 data-testid={`${namePrefix}-card-header__menu-publish-button`}
                 disabled={isDisabledPublish}
                 onClick={onClickPublish}
-                iconBefore={Icon}
               >
-                {intl.formatMessage(messages.menuPublish)}
+                <SolidSvgComponent url={PublishIcon} width={20} height={20} iconColor='#000' defaultClass={`mr-2`} />
+                {intl.formatMessage(messages.menuPublish, { type: isVertical ? "Lesson" : 'Section' })}
               </Dropdown.Item>
-             {showConfigure && <Dropdown.Item
+              {showConfigure && <Dropdown.Item
                 data-testid={`${namePrefix}-card-header__menu-configure-button`}
                 onClick={onClickConfigure}
+                iconBefore={IconAdd}
               >
-                {intl.formatMessage(messages.menuConfigure)}
+                <SolidSvgComponent url={SettingIcon} width={20} height={20} iconColor='#000' defaultClass={`mr-2`} /> {intl.formatMessage(messages.menuConfigure)}
               </Dropdown.Item>}
               {/* {getConfig().ENABLE_TAGGING_TAXONOMY_PAGES === 'true' && (
                 <Dropdown.Item
@@ -283,13 +292,17 @@ const CardHeader = ({
                   </Dropdown.Item>
                 </>
               )} */}
+              {
+                isChapter && <hr />
+              }
               {actions.deletable && (
                 <Dropdown.Item
-                  className=""
+                  className="_text-delete align-items-center"
                   data-testid={`${namePrefix}-card-header__menu-delete-button`}
                   onClick={onClickDelete}
+                  iconBefore={IconAdd}
                 >
-                  {intl.formatMessage(messages.menuDelete)}
+                  <SolidSvgComponent url={DeleteIcon} width={20} height={20} iconColor='#E13737' defaultClass={`mr-2`} /> {intl.formatMessage(messages.menuDelete, { type: isVertical ? "Lesson" : 'Section' })}
                 </Dropdown.Item>
               )}
             </Dropdown.Menu>
@@ -347,6 +360,7 @@ CardHeader.propTypes = {
     allowMoveDown: PropTypes.bool,
   }).isRequired,
   enableCopyPasteUnits: PropTypes.bool,
+  isChapter: PropTypes.bool,
   isVertical: PropTypes.bool,
   isSequential: PropTypes.bool,
   discussionEnabled: PropTypes.bool,

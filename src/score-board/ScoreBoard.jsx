@@ -74,7 +74,7 @@ const ScoreBoard = ({ intl, courseId }) => {
               }} /> : <Icon className={'search-icon'} size={'sm'} src={IconSearch} onClick={() => setShowSearch(!showSearch)} />}
 
             </button>
-            <button className="score-filter h-fit"><Icon src={IconFilter} size={'sm'}  /></button>
+            <button className="score-filter h-fit"><Icon src={IconFilter} size={'sm'} /></button>
             <Button variant="primary" className="h-fit" size="sm" iconBefore={IconAdd}>
               {intl.formatMessage(messages.inviteButtonText)}
             </Button>
@@ -84,12 +84,9 @@ const ScoreBoard = ({ intl, courseId }) => {
         <table className="score-table" style={{ position: 'relative' }}>
           <thead>
             <tr>
-              <th><input type="checkbox" /></th>
-              {
-                columns.map((column, index) => (
-                  <th key={index}>{column}</th>
-                ))
-              }
+              {columns.map((column, index) => (
+                <th key={index}>{column.Header}</th>
+              ))}
             </tr>
           </thead>
           <tbody>
@@ -106,7 +103,7 @@ const ScoreBoard = ({ intl, courseId }) => {
               </tr>
             ) : !Boolean(isLoading === RequestStatus.IN_PROGRESS && searchText) ? (
               data.map((row, index) => (
-                <ScoreRow row={row} />
+                <ScoreRow key={index} row={row} columns={columns} />
               ))
             ) : null}
           </tbody>

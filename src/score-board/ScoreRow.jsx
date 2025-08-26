@@ -1,9 +1,11 @@
 import React from "react";
 
-export default function ScoreRow({ row }) {
+export default function ScoreRow({ row, columns }) {
   return (
     <tr className="score-row">
-      {row.map((cell, index) => (<td>{cell}</td>))}
+      {columns.map((col, index) => (
+        <td key={index}>{row[col.accessor]}</td>
+      ))}
     </tr>
   );
 }

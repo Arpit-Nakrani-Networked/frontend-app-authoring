@@ -48,10 +48,10 @@ const QuizSettings = ({ setFieldValue, values, courseGraders }) => {
       <ToggleItem
         label={intl.formatMessage(messages.showAnserOnResultTitle)}
         description={intl.formatMessage(messages.showAnserOnResultDesc)}
-        checked={showAnswers}
-        onChange={() => setShowAnswers(!showAnswers)}
+        checked={values.showCorrectness === SHOWASSESMENTANSWERS.ALWAYS}
+        onChange={onChangeAnswerVisibility}
       >
-        {showAnswers&& <div className="mt-1">
+        {/* {showAnswers&& <div className="mt-1">
           <Form.Group className="mb-0">
             <Form.Control
               as="select"
@@ -65,7 +65,7 @@ const QuizSettings = ({ setFieldValue, values, courseGraders }) => {
               {createOptions()}
             </Form.Control>
           </Form.Group>
-        </div>}
+        </div>} */}
       </ToggleItem>
       <ToggleItem
         label={intl.formatMessage(messages.includeGradeTitle)}

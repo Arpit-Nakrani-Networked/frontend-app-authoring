@@ -1,0 +1,19 @@
+@import '../../variables';
+
+.SvgIcon {
+	width: 24px;
+	height: 24px;
+	mask-repeat: 'no-repeat';
+	mask-position: 'center';
+	background-color: $iconColor;
+	mask-size: "contain";
+	-webkit-mask-size: "contain";
+
+	&.primary {
+		background-color: $primary-color;
+	}
+
+	&.iconColor {
+		background-color: $primary-color;
+	}
+}

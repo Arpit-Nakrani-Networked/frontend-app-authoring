@@ -35,7 +35,7 @@ const messages = defineMessages({
   },
   menuPublish: {
     id: 'course-authoring.course-outline.card.menu.publish',
-    defaultMessage: 'Publish',
+    defaultMessage: 'Publish This {type}',
   },
   menuConfigure: {
     id: 'course-authoring.course-outline.card.menu.configure',
@@ -55,7 +55,7 @@ const messages = defineMessages({
   },
   menuDelete: {
     id: 'course-authoring.course-outline.card.menu.delete',
-    defaultMessage: 'Delete',
+    defaultMessage: 'Delete {type}',
   },
   menuCopy: {
     id: 'course-authoring.course-outline.card.menu.copy',
