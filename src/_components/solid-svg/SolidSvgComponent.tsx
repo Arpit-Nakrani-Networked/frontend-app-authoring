@@ -1,5 +1,5 @@
 import React from 'react'
-import style from './SolidSvgComponent.module.scss'
+import './SolidSvgComponent.scss'
 
 interface IProps {
 	width?: number,
@@ -18,7 +18,7 @@ const SolidSvgComponent = (props: IProps) => {
 	const { width, height, iconColor, url, fit, defaultClass, isPrimaryColor, styles, isIconColor, onClick, ...p } = props
 
 	return (
-		<div className={`${style.SvgIcon} ${isPrimaryColor ? style.primary : ''} ${isIconColor ? style.iconColor : ''} ${defaultClass}`} onClick={onClick} style={{
+		<div className={`SvgIcon ${isPrimaryColor ? 'primary' : ''} ${isIconColor ? 'iconColor' : ''} ${defaultClass}`} onClick={onClick} style={{
 			width,
 			height,
 			backgroundColor: iconColor,
