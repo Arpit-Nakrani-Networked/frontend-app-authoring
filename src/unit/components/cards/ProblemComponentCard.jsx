@@ -14,18 +14,27 @@ export const ProblemComponentCard = ({ component, onEdit, onDelete }) => {
       {
         !!error && 'No Problem'
       }
-      {!error
-        && (
+      {!error && (
+        <Stack gap={2}>
+          <h2 className="sub-header-title"
+              dangerouslySetInnerHTML={{ __html: problemStatement }} />
           <Stack gap={2}>
-            <h2 className="sub-header-title">{problemStatement}</h2>
-            <Stack gap={2}>
-              {
-                options.map((option, index) => <Stack direction="horizontal" className="align-items-center" gap={2} key={index}> {isMultiSelect ? <MultiSelectCheckbox checkboxId={`multi_${option}_${index}`} componentId={component.id} /> : <SingleSelectCheckbox radioButtonId={`single_${option}_${index}`} componentId={component.id} />} {option}</Stack>)
-              }
-            </Stack>
-
+            {options.map((option, index) => (
+              <Stack
+                direction="horizontal"
+                className="align-items-center"
+                gap={2}
+                key={index}
+              >
+                {isMultiSelect
+                  ? <MultiSelectCheckbox checkboxId={`multi_${index}`} componentId={component.id} />
+                  : <SingleSelectCheckbox radioButtonId={`single_${index}`} componentId={component.id} />}
+                <span dangerouslySetInnerHTML={{ __html: option }} />
+              </Stack>
+            ))}
           </Stack>
-        )}
+        </Stack>
+      )}
     </div>
   );
 };
@@ -54,18 +63,36 @@ const MultiSelectCheckbox = ({ checkboxId, componentId }) => (
   </label>
 );
 
+// --- Helper: Convert parsed XML nodes into proper HTML ---
+function toHTML(node) {
+  if (node == null) return '';
+  if (typeof node === 'string') return node;
+  if (Array.isArray(node)) return node.map(toHTML).join('');
+
+  const [tag, value] = Object.entries(node)[0];
+  return `<${tag}>${toHTML(value)}</${tag}>`;
+}
+
 function parseProblemComponent(xmlString) {
   const parser = new XMLParser();
   const parsed = parser.parse(xmlString);
 
-  if (!parsed.problem || typeof parsed.problem === 'string') { return { error: true }; }
+  if (!parsed.problem || typeof parsed.problem === 'string') {
+    return { error: true };
+  }
 
   const isMultiSelect = !!parsed.problem.choiceresponse;
-  const parsedResponse = isMultiSelect ? parsed.problem.choiceresponse : parsed.problem.multiplechoiceresponse;
+  const parsedResponse = isMultiSelect
+    ? parsed.problem.choiceresponse
+    : parsed.problem.multiplechoiceresponse;
+
   const choices = parsedResponse?.choicegroup || parsedResponse?.checkboxgroup;
-  const options = choices?.choice?.map((choice) => choice.div) || [];
-  const problemStatement = parsedResponse?.div || '';
-  const explanation = parsedResponse?.solution?.div?.p?.[1] || '';
+
+  // Always normalize to clean HTML/text
+  const options = (choices?.choice || []).map((choice) => toHTML(choice.div));
+
+  const problemStatement = toHTML(parsedResponse?.div || '');
+  const explanation = toHTML(parsedResponse?.solution?.div?.p?.[1] || '');
 
   return {
     isMultiSelect,
