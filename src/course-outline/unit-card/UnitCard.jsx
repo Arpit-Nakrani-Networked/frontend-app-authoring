@@ -55,14 +55,18 @@ const UnitCard = ({
     id,
     category,
     displayName,
-    hasChanges,
-    published,
-    visibilityState,
     actions: unitActions,
     isHeaderVisible = true,
     enableCopyPasteUnits = false,
     discussionEnabled,
   } = unit;
+
+   const {
+    hasChanges,
+    visibilityState,
+    published,
+    id:subsectionId
+  } = subsection;
 
   // re-create actions object for customizations
   const actions = { ...unitActions };
@@ -99,7 +103,7 @@ const UnitCard = ({
 
   const handleEditSubmit = (titleValue) => {
     if (displayName !== titleValue) {
-      onEditSubmit(id, section.id, titleValue, subsection.id);
+      onEditSubmit(id, section.id, titleValue, subsectionId);
       return;
     }
 

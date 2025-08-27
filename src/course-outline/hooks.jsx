@@ -215,8 +215,8 @@ const useCourseOutline = ({ courseId }) => {
     handleConfigureModalClose();
   };
 
-  const handleEditSubmit = (itemId, sectionId, displayName) => {
-    dispatch(editCourseItemQuery(itemId, sectionId, displayName));
+  const handleEditSubmit = (itemId, sectionId, displayName,subSectionId=null) => {
+    dispatch(editCourseItemQuery(itemId, sectionId, displayName,subSectionId));
   };
 
   const handleDeleteItemSubmit = () => {
