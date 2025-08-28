@@ -11,6 +11,7 @@ interface Props extends EditorComponent {
   blockId?: string;
   blockType: string;
   courseId: string;
+  handleDeleteComponentBlock: (id:string)=>void;
   lmsEndpointUrl?: string;
   studioEndpointUrl?: string;
   fullScreen?: boolean;
@@ -29,6 +30,7 @@ const EditorPage: React.FC<Props> = ({
   studioEndpointUrl = null,
   onClose = null,
   returnFunction = null,
+  handleDeleteComponentBlock = null,
   fullScreen = true,
 }) => (
   <Provider store={store}>
@@ -48,6 +50,7 @@ const EditorPage: React.FC<Props> = ({
             lmsEndpointUrl,
             studioEndpointUrl,
             returnFunction,
+            handleDeleteComponentBlock
           }}
         />
       </EditorContextProvider>

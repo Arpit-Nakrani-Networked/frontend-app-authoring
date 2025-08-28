@@ -17,6 +17,7 @@ export interface Props extends EditorComponent {
   lmsEndpointUrl: string | null;
   studioEndpointUrl: string | null;
   fullScreen?: boolean;
+  handleDeleteComponentBlock?: any;
 }
 
 const Editor: React.FC<Props> = ({
@@ -27,6 +28,7 @@ const Editor: React.FC<Props> = ({
   studioEndpointUrl,
   onClose = null,
   returnFunction = null,
+  handleDeleteComponentBlock = null,
 }) => {
   const dispatch = useDispatch();
   hooks.initializeApp({
@@ -42,7 +44,7 @@ const Editor: React.FC<Props> = ({
 
   const EditorComponent = supportedEditors[blockType];
   const innerEditor = (EditorComponent !== undefined)
-    ? <EditorComponent {...{ onClose, returnFunction }} />
+    ? <EditorComponent {...{ onClose, returnFunction, deleteBlock: handleDeleteComponentBlock }} />
     : <FormattedMessage {...messages.couldNotFindEditor} />;
 
   return innerEditor;

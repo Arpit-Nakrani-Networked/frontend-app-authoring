@@ -6,8 +6,8 @@ import {
 const UnitContext = createContext(undefined);
 
 // Provider component
-export const UnitContextWrapper = ({ children, updateComponent }) => (
-  <UnitContext.Provider value={{ updateComponent }}>
+export const UnitContextWrapper = ({ children, updateComponent,handleDeleteComponentBlock }) => (
+  <UnitContext.Provider value={{ updateComponent,handleDeleteComponentBlock }}>
     {children}
   </UnitContext.Provider>
 );

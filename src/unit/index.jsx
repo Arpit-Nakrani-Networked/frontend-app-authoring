@@ -158,7 +158,7 @@ const Unit = ({ courseId }) => {
           </div>
         </div>
       </div>
-      <UnitContextWrapper updateComponent={handleComponentUpdate} componentBlocks={components}>
+      <UnitContextWrapper updateComponent={handleComponentUpdate} componentBlocks={components} handleDeleteComponentBlock={handleDeleteComponentBlock}>
         <Outlet />
       </UnitContextWrapper>
     </Container>
