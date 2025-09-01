@@ -7,8 +7,8 @@ import { useModel } from '../../generic/model-store';
 import { useCourseOutline } from '../../course-outline/hooks';
 import { useIntl } from '@edx/frontend-platform/i18n';
 import messages from './messages';
-import ViewIcon from 'assets/images/viewIcon.svg'
-import SolidSvgComponent from '_components/solid-svg/SolidSvgComponent';
+import ViewIcon from '../../assets/images/viewIcon.svg'
+import SolidSvgComponent from '../../_components/solid-svg/SolidSvgComponent';
 
 export default function CourseTitleHeader() {
   const intl = useIntl();
