@@ -8,7 +8,7 @@ import messages from './messages';
 
 const EmptyPlaceholder = ({
   onCreateNewSection,
-  childAddable,
+  childAddable=false,
 }) => {
   const intl = useIntl();
 

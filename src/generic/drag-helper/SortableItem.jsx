@@ -48,7 +48,7 @@ const SortableItem = ({
     background: 'white',
     // padding: '1rem 1.5rem',
     // overflow: 'hidden',
-    marginBottom: '1.5rem',
+    marginBottom: '1rem',
     borderRadius: '0.35rem',
     boxShadow: '0 0 .125rem rgba(0, 0, 0, .15), 0 0 .25rem rgba(0, 0, 0, .15)',
     ...componentStyle,

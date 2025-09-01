@@ -5,8 +5,13 @@ import { Link } from 'react-router-dom';
 import { getConfig } from '@edx/frontend-platform';
 import { useModel } from '../../generic/model-store';
 import { useCourseOutline } from '../../course-outline/hooks';
+import { useIntl } from '@edx/frontend-platform/i18n';
+import messages from './messages';
+import ViewIcon from 'assets/images/viewIcon.svg'
+import SolidSvgComponent from '_components/solid-svg/SolidSvgComponent';
 
 export default function CourseTitleHeader() {
+  const intl = useIntl();
   const { courseId: courseIdFromUrl } = useParams();
   const { handlePublishAllSubmit,sectionsList } = useCourseOutline({ courseId: courseIdFromUrl });
   const courseDetail = useModel('courseDetails', courseIdFromUrl);
@@ -26,13 +31,15 @@ export default function CourseTitleHeader() {
         )}
       <div>
         <Button
-          iconBefore={Search}
-          data-testid="course-reindex"
+          // iconBefore={Search}
+          // data-testid="course-reindex"
           variant="outline-secondary"
           href={viewerUrl}
           target="_blank"
+          size='sm'
+          
         >
-          View as a Viewer
+         <SolidSvgComponent url={ViewIcon} width={15} height={15} defaultClass={`mr-1`} isIconColor /> {intl.formatMessage(messages.viewBtnText)}
         </Button>
         <Button
           type="button"
@@ -40,8 +47,9 @@ export default function CourseTitleHeader() {
           data-testid="course-reindex"
           variant="outline-primary"
           disabled={!sectionsList.some(section => section.hasChanges)}
+          size='sm'
         >
-          Publish
+          {intl.formatMessage(messages.saveBtnText)}
         </Button>
       </div>
     </div>

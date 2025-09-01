@@ -429,7 +429,7 @@ const CourseOutline = ({ courseId }) => {
                         ) : (
                           <EmptyPlaceholder
                             onCreateNewSection={handleNewSectionSubmit}
-                            childAddable={courseActions.childAddable}
+                            // childAddable={courseActions.childAddable}
                           />
                         )}
                       </div>
