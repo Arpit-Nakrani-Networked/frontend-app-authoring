@@ -55,6 +55,17 @@ import {
 } from './data/thunk';
 import { createNewCourseXBlock } from '../course-unit/data/thunk';
 
+// 🔄 Check recursively if any child hasChanges
+function hasAnyChildChanges(node) {
+  if (node.childInfo?.children?.length) {
+    return node.childInfo.children.some(
+      (child) => child.hasChanges || hasAnyChildChanges(child)
+    );
+  }
+  return false;
+}
+
+
 const useCourseOutline = ({ courseId }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -177,14 +188,23 @@ const useCourseOutline = ({ courseId }) => {
   };
 
   const handlePublishAllSubmit = async () => {
-    const sections = sectionsList.filter(val => val.hasChanges);
+    // const sections = sectionsList.filter(val => val.hasChanges);
+    // Only pick section IDs based on rules
+    const sections = sectionsList
+      .filter((section) => {
+        if (section.hasChanges) {
+          return true; // ✅ section itself changed
+        }
+        // ❌ section not changed, check children recursively
+        return hasAnyChildChanges(section);
+      })
     const ids = sections.map(section => section.id);
     console.log("publish-all-sections", ids);
     for (let i = 0; i < ids.length; i++) {
       const sectionId = ids[i];
       const isLast = i === ids.length - 1;
       console.log("publish-all-section-id", sectionId, isLast);
-      
+
       await dispatch(publishCourseItemQuery(sectionId, sectionId, isLast, isLast ? [...ids] : []));
     }
 
@@ -215,8 +235,8 @@ const useCourseOutline = ({ courseId }) => {
     handleConfigureModalClose();
   };
 
-  const handleEditSubmit = (itemId, sectionId, displayName,subSectionId=null) => {
-    dispatch(editCourseItemQuery(itemId, sectionId, displayName,subSectionId));
+  const handleEditSubmit = (itemId, sectionId, displayName, subSectionId = null) => {
+    dispatch(editCourseItemQuery(itemId, sectionId, displayName, subSectionId));
   };
 
   const handleDeleteItemSubmit = () => {

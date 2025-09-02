@@ -10,6 +10,20 @@ import messages from './messages';
 import ViewIcon from '../../assets/images/viewIcon.svg'
 import SolidSvgComponent from '../../_components/solid-svg/SolidSvgComponent';
 
+function hasAnyChanges(node) {
+  // If the current node hasChanges true
+  if (node.hasChanges) {
+    return true;
+  }
+
+  // If the node has childInfo with children, check recursively
+  if (node.childInfo && node.childInfo.children) {
+    return node.childInfo.children.some(child => hasAnyChanges(child));
+  }
+
+  return false;
+}
+
 export default function CourseTitleHeader() {
   const intl = useIntl();
   const { courseId: courseIdFromUrl } = useParams();
@@ -21,6 +35,9 @@ export default function CourseTitleHeader() {
   const { pathname } = useLocation();
   const isUnitPage = pathname.includes('/container');
   const backToOutlinePage = `/course/${courseIdFromUrl}/`;
+  console.log("sectionsList",sectionsList);
+  
+  const hasChanges = sectionsList.some(item => hasAnyChanges(item));
   return (
     <div className="_container-fluid main-course-header">
       {isUnitPage ? <Button as={Link} to={backToOutlinePage} variant="link" className="text-black _font-weight-semibold" style={{ textDecoration: 'none' }} iconBefore={ArrowBack}>Back To Outline</Button>
@@ -46,7 +63,7 @@ export default function CourseTitleHeader() {
           onClick={handlePublishAllSubmit}
           data-testid="course-reindex"
           variant="outline-primary"
-          disabled={!sectionsList.some(section => section.hasChanges)}
+          disabled={!hasChanges}
           size='sm'
         >
           {intl.formatMessage(messages.saveBtnText)}

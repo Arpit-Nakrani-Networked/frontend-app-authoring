@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { injectIntl, intlShape } from '@edx/frontend-platform/i18n';
 import messages from './messages';
 import './ScoreBoard.scss';
@@ -12,6 +12,7 @@ import useGradebookTableData from './hooks';
 import { RequestStatus } from '../data/constants';
 import PageButtons from '../PageButtons';
 import { LoadingSpinner } from '../generic/Loading';
+import { debounce } from 'lodash';
 
 const ScoreBoard = ({ intl, courseId }) => {
   const [showSearch, setShowSearch] = useState(false);
@@ -29,9 +30,14 @@ const ScoreBoard = ({ intl, courseId }) => {
     dispatch(fetchGradesHeading(courseId));
   }, [])
 
-  useEffect(() => {
-    dispatch(fetchGrades(courseId, null, searchText));
-  }, [searchText])
+  // useEffect(() => {
+  //   dispatch(fetchGrades(courseId, null, searchText));
+  // }, [searchText])
+
+  const handleSearchCoursesDebounced = useCallback(
+      debounce((value) => dispatch(fetchGrades(courseId, null, value)), 400),
+      [],
+    );
 
 
   const handleNext = () => {
@@ -65,10 +71,14 @@ const ScoreBoard = ({ intl, courseId }) => {
               {<input
                 type="text"
                 value={searchText}
-                onChange={(e) => setSearchText(e.target.value)}
+                onChange={(e) => {
+                  handleSearchCoursesDebounced(e.target.value)
+                  setSearchText(e.target.value)
+                }}
                 placeholder="Search..."
               />}
               {showSearch ? <Icon className='close-icon' size='sm' src={IconClose} onClick={() => {
+                handleSearchCoursesDebounced('')
                 setSearchText('')
                 setShowSearch(!showSearch)
               }} /> : <Icon className={'search-icon'} size={'sm'} src={IconSearch} onClick={() => setShowSearch(!showSearch)} />}

@@ -59,12 +59,15 @@ const UnitCard = ({
     isHeaderVisible = true,
     enableCopyPasteUnits = false,
     discussionEnabled,
+    hasChanges,
+    visibilityState,
+    published
   } = unit;
 
    const {
-    hasChanges,
-    visibilityState,
-    published,
+    // hasChanges,
+    // visibilityState,
+    // published,
     id:subsectionId
   } = subsection;
 

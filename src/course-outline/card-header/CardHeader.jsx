@@ -165,7 +165,7 @@ const CardHeader = ({
           <>
             {titleComponent}
             <IconButton
-              className="item-card-edit-icon"
+              className="item-card-edit-icon mr-2"
               data-testid={`${namePrefix}-edit-button`}
               alt={intl.formatMessage(messages.altButtonEdit)}
               iconAs={EditIcon}

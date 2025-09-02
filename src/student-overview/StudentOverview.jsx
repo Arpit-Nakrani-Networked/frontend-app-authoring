@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape } from '@edx/frontend-platform/i18n';
 import {
@@ -17,6 +17,7 @@ import { useStudentsTableData } from './hooks';
 import { useDispatch } from 'react-redux';
 import { fetchStudents } from './data/thunks';
 import { LoadingSpinner } from '../generic/Loading';
+import { debounce } from 'lodash';
 
 
 const StudentOverview = ({ intl, courseId }) => {
@@ -33,9 +34,14 @@ const StudentOverview = ({ intl, courseId }) => {
         dispatch(fetchStudents(courseId));
     }, [])
 
-    useEffect(() => {
-        dispatch(fetchStudents(courseId,null,searchText));
-    }, [searchText])
+    // useEffect(() => {
+    //     dispatch(fetchStudents(courseId,null,searchText));
+    // }, [searchText])
+
+     const handleSearchCoursesDebounced = useCallback(
+          debounce((value) => dispatch(fetchStudents(courseId, null, value)), 400),
+          [],
+        );
 
     const courseDetails = useModel('courseDetails', courseId);
     document.title = getPageHeadTitle(courseDetails?.name, "Student Overview");
@@ -65,10 +71,14 @@ const StudentOverview = ({ intl, courseId }) => {
                                 {<input
                                     type="text"
                                     value={searchText}
-                                    onChange={(e) => setSearchText(e.target.value)}
+                                    onChange={(e) => {
+                                        handleSearchCoursesDebounced(e.target.value)
+                                        setSearchText(e.target.value)
+                                    }}
                                     placeholder="Search..."
                                 />}
                                 {showSearch ? <Icon className='close-icon' size='sm' src={IconClose} onClick={() => {
+                                    handleSearchCoursesDebounced('')
                                     setSearchText('')
                                     setShowSearch(!showSearch)
                                 }} /> : <Icon className={'search-icon'} size={'sm'} src={IconSearch} onClick={() => setShowSearch(!showSearch)} />}

@@ -449,6 +449,7 @@ input.pgn__form-switch-input {
 .btn-icon {
   color: $v2-black-400 !important;
   border-radius: 12px !important;
+  min-width: 2.75rem;
 }
 
 .btn-icon.btn-icon-primary.focus,
@@ -539,4 +540,5 @@ a.disabled{
 
 .btn-sm, .btn-group-sm > .btn{
   padding: 8px 16px;
+  text-wrap:nowrap;
 }
