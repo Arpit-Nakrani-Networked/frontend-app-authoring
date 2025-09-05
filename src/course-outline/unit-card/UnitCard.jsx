@@ -65,10 +65,8 @@ const UnitCard = ({
   } = unit;
 
    const {
-    // hasChanges,
-    // visibilityState,
-    // published,
-    id:subsectionId
+    id:subsectionId,
+    proctoringExamConfigurationLink,
   } = subsection;
 
   // re-create actions object for customizations
@@ -255,6 +253,7 @@ const UnitCard = ({
             discussionsSettings={discussionsSettings}
             parentInfo={parentInfo}
             showEditButton={true}
+            proctoringExamConfigurationLink={proctoringExamConfigurationLink}
           />
           {/* <div className="unit-card__content item-children" data-testid="unit-card__content">
             <XBlockStatus

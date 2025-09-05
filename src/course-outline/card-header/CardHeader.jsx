@@ -229,7 +229,7 @@ const CardHeader = ({
               iconAs={Icon}
             />
             <Dropdown.Menu className="card p-3" style={{ width: '217px', maxWidth: "217px", minWidth: "217px" }}>
-              {/* {isSequential && proctoringExamConfigurationLink && (
+              {isVertical && proctoringExamConfigurationLink && (
                 <Dropdown.Item
                   as={Hyperlink}
                   target="_blank"
@@ -239,7 +239,7 @@ const CardHeader = ({
                 >
                   {intl.formatMessage(messages.menuProctoringLinkText)}
                 </Dropdown.Item>
-              )} */}
+              )}
               <Dropdown.Item
                 data-testid={`${namePrefix}-card-header__menu-publish-button`}
                 disabled={isDisabledPublish}

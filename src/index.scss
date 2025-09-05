@@ -121,6 +121,10 @@ mark {
     // letter-spacing: 0% !important;
     color: $v2-black-400 !important;
     margin: 0;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+    text-wrap: nowrap;
+    text-overflow: ellipsis;
   }
 }
 
@@ -312,6 +316,7 @@ mark {
   }
 
   .unit-card {
+
     .form-control,
     .form-control:focus-visible,
     .form-control:focus-within,
@@ -521,7 +526,7 @@ input.pgn__form-switch-input {
   flex: 1;
 }
 
-.dropdown-menu > hr{
+.dropdown-menu>hr {
   margin-top: 5px !important;
   margin-bottom: 5px !important;
 }
@@ -533,12 +538,13 @@ input.pgn__form-switch-input {
   outline: none !important;
 }
 
-a.disabled{
+a.disabled {
   cursor: not-allowed !important;
-  pointer-events:visible !important;
+  pointer-events: visible !important;
 }
 
-.btn-sm, .btn-group-sm > .btn{
+.btn-sm,
+.btn-group-sm>.btn {
   padding: 8px 16px;
-  text-wrap:nowrap;
+  text-wrap: nowrap;
 }

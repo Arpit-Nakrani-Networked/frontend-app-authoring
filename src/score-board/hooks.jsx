@@ -33,7 +33,7 @@ export const useGradebookTableData = () => {
     },
     {
       Header: 'Full Name',
-      accessor: 'fullName',
+      accessor: 'full_name',
     },
     {
       Header: 'Email',
@@ -61,6 +61,8 @@ export const useGradebookTableData = () => {
         `${(subsection?.percent * 100).toFixed(0)}${getLocalizedPercentSign()}`;
     });
 
+    const isQuizComplete = !Boolean(entry.section_breakdown?.length === 0 || entry.section_breakdown.find((subsection, idx) => !subsection?.attempted))
+
     return {
       select: <input type="checkbox" />,
       user: (
@@ -75,7 +77,7 @@ export const useGradebookTableData = () => {
           </span>
         </div>
       ),
-      fullName: entry.username, // if you have `entry.name` use that instead
+      full_name: entry.full_name, // if you have `entry.name` use that instead
       email: entry?.email || '-',
       ...sectionScores,
       score: (
@@ -84,11 +86,11 @@ export const useGradebookTableData = () => {
         </span>
       ),
       result:
-        entry.percent >= gradesHeadingState?.grade_cutoffs?.Pass ? (
+        isQuizComplete ? entry.percent >= gradesHeadingState?.grade_cutoffs?.Pass ? (
           <span className="score-result pass">Pass</span>
         ) : (
           <span className="score-result fail">Failed</span>
-        ),
+        ) : <span className="score-result fail">Pending</span>,
     };
   });
 
