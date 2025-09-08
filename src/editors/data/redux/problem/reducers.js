@@ -15,15 +15,17 @@ const initialState = {
   groupFeedbackList: [],
   generalFeedback: '',
   additionalAttributes: {},
-  defaultSettings: {},
+  defaultSettings: {
+
+  },
   isDirty: false,
   settings: {
     randomization: null,
     scoring: {
       weight: 1,
       attempts: {
-        unlimited: true,
-        number: null,
+        unlimited: false,
+        number: 1,
       },
     },
     hints: [],

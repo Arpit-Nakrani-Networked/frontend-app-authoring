@@ -22,7 +22,7 @@ const StatusBadge = ({
             className={iconClassName}
           />
         )}
-        <span className="small ml-1">{text}</span>
+        <span className="small ml-1 text-nowrap">{text}</span>
       </div>
     );
   }

@@ -187,6 +187,7 @@ const useCourseOutline = ({ courseId }) => {
     closePublishModal();
   };
 
+  
   const handlePublishAllSubmit = async () => {
     // const sections = sectionsList.filter(val => val.hasChanges);
     // Only pick section IDs based on rules
