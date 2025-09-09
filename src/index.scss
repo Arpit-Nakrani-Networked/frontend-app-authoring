@@ -107,11 +107,11 @@ mark {
   justify-content: space-between;
   column-gap: 10px;
 
-  div {
+  div.actions-btns {
     display: flex;
     align-items: center;
     justify-content: center;
-    column-gap: 10px;
+    column-gap: 16px;
   }
 
   h1 {
@@ -545,6 +545,10 @@ a.disabled {
 
 .btn-sm,
 .btn-group-sm>.btn {
-  padding: 8px 16px;
+  padding: 7px 13px;
   text-wrap: nowrap;
+  overflow: hidden;
+}
+.btn-sm{
+  height: 36px;
 }

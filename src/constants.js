@@ -74,3 +74,9 @@ export const REGEX_RULES = {
   specialCharsRule: /^[a-zA-Z0-9_\-.'*~\s]+$/,
   noSpaceRule: /^\S*$/,
 };
+
+export const CourseStatus = {
+  public : "both",
+  private : "about",
+  delete : "none"
+};

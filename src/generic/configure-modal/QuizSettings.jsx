@@ -23,7 +23,7 @@ const QuizSettings = ({ setFieldValue, values, courseGraders }) => {
   const onChangeAnswerVisibility = (e) => values.showCorrectness === SHOWASSESMENTANSWERS.ALWAYS ? setFieldValue('showCorrectness', SHOWASSESMENTANSWERS.NEVER) : setFieldValue('showCorrectness', SHOWASSESMENTANSWERS.ALWAYS)
   return (
     <div>
-      <ToggleItem
+      {/* <ToggleItem
         label={intl.formatMessage(messages.includePassingScoreTitle)}
         description={intl.formatMessage(messages.includePassingScoreDesc)}
         checked={passingScore}
@@ -44,7 +44,7 @@ const QuizSettings = ({ setFieldValue, values, courseGraders }) => {
             </Form.Control>
           </Form.Group>
         </div>}
-      </ToggleItem>
+      </ToggleItem> */}
       <ToggleItem
         label={intl.formatMessage(messages.showAnserOnResultTitle)}
         description={intl.formatMessage(messages.showAnserOnResultDesc)}

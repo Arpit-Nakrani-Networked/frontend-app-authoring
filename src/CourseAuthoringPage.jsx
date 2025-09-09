@@ -21,12 +21,12 @@ const CourseAuthoringPage = ({ courseId, children }) => {
   const dispatch = useDispatch();
   const tabs = [
     {
-      title: 'Course Outline',
+      title: 'Course outline',
       slug: `/course/${courseId}`,
       url: [`/authoring/course/${courseId}`],
     },
     {
-      title: 'Student Overview',
+      title: 'Student overview',
       slug: `/course/${courseId}/settings/student-overview`,
       url: [`/authoring/course/${courseId}/settings/student-overview`],
     },

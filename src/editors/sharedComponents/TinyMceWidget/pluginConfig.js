@@ -31,7 +31,7 @@ const pluginConfig = ({ isLibrary, placeholder, editorType }) => {
         plugins.autoresize,
         image,
         imageTools,
-        quickToolbar,
+        // quickToolbar,
         plugins.a11ychecker,
         plugins.powerpaste,
         plugins.embediframe,

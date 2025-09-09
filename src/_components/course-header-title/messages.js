@@ -7,7 +7,7 @@ const messages = defineMessages({
   },
   saveBtnText: {
     id: 'course-authoring.header.saveBtn.text',
-    defaultMessage: 'Save',
+    defaultMessage: 'Publish Course',
   }
 });
 
