@@ -1,6 +1,6 @@
 import { useLocation, useParams } from 'react-router';
 import { Button } from '@openedx/paragon';
-import { ArrowBack, Search } from '@openedx/paragon/icons';
+import { ArrowBack } from '@openedx/paragon/icons';
 import { Link } from 'react-router-dom';
 import { getConfig } from '@edx/frontend-platform';
 import { useModel } from '../../generic/model-store';
@@ -61,6 +61,7 @@ export default function CourseTitleHeader() {
       await handlePublishAllSubmit();
       if(isDraftStatus){
         await postCoursePublish(courseIdFromUrl)
+        dispatch(fetchCourseDetail(courseIdFromUrl));
       }
     }
   }
@@ -68,8 +69,6 @@ export default function CourseTitleHeader() {
   const publishLessonContent = async () => {
     await dispatch(publishCourseItemQuery(unitId,null,false,[]))
   }
-
-  console.log("unitId",unitId,params);
   
 
   return (
