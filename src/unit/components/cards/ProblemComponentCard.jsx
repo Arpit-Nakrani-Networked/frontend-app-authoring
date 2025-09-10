@@ -17,7 +17,7 @@ export const ProblemComponentCard = ({ component, onEdit, onDelete }) => {
       {!error && (
         <Stack gap={2}>
           <h2 className="sub-header-title"
-              dangerouslySetInnerHTML={{ __html: problemStatement }} />
+            dangerouslySetInnerHTML={{ __html: problemStatement }} />
           <Stack gap={2}>
             {options.map((option, index) => (
               <Stack
@@ -65,12 +65,16 @@ const MultiSelectCheckbox = ({ checkboxId, componentId }) => (
 
 // --- Helper: Convert parsed XML nodes into proper HTML ---
 function toHTML(node) {
-  if (node == null) return '';
-  if (typeof node === 'string') return node;
-  if (Array.isArray(node)) return node.map(toHTML).join('');
+  try {
+    if (node == null) return '';
+    if (typeof node === 'string') return node;
+    if (Array.isArray(node)) return node.map(toHTML).join('');
 
-  const [tag, value] = Object.entries(node)[0];
-  return `<${tag}>${toHTML(value)}</${tag}>`;
+    const [tag, value] = Object.entries(node)[0];
+    return `<${tag}>${toHTML(value)}</${tag}>`;
+  } catch (e) {
+    return node
+  }
 }
 
 function parseProblemComponent(xmlString) {
