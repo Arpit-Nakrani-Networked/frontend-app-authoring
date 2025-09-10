@@ -13,7 +13,7 @@ import { CourseStatus } from '../../constants';
 import { postCoursePublish } from '../../data/api';
 import { useDispatch } from 'react-redux';
 import { fetchCourseDetail } from '../../data/thunks';
-import { publishCourseItemQuery } from '../../course-outline/data/thunk';
+import { fetchCourseOutlineIndexQuery, publishCourseItemQuery } from '../../course-outline/data/thunk';
 
 function hasAnyChanges(node) {
   // If the current node hasChanges true
@@ -39,9 +39,9 @@ function extractUnitId(params) {
 
 export default function CourseTitleHeader() {
   const intl = useIntl();
-  const { courseId: courseIdFromUrl,...params } = useParams();
+  const { courseId: courseIdFromUrl, ...params } = useParams();
   const dispatch = useDispatch();
-  const { handlePublishAllSubmit,sectionsList,...p } = useCourseOutline({ courseId: courseIdFromUrl });
+  const { handlePublishAllSubmit, sectionsList, ...p } = useCourseOutline({ courseId: courseIdFromUrl });
   const courseDetail = useModel('courseDetails', courseIdFromUrl);
   const courseTitle = courseDetail ? courseDetail.name : courseIdFromUrl;
   const lmsApiBaseUrl = getConfig().LMS_BASE_URL;
@@ -54,12 +54,12 @@ export default function CourseTitleHeader() {
   const hasChanges = Boolean(sectionsList.some(item => hasAnyChanges(item)) || isDraftStatus)
 
   const publishDraftContent = async () => {
-    if(unitId){
+    if (unitId) {
       await publishLessonContent();
-      dispatch(fetchCourseDetail(courseIdFromUrl));
-    }else{
+      dispatch(fetchCourseOutlineIndexQuery(courseIdFromUrl,true));
+    } else {
       await handlePublishAllSubmit();
-      if(isDraftStatus){
+      if (isDraftStatus) {
         await postCoursePublish(courseIdFromUrl)
         dispatch(fetchCourseDetail(courseIdFromUrl));
       }
@@ -67,19 +67,19 @@ export default function CourseTitleHeader() {
   }
 
   const publishLessonContent = async () => {
-    await dispatch(publishCourseItemQuery(unitId,null,false,[]))
+    await dispatch(publishCourseItemQuery(unitId, null, false, []))
   }
-  
+
 
   return (
     <div className="_container-fluid main-course-header">
       {isUnitPage ? <Button as={Link} to={backToOutlinePage} variant="link" className="text-black _font-weight-semibold" style={{ textDecoration: 'none' }} iconBefore={ArrowBack}>Back To Outline</Button>
         : (
           <div className="d-flex align-items-center gap-1 flex-1 w-100 overflow-hidden">
-          <h1 className="h2" data-course-id={courseIdFromUrl} title={courseTitle}>
-            {courseTitle}
-          </h1>
-          {isDraftStatus && <span className="rounded _text-black-400 _bg-info-200 p-1 ml-2 text-sm">Draft</span>}
+            <h1 className="h2" data-course-id={courseIdFromUrl} title={courseTitle}>
+              {courseTitle}
+            </h1>
+            {isDraftStatus && <span className="rounded _text-black-400 _bg-info-200 p-1 ml-2 text-sm">Draft</span>}
           </div>
         )}
       <div className='actions-btns'>
@@ -90,9 +90,9 @@ export default function CourseTitleHeader() {
           href={viewerUrl}
           target="_blank"
           size='sm'
-          
+
         >
-         <SolidSvgComponent url={ViewIcon} width={16} height={16} defaultClass={`mr-1`} isIconColor /> {intl.formatMessage(messages.viewBtnText)}
+          <SolidSvgComponent url={ViewIcon} width={16} height={16} defaultClass={`mr-1`} isIconColor /> {intl.formatMessage(messages.viewBtnText)}
         </Button>
         <Button
           type="button"

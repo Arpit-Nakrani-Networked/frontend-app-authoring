@@ -248,10 +248,13 @@ export function publishCourseItemQuery(itemId, sectionId,refetchSection = true,i
 
     try {
       await publishCourseSection(itemId).then(async (result) => {
-        if (result && refetchSection) {
-          await dispatch(fetchCourseSectionQuery([sectionId,...ids]));
-          dispatch(hideProcessingNotification());
+        if (result) {
+          if(refetchSection){
+            await dispatch(fetchCourseSectionQuery([sectionId,...ids]));
+            dispatch(hideProcessingNotification());
+          }
           dispatch(updateSavingStatus({ status: RequestStatus.SUCCESSFUL }));
+          dispatch(hideProcessingNotification());
         }
       });
     } catch (error) {

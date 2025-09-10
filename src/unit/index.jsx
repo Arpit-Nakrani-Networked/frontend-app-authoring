@@ -16,8 +16,10 @@ import { NoContent } from './components/NoContent';
 import { DraggableComponent } from './components/DraggableComponent';
 import { AvailableComponentCard } from './components/AvailableComponentCard';
 import { UnitContextWrapper } from './data/context/UnitContext';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { fetchCourseOutlineIndexQuery } from '../course-outline/data/thunk';
+import { getProcessingNotification } from '../generic/processing-notification/data/selectors';
+import ProcessingNotification from '../generic/processing-notification';
 
 const Unit = ({ courseId }) => {
   const { unitId } = useParams();
@@ -51,6 +53,11 @@ const Unit = ({ courseId }) => {
       coordinateGetter: sortableKeyboardCoordinates,
     }),
   );
+
+   const {
+      isShow: isShowProcessingNotification,
+      title: processingNotificationTitle,
+    } = useSelector(getProcessingNotification);
 
   const handleDragEnd = (event) => {
     const { active, over } = event;
@@ -166,6 +173,10 @@ const Unit = ({ courseId }) => {
           </div>
         </div>
       </div>
+      <ProcessingNotification
+                isShow={isShowProcessingNotification}
+                title={processingNotificationTitle}
+              />
       <UnitContextWrapper updateComponent={handleComponentUpdate} componentBlocks={components} handleDeleteComponentBlock={handleDeleteComponentBlock}>
         <Outlet />
       </UnitContextWrapper>
