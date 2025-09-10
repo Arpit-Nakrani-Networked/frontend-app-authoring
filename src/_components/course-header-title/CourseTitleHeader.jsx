@@ -10,6 +10,10 @@ import messages from './messages';
 import ViewIcon from '../../assets/images/viewIcon.svg'
 import SolidSvgComponent from '../../_components/solid-svg/SolidSvgComponent';
 import { CourseStatus } from '../../constants';
+import { postCoursePublish } from '../../data/api';
+import { useDispatch } from 'react-redux';
+import { fetchCourseDetail } from '../../data/thunks';
+import { publishCourseItemQuery } from '../../course-outline/data/thunk';
 
 function hasAnyChanges(node) {
   // If the current node hasChanges true
@@ -25,9 +29,18 @@ function hasAnyChanges(node) {
   return false;
 }
 
+function extractUnitId(params) {
+  const rawValue = params["*"];
+  if (!rawValue) return null;
+
+  // remove "container/" if present
+  return rawValue.startsWith("container/") ? rawValue.replace("container/", "") : rawValue;
+}
+
 export default function CourseTitleHeader() {
   const intl = useIntl();
-  const { courseId: courseIdFromUrl } = useParams();
+  const { courseId: courseIdFromUrl,...params } = useParams();
+  const dispatch = useDispatch();
   const { handlePublishAllSubmit,sectionsList,...p } = useCourseOutline({ courseId: courseIdFromUrl });
   const courseDetail = useModel('courseDetails', courseIdFromUrl);
   const courseTitle = courseDetail ? courseDetail.name : courseIdFromUrl;
@@ -36,9 +49,29 @@ export default function CourseTitleHeader() {
   const { pathname } = useLocation();
   const isUnitPage = pathname.includes('/container');
   const backToOutlinePage = `/course/${courseIdFromUrl}/`;
-  console.log("sectionsList",courseDetail?.catalogVisibility);
-  const isDraftStatus = courseDetail?.catalogVisibility === CourseStatus.private;
-  const hasChanges = sectionsList.some(item => hasAnyChanges(item));
+  const unitId = extractUnitId(params);
+  const isDraftStatus = courseDetail?.catalogVisibility === CourseStatus.private && !unitId;
+  const hasChanges = Boolean(sectionsList.some(item => hasAnyChanges(item)) || isDraftStatus)
+
+  const publishDraftContent = async () => {
+    if(unitId){
+      await publishLessonContent();
+      dispatch(fetchCourseDetail(courseIdFromUrl));
+    }else{
+      await handlePublishAllSubmit();
+      if(isDraftStatus){
+        await postCoursePublish(courseIdFromUrl)
+      }
+    }
+  }
+
+  const publishLessonContent = async () => {
+    await dispatch(publishCourseItemQuery(unitId,null,false,[]))
+  }
+
+  console.log("unitId",unitId,params);
+  
+
   return (
     <div className="_container-fluid main-course-header">
       {isUnitPage ? <Button as={Link} to={backToOutlinePage} variant="link" className="text-black _font-weight-semibold" style={{ textDecoration: 'none' }} iconBefore={ArrowBack}>Back To Outline</Button>
@@ -64,7 +97,7 @@ export default function CourseTitleHeader() {
         </Button>
         <Button
           type="button"
-          onClick={handlePublishAllSubmit}
+          onClick={publishDraftContent}
           data-testid="course-reindex"
           variant="outline-primary"
           disabled={!hasChanges}

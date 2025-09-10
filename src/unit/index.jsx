@@ -16,6 +16,8 @@ import { NoContent } from './components/NoContent';
 import { DraggableComponent } from './components/DraggableComponent';
 import { AvailableComponentCard } from './components/AvailableComponentCard';
 import { UnitContextWrapper } from './data/context/UnitContext';
+import { useDispatch } from 'react-redux';
+import { fetchCourseOutlineIndexQuery } from '../course-outline/data/thunk';
 
 const Unit = ({ courseId }) => {
   const { unitId } = useParams();
@@ -23,6 +25,7 @@ const Unit = ({ courseId }) => {
   const [components, setComponents] = useState([]);
   const [verticleBlock, setVerticleBlock] = useState(null);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleDeleteComponentBlock = (componentBlockId) => {
     setComponents((components) => components.filter((component) => component.id !== componentBlockId));
@@ -92,13 +95,18 @@ const Unit = ({ courseId }) => {
     };
 
     setComponents(prev => [...prev, newComponent]);
-
+    setHasChangesSection()
     navigate(`/course/${courseId}/container/${unitId}/editor/${componentBlockCategory}/${componentBlockId}`);
   };
+
+  const setHasChangesSection = () => {
+    dispatch(fetchCourseOutlineIndexQuery(courseId,true));
+  }
 
   const handleComponentUpdate = (updatedComponent) => {
     setComponents((components) => components.map((component) => {
       if (component.id === updatedComponent.id) {
+        setHasChangesSection()
         return {
           ...component,
           ...updatedComponent,

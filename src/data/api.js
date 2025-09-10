@@ -2,6 +2,7 @@
 import { camelCaseObject, getConfig } from '@edx/frontend-platform';
 import { getAuthenticatedHttpClient } from '@edx/frontend-platform/auth';
 import { HttpMethod, HttpWrapper } from '../helper/httpWrapper';
+import { CourseStatus } from '../constants';
 
 function normalizeCourseDetail(data) {
   return {
@@ -17,6 +18,20 @@ export async function getCourseDetail(courseId, username) {
   return normalizeCourseDetail(data);
 }
 
+export async function postCoursePublish(courseId) {
+  // /global/open-edx/edit-access
+  try {
+    const response = await HttpWrapper.call(
+      HttpMethod.POST,
+      `/global/open-edx/courses/${courseId}/${CourseStatus.public}`,
+      {},
+      undefined,
+    );
+    return response;
+  } catch (error) {
+    return {};
+  }
+}
 export async function getCourseDetailPermissions(courseId) {
   // /global/open-edx/edit-access
   try {
