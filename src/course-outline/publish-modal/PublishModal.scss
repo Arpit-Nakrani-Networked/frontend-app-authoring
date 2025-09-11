@@ -1,15 +1,30 @@
 .publish-modal {
-  max-width: 33.6875rem;
+  max-width: 448px;
 
   .pgn__modal-close-container {
     transform: translateY(.5rem);
   }
 
   .publish-modal__header {
-    padding-top: 1.5rem;
+    padding-top: 1rem;
   }
 
   .publish-modal__subsection:not(:last-child) {
     margin-bottom: .5rem;
+  }
+
+  .pgn__modal-close-container{
+    top: 0;
+    outline: 0;
+
+    &:focus-visible{
+      outline: 0;
+    }
+  }
+
+  p {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 120%;
   }
 }

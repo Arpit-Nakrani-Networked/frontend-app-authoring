@@ -13,7 +13,7 @@ import { getCurrentItem } from '../data/selectors';
 import { COURSE_BLOCK_NAMES } from '../constants';
 import messages from './messages';
 
-const PublishModal = ({
+const CoursePublishModal = ({
   isOpen,
   onClose,
   onPublishSubmit,
@@ -34,51 +34,26 @@ const PublishModal = ({
     >
       <ModalDialog.Header className="publish-modal__header">
         <ModalDialog.Title>
-          {intl.formatMessage(messages.title, { title: displayName })}
+          {intl.formatMessage(messages.confirmPublish)}
         </ModalDialog.Title>
       </ModalDialog.Header>
       <ModalDialog.Body>
-        <p className="small">
-          {intl.formatMessage(messages.description, { category: categoryName })}
+        <p className="_text-black-600">
+          {intl.formatMessage(messages.confirmDesc)}
         </p>
-        {/* {children.filter(child => child.hasChanges).map((child) => {
-          let grandChildren = child.childInfo?.children || [];
-          grandChildren = grandChildren.filter(grandChild => grandChild.hasChanges);
-
-          return grandChildren.length ? (
-            <React.Fragment key={child.id}>
-              <span className="small text-gray-400">{child.displayName}</span>
-              {grandChildren.map((grandChild) => (
-                <div
-                  key={grandChild.id}
-                  className="small border border-light-400 p-2 publish-modal__subsection"
-                >
-                  {grandChild.displayName}
-                </div>
-              ))}
-            </React.Fragment>
-          ) : (
-            <div
-              key={child.id}
-              className="small border border-light-400 p-2 publish-modal__subsection"
-            >
-              {child.displayName}
-            </div>
-          );
-        })} */}
       </ModalDialog.Body>
       <ModalDialog.Footer className="pt-1">
         <ActionRow>
-          <ModalDialog.CloseButton variant="outline-third" size='sm' >
+          <ModalDialog.CloseButton variant="outline-third" size='sm'>
             {intl.formatMessage(messages.cancelButton)}
           </ModalDialog.CloseButton>
           <Button
-            variant='outline-primary'
-            size='sm'
             data-testid="publish-confirm-button"
             onClick={onPublishSubmit}
+            size='sm'
+            variant="outline-primary"
           >
-            {intl.formatMessage(messages.publishButton)}
+            {intl.formatMessage(messages.publishNow)}
           </Button>
         </ActionRow>
       </ModalDialog.Footer>
@@ -86,10 +61,10 @@ const PublishModal = ({
   );
 };
 
-PublishModal.propTypes = {
+CoursePublishModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   onPublishSubmit: PropTypes.func.isRequired,
 };
 
-export default PublishModal;
+export default CoursePublishModal;

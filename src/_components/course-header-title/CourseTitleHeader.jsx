@@ -14,6 +14,8 @@ import { postCoursePublish } from '../../data/api';
 import { useDispatch } from 'react-redux';
 import { fetchCourseDetail } from '../../data/thunks';
 import { fetchCourseOutlineIndexQuery, publishCourseItemQuery } from '../../course-outline/data/thunk';
+import CoursePublishModal from '../../course-outline/publish-modal/CoursePublishModal';
+import { useState } from 'react';
 
 function hasAnyChanges(node) {
   // If the current node hasChanges true
@@ -39,6 +41,7 @@ function extractUnitId(params) {
 
 export default function CourseTitleHeader() {
   const intl = useIntl();
+  const [isOpen,setIsOpen] = useState(false)
   const { courseId: courseIdFromUrl, ...params } = useParams();
   const dispatch = useDispatch();
   const { handlePublishAllSubmit, sectionsList, ...p } = useCourseOutline({ courseId: courseIdFromUrl });
@@ -51,9 +54,10 @@ export default function CourseTitleHeader() {
   const backToOutlinePage = `/course/${courseIdFromUrl}/`;
   const unitId = extractUnitId(params);
   const isDraftStatus = courseDetail?.catalogVisibility === CourseStatus.private && !unitId;
-  const hasChanges = Boolean(sectionsList.some(item => hasAnyChanges(item)) || isDraftStatus)
+  const hasChanges = Boolean(sectionsList.some(item => hasAnyChanges(item)))
 
   const publishDraftContent = async () => {
+    setIsOpen(false)
     if (unitId) {
       await publishLessonContent();
       dispatch(fetchCourseOutlineIndexQuery(courseIdFromUrl,true));
@@ -96,7 +100,7 @@ export default function CourseTitleHeader() {
         </Button>
         <Button
           type="button"
-          onClick={publishDraftContent}
+          onClick={()=>setIsOpen(true)}
           data-testid="course-reindex"
           variant="outline-primary"
           disabled={!hasChanges}
@@ -105,6 +109,7 @@ export default function CourseTitleHeader() {
           {intl.formatMessage(messages.saveBtnText)}
         </Button>
       </div>
+      <CoursePublishModal isOpen={isOpen} onClose={()=>setIsOpen(false)} onPublishSubmit={publishDraftContent} />
     </div>
   );
 }

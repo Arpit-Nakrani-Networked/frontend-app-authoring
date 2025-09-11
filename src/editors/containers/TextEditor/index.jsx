@@ -114,6 +114,7 @@ TextEditor.defaultProps = {
 TextEditor.propTypes = {
   onClose: PropTypes.func.isRequired,
   returnFunction: PropTypes.func,
+  deleteBlock: PropTypes.func,
   // redux
   blockValue: PropTypes.shape({
     data: PropTypes.shape({ data: PropTypes.string }),

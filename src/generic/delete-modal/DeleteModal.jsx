@@ -37,7 +37,8 @@ const DeleteModal = ({
       footerNode={(
         <ActionRow>
           <Button
-            variant="tertiary"
+            variant="outline-third"
+            size='sm'
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
@@ -49,6 +50,8 @@ const DeleteModal = ({
           <StatefulButton
             data-testid="delete-confirm-button"
             state={btnState}
+            size='sm'
+            variant="outline-primary"
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();

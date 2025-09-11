@@ -50,7 +50,6 @@ interface Props extends EditorComponent {
   getContent: Function;
   isDirty: () => boolean;
   validateEntry?: Function | null;
-  deleteBlock?: Function | null;
 }
 
 const EditorContainer: React.FC<Props> = ({
@@ -60,7 +59,7 @@ const EditorContainer: React.FC<Props> = ({
   onClose = null,
   validateEntry = null,
   returnFunction = null,
-  deleteBlock = null,
+  deleteBlock,
 }) => {
   const intl = useIntl();
   const dispatch = useDispatch();
@@ -96,8 +95,8 @@ const EditorContainer: React.FC<Props> = ({
   const deleteBlockFunc = () => {
     if (!deleteBlock) return;
     const content = getContent();
-
-    if (content.length === 0) {
+    
+    if (!content || content?.length === 0) {
       deleteBlock()
     }
   }

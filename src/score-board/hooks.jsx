@@ -90,7 +90,7 @@ export const useGradebookTableData = () => {
           <span className="score-result pass">Pass</span>
         ) : (
           <span className="score-result fail">Failed</span>
-        ) : <span className="score-result fail">Pending</span>,
+        ) : '-',
     };
   });
 

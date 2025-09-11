@@ -19,7 +19,8 @@ export interface Props extends EditorComponent {
   /** null if this is a new problem */
   problemType: ProblemType | null;
   initializeProblemEditor: (blockValue: any) => void;
-  blockValue: Record<string, any>;
+  blockValue: Record<string, any>;3
+  deleteBlock: (id:string)=>void;
 }
 
 const ProblemEditor: React.FC<Props> = ({
@@ -32,6 +33,7 @@ const ProblemEditor: React.FC<Props> = ({
   blockValue,
   initializeProblemEditor,
   advancedSettingsFinished,
+  deleteBlock
 }) => {
   React.useEffect(() => {
     if (blockFinished && !blockFailed) {
@@ -62,9 +64,12 @@ const ProblemEditor: React.FC<Props> = ({
   }
 
   if (problemType === null) {
-    return (<SelectTypeModal {...{ onClose }} />);
+    return (<SelectTypeModal {...{ onClose:()=>{
+      onClose && onClose()
+      blockValue?.data?.id && deleteBlock && deleteBlock(blockValue?.data?.id)
+    } }} />);
   }
-  return (<EditProblemView {...{ onClose, returnFunction }} />);
+  return (<EditProblemView {...{ onClose, returnFunction,deleteBlock:() => deleteBlock(blockValue?.data?.id) }} />);
 };
 
 export const mapStateToProps = (state) => ({

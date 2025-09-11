@@ -39,6 +39,7 @@ const EditProblemView = ({
   isDirty,
   // injected
   intl,
+  deleteBlock
 }) => {
   const dispatch = useDispatch();
   const editorRef = useRef(null);
@@ -65,6 +66,7 @@ const EditProblemView = ({
       isDirty={checkIfDirty}
       returnFunction={returnFunction}
       onClose={onClose}
+      deleteBlock={() => deleteBlock && deleteBlock()}
     >
       <AlertModal
         title={isAdvancedProblemType ? (
@@ -140,6 +142,7 @@ EditProblemView.defaultProps = {
 EditProblemView.propTypes = {
   problemType: PropTypes.string.isRequired,
   returnFunction: PropTypes.func,
+  deleteBlock: PropTypes.func,
   onClose: PropTypes.func,
   // eslint-disable-next-line
   problemState: PropTypes.any.isRequired,
