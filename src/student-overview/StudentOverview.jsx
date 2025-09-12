@@ -18,7 +18,9 @@ import { useDispatch } from 'react-redux';
 import { fetchStudents } from './data/thunks';
 import { LoadingSpinner } from '../generic/Loading';
 import { debounce } from 'lodash';
-
+import SolidSvgComponent from '../_components/solid-svg/SolidSvgComponent';
+import SearchIcon from '../assets/images/student-overview/searchIcon.svg'
+import FilterIcon from '../assets/images/student-overview/filterIcon.svg'
 
 const StudentOverview = ({ intl, courseId }) => {
     const [showSearch, setShowSearch] = useState(false);
@@ -58,15 +60,15 @@ const StudentOverview = ({ intl, courseId }) => {
     }
     return (
         <>
-            <Container size="xl" className="grading px-4 pt-4 overflow-hidden">
-                <div className="student-container card px-0 pt-4 overflow-hidden">
+            <Container size="xl" className="grading px-4 pt-3 overflow-hidden">
+                <div className="student-container card px-0 pt-0 overflow-hidden">
                     <header className="student-header">
                         <h2 className="student-title">{intl.formatMessage(messages.headingTitle)}</h2>
                         <div className="student-actions">
                             <button
                                 className={`student-search d-flex ${showSearch ? 'active' : ''}`}
                             >
-                                {showSearch && <span className={showSearch ? 'search-expand-icon' : ''}><Icon className={showSearch ? '' : 'search-icon'} size={showSearch ? 'md' : 'sm'} src={IconSearch} onClick={() => setShowSearch(!showSearch)} /></span>}
+                                {showSearch && <span className={showSearch ? 'search-expand-icon' : ''}> <SolidSvgComponent url={SearchIcon} width={20} height={20} defaultClass={``} iconColor='#00000099' onClick={() => setShowSearch(!showSearch)} /></span>}
 
                                 {<input
                                     type="text"
@@ -78,13 +80,15 @@ const StudentOverview = ({ intl, courseId }) => {
                                     placeholder="Search..."
                                 />}
                                 {showSearch ? <Icon className='close-icon' size='sm' src={IconClose} onClick={() => {
-                                    handleSearchCoursesDebounced('')
+                                    if(searchText) {
+                                        handleSearchCoursesDebounced('')
+                                    }
                                     setSearchText('')
                                     setShowSearch(!showSearch)
-                                }} /> : <Icon className={'search-icon'} size={'sm'} src={IconSearch} onClick={() => setShowSearch(!showSearch)} />}
+                                }} /> : <SolidSvgComponent url={SearchIcon} width={20} height={20} defaultClass={``} iconColor='#00000099' onClick={() => setShowSearch(!showSearch)} />}
 
                             </button>
-                            <button className="student-filter h-fit"><Icon src={IconFilter} size={'sm'} /></button>
+                            {/* <button className="student-filter h-fit"><SolidSvgComponent url={FilterIcon} width={15} height={15} defaultClass={``} iconColor='#00000099' /></button> */}
                             <Button variant="primary" className="" size="sm" iconBefore={IconAdd}>
                                 {intl.formatMessage(messages.inviteButtonText)}
                             </Button>
@@ -100,7 +104,7 @@ const StudentOverview = ({ intl, courseId }) => {
                                 <th>{intl.formatMessage(messages.startDate)}</th>
                                 <th>{intl.formatMessage(messages.lastActive)}</th>
                                 <th>{intl.formatMessage(messages.progress)}</th>
-                                <th></th>
+                                {/* <th></th> */}
                             </tr>
                         </thead>
                         <tbody>

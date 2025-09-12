@@ -1,7 +1,7 @@
 @import '../variables';
 
 .student-container.card {
-    height: calc(100vh - 250px) !important;
+    height: calc(100vh - 200px) !important;
     overflow: auto !important;
 }
 
@@ -9,12 +9,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 16px;
-    padding: 0 20px;
+    // margin-bottom: 16px;
+    padding: 15px 24px;
 
     .student-title {
         font-size: 18px;
         font-weight: 600;
+        margin: 0;
     }
 }
 
@@ -36,9 +37,8 @@
 .student-actions {
     display: flex;
     gap: 10px;
-    
+
     .student-search {
-        background-color: #F5F5F5;
         width: 35px;
         height: 35px;
         border-radius: 8px;
@@ -49,6 +49,12 @@
         border: 1px solid transparent;
         overflow: hidden;
         transition: ease-in .3s ease;
+        background: transparent;
+        cursor: pointer;
+
+        &:hover {
+            background-color: #F5F5F5;
+        }
 
         input {
             width: 0;
@@ -100,7 +106,6 @@
     }
 
     .student-filter {
-        background-color: #F5F5F5;
         width: 35px;
         height: 35px;
         border-radius: 8px;
@@ -111,7 +116,12 @@
         border: 1px solid transparent;
         overflow: hidden;
         transition: ease-in .3s ease;
+        background: transparent;
         cursor: pointer;
+
+        &:hover {
+            background-color: #F5F5F5;
+        }
     }
 
     .student-invite {
@@ -159,7 +169,7 @@
 
     th,
     td {
-        padding: 12px;
+        padding: 10px 12px;
         text-align: left;
         font-size: 16px;
         color: #444444;

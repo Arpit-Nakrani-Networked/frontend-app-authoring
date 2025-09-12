@@ -28,17 +28,17 @@ export const useGradebookTableData = () => {
       accessor: 'select',
     },
     {
-      Header: 'User',
+      Header: 'Name & Date of Submission',
       accessor: 'user',
     },
-    {
-      Header: 'Full Name',
-      accessor: 'full_name',
-    },
-    {
-      Header: 'Email',
-      accessor: 'email',
-    },
+    // {
+    //   Header: 'Full Name',
+    //   accessor: 'full_name',
+    // },
+    // {
+    //   Header: 'Email',
+    //   accessor: 'email',
+    // },
     ...headings.map((entry, idx) => ({
       Header: entry?.short_label || `Section ${idx + 1}`,
       accessor: `section_${idx}`,
@@ -46,6 +46,7 @@ export const useGradebookTableData = () => {
     {
       Header: 'Score',
       accessor: 'score',
+      className:"score-th"
     },
     {
       Header: 'Result',
@@ -73,12 +74,12 @@ export const useGradebookTableData = () => {
             className="score-avatar"
           />
           <span>
-            <span>{entry.username}</span><br />
+            <span>{entry.full_name}</span><br />
           </span>
         </div>
       ),
-      full_name: entry.full_name, // if you have `entry.name` use that instead
-      email: entry?.email || '-',
+      // full_name: entry.full_name, // if you have `entry.name` use that instead
+      // email: entry?.email || '-',
       ...sectionScores,
       score: (
         <span className="score-td">

@@ -13,6 +13,9 @@ import { RequestStatus } from '../data/constants';
 import PageButtons from '../PageButtons';
 import { LoadingSpinner } from '../generic/Loading';
 import { debounce } from 'lodash';
+import SolidSvgComponent from '../_components/solid-svg/SolidSvgComponent';
+import SearchIcon from '../assets/images/student-overview/searchIcon.svg'
+import FilterIcon from '../assets/images/student-overview/filterIcon.svg'
 
 const ScoreBoard = ({ intl, courseId }) => {
   const [showSearch, setShowSearch] = useState(false);
@@ -58,33 +61,35 @@ const ScoreBoard = ({ intl, courseId }) => {
   }
 
   return (
-    <Container size="xl" className="grading px-4 pt-4 pb-4 overflow-hidden">
-      <div className="score-container card px-0 pt-4 overflow-hidden">
+    <Container size="xl" className="grading px-4 pt-3 pb-3 _max-flex-width overflow-hidden">
+      <div className="score-container card px-0 pt-0 overflow-hidden">
         <header className="score-header">
           <h2 className="score-title">{intl.formatMessage(messages.headingTitle)}</h2>
           <div className="score-actions">
             <button
               className={`score-search d-flex ${showSearch ? 'active' : ''}`}
             >
-              {showSearch && <span className={showSearch ? 'search-expand-icon' : ''}><Icon className={showSearch ? '' : 'search-icon'} size={showSearch ? 'md' : 'sm'} src={IconSearch} onClick={() => setShowSearch(!showSearch)} /></span>}
-
-              {<input
-                type="text"
-                value={searchText}
-                onChange={(e) => {
-                  handleSearchCoursesDebounced(e.target.value)
-                  setSearchText(e.target.value)
-                }}
-                placeholder="Search..."
-              />}
-              {showSearch ? <Icon className='close-icon' size='sm' src={IconClose} onClick={() => {
-                handleSearchCoursesDebounced('')
-                setSearchText('')
-                setShowSearch(!showSearch)
-              }} /> : <Icon className={'search-icon'} size={'sm'} src={IconSearch} onClick={() => setShowSearch(!showSearch)} />}
-
+                 {showSearch && <span className={showSearch ? 'search-expand-icon' : ''}> <SolidSvgComponent url={SearchIcon} width={20} height={20} defaultClass={``} iconColor='#00000099' onClick={() => setShowSearch(!showSearch)} /></span>}
+           
+                                           {<input
+                                               type="text"
+                                               value={searchText}
+                                               onChange={(e) => {
+                                                   handleSearchCoursesDebounced(e.target.value)
+                                                   setSearchText(e.target.value)
+                                               }}
+                                               placeholder="Search..."
+                                           />}
+                                           {showSearch ? <Icon className='close-icon' size='sm' src={IconClose} onClick={() => {
+                                               if(searchText) {
+                                                   handleSearchCoursesDebounced('')
+                                               }
+                                               setSearchText('')
+                                               setShowSearch(!showSearch)
+                                           }} /> : <SolidSvgComponent url={SearchIcon} width={20} height={20} defaultClass={``} iconColor='#00000099' onClick={() => setShowSearch(!showSearch)} />}
+           
             </button>
-            <button className="score-filter h-fit"><Icon src={IconFilter} size={'sm'} /></button>
+                            {/* <button className="student-filter h-fit"><SolidSvgComponent url={FilterIcon} width={15} height={15} defaultClass={``} iconColor='#00000099' /></button> */}
             <Button variant="primary" className="h-fit" size="sm" iconBefore={IconAdd}>
               {intl.formatMessage(messages.inviteButtonText)}
             </Button>
@@ -95,7 +100,7 @@ const ScoreBoard = ({ intl, courseId }) => {
           <thead>
             <tr>
               {columns.map((column, index) => (
-                <th key={index}>{column.Header}</th>
+                <th key={index} className={column?.className || ""}>{column.Header}</th>
               ))}
             </tr>
           </thead>
