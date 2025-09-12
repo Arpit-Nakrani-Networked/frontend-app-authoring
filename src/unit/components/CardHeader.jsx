@@ -3,6 +3,7 @@ import {
 } from '@openedx/paragon';
 import { MoreHoriz } from '@openedx/paragon/icons';
 import { useNavigate } from 'react-router';
+import DeleteIcon from '../../assets/images/deleteIcon.svg'
 
 export const CardHeader = ({ component, onDelete }) => {
   const navigate = useNavigate();
@@ -40,10 +41,11 @@ export const CardHeader = ({ component, onDelete }) => {
           />
           <Dropdown.Menu className="component-block-dropdown__menu">
             <Dropdown.Item
-              className="component-block-dropdown__menu-item"
+              className="component-block-dropdown__menu-item _text-delete align-items-center"
               data-testid="text-component-card-header__menu-delete-button"
               onClick={() => onDelete(component.id)}
             >
+               <img src={DeleteIcon} alt="icon" className={`mr-2`}  />
               Delete
             </Dropdown.Item>
           </Dropdown.Menu>

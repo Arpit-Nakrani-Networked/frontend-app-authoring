@@ -2,6 +2,7 @@ import { Button, Spinner, Stack } from '@openedx/paragon';
 import { useState } from 'react';
 import { useParams } from 'react-router';
 import { createComponentBlock } from '../data/api';
+import SolidSvgComponent from '../../_components/solid-svg/SolidSvgComponent';
 
 export const AvailableComponentCard = ({
   label, icon, navigate, category, type, onSuccess, onError,
@@ -31,9 +32,10 @@ export const AvailableComponentCard = ({
   };
 
   return (
-    <Button variant="outline-dark" size="lg" className="_flex-1 bg-white _border-none _rounded-lg justify-content-between" iconBefore={icon} onClick={handleCreate} disabled={isCreating}>
+    <Button variant="outline-dark" size="lg" className="_flex-1 bg-white justify-content-between xblock-button" onClick={handleCreate} disabled={isCreating}>
+        <SolidSvgComponent url={icon} width={20} height={20} defaultClass={`mr-3`} iconColor="#00000099" />
       <div className="d-flex align-items-center justify-content-between _flex-1">
-        <span>{label}</span>
+        <span className='_text-black-400'>{label}</span>
         {isCreating && <Spinner animation="border" size="sm" className="ms-2" />}
       </div>
     </Button>

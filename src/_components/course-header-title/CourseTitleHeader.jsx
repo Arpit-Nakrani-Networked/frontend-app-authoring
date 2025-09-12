@@ -53,31 +53,21 @@ export default function CourseTitleHeader() {
   const isUnitPage = pathname.includes('/container');
   const backToOutlinePage = `/course/${courseIdFromUrl}/`;
   const unitId = extractUnitId(params);
-  const isDraftStatus = courseDetail?.catalogVisibility === CourseStatus.private && !unitId;
+  const isDraftStatus = courseDetail?.catalogVisibility === CourseStatus.private;
   const hasChanges = Boolean(sectionsList.some(item => hasAnyChanges(item)))
 
   const publishDraftContent = async () => {
     setIsOpen(false)
-    if (unitId) {
-      await publishLessonContent();
-      dispatch(fetchCourseOutlineIndexQuery(courseIdFromUrl,true));
-    } else {
       await handlePublishAllSubmit();
       if (isDraftStatus) {
         await postCoursePublish(courseIdFromUrl)
         dispatch(fetchCourseDetail(courseIdFromUrl));
       }
-    }
   }
-
-  const publishLessonContent = async () => {
-    await dispatch(publishCourseItemQuery(unitId, null, false, []))
-  }
-
 
   return (
     <div className="_container-fluid main-course-header">
-      {isUnitPage ? <Button as={Link} to={backToOutlinePage} variant="link" className="text-black _font-weight-semibold" style={{ textDecoration: 'none' }} iconBefore={ArrowBack}>Back To Outline</Button>
+      {isUnitPage ? <Button as={Link} to={backToOutlinePage} variant="link" className="text-black _font-weight-semibold p-0" style={{ textDecoration: 'none' }} iconBefore={ArrowBack}>Back To Outline</Button>
         : (
           <div className="d-flex align-items-center gap-1 flex-1 w-100 overflow-hidden">
             <h1 className="h2" data-course-id={courseIdFromUrl} title={courseTitle}>
@@ -86,7 +76,7 @@ export default function CourseTitleHeader() {
             {isDraftStatus && <span className="rounded _text-black-400 _bg-info-200 p-1 ml-2 text-sm">Draft</span>}
           </div>
         )}
-      <div className='actions-btns'>
+      {!unitId && <div className='actions-btns'>
         <Button
           // iconBefore={Search}
           // data-testid="course-reindex"
@@ -108,7 +98,7 @@ export default function CourseTitleHeader() {
         >
           {intl.formatMessage(messages.saveBtnText)}
         </Button>
-      </div>
+      </div>}
       <CoursePublishModal isOpen={isOpen} onClose={()=>setIsOpen(false)} onPublishSubmit={publishDraftContent} />
     </div>
   );

@@ -140,6 +140,7 @@ const CardHeader = ({
                 }
               }}
               disabled={isDisabledEditField}
+              className="outline-input-parent"
             />
             <Stack gap={2} direction="horizontal" className="btn-icon__icon-container d-flex" style={{
               position: "absolute",

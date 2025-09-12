@@ -1,23 +1,25 @@
-import { Question, SlowMotionVideo, TextFields } from '@openedx/paragon/icons';
+import TextIcon from '../../assets/images/xblock-icons/textIcon.svg'
+import VideoIcon from '../../assets/images/xblock-icons/videoIcon.svg'
+import QuestionIcon from '../../assets/images/xblock-icons/questionIcon.svg'
 
 export const availableComponents = [
   {
     label: 'Add Text',
     navigate: '/text',
-    icon: TextFields,
+    icon: TextIcon,
     category: 'html',
   },
   {
     label: 'Add Video',
     navigate: '/video',
-    icon: SlowMotionVideo,
+    icon: VideoIcon,
     category: 'video',
     type: 'video',
   },
   {
     label: 'Add Question',
     navigate: '/problem',
-    icon: Question,
+    icon: QuestionIcon,
     category: 'problem',
     type: 'problem',
   },

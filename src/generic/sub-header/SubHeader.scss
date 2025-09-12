@@ -11,12 +11,28 @@
   }
 }
 
+.sub-header-container {
+  padding: 18px 24px !important;
+  overflow: hidden;
+
+  .actions-btns {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+  }
+}
+
 .sub-header-title {
   // font: normal $font-weight-bold 2rem/2.25rem $font-family-base;
   color: $v2-black-400;
   font-weight: 600;
-  font-size: 20px;
+  font-size: 24px;
   line-height: 100%;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-wrap: nowrap;
 
   .sub-header-title-subtitle,
   .sub-header-breadcrumbs {
@@ -24,6 +40,17 @@
     display: block;
     color: $text-color-base;
   }
+}
+
+.xblock-button {
+  padding: 17px 24px;
+  border: 1px solid #0000001F !important;
+  border-radius: 16px;
+  font-family: Proxima Nova;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 100%;
+  letter-spacing: 0%;
 }
 
 .sub-header-content-title {

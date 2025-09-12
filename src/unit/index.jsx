@@ -1,5 +1,5 @@
 import { injectIntl } from '@edx/frontend-platform/i18n';
-import { Container, Spinner } from '@openedx/paragon';
+import { Button, Container, Spinner } from '@openedx/paragon';
 import { Outlet, useNavigate, useParams } from 'react-router';
 import { useEffect, useState } from 'react';
 import { SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy } from '@dnd-kit/sortable';
@@ -17,11 +17,14 @@ import { DraggableComponent } from './components/DraggableComponent';
 import { AvailableComponentCard } from './components/AvailableComponentCard';
 import { UnitContextWrapper } from './data/context/UnitContext';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchCourseOutlineIndexQuery } from '../course-outline/data/thunk';
+import { publishCourseItemQuery } from '../course-outline/data/thunk';
 import { getProcessingNotification } from '../generic/processing-notification/data/selectors';
 import ProcessingNotification from '../generic/processing-notification';
+import SolidSvgComponent from '../_components/solid-svg/SolidSvgComponent';
+import ViewIcon from '../assets/images/viewIcon.svg'
+import messages from './messages';
 
-const Unit = ({ courseId }) => {
+const Unit = ({ courseId, intl }) => {
   const { unitId } = useParams();
   const [loading, setLoading] = useState(false);
   const [components, setComponents] = useState([]);
@@ -54,10 +57,10 @@ const Unit = ({ courseId }) => {
     }),
   );
 
-   const {
-      isShow: isShowProcessingNotification,
-      title: processingNotificationTitle,
-    } = useSelector(getProcessingNotification);
+  const {
+    isShow: isShowProcessingNotification,
+    title: processingNotificationTitle,
+  } = useSelector(getProcessingNotification);
 
   const handleDragEnd = (event) => {
     const { active, over } = event;
@@ -102,18 +105,14 @@ const Unit = ({ courseId }) => {
     };
 
     setComponents(prev => [...prev, newComponent]);
-    setHasChangesSection()
+    getComponents(true)
     navigate(`/course/${courseId}/container/${unitId}/editor/${componentBlockCategory}/${componentBlockId}`);
   };
-
-  const setHasChangesSection = () => {
-    dispatch(fetchCourseOutlineIndexQuery(courseId,true));
-  }
 
   const handleComponentUpdate = (updatedComponent) => {
     setComponents((components) => components.map((component) => {
       if (component.id === updatedComponent.id) {
-        setHasChangesSection()
+        getComponents(true)
         return {
           ...component,
           ...updatedComponent,
@@ -124,24 +123,55 @@ const Unit = ({ courseId }) => {
     }));
   };
 
+  const getComponents = async (silent=false) => {
+    if (unitId) {
+      if(!silent) setLoading(true);
+      getVerticalBlock(unitId).then(((response) => {
+        setComponents(response.components);
+        setVerticleBlock(response.verticalBlock);
+      })).finally(() => { setLoading(false); });
+    }
+  };
   useEffect(() => {
-    const getComponents = async () => {
-      if (unitId) {
-        setLoading(true);
-        getVerticalBlock(unitId).then(((response) => {
-          setComponents(response.components);
-          setVerticleBlock(response.verticalBlock);
-        })).finally(() => { setLoading(false); });
-      }
-    };
     getComponents();
   }, []);
 
+  const publishLessonContent = async () => {
+    await dispatch(publishCourseItemQuery(unitId, null, false, []))
+    getComponents(true)
+  }
+  console.log("verticleBlock",verticleBlock);
+  
   return (
     <Container size="xl" className="px-4 rounded p-4">
       <div className="bg-white _rounded-lg border border-light">
-        <div className="d-flex justify-content-between align-items-center">
-          <h2 className="sub-header-title p-4">{verticleBlock?.displayName}</h2>
+        <div className="d-flex justify-content-between align-items-center sub-header-container">
+          <h2 className="sub-header-title">{verticleBlock?.displayName}</h2>
+          {verticleBlock && <div className='actions-btns'>
+            <Button
+              // iconBefore={Search}
+              // data-testid="course-reindex"
+              variant="outline-secondary"
+              href={verticleBlock?.lmsUrl}
+              target="_blank"
+              size='sm'
+              className='mr-3'
+
+            >
+              <SolidSvgComponent url={ViewIcon} width={16} height={16} defaultClass={`mr-1`} isIconColor /> {intl.formatMessage(messages.viewBtnText)}
+            </Button>
+            <Button
+              type="button"
+              onClick={publishLessonContent}
+              data-testid="course-reindex"
+              variant="outline-primary"
+              disabled={!verticleBlock?.hasChanges || isShowProcessingNotification || loading}
+              size='sm'
+              loading={loading}
+            >
+              {intl.formatMessage(messages.saveBtnText)}
+            </Button>
+          </div>}
         </div>
         <div className="bg-white p-4 border-top border-bottom border-light" style={{ minHeight: '200px' }}>
           {loading && <div className="d-flex flex-column align-items-center justify-content-center" style={{ minHeight: '150px' }}> <Spinner animation="border" className="mie-3" screenReaderText="loading" /> </div>}
@@ -165,7 +195,7 @@ const Unit = ({ courseId }) => {
         </div>
         <div className="_bg-gray-50 p-4 d-flex flex-column align-items-center justify-content-between _rounded-b-lg">
           <h2 className="sub-header-title">Add Content</h2>
-          <span className="text-gray-500 _font-weight-light">Please select the one of the below type</span>
+          <span className="text-gray-500 _font-weight-light mt-2">Please select the one of the below type</span>
           <div className="d-flex justify-content-between w-100 mt-4" style={{ gap: '1rem' }}>
             {
               availableComponents.map((component, index) => <AvailableComponentCard key={index} {...component} onSuccess={onSuccessComponentBlockCreate} />)
@@ -174,9 +204,9 @@ const Unit = ({ courseId }) => {
         </div>
       </div>
       <ProcessingNotification
-                isShow={isShowProcessingNotification}
-                title={processingNotificationTitle}
-              />
+        isShow={isShowProcessingNotification}
+        title={processingNotificationTitle}
+      />
       <UnitContextWrapper updateComponent={handleComponentUpdate} componentBlocks={components} handleDeleteComponentBlock={handleDeleteComponentBlock}>
         <Outlet />
       </UnitContextWrapper>

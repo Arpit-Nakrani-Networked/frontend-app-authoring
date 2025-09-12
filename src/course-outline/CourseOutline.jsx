@@ -119,10 +119,12 @@ const CourseOutline = ({ courseId }) => {
     handleSubsectionDragAndDrop,
     handleUnitDragAndDrop,
     errors,
+    setToastMessage,
+    toastMessage
   } = useCourseOutline({ courseId });
 
   // Use `setToastMessage` to show the toast.
-  const [toastMessage, setToastMessage] = useState(/** @type{null|string} */(null));
+  // const [toastMessage, setToastMessage] = useState(/** @type{null|string} */(null));
 
   useEffect(() => {
     // Wait for the course data to load before exporting tags.

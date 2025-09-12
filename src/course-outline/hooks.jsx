@@ -99,6 +99,7 @@ const useCourseOutline = ({ courseId }) => {
   const [isEnableHighlightsModalOpen, openEnableHighlightsModal, closeEnableHighlightsModal] = useToggle(false);
   const [isSectionsExpanded, setSectionsExpanded] = useState(false);
   const [isDisabledReindexButton, setDisableReindexButton] = useState(false);
+  const [toastMessage, setToastMessage] = useState(/** @type{null|string} */(null));
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [isHighlightsModalOpen, openHighlightsModal, closeHighlightsModal] = useToggle(false);
   const [isPublishModalOpen, openPublishModal, closePublishModal] = useToggle(false);
@@ -182,9 +183,10 @@ const useCourseOutline = ({ courseId }) => {
     closeHighlightsModal();
   };
 
-  const handlePublishItemSubmit = () => {
-    dispatch(publishCourseItemQuery(currentItem.id, currentSection.id));
+  const handlePublishItemSubmit = async () => {
     closePublishModal();
+    await dispatch(publishCourseItemQuery(currentItem.id, currentSection.id));
+    setToastMessage('Published successfully');
   };
 
   
@@ -208,7 +210,7 @@ const useCourseOutline = ({ courseId }) => {
 
       await dispatch(publishCourseItemQuery(sectionId, sectionId, isLast, isLast ? [...ids] : []));
     }
-
+    setToastMessage('Published successfully');
     closePublishModal();
   };
 
@@ -393,7 +395,8 @@ const useCourseOutline = ({ courseId }) => {
     handleUnitDragAndDrop,
     handleCreateNewCourseXBlock,
     errors,
-    handlePublishAllSubmit
+    handlePublishAllSubmit,
+    toastMessage, setToastMessage
   };
 };
 

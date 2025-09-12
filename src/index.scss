@@ -100,7 +100,7 @@ mark {
 // header community
 .main-course-header {
   background-color: $v2-white-100 !important;
-  padding: 15px !important;
+  padding: 14px 15px !important;
   border-bottom: 1px solid $v2-black-500;
   display: flex;
   align-items: center;
@@ -290,7 +290,8 @@ mark {
     .btn-icon.btn-icon-primary.hover,
     .btn-icon.btn-icon-primary:hover,
     .btn-icon.btn-icon-primary.active,
-    .btn-icon.btn-icon-primary:active {
+    .btn-icon.btn-icon-primary:active,
+    .dropdown.show .btn-icon.btn-icon-primary{
       background-color: $v2-info-200;
       color: #0A3055;
     }
@@ -551,4 +552,12 @@ a.disabled {
 }
 .btn-sm{
   height: 36px;
+}
+
+.pgn__dropdown-toggle-iconbutton {
+    transform: rotate(90deg);
+}
+
+.outline-input-parent input{
+  padding-right: 75px !important;
 }

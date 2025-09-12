@@ -29,5 +29,7 @@
     letter-spacing: 0%;
     color: #000000CC;
     text-wrap:nowrap;
+        overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
