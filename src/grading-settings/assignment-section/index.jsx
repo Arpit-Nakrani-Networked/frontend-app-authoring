@@ -57,7 +57,12 @@ const AssignmentSection = ({
       ...prevState,
       graders: graders.map(grader => {
         if (grader.id === assignmentId) {
-          return { ...grader, [name]: inputValue };
+          const nameShort = 'shortLabel';
+          const newObj = { ...grader, [name]: inputValue };
+          if (name === ASSIGNMENT_TYPES.type) {
+            newObj[nameShort] = inputValue;
+          }
+          return newObj
         }
         return grader;
       }),
@@ -75,6 +80,7 @@ const AssignmentSection = ({
       minCount,
       dropCount,
     );
+
     setShowSuccessAlert(false);
   };
 
@@ -105,6 +111,7 @@ const AssignmentSection = ({
       {graders?.map((gradeField, i) => {
         const courseAssignmentUsage = courseAssignmentLists[gradeField.type];
         const isFormOpen = Boolean(editId === gradeField.id);
+        const isError = Boolean(errorList[`${weight}-${gradeField.id}`] || errorList[`${type}-${gradeField.id}`])
         return (
           <div key={gradeField.id} className="px-4 course-grading-assignment-wrapper d-flex py-0 border-0 align-items-center gap-3">
             <ol className="course-grading-assignment-items p-0 d-flex mb-0 mr-0 w-100 align-items-center">
@@ -214,19 +221,23 @@ const AssignmentSection = ({
                 aria-hidden="true"
               />
             )} */}
-            <Stack gap={2} direction="horizontal" className={classNames('btn-icon__icon-container d-flex', {})}>
-              {isFormOpen && <span className='pgn__icon btn-icon__icon _cursor-pointer d-flex justify-content-center align-items-center' onClick={(e) => {
+            <Stack gap={2} direction="horizontal" className={classNames('d-flex', {})}>
+              {isFormOpen && <button className='back-button w-auto py-1 _text-sm h-auto btn btn-secondary pgn__icon _cursor-pointer d-flex justify-content-center align-items-center' onClick={(e) => {
                 action(() => {
                   onReset();
                   setEditId(null);
                 })
-              }}><Icon src={CloseSmall} size='md' /></span>}
-              {isFormOpen && <span className='pgn__icon btn-icon__icon _cursor-pointer d-flex justify-content-center align-items-center' onClick={(e) => {
+              }}>
+                Cancel
+              </button>}
+              {isFormOpen && <button disabled={isError} className='w-auto py-1 _text-sm h-auto btn btn-primary pgn__icon _cursor-pointer d-flex justify-content-center align-items-center' onClick={(e) => {
                 action(() => {
                   onSubmit();
                   setEditId(null);
                 })
-              }}><Icon src={Check} size='md' /></span>}
+              }}>
+                Save
+              </button>}
               {!isFormOpen && !isHiddenRemoveButton && <span className='pgn__icon btn-icon__icon _cursor-pointer d-flex justify-content-center align-items-center' onClick={(e) => {
                 action(() => {
                   handleRemoveAssignment(gradeField.id)

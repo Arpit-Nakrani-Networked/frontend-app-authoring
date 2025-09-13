@@ -153,7 +153,8 @@ const CourseOutline = ({ courseId }) => {
   } = useSelector(getProcessingNotification);
 
   const currentItemData = useSelector(getCurrentItem);
-  const deleteCategory = COURSE_BLOCK_NAMES[currentItemData.category]?.name.toLowerCase();
+  const deleteCategory = COURSE_BLOCK_NAMES[currentItemData.category]?.name
+  const isLesson =  currentItemData.category === COURSE_BLOCK_NAMES.sequential.id;
 
   const enableProctoredExams = useSelector(getProctoredExamsFlag);
 
@@ -470,6 +471,8 @@ const CourseOutline = ({ courseId }) => {
           isOpen={isDeleteModalOpen}
           close={closeDeleteModal}
           onDeleteSubmit={handleDeleteItemSubmit}
+          description={isLesson ? intl.formatMessage(messages.delLessonDescription) : intl.formatMessage(messages.delSectionDescription)}
+          btnDefaultLabel={intl.formatMessage(messages.delBtnText, { category: deleteCategory })}
         />
       </Container>
       <div className="alert-toast">

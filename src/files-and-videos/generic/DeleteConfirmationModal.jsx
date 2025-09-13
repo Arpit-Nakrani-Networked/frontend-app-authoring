@@ -68,6 +68,7 @@ const DeleteConfirmationModal = ({
       )}
       isOpen={isDeleteConfirmationOpen}
       onClose={closeDeleteConfirmation}
+      hasCloseButton={true}
       footerNode={(
         <ActionRow>
           <Button variant="tertiary" onClick={closeDeleteConfirmation}>

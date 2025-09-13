@@ -44,6 +44,18 @@ const messages = defineMessages({
     defaultMessage: 'An error has occurred creating the file',
     description: 'Error message in toast when exporting tags of a course',
   },
+   delSectionDescription: {
+    id: 'course-authoring.course-outline.section-list.button.delete-section-description',
+    defaultMessage: 'Deleting this section will also remove all lessons inside it. This action cannot be undone.',
+  },
+   delLessonDescription: {
+    id: 'course-authoring.course-outline.section-list.button.delete-lesson-description',
+    defaultMessage: 'Are you sure you want to delete this lesson? This action cannot be undone, and students will lose access to its content.',
+  },
+   delBtnText: {
+    id: 'course-authoring.course-outline.section-list.button.delete-btn-text',
+    defaultMessage: 'Delete {category}',
+  },
 });
 
 export default messages;

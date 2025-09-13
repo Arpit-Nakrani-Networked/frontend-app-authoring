@@ -39,7 +39,7 @@ const messages = defineMessages({
   },
   menuConfigure: {
     id: 'course-authoring.course-outline.card.menu.configure',
-    defaultMessage: 'Configure',
+    defaultMessage: 'Configure Quiz',
   },
   menuDuplicate: {
     id: 'course-authoring.course-outline.card.menu.duplicate',

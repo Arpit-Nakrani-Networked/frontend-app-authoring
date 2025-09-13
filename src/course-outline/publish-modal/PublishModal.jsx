@@ -25,20 +25,20 @@ const PublishModal = ({
 
   return (
     <ModalDialog
-      className="publish-modal"
+      className=""
       isOpen={isOpen}
       onClose={onClose}
       hasCloseButton
       isFullscreenOnMobile
       isOverflowVisible={false}
     >
-      <ModalDialog.Header className="publish-modal__header">
+      <ModalDialog.Header className="">
         <ModalDialog.Title>
-          {intl.formatMessage(messages.title, { title: displayName })}
+          {intl.formatMessage(messages.title)}
         </ModalDialog.Title>
       </ModalDialog.Header>
       <ModalDialog.Body>
-        <p className="small">
+        <p className="">
           {intl.formatMessage(messages.description, { category: categoryName })}
         </p>
         {/* {children.filter(child => child.hasChanges).map((child) => {

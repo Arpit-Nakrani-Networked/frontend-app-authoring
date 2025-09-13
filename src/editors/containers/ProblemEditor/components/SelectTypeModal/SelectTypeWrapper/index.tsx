@@ -19,6 +19,7 @@ import messages from './messages';
 
 interface Props {
   selected: string;
+  hideFooter?: boolean;
   onClose: (() => void) | null;
   children?: React.ReactNode;
 }
@@ -27,6 +28,7 @@ const SelectTypeWrapper: React.FC<Props> = ({
   children,
   onClose = null,
   selected,
+  hideFooter = false,
 }) => {
   const handleCancel = containerHooks.handleCancel({ onClose });
   const intl = useIntl();
@@ -36,7 +38,7 @@ const SelectTypeWrapper: React.FC<Props> = ({
   const setBlockTitle = React.useCallback((title) => dispatch(actions.app.setBlockTitle(title)), [dispatch]);
 
   return (
-    <EditorModalWrapper onClose={handleCancel}>
+    <EditorModalWrapper onClose={handleCancel} >
       <ModalDialog.Header className="zindex-10">
         <span className="_font-weight-medium _text-black-400">
           <FormattedMessage {...messages.selectTypeTitle} />
@@ -53,7 +55,7 @@ const SelectTypeWrapper: React.FC<Props> = ({
       <EditorModalBody>
         {children}
       </EditorModalBody>
-      {<ModalDialog.Footer className="border-top-0">
+      {!hideFooter && <ModalDialog.Footer className="border-top-0">
         <ActionRow>
           <ActionRow.Spacer />
           <Button

@@ -34,6 +34,7 @@ const DeleteModal = ({
       isOpen={isOpen}
       onClose={close}
       variant={variant}
+      hasCloseButton={true}
       footerNode={(
         <ActionRow>
           <Button

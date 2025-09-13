@@ -38,7 +38,7 @@ const CoursePublishModal = ({
         </ModalDialog.Title>
       </ModalDialog.Header>
       <ModalDialog.Body>
-        <p className="_text-black-600">
+        <p className="_text-black-400">
           {intl.formatMessage(messages.confirmDesc)}
         </p>
       </ModalDialog.Body>

@@ -144,8 +144,8 @@ const Unit = ({ courseId, intl }) => {
   
   return (
     <Container size="xl" className="px-4 rounded p-4">
-      <div className="bg-white _rounded-lg border border-light">
-        <div className="d-flex justify-content-between align-items-center sub-header-container">
+      <div className="bg-white _rounded-lg border border-light unit-xblocks-add-container">
+        <div className="bg-white d-flex justify-content-between align-items-center sub-header-container border-bottom border-bottom border-light">
           <h2 className="sub-header-title">{verticleBlock?.displayName}</h2>
           {verticleBlock && <div className='actions-btns'>
             <Button
@@ -173,7 +173,7 @@ const Unit = ({ courseId, intl }) => {
             </Button>
           </div>}
         </div>
-        <div className="bg-white p-4 border-top border-bottom border-light" style={{ minHeight: '200px' }}>
+        <div className="bg-white p-4" style={{ minHeight: '200px' }}>
           {loading && <div className="d-flex flex-column align-items-center justify-content-center" style={{ minHeight: '150px' }}> <Spinner animation="border" className="mie-3" screenReaderText="loading" /> </div>}
           {!loading && components.length === 0 && <NoContent />}
           {!loading && components.length !== 0 && (
@@ -193,7 +193,7 @@ const Unit = ({ courseId, intl }) => {
             </DndContext>
           )}
         </div>
-        <div className="_bg-gray-50 p-4 d-flex flex-column align-items-center justify-content-between _rounded-b-lg">
+        <div className="_bg-gray-50 p-4 d-flex flex-column align-items-center justify-content-between _rounded-b-lg unit-xblock-add-component">
           <h2 className="sub-header-title">Add Content</h2>
           <span className="text-gray-500 _font-weight-light mt-2">Please select the one of the below type</span>
           <div className="d-flex justify-content-between w-100 mt-4" style={{ gap: '1rem' }}>

@@ -56,3 +56,39 @@
     margin-bottom: 0;
   }
 }
+
+
+.grading-input-percentage {
+  
+
+    input{
+      font-size: 20px;
+    padding-left: 0px;
+  }
+
+  input,
+  input:focus,
+  input:hover {
+    border: none;
+    outline: none;
+    box-shadow: none;
+    appearance: none;
+  }
+}
+
+.grading-input-type {
+
+  input{
+    font-size: 20px;
+    padding-left: 23px;
+  }
+
+  input,
+  input:focus,
+  input:hover {
+    border: none;
+    outline: none;
+    box-shadow: none;
+    appearance: none
+  }
+}

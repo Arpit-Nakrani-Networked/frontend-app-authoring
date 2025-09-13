@@ -1,7 +1,7 @@
 import {
   Button, Dropdown, Icon, IconButton, Stack,
 } from '@openedx/paragon';
-import { MoreHoriz } from '@openedx/paragon/icons';
+import { MoreHoriz,MoreVert } from '@openedx/paragon/icons';
 import { useNavigate } from 'react-router';
 import DeleteIcon from '../../assets/images/deleteIcon.svg'
 
@@ -32,11 +32,12 @@ export const CardHeader = ({ component, onDelete }) => {
         <Button variant="outline-third" className="text-primary" onClick={handleEdit}>Edit</Button>
         <Dropdown>
           <Dropdown.Toggle
-            id="text-component-card-header__menu"
-            data-testid="text-component-card-header__menu-button"
+            className="item-card-header__menu"
+            id={`text-component-card-header__menu`}
+            data-testid={`text-component-card-header__menu-button`}
             as={IconButton}
-            src={MoreHoriz}
-            alt="text-component-card-header__menu"
+            src={MoreVert}
+            alt={`text-component-card-header__menu`}
             iconAs={Icon}
           />
           <Dropdown.Menu className="component-block-dropdown__menu">
@@ -45,7 +46,7 @@ export const CardHeader = ({ component, onDelete }) => {
               data-testid="text-component-card-header__menu-delete-button"
               onClick={() => onDelete(component.id)}
             >
-               <img src={DeleteIcon} alt="icon" className={`mr-2`}  />
+              <img src={DeleteIcon} alt="icon" className={`mr-2`} />
               Delete
             </Dropdown.Item>
           </Dropdown.Menu>

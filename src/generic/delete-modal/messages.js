@@ -3,7 +3,7 @@ import { defineMessages } from '@edx/frontend-platform/i18n';
 const messages = defineMessages({
   title: {
     id: 'course-authoring.course-outline.delete-modal.title',
-    defaultMessage: 'Delete this {category}?',
+    defaultMessage: 'Delete {category}?',
   },
   description: {
     id: 'course-authoring.course-outline.delete-modal.description',

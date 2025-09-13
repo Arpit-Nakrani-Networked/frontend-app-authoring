@@ -39,8 +39,10 @@ const AssignmentItem = ({
         onChange={onChange}
         value={value}
         isInvalid={errorEffort}
-        trailingElement={trailingElement}
+        // trailingElement={trailingElement}
          disabled={isLoading}
+          placeholder="Add Weight"
+         className="grading-input-percentage"
       />: <div className='py-3 _text-black-400 _font-weight-medium _text-xl'>{value}{trailingElement}</div>}
       {/* <Form.Control.Feedback className="grading-description">
         {descriptions}

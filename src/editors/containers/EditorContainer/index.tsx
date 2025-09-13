@@ -60,6 +60,7 @@ const EditorContainer: React.FC<Props> = ({
   validateEntry = null,
   returnFunction = null,
   deleteBlock,
+  hideFooter = false,
 }) => {
   const intl = useIntl();
   const dispatch = useDispatch();
@@ -156,7 +157,7 @@ const EditorContainer: React.FC<Props> = ({
       <EditorModalBody>
         {children}
       </EditorModalBody>
-      <ModalDialog.Footer className="shadow-sm px-4 pb-4 pt-0">
+      {isInitialized && !hideFooter && <ModalDialog.Footer className="shadow-sm px-4 pb-4 pt-0">
         <ActionRow>
           <Button
             aria-label={intl.formatMessage(messages.cancelButtonAriaLabel)}
@@ -178,7 +179,7 @@ const EditorContainer: React.FC<Props> = ({
               : <FormattedMessage {...messages.saveButtonLabel} />}
           </Button>
         </ActionRow>
-      </ModalDialog.Footer>
+      </ModalDialog.Footer>}
     </EditorModalWrapper>
   );
 };

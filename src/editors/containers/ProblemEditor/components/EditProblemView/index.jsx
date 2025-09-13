@@ -74,6 +74,7 @@ const EditProblemView = ({
         ) : intl.formatMessage(messages.noAnswerTitle)}
         isOpen={isSaveWarningModalOpen}
         onClose={closeSaveWarningModal}
+        hasCloseButton={true}
         footerNode={(
           <ActionRow>
             <Button variant="tertiary" onClick={closeSaveWarningModal}>

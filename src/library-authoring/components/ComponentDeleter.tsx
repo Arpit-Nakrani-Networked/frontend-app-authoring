@@ -22,7 +22,7 @@ const BlockName = (props: { usageKey: string }) => {
   const { data: blockMetadata } = useLibraryBlockMetadata(props.usageKey);
 
   // eslint-disable-next-line react/jsx-no-useless-fragment
-  return <>{blockMetadata?.displayName}</> ?? <FormattedMessage {...messages.deleteComponentNamePlaceholder} />;
+  return blockMetadata?.displayName ? <>{blockMetadata?.displayName}</> : <FormattedMessage {...messages.deleteComponentNamePlaceholder} />;
 };
 
 interface Props {
@@ -61,6 +61,7 @@ const ComponentDeleter = ({ usageKey, ...props }: Props) => {
       onClose={props.cancelDelete}
       variant="warning"
       icon={Warning}
+      hasCloseButton={true}
       footerNode={(
         <ActionRow>
           <Button variant="tertiary" onClick={props.cancelDelete}><FormattedMessage {...messages.deleteComponentCancelButton} /></Button>

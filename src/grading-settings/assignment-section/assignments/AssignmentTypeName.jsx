@@ -27,8 +27,10 @@ const AssignmentTypeName = ({
           name={ASSIGNMENT_TYPES.type}
           onChange={onChange}
           value={value}
-          isInvalid={Boolean(errorEffort)}
+          // isInvalid={Boolean(errorEffort)}
           disabled={isLoading}
+          className="grading-input-type"
+           placeholder="Assignment Name"
         /> :<div className='py-3 _text-black-400 _font-weight-medium _text-xl'>{value}</div>}
         {/* <Form.Control.Feedback className="grading-description">
           {intl.formatMessage(messages.assignmentTypeNameDescription)}
