@@ -13,8 +13,10 @@ import messages from './messages';
 import classNames from 'classnames';
 import { STATEFUL_BUTTON_STATES } from '../../constants';
 import { RequestStatus } from '../../data/constants';
-import { EditOutline as EditIcon, DeleteOutline as DeleteIcon, Check, Close as CloseSmall } from '@openedx/paragon/icons';
-
+import { DeleteOutline as DeleteIcon, Check, Close as CloseSmall } from '@openedx/paragon/icons';
+import DelIcon from '../../assets/images/deleteIcon.svg'
+import EditIcon from '../../assets/images/editIcon.svg'
+import SolidSvgComponent from '../../_components/solid-svg/SolidSvgComponent';
 
 const MIN_NUMBER_VALUE = 0;
 const MAX_NUMBER_VALUE = 100;
@@ -221,7 +223,7 @@ const AssignmentSection = ({
                 aria-hidden="true"
               />
             )} */}
-            <Stack gap={2} direction="horizontal" className={classNames('d-flex', {})}>
+            <Stack gap={3} direction="horizontal" className={classNames('d-flex', {})}>
               {isFormOpen && <button className='back-button w-auto py-1 _text-sm h-auto btn btn-secondary pgn__icon _cursor-pointer d-flex justify-content-center align-items-center' onClick={(e) => {
                 action(() => {
                   onReset();
@@ -242,12 +244,12 @@ const AssignmentSection = ({
                 action(() => {
                   handleRemoveAssignment(gradeField.id)
                 })
-              }}><Icon src={DeleteIcon} size='md' /></span>}
+              }}><SolidSvgComponent url={DelIcon} width={20} height={20} defaultClass={``} iconColor='#00000099'  isIconColor /></span>}
               {!isFormOpen && <span className='pgn__icon btn-icon__icon _cursor-pointer d-flex justify-content-center align-items-center' onClick={(e) => {
                 action(() => {
                   setEditId(gradeField.id)
                 })
-              }}><Icon src={EditIcon} size='md' /></span>}
+              }}><SolidSvgComponent url={EditIcon} width={20} height={20} defaultClass={``} iconColor='#00000099' isIconColor /></span>}
             </Stack>
           </div>
         );

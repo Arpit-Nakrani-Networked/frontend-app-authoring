@@ -61,7 +61,7 @@ const SelectionModal = ({
     <BaseModal
       close={close}
       confirmAction={(
-        <Button {...selectBtnProps} variant="primary">
+        <Button {...selectBtnProps} variant="primary btn-sm">
           <FormattedMessage {...confirmMsg} />
         </Button>
       )}

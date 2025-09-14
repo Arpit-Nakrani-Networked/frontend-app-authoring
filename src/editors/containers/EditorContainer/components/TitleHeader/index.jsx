@@ -49,19 +49,7 @@ const TitleHeader = ({
     );
   }
   return (
-    <div className="d-flex flex-row align-items-center mt-1">
-      <Truncate>
-        {titleAsPerNetowkedRequirment}
-      </Truncate>
-      {/* <IconButton
-        alt={intl.formatMessage(messages.editTitleLabel)}
-        iconAs={Icon}
-        className="mx-2"
-        onClick={startEditing}
-        size="sm"
-        src={EditOutline}
-      /> */}
-    </div>
+    titleAsPerNetowkedRequirment
   );
 };
 TitleHeader.defaultProps = {};

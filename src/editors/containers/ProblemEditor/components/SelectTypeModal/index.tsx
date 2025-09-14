@@ -24,16 +24,18 @@ const SelectTypeModal: React.FC<Props> = ({
 }) => {
   const [selected, setSelected] = React.useState<ProblemType | AdvancedProblemType | any>(ProblemTypeKeys.SINGLESELECT);
   hooks.useArrowNav(selected, setSelected);
-  const defaultSettings = useSelector(selectors.problem.defaultSettings);
   const dispatch = useDispatch();
+  const defaultSettings = useSelector(selectors.problem.defaultSettings);
   const updateField = React.useCallback((data) => dispatch(actions.problem.updateField(data)), [dispatch]);
   const setBlockTitle = React.useCallback((title) => dispatch(actions.app.setBlockTitle(title)), [dispatch]);
-  const onSelectFinal = () => hooks.onSelect({
-                selected,
-                updateField,
-                setBlockTitle,
-                defaultSettings,
-              })
+  const onSelectFinal = () => {
+    hooks.onSelect({
+      selected,
+      updateField,
+      setBlockTitle,
+      defaultSettings,
+    })
+  }
   return (
     <SelectTypeWrapper onClose={onClose} selected={selected}>
       <Row className="justify-content-center">

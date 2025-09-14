@@ -4,6 +4,8 @@ import {
 import { MoreHoriz,MoreVert } from '@openedx/paragon/icons';
 import { useNavigate } from 'react-router';
 import DeleteIcon from '../../assets/images/deleteIcon.svg'
+import EditIcon from '../../assets/images/editIcon.svg'
+import SolidSvgComponent from '../../_components/solid-svg/SolidSvgComponent';
 
 export const CardHeader = ({ component, onDelete }) => {
   const navigate = useNavigate();
@@ -29,10 +31,10 @@ export const CardHeader = ({ component, onDelete }) => {
     <Stack direction="horizontal" className="justify-content-between">
       <span className="text-secondory">{getCardTitle()}</span>
       <Stack direction="horizontal" className="justify-content-between" gap={3}>
-        <Button variant="outline-third" className="text-primary" onClick={handleEdit}>Edit</Button>
+        <span className="xblock-edit-icon btn-icon d-flex justify-content-center align-items-center" onClick={handleEdit}><SolidSvgComponent url={EditIcon} width={16} height={16} defaultClass={``} iconColor='#00000099' isIconColor /></span>
         <Dropdown>
           <Dropdown.Toggle
-            className="item-card-header__menu"
+            className="item-card-header__menu xblock-delete-button"
             id={`text-component-card-header__menu`}
             data-testid={`text-component-card-header__menu-button`}
             as={IconButton}

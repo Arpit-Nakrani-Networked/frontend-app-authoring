@@ -1,5 +1,5 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Spinner,
 } from '@openedx/paragon';
@@ -13,11 +13,13 @@ import EditorContainer from '../EditorContainer';
 import VideoEditorModal from './components/VideoEditorModal';
 import { ErrorContext, errorsHook, fetchVideoContent } from './hooks';
 import messages from './messages';
+import { parseYoutubeId } from 'editors/data/services/cms/api';
 
 const VideoEditor: React.FC<EditorComponent> = ({
   onClose,
   returnFunction,
 }) => {
+  const dispatch = useDispatch()
   const intl = useIntl();
   const studioViewFinished = useSelector(
     (state) => selectors.requests.isFinished(state, { requestKey: RequestKeys.fetchStudioView }),
@@ -34,7 +36,12 @@ const VideoEditor: React.FC<EditorComponent> = ({
         isDirty={/* istanbul ignore next */ () => true}
         onClose={onClose}
         returnFunction={returnFunction}
-        validateEntry={validateEntry}
+        validateEntry={() => {
+          const videoState = fetchVideoContent();
+          const videoData = videoState && videoState({ dispatch })
+          const videoId = parseYoutubeId(videoData?.videoSource)
+          return videoId && videoId
+        }}
       >
         {studioViewFinished ? (
           <div className="video-editor">

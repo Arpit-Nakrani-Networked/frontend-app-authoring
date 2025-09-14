@@ -42,7 +42,7 @@ export const SelectVideoModal = ({
       isOpen={isOpen}
       close={close}
       title="Add a video"
-      confirmAction={<Button variant="primary" onClick={onSelectClick}>Next</Button>}
+      confirmAction={<Button variant="primary btn-sm" onClick={onSelectClick}>Next</Button>}
     >
       {/* Content selection */}
       {videos && (videos.map(

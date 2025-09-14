@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { StrictDict } from '../../../utils';
 
 const initialState = {
+  isLoading:false,
   blockValue: null,
   unitUrl: null,
   blockContent: null,
@@ -37,6 +38,7 @@ const app = createSlice({
       blockValue: null,
     }),
     setUnitUrl: (state, { payload }) => ({ ...state, unitUrl: payload }),
+    setLoading: (state, { payload }) => ({ ...state, isLoading: payload }),
     setBlockValue: (state, { payload }) => ({
       ...state,
       blockValue: payload,

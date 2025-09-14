@@ -458,7 +458,7 @@ input.pgn__form-switch-input {
   // font-style: Medium;
   font-size: 20px;
   // leading-trim: NONE;
-  line-height: 120%;
+  line-height: 1.1;
   letter-spacing: normal !important;
 }
 
@@ -466,14 +466,24 @@ input.pgn__form-switch-input {
   font-size: 20px !important;
   box-shadow: none !important;
   padding-bottom: 0 !important;
+  min-height: unset !important;
 }
 
 .pgn__modal .pgn__modal-header {
-  padding-bottom: 0 !important;
+  padding-bottom: 16px !important;
 }
 
-.pgn__modal-body {
-  min-height: 75px;
+.pgn__modal-close-container {
+  top: 5px !important;
+}
+
+.pgn__modal-footer {
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+}
+
+.pgn__modal-body.editor-modal-body {
+  min-height: 75px !important;
 }
 
 .pgn__modal-body.pgn__modal-body-scroll-top.pgn__modal-body-scroll-bottom::before,
@@ -481,13 +491,16 @@ input.pgn__form-switch-input {
 .pgn__modal-body.pgn__modal-body-scroll-top::after,
 .pgn__modal-body::before,
 .pgn__modal-body.pgn__modal-body-scroll-bottom::after,
-.pgn__modal-body::after {
+.pgn__modal-body::after,
+.pgn__scrollable-body.pgn__scrollable-body-scroll-top.pgn__scrollable-body-scroll-bottom::after,
+.pgn__scrollable-body.pgn__scrollable-body-scroll-top.pgn__scrollable-body-scroll-bottom::before {
   display: none !important;
 }
 
 .pgn__modal-body {
   min-height: unset !important;
-  padding-bottom: 4px !important;
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
 
   .pgn__modal-body-content p {
     font-family: Proxima Nova;
@@ -638,4 +651,23 @@ a.disabled {
 
 .outline-input-parent input {
   padding-right: 75px !important;
+}
+
+.h-36 {
+  height: 36px !important;
+}
+
+// xblocks unit
+
+.xblock-edit-icon {
+  cursor: pointer;
+
+  &:hover {
+    background-color: $v2-info-200 !important;
+  }
+}
+
+.xblock-delete-button:hover,
+.dropdown.show .xblock-delete-button {
+  background-color: $v2-info-200 !important;
 }

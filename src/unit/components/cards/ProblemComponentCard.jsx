@@ -16,7 +16,7 @@ export const ProblemComponentCard = ({ component, onEdit, onDelete }) => {
       }
       {!error && (
         <Stack gap={2}>
-          <h2 className="sub-header-title"
+          <h2 className="sub-header-title problem-title"
             dangerouslySetInnerHTML={{ __html: problemStatement }} />
           <Stack gap={2}>
             {options.map((option, index) => (
@@ -29,7 +29,7 @@ export const ProblemComponentCard = ({ component, onEdit, onDelete }) => {
                 {isMultiSelect
                   ? <MultiSelectCheckbox checkboxId={`multi_${index}`} componentId={component.id} />
                   : <SingleSelectCheckbox radioButtonId={`single_${index}`} componentId={component.id} />}
-                <span dangerouslySetInnerHTML={{ __html: option }} />
+                <span className="_text-sm" dangerouslySetInnerHTML={{ __html: option }} />
               </Stack>
             ))}
           </Stack>

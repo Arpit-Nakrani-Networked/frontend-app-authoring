@@ -45,7 +45,7 @@ const ImageSettingsModal = ({
       close={close}
       confirmAction={(
         <Button
-          variant="primary"
+          variant="primary btn-sm"
           onClick={onSaveClick}
         >
           <FormattedMessage {...messages.saveButtonLabel} />

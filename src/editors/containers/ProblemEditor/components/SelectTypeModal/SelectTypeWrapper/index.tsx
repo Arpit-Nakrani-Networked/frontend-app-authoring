@@ -39,18 +39,18 @@ const SelectTypeWrapper: React.FC<Props> = ({
 
   return (
     <EditorModalWrapper onClose={handleCancel} >
-      <ModalDialog.Header className="zindex-10">
-        <span className="_font-weight-medium _text-black-400">
+      <ModalDialog.Header className="">
+        {/* <span className="_font-weight-medium _text-black-400"> */}
           <FormattedMessage {...messages.selectTypeTitle} />
-        </span>
-        <div className="pgn__modal-close-container">
+        {/* </span> */}
+        {/* <div className="pgn__modal-close-container">
           <IconButton
             src={Close}
             iconAs={Icon}
             onClick={handleCancel}
             alt={intl.formatMessage(ecMessages.exitButtonAlt)}
           />
-        </div>
+        </div> */}
       </ModalDialog.Header>
       <EditorModalBody>
         {children}

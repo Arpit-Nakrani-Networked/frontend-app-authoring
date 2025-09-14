@@ -30,9 +30,9 @@ export const VideoPreviewWidget = ({
     const match = url.match(regex);
     return match ? match[1] : null;
   }
-
-  const youtubeUrl = `https://youtube.com/embed/${extractYouTubeID(videoSource)}`;
-  return (
+  const id = videoSource ? extractYouTubeID(videoSource) : '';
+  const youtubeUrl = `https://youtube.com/embed/${id}`;
+  return id && (
     <iframe src={youtubeUrl} width="100%" height={370} style={{ border: 'none', borderRadius: '1rem' }} />
   );
   return (

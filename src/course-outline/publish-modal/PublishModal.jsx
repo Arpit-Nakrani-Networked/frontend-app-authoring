@@ -29,6 +29,7 @@ const PublishModal = ({
       isOpen={isOpen}
       onClose={onClose}
       hasCloseButton
+      isBlocking={true}
       isFullscreenOnMobile
       isOverflowVisible={false}
     >
@@ -41,31 +42,6 @@ const PublishModal = ({
         <p className="">
           {intl.formatMessage(messages.description, { category: categoryName })}
         </p>
-        {/* {children.filter(child => child.hasChanges).map((child) => {
-          let grandChildren = child.childInfo?.children || [];
-          grandChildren = grandChildren.filter(grandChild => grandChild.hasChanges);
-
-          return grandChildren.length ? (
-            <React.Fragment key={child.id}>
-              <span className="small text-gray-400">{child.displayName}</span>
-              {grandChildren.map((grandChild) => (
-                <div
-                  key={grandChild.id}
-                  className="small border border-light-400 p-2 publish-modal__subsection"
-                >
-                  {grandChild.displayName}
-                </div>
-              ))}
-            </React.Fragment>
-          ) : (
-            <div
-              key={child.id}
-              className="small border border-light-400 p-2 publish-modal__subsection"
-            >
-              {child.displayName}
-            </div>
-          );
-        })} */}
       </ModalDialog.Body>
       <ModalDialog.Footer className="pt-1">
         <ActionRow>

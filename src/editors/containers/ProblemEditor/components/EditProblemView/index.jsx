@@ -67,6 +67,7 @@ const EditProblemView = ({
       returnFunction={returnFunction}
       onClose={onClose}
       deleteBlock={() => deleteBlock && deleteBlock()}
+      saveText={intl.formatMessage(messages.saveAddQuestion)}
     >
       <AlertModal
         title={isAdvancedProblemType ? (
@@ -77,22 +78,16 @@ const EditProblemView = ({
         hasCloseButton={true}
         footerNode={(
           <ActionRow>
-            <Button variant="tertiary" onClick={closeSaveWarningModal}>
+            <Button variant="outline-third btn-sm" onClick={closeSaveWarningModal}>
               <FormattedMessage {...messages.saveWarningModalCancelButtonLabel} />
             </Button>
             <Button
-              onClick={() => saveBlock({
-                content: parseState({
-                  problem: problemState,
-                  isAdvanced: isAdvancedProblemType,
-                  ref: editorRef,
-                  lmsEndpointUrl,
-                })(),
-                returnFunction,
-                destination: returnUrl,
-                dispatch,
-                analytics,
-              })}
+            size="sm"
+              onClick={() => {
+                deleteBlock && deleteBlock()
+                onClose()
+                closeSaveWarningModal()
+              }}
             >
               <FormattedMessage {...messages.saveWarningModalSaveButtonLabel} />
             </Button>
@@ -106,9 +101,6 @@ const EditProblemView = ({
             <div>
               <FormattedMessage {...messages.saveWarningModalBodyQuestion} />
             </div>
-            <div>
-              <FormattedMessage {...messages.noAnswerBodyExplanation} />
-            </div>
           </>
         )}
       </AlertModal>
@@ -118,8 +110,8 @@ const EditProblemView = ({
             <RawEditor editorRef={editorRef} lang="xml" content={problemState.rawOLX} />
           </Container>
         ) : (
-          <span className="flex-grow-1 mb-5">
-            <Stack gap={3}>
+          <span className="flex-grow-1">
+            <Stack gap={4}>
               <QuestionWidget />
               {/* <ExplanationWidget /> */}
               <AnswerWidget problemType={problemType} />

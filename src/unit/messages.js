@@ -8,6 +8,18 @@ const messages = defineMessages({
   saveBtnText: {
     id: 'course-authoring.header.saveBtn.save',
     defaultMessage: 'Save',
+  },
+  deleteDescription: {
+    id: 'course-authoring.xblock.delete.description',
+    defaultMessage: 'Are you sure you want to delete this block? This action cannot be undone, and students will lose access to its content.',
+  },
+  deleteCategory: {
+    id: 'course-authoring.xblock.delete.category',
+    defaultMessage: '{category}',
+  },
+  deleteSave: {
+    id: 'course-authoring.xblock.delete.saveText',
+    defaultMessage: 'Delete Block',
   }
 });
 

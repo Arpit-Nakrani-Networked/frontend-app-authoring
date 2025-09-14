@@ -1,10 +1,6 @@
 .publish-modal {
   max-width: 448px;
 
-  .pgn__modal-close-container {
-    transform: translateY(.5rem);
-  }
-
   .publish-modal__header {
     padding-top: 1rem;
   }
@@ -14,6 +10,7 @@
   }
 
   .pgn__modal-close-container{
+    transform: translateY(.5rem);
     top: 0;
     outline: 0;
 

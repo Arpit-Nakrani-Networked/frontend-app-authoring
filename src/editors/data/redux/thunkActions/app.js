@@ -119,11 +119,13 @@ export const initialize = (data) => (dispatch) => {
  * @param {func} onSuccess
  */
 export const saveBlock = (content, returnToUnit) => (dispatch) => {
+  dispatch(actions.app.setLoading(true));
   dispatch(actions.app.setBlockContent(content));
   dispatch(requests.saveBlock({
     content,
     onSuccess: (response) => {
       dispatch(actions.app.setSaveResponse(response));
+      dispatch(actions.app.setLoading(false));
       returnToUnit(response.data);
     },
   }));

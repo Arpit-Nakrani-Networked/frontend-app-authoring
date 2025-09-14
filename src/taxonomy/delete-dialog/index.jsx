@@ -71,11 +71,11 @@ const DeleteDialog = ({
         </ModalDialog.Body>
         <ModalDialog.Footer>
           <ActionRow>
-            <ModalDialog.CloseButton variant="tertiary">
+            <ModalDialog.CloseButton variant="outline-third btn-sm">
               {intl.formatMessage(messages.deleteDialogCancelLabel)}
             </ModalDialog.CloseButton>
             <Button
-              variant="primary"
+              variant="primary btn-sm"
               disabled={deleteButtonDisabled}
               onClick={onClickDelete}
               data-testid="delete-button"

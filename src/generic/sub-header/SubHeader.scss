@@ -42,11 +42,18 @@
   }
 }
 
+.sub-header-title.problem-title {
+  // font-family: Proxima Nova;
+  font-weight: 600;
+  font-size: 16px !important;
+  color:$v2-black-600 !important;
+}
+
 .xblock-button {
   padding: 17px 24px;
   border: 1px solid #0000001F !important;
   border-radius: 16px;
-  font-family: Proxima Nova;
+  // font-family: Proxima Nova;
   font-weight: 500;
   font-size: 16px;
   line-height: 100%;

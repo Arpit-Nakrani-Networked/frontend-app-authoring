@@ -51,12 +51,12 @@ const AnswersContainer = ({
           <Button
             variant="add"
             onClick={addAnswer}
-            className={`text-primary btn btn-outline-third px-3`}
+            className={`text-primary btn btn-outline-third px-3 btn-sm h-36`}
           >
             <FormattedMessage {...messages.addAnswerButtonText} />
             
           </Button>
-          <div className="d-flex justify-content-center align-items-center"><Form.Switch checked={isMultiSelect} onChange={handleQuestionTypeChange} label="Allow Multiple Answer" /> <FormattedMessage {...messages.toggleAnswerInputLabel} /></div>
+          <div className={`d-flex justify-content-center align-items-center _text-black-400`}><Form.Switch checked={isMultiSelect} onChange={handleQuestionTypeChange} label="Allow Multiple Answer" /> <FormattedMessage {...messages.toggleAnswerInputLabel} /></div>
         </Stack>
 
       ) : (
@@ -64,7 +64,7 @@ const AnswersContainer = ({
           <Dropdown.Toggle
             id="Add-Answer-Or-Answer-Range"
             variant="tertiary"
-            className="px-3 text-primary btn btn-outline-third "
+            className="px-3 text-primary btn btn-outline-third h-36"
           >
             <Icon
               src={Add}

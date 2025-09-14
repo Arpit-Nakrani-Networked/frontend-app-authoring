@@ -27,7 +27,7 @@ const SwitchToAdvancedEditorCard = ({
         confirmAction={(
           <Button
             onClick={() => confirmSwitchToAdvancedEditor({ switchToAdvancedEditor, setConfirmOpen })}
-            variant="primary"
+            variant="primary btn-sm"
           >
             <FormattedMessage {...messages.ConfirmSwitchButtonLabel} />
           </Button>

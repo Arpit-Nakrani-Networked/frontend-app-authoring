@@ -2,15 +2,8 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 
 import {
-  Form,
-  IconButtonWithTooltip,
-  ActionRow,
-  Icon,
-  Button,
-  Tooltip,
-  OverlayTrigger,
+  Form
 } from '@openedx/paragon';
-import { DeleteOutline, InfoOutline, Add } from '@openedx/paragon/icons';
 import {
   FormattedMessage,
   injectIntl,
@@ -22,7 +15,7 @@ import * as hooks from './hooks';
 import messages from './messages';
 
 import ErrorAlert from '../../../../../../sharedComponents/ErrorAlerts/ErrorAlert';
-import CollapsibleFormWidget from '../CollapsibleFormWidget';
+// import CollapsibleFormWidget from '../CollapsibleFormWidget';
 
 /**
  * Collapsible Form widget controlling video source as well as fallback sources

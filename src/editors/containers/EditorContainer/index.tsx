@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import {
   ActionRow,
@@ -21,6 +21,7 @@ import * as hooks from './hooks';
 import messages from './messages';
 import './index.scss';
 import usePromptIfDirty from '../../../generic/promptIfDirty/usePromptIfDirty';
+import { selectors } from '../../data/redux';
 
 interface WrapperProps {
   children: React.ReactNode;
@@ -30,7 +31,7 @@ export const EditorModalWrapper: React.FC<WrapperProps & { onClose: () => void }
   const intl = useIntl();
   const title = intl.formatMessage(messages.modalTitle);
   return (
-    <ModalDialog isOpen size="lg" className="_rounded-md" isOverflowVisible={false} onClose={onClose} title={title}>{children}</ModalDialog>
+    <ModalDialog isOpen size="lg" className="_rounded-md" isOverflowVisible={false} onClose={onClose} title={title} hasCloseButton isBlocking={true}>{children}</ModalDialog>
   );
 };
 
@@ -49,6 +50,9 @@ interface Props extends EditorComponent {
   children: React.ReactNode;
   getContent: Function;
   isDirty: () => boolean;
+  hideFooter?: boolean;
+  disabled?: boolean;
+  saveText?: any;
   validateEntry?: Function | null;
 }
 
@@ -61,15 +65,19 @@ const EditorContainer: React.FC<Props> = ({
   returnFunction = null,
   deleteBlock,
   hideFooter = false,
+  saveText,
+  disabled
 }) => {
   const intl = useIntl();
   const dispatch = useDispatch();
+  //@ts-ignore
+  const isLoading = useSelector(state => state?.app?.isLoading);
   // Required to mark data as not dirty on save
   const [saved, setSaved] = React.useState(false);
   const isInitialized = hooks.isInitialized();
   const { isCancelConfirmOpen, openCancelConfirmModal, closeCancelConfirmModal } = hooks.cancelConfirmModalToggle();
   const handleCancel = hooks.handleCancel({ onClose, returnFunction });
-  const disableSave = !isInitialized;
+  const disableSave = !isInitialized || isLoading;
   const saveFailed = hooks.saveFailed();
   const clearSaveFailed = hooks.clearSaveError({ dispatch });
   const handleSave = hooks.handleSaveClicked({
@@ -78,7 +86,7 @@ const EditorContainer: React.FC<Props> = ({
     validateEntry,
     returnFunction,
   });
-
+  
   const onSave = () => {
     setSaved(true);
     handleSave();
@@ -92,11 +100,10 @@ const EditorContainer: React.FC<Props> = ({
     return isDirty();
   });
 
-
   const deleteBlockFunc = () => {
     if (!deleteBlock) return;
     const content = getContent();
-    
+
     if (!content || content?.length === 0) {
       deleteBlock()
     }
@@ -121,7 +128,7 @@ const EditorContainer: React.FC<Props> = ({
         size="md"
         confirmAction={(
           <Button
-            variant="primary"
+            variant="primary btn-sm"
             onClick={() => {
               handleCancel();
               if (returnFunction) {
@@ -140,29 +147,29 @@ const EditorContainer: React.FC<Props> = ({
       >
         <FormattedMessage {...messages.cancelConfirmDescription} />
       </BaseModal>
-      <ModalDialog.Header className="shadow-sm zindex-10 editor-container_header">
-        <div className="d-flex flex-row justify-content-between align-items-center">
-          <span className="col pl-0 _font-weight-semibold">
+      <ModalDialog.Header className="editor-container_header">
+        {/* <div className="d-flex flex-row justify-content-between"> */}
+          {/* <span className="col pl-0 _font-weight-semibold"> */}
             <TitleHeader isInitialized={isInitialized} />
-          </span>
-          <IconButton
+          {/* </span> */}
+          {/* <IconButton
             src={Close}
             iconAs={Icon}
             size="sm"
             onClick={confirmCancelIfDirty}
             alt={intl.formatMessage(messages.exitButtonAlt)}
-          />
-        </div>
+          /> */}
+        {/* </div> */}
       </ModalDialog.Header>
       <EditorModalBody>
         {children}
       </EditorModalBody>
-      {isInitialized && !hideFooter && <ModalDialog.Footer className="shadow-sm px-4 pb-4 pt-0">
+      {isInitialized && !hideFooter && <ModalDialog.Footer className="shadow-sm px-4 pb-3 pt-0">
         <ActionRow>
           <Button
             aria-label={intl.formatMessage(messages.cancelButtonAriaLabel)}
-            variant="outline-third"
-            style={{ padding: '6px  16px' }}
+            variant="outline-third btn-sm"
+            // style={{ padding: '6px  16px' }}
             onClick={confirmCancelIfDirty}
           >
             <FormattedMessage {...messages.cancelButtonLabel} />
@@ -170,13 +177,13 @@ const EditorContainer: React.FC<Props> = ({
           <Button
             aria-label={intl.formatMessage(messages.saveButtonAriaLabel)}
             onClick={onSave}
-            variant="outline-primary"
-            style={{ padding: '6px  16px' }}
-            disabled={disableSave}
+            variant="outline-primary btn-sm"
+            // style={{ padding: '6px  16px' }}
+            disabled={disableSave || isLoading || disabled}
           >
-            {disableSave
+            {isLoading
               ? <Spinner animation="border" className="d-flex justify-content-center" style={{ width: '1rem', height: '1rem' }} />
-              : <FormattedMessage {...messages.saveButtonLabel} />}
+              : (saveText || <FormattedMessage {...messages.saveButtonLabel} />)}
           </Button>
         </ActionRow>
       </ModalDialog.Footer>}

@@ -57,6 +57,7 @@ const GradingModal = ({
       isOpen={isOpen}
       onClose={onClose}
       hasCloseButton
+      isBlocking={true}
       isFullscreenOnMobile
       isOverflowVisible={false}
     >

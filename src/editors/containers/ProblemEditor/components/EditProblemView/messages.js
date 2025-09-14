@@ -13,7 +13,12 @@ const messages = defineMessages({
   },
   saveWarningModalBodyQuestion: {
     id: 'authoring.problemEditor.editProblemView.saveWarningModal.body.question',
-    defaultMessage: 'Are you sure you want to exit the editor?',
+    defaultMessage: 'Are you sure you want to exit the editor? Any unsaved content will be lost?',
+    description: 'Question in body of save warning modal',
+  },
+  saveAddQuestion: {
+    id: 'authoring.problemEditor.editProblemView.saveAddQuestion.title',
+    defaultMessage: 'Add Question',
     description: 'Question in body of save warning modal',
   },
   noAnswerTitle: {

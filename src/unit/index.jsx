@@ -23,18 +23,24 @@ import ProcessingNotification from '../generic/processing-notification';
 import SolidSvgComponent from '../_components/solid-svg/SolidSvgComponent';
 import ViewIcon from '../assets/images/viewIcon.svg'
 import messages from './messages';
+import DeleteModal from '../generic/delete-modal/DeleteModal';
 
 const Unit = ({ courseId, intl }) => {
   const { unitId } = useParams();
   const [loading, setLoading] = useState(false);
   const [components, setComponents] = useState([]);
   const [verticleBlock, setVerticleBlock] = useState(null);
+  const [isDeleteBlock, setDeleteBlock] = useState(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleDeleteComponentBlock = (componentBlockId) => {
-    setComponents((components) => components.filter((component) => component.id !== componentBlockId));
-    deleteComponentBlock(componentBlockId);
+    const currentComponent = components.find((component) => component.id === componentBlockId);
+    setDeleteBlock(currentComponent)
+  };
+  const handleDeleteBlock = () => {
+    setComponents((components) => components.filter((component) => component.id !== isDeleteBlock?.id));
+    deleteComponentBlock(isDeleteBlock?.id);
   };
 
   const selectComponent = (component) => {
@@ -123,9 +129,9 @@ const Unit = ({ courseId, intl }) => {
     }));
   };
 
-  const getComponents = async (silent=false) => {
+  const getComponents = async (silent = false) => {
     if (unitId) {
-      if(!silent) setLoading(true);
+      if (!silent) setLoading(true);
       getVerticalBlock(unitId).then(((response) => {
         setComponents(response.components);
         setVerticleBlock(response.verticalBlock);
@@ -140,12 +146,12 @@ const Unit = ({ courseId, intl }) => {
     await dispatch(publishCourseItemQuery(unitId, null, false, []))
     getComponents(true)
   }
-  console.log("verticleBlock",verticleBlock);
-  
+  console.log("verticleBlock", verticleBlock);
+
   return (
     <Container size="xl" className="px-4 rounded p-4">
       <div className="bg-white _rounded-lg border border-light unit-xblocks-add-container">
-        <div className="bg-white d-flex justify-content-between align-items-center sub-header-container border-bottom border-bottom border-light">
+        {!loading && <div className="bg-white d-flex justify-content-between align-items-center sub-header-container border-bottom border-bottom border-light">
           <h2 className="sub-header-title">{verticleBlock?.displayName}</h2>
           {verticleBlock && <div className='actions-btns'>
             <Button
@@ -172,7 +178,7 @@ const Unit = ({ courseId, intl }) => {
               {intl.formatMessage(messages.saveBtnText)}
             </Button>
           </div>}
-        </div>
+        </div>}
         <div className="bg-white p-4" style={{ minHeight: '200px' }}>
           {loading && <div className="d-flex flex-column align-items-center justify-content-center" style={{ minHeight: '150px' }}> <Spinner animation="border" className="mie-3" screenReaderText="loading" /> </div>}
           {!loading && components.length === 0 && <NoContent />}
@@ -187,7 +193,7 @@ const Unit = ({ courseId, intl }) => {
             >
               <SortableContext id="root" strategy={verticalListSortingStrategy} items={components}>
                 {
-                  components.map((component) => <DraggableComponent id={component.id} category={component.category} children={selectComponent(component)} isDraggable isDroppable />)
+                  components.map((component, i) => <DraggableComponent id={component.id} category={component.category} children={selectComponent(component)} isDraggable isDroppable style={i === 0 ? {} : { borderTop: "1px solid #0000001F",paddingTop: '1.5rem', }} />)
                 }
               </SortableContext>
             </DndContext>
@@ -206,6 +212,17 @@ const Unit = ({ courseId, intl }) => {
       <ProcessingNotification
         isShow={isShowProcessingNotification}
         title={processingNotificationTitle}
+      />
+      <DeleteModal
+        category={intl.formatMessage(messages.deleteCategory, { category: "Block" })}
+        isOpen={Boolean(isDeleteBlock?.id)}
+        close={() => setDeleteBlock(null)}
+        onDeleteSubmit={() => {
+          handleDeleteBlock();
+          setDeleteBlock(null);
+        }}
+        description={intl.formatMessage(messages.deleteDescription)}
+        btnDefaultLabel={intl.formatMessage(messages.deleteSave)}
       />
       <UnitContextWrapper updateComponent={handleComponentUpdate} componentBlocks={components} handleDeleteComponentBlock={handleDeleteComponentBlock}>
         <Outlet />

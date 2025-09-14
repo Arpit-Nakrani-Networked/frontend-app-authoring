@@ -29,6 +29,7 @@ const BaseModal = ({
     size={size}
     variant="default"
     hasCloseButton
+    isBlocking={true}
     isFullscreenOnMobile
     isFullscreenScroll={isFullscreenScroll}
     title={title}
@@ -49,7 +50,7 @@ const BaseModal = ({
       <ActionRow>
         {footerAction}
         <ActionRow.Spacer />
-        <ModalDialog.CloseButton variant="tertiary" onClick={close}>
+        <ModalDialog.CloseButton variant="outline-third btn-sm" onClick={close}>
           <FormattedMessage {...messages.cancelButtonLabel} />
         </ModalDialog.CloseButton>
         {confirmAction}

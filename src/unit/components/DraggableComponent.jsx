@@ -4,7 +4,7 @@ import { Col, Icon, Row } from '@openedx/paragon';
 import { DragIndicator } from '@openedx/paragon/icons';
 
 export const DraggableComponent = ({
-  id, category, isDraggable, isDroppable, children,
+  id, category, isDraggable, isDroppable, children,style={}
 }) => {
   const {
     attributes,
@@ -26,7 +26,7 @@ export const DraggableComponent = ({
     animateLayoutChanges: () => false,
   });
 
-  const style = {
+  const customStyle = {
     position: 'relative',
     zIndex: isDragging ? 200 : undefined,
     transform: CSS.Translate.toString(transform),
@@ -35,10 +35,11 @@ export const DraggableComponent = ({
     marginBottom: '1.5rem',
     gap: '1rem',
     flexWrap: 'no-wrap',
+    ...style
   };
 
   return (
-    <Row className="mx-0" ref={setNodeRef} style={style}>
+    <Row className="mx-0" ref={setNodeRef} style={customStyle}>
       <div className="d-flex align-items-center rounded _bg-gray-50">
         <button
           ref={setActivatorNodeRef}
