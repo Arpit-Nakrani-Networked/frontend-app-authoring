@@ -13,7 +13,7 @@ import EditorContainer from '../EditorContainer';
 import VideoEditorModal from './components/VideoEditorModal';
 import { ErrorContext, errorsHook, fetchVideoContent } from './hooks';
 import messages from './messages';
-import { parseYoutubeId } from 'editors/data/services/cms/api';
+import { parseYoutubeId } from '../../../editors/data/services/cms/api';
 
 const VideoEditor: React.FC<EditorComponent> = ({
   onClose,
