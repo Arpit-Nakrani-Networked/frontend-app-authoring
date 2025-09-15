@@ -85,7 +85,7 @@ const TextEditor = ({
       isDirty={hooks.isDirty({ editorRef, showRawEditor })}
       onClose={onClose}
       returnFunction={returnFunction}
-      deleteBlock={() => deleteBlock && deleteBlock(blockId)}
+      deleteBlock={() => deleteBlock && deleteBlock()}
     >
       <div className="editor-body h-75 overflow-auto">
         <Toast show={blockFailed} onClose={hooks.nullMethod}>

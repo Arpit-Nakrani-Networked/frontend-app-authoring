@@ -1,6 +1,6 @@
 import { injectIntl } from '@edx/frontend-platform/i18n';
 import { Button, Container, Spinner } from '@openedx/paragon';
-import { Outlet, useNavigate, useParams } from 'react-router';
+import { Outlet, useMatch, useNavigate, useParams } from 'react-router';
 import { useEffect, useState } from 'react';
 import { SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import {
@@ -33,6 +33,8 @@ const Unit = ({ courseId, intl }) => {
   const [isDeleteBlock, setDeleteBlock] = useState(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const isEditorOpen = useMatch("course/:courseId/container/:unitId/editor/:blockType/:blockId?");
+
 
   const handleDeleteComponentBlock = (componentBlockId) => {
     const currentComponent = components.find((component) => component.id === componentBlockId);
@@ -97,6 +99,7 @@ const Unit = ({ courseId, intl }) => {
     const baseComponent = {
       id: componentBlockId,
       category: componentBlockCategory,
+      isNew: true,
     };
 
     const defaultsByCategory = {
@@ -108,6 +111,7 @@ const Unit = ({ courseId, intl }) => {
     const newComponent = {
       ...baseComponent,
       ...(defaultsByCategory[componentBlockCategory] || {}),
+      isNew: false,
     };
 
     setComponents(prev => [...prev, newComponent]);

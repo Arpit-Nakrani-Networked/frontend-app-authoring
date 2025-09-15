@@ -1,5 +1,5 @@
 import { useLocation, useParams } from 'react-router';
-import { Button } from '@openedx/paragon';
+import { Button, Toast } from '@openedx/paragon';
 import { ArrowBack } from '@openedx/paragon/icons';
 import { Link } from 'react-router-dom';
 import { getConfig } from '@edx/frontend-platform';
@@ -44,7 +44,7 @@ export default function CourseTitleHeader() {
   const [isOpen,setIsOpen] = useState(false)
   const { courseId: courseIdFromUrl, ...params } = useParams();
   const dispatch = useDispatch();
-  const { handlePublishAllSubmit, sectionsList, ...p } = useCourseOutline({ courseId: courseIdFromUrl });
+  const { handlePublishAllSubmit, sectionsList,toastMessage,setToastMessage, ...p } = useCourseOutline({ courseId: courseIdFromUrl });
   const courseDetail = useModel('courseDetails', courseIdFromUrl);
   const courseTitle = courseDetail ? courseDetail.name : courseIdFromUrl;
   const lmsApiBaseUrl = getConfig().LMS_BASE_URL;
@@ -99,7 +99,16 @@ export default function CourseTitleHeader() {
           {intl.formatMessage(messages.saveBtnText)}
         </Button>
       </div>}
-      <CoursePublishModal isOpen={isOpen} onClose={()=>setIsOpen(false)} onPublishSubmit={publishDraftContent} />
+      <CoursePublishModal isOpen={isOpen} onClose={() => setIsOpen(false)} onPublishSubmit={publishDraftContent} />
+            {toastMessage && (
+                <Toast
+                  show
+                  onClose={/* istanbul ignore next */ () => setToastMessage(null)}
+                  data-testid="taxonomy-toast"
+                >
+                  {toastMessage}
+                </Toast>
+              )} 
     </div>
   );
 }

@@ -10,6 +10,8 @@ import thumbnailMessages from '../ThumbnailWidget/messages';
 import hooks from './hooks';
 import LanguageNamesWidget from './LanguageNamesWidget';
 import videoThumbnail from '../../../../../../data/images/videoThumbnail.svg';
+import { ErrorSummary } from '../../ErrorSummary';
+import { parseYoutubeId } from '../../../../../../data/services/cms/api';
 
 // Exporting to test this component separately
 export const VideoPreviewWidget = ({
@@ -25,16 +27,16 @@ export const VideoPreviewWidget = ({
   const videoType = intl.formatMessage(hooks.getVideoType(videoSource));
   const thumbnailImage = thumbnail || videoThumbnail;
 
-  function extractYouTubeID(url) {
-    const regex = /(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
-    const match = url.match(regex);
-    return match ? match[1] : null;
-  }
-  const id = videoSource ? extractYouTubeID(videoSource) : '';
+  // function extractYouTubeID(url) {
+  //   const regex = /(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+  //   const match = url.match(regex);
+  //   return match ? match[1] : null;
+  // }
+  const id = videoSource ? parseYoutubeId(videoSource) : '';
   const youtubeUrl = `https://youtube.com/embed/${id}`;
-  return id && (
+  return id ? (
     <iframe src={youtubeUrl} width="100%" height={370} style={{ border: 'none', borderRadius: '1rem' }} />
-  );
+  ) : <ErrorSummary />;
   return (
     <Collapsible.Advanced
       className="collapsible-card rounded mx-4 my-3 px-4"

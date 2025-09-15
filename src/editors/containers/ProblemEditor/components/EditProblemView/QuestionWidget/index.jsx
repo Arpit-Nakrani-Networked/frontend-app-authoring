@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { injectIntl, FormattedMessage, intlShape } from '@edx/frontend-platform/i18n';
@@ -24,6 +24,22 @@ const QuestionWidget = ({
     learningContextId,
   });
   const questionContent = newContent || initialContent;
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const iframe = document.getElementById("question_ifr");
+      const html = iframe?.contentDocument?.documentElement;
+      if (html) {
+        html.style.cursor = "text";
+        iframe.contentDocument.body.style.cursor = "text";
+        clearInterval(interval); // stop once applied
+      }
+    }, 200);
+
+    return () => clearInterval(interval);
+  }, [refReady]);
+
+
   if (!refReady) { return null; }
   return (
     <div className="tinyMceWidget">
@@ -38,6 +54,7 @@ const QuestionWidget = ({
         setEditorRef={setEditorRef}
         minHeight={150}
         placeholder={intl.formatMessage(messages.placeholder)}
+
         {...{
           images,
           isLibrary,

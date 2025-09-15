@@ -13,18 +13,18 @@ export const showAlert = (errors) => !Object.values(errors).every(hasNoError);
 
 export const ErrorSummary = () => {
   const errors = React.useContext(ErrorContext);
-  return (
-    <Alert
-      icon={InfoOutline}
-      show={showAlert(errors)}
-      variant="danger"
-    >
-      <Alert.Heading>
-        <FormattedMessage {...messages.validateErrorTitle} />
-      </Alert.Heading>
-      <p>
+  return showAlert(errors) && (
+    // <Alert
+    //   icon={InfoOutline}
+    //   show={showAlert(errors)}
+    //   variant="danger"
+    // >
+    //   <Alert.Heading>
+    //     <FormattedMessage {...messages.validateErrorTitle} />
+    //   </Alert.Heading>
+      <p className='_text-delete'>
         <FormattedMessage {...messages.validateErrorBody} />
       </p>
-    </Alert>
+    // </Alert>
   );
 };

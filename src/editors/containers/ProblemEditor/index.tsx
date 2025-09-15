@@ -19,8 +19,8 @@ export interface Props extends EditorComponent {
   /** null if this is a new problem */
   problemType: ProblemType | null;
   initializeProblemEditor: (blockValue: any) => void;
-  blockValue: Record<string, any>;3
-  deleteBlock: (id:string)=>void;
+  blockValue: Record<string, any>; 
+  deleteBlock: () => void;
 }
 
 const ProblemEditor: React.FC<Props> = ({
@@ -43,7 +43,7 @@ const ProblemEditor: React.FC<Props> = ({
 
   if (!blockFinished || !advancedSettingsFinished) {
     return (
-      <EditorContainer getContent={() => { console.log('Dummy'); }} isDirty={() => false} onClose={onClose}>
+      <EditorContainer getContent={() => { console.log('Dummy'); }} isDirty={() => false} onClose={onClose} hideFooter>
         <div className="text-center p-6">
           <Spinner
             animation="border"
@@ -64,12 +64,14 @@ const ProblemEditor: React.FC<Props> = ({
   }
 
   if (problemType === null) {
-    return (<SelectTypeModal {...{ onClose:()=>{
-      onClose && onClose()
-      blockValue?.data?.id && deleteBlock && deleteBlock(blockValue?.data?.id)
-    } }} />);
+    return (<SelectTypeModal {...{
+      onClose: () => {
+        onClose && onClose()
+        deleteBlock && deleteBlock()
+      }
+    }} />);
   }
-  return (<EditProblemView {...{ onClose, returnFunction,deleteBlock:() => deleteBlock(blockValue?.data?.id) }} />);
+  return (<EditProblemView {...{ onClose, returnFunction, deleteBlock }} />);
 };
 
 export const mapStateToProps = (state) => ({

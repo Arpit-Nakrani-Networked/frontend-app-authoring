@@ -11,26 +11,29 @@ import { RequestKeys } from '../../data/constants/requests';
 import { EditorComponent } from '../../EditorComponent';
 import EditorContainer from '../EditorContainer';
 import VideoEditorModal from './components/VideoEditorModal';
-import { ErrorContext, errorsHook, fetchVideoContent } from './hooks';
+import { ErrorContext, errorsHook, fetchVideoContent, state as errorState } from './hooks';
 import messages from './messages';
 import { parseYoutubeId } from '../../../editors/data/services/cms/api';
 
 const VideoEditor: React.FC<EditorComponent> = ({
   onClose,
   returnFunction,
+  deleteBlock
 }) => {
   const dispatch = useDispatch()
   const intl = useIntl();
+  const [videoSourceErrors, setVideoSourceErrors] = errorState.videoSourceErrors({});
   const studioViewFinished = useSelector(
     (state) => selectors.requests.isFinished(state, { requestKey: RequestKeys.fetchStudioView }),
   );
   const isLibrary = useSelector(selectors.app.isLibrary) as boolean;
   const {
     error,
-    validateEntry,
+    // validateEntry,
   } = errorsHook();
+
   return (
-    <ErrorContext.Provider value={error}>
+    <ErrorContext.Provider value={{ ...error, videoSource: [videoSourceErrors, setVideoSourceErrors] }}>
       <EditorContainer
         getContent={fetchVideoContent()}
         isDirty={/* istanbul ignore next */ () => true}
@@ -40,8 +43,16 @@ const VideoEditor: React.FC<EditorComponent> = ({
           const videoState = fetchVideoContent();
           const videoData = videoState && videoState({ dispatch })
           const videoId = parseYoutubeId(videoData?.videoSource)
+          if (!Boolean(videoId && videoId)) {
+            setVideoSourceErrors("Invalid Url")
+            return false
+          } else {
+            setVideoSourceErrors('')
+            return true
+          }
           return videoId && videoId
         }}
+        deleteBlock={() => deleteBlock && deleteBlock()}
       >
         {studioViewFinished ? (
           <div className="video-editor">

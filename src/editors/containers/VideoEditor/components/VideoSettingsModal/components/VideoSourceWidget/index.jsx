@@ -60,7 +60,7 @@ const VideoSourceWidget = ({
         <FormattedMessage {...messages.videoIdChangeAlert} />
       </ErrorAlert>
 
-      <div className="border-primary-100 border-bottom">
+      <div className="">
         {/* <Form.Group>
           <Form.Control
             floatingLabel={intl.formatMessage(messages.videoIdLabel)}

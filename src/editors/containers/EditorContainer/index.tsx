@@ -103,7 +103,7 @@ const EditorContainer: React.FC<Props> = ({
   const deleteBlockFunc = () => {
     if (!deleteBlock) return;
     const content = getContent();
-
+    
     if (!content || content?.length === 0) {
       deleteBlock()
     }

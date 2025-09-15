@@ -42,7 +42,6 @@ const VideoSettingsModal: React.FC<Props> = ({
         <FormattedMessage {...messages.replaceVideoButtonLabel} />
       </Button>
     )} */}
-    <ErrorSummary />
     <VideoSourceWidget />
     <ConnectedVideoPreviewWidget />
     {/* {!isLibrary && (

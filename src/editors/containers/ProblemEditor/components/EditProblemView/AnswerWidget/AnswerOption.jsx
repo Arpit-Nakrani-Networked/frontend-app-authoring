@@ -105,7 +105,7 @@ const AnswerOption = ({
           disabled={problemType === ProblemTypeKeys.NUMERIC}
         />
       </div>
-      <div className="flex-grow-1 ml-2 d-flex align-items-center w-100">
+      <div className="flex-grow-1 ml-2 d-flex align-items-center w-100 cursor-text">
         {getInputArea()}
         <Collapsible.Body>
           <FeedbackBox

@@ -40,7 +40,7 @@ const EditorContainer: React.FC<Props> = ({
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const upstreamLibRef = searchParams.get('upstreamLibRef');
-  const context: { updateComponent: Function,handleDeleteComponentBlock:Function } = useUnitContext();
+  const context: { updateComponent: Function, handleDeleteComponentBlock: Function, componentBlocks } = useUnitContext();
 
   if (blockType === undefined || blockId === undefined) {
     // istanbul ignore next - This shouldn't be possible; it's just here to satisfy the type checker.
@@ -98,7 +98,7 @@ const EditorContainer: React.FC<Props> = ({
         lmsEndpointUrl={getConfig().LMS_BASE_URL}
         onClose={handleCloseModal}
         returnFunction={() => handleReturn}
-        handleDeleteComponentBlock={(id) => context.handleDeleteComponentBlock(id)}
+        handleDeleteComponentBlock={() => blockId && context.handleDeleteComponentBlock(blockId)}
       />
     </div>
   );
