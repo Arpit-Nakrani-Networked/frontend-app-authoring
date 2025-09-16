@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape } from '@edx/frontend-platform/i18n';
 import {
@@ -31,6 +31,14 @@ const StudentOverview = ({ intl, courseId }) => {
         studentsData,
         isLoading
     } = useStudentsTableData();
+    const inputRef = useRef(null);
+
+    // Auto focus when search opens
+    useEffect(() => {
+        if (showSearch && inputRef.current) {
+            inputRef.current.focus();
+        }
+    }, [showSearch]);
 
     useEffect(() => {
         dispatch(fetchStudents(courseId));
@@ -40,10 +48,10 @@ const StudentOverview = ({ intl, courseId }) => {
     //     dispatch(fetchStudents(courseId,null,searchText));
     // }, [searchText])
 
-     const handleSearchCoursesDebounced = useCallback(
-          debounce((value) => dispatch(fetchStudents(courseId, null, value)), 400),
-          [],
-        );
+    const handleSearchCoursesDebounced = useCallback(
+        debounce((value) => dispatch(fetchStudents(courseId, null, value)), 400),
+        [],
+    );
 
     const courseDetails = useModel('courseDetails', courseId);
     document.title = getPageHeadTitle(courseDetails?.name, "Student Overview");
@@ -71,16 +79,17 @@ const StudentOverview = ({ intl, courseId }) => {
                                 {showSearch && <span className={showSearch ? 'search-expand-icon' : ''}> <SolidSvgComponent url={SearchIcon} width={20} height={20} defaultClass={``} iconColor='#00000099' onClick={() => setShowSearch(!showSearch)} /></span>}
 
                                 {<input
+                                    ref={inputRef}
                                     type="text"
                                     value={searchText}
                                     onChange={(e) => {
                                         handleSearchCoursesDebounced(e.target.value)
                                         setSearchText(e.target.value)
                                     }}
-                                    placeholder="Search..."
+                                    placeholder="Search"
                                 />}
                                 {showSearch ? <Icon className='close-icon' size='sm' src={IconClose} onClick={() => {
-                                    if(searchText) {
+                                    if (searchText) {
                                         handleSearchCoursesDebounced('')
                                     }
                                     setSearchText('')

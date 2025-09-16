@@ -73,7 +73,7 @@ export default function CourseTitleHeader() {
             <h1 className="h2" data-course-id={courseIdFromUrl} title={courseTitle}>
               {courseTitle}
             </h1>
-            {isDraftStatus && <span className="rounded _text-black-400 _bg-info-200 p-1 ml-2 text-sm">Draft</span>}
+            {isDraftStatus && <span className="rounded _text-black-400 _bg-info-200 p-1 ml-2 text-sm">Private</span>}
           </div>
         )}
       {!unitId && <div className='actions-btns'>

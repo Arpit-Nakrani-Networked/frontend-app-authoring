@@ -119,6 +119,7 @@ mark {
 .main-course-header {
   background-color: $v2-white-100 !important;
   padding: 14px 15px !important;
+  height: 65px;
   border-bottom: 1px solid $v2-black-500;
   display: flex;
   align-items: center;
@@ -144,6 +145,10 @@ mark {
     text-wrap: nowrap;
     text-overflow: ellipsis;
   }
+}
+
+.h-72 {
+  height: 72px;
 }
 
 .community-header {
@@ -493,12 +498,15 @@ input.pgn__form-switch-input {
 .pgn__modal-body.pgn__modal-body-scroll-bottom::after,
 .pgn__modal-body::after,
 .pgn__scrollable-body.pgn__scrollable-body-scroll-top.pgn__scrollable-body-scroll-bottom::after,
-.pgn__scrollable-body.pgn__scrollable-body-scroll-top.pgn__scrollable-body-scroll-bottom::before,.unit-navigation .previous-button:focus:before, .unit-navigation .next-button:focus:before {
+.pgn__scrollable-body.pgn__scrollable-body-scroll-top.pgn__scrollable-body-scroll-bottom::before,
+.unit-navigation .previous-button:focus:before,
+.unit-navigation .next-button:focus:before,
+.tox .tox-statusbar {
   display: none !important;
 }
 
-.btn:focus-visible{
-  outline:none !important;
+.btn:focus-visible {
+  outline: none !important;
 }
 
 .pgn__modal-body {
@@ -661,6 +669,14 @@ a.disabled {
   height: 36px !important;
 }
 
+.icon-24 {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 // xblocks unit
 
 .xblock-edit-icon {
@@ -676,10 +692,11 @@ a.disabled {
   background-color: $v2-info-200 !important;
 }
 
-.tox-edit-area__iframe > html,.tox-edit-area__iframe{
-   cursor: text !important;
+.tox-edit-area__iframe>html,
+.tox-edit-area__iframe {
+  cursor: text !important;
 }
 
-.cursor-text{
+.cursor-text {
   cursor: text;
 }

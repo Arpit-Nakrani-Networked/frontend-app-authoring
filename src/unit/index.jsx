@@ -155,7 +155,7 @@ const Unit = ({ courseId, intl }) => {
   return (
     <Container size="xl" className="px-4 rounded p-4">
       <div className="bg-white _rounded-lg border border-light unit-xblocks-add-container">
-        {!loading && <div className="bg-white d-flex justify-content-between align-items-center sub-header-container border-bottom border-bottom border-light">
+        {!loading && <div className="bg-white d-flex justify-content-between align-items-center sub-header-container h-72 border-bottom border-bottom border-light">
           <h2 className="sub-header-title">{verticleBlock?.displayName}</h2>
           {verticleBlock && <div className='actions-btns'>
             <Button

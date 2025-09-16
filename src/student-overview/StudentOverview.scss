@@ -41,7 +41,7 @@
     .student-search {
         width: 35px;
         height: 35px;
-        border-radius: 8px;
+        border-radius: 12px;
         font-size: 14px;
         display: flex;
         align-items: center;
@@ -80,6 +80,7 @@
         }
 
         &.active {
+            padding-left: 10px;
             width: auto;
             background: #FFFFFF;
             border: 1px solid rgb(0 0 0 / .267);

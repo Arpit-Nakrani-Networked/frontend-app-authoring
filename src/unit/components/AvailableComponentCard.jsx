@@ -33,7 +33,7 @@ export const AvailableComponentCard = ({
 
   return (
     <Button variant="outline-dark" size="lg" className="_flex-1 bg-white justify-content-between xblock-button" onClick={handleCreate} disabled={isCreating}>
-        <SolidSvgComponent url={icon} width={20} height={20} defaultClass={`mr-3`} iconColor="#00000099" />
+      <div className='icon-24 mr-3'><SolidSvgComponent url={icon} width={20} height={20} defaultClass={``} iconColor="#00000099" /></div>
       <div className="d-flex align-items-center justify-content-between _flex-1">
         <span className='_text-black-400'>{label}</span>
         {isCreating && <Spinner animation="border" size="sm" className="ms-2" />}

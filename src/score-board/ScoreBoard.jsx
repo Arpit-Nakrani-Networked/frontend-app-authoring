@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { injectIntl, intlShape } from '@edx/frontend-platform/i18n';
 import messages from './messages';
 import './ScoreBoard.scss';
@@ -27,6 +27,14 @@ const ScoreBoard = ({ intl, courseId }) => {
     grades,
     isLoading
   } = useGradebookTableData();
+  const inputRef = useRef(null);
+
+  // Auto focus when search opens
+  useEffect(() => {
+    if (showSearch && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [showSearch]);
 
   useEffect(() => {
     dispatch(fetchGrades(courseId));
@@ -38,9 +46,9 @@ const ScoreBoard = ({ intl, courseId }) => {
   // }, [searchText])
 
   const handleSearchCoursesDebounced = useCallback(
-      debounce((value) => dispatch(fetchGrades(courseId, null, value)), 400),
-      [],
-    );
+    debounce((value) => dispatch(fetchGrades(courseId, null, value)), 400),
+    [],
+  );
 
 
   const handleNext = () => {
@@ -69,27 +77,28 @@ const ScoreBoard = ({ intl, courseId }) => {
             <button
               className={`score-search d-flex ${showSearch ? 'active' : ''}`}
             >
-                 {showSearch && <span className={showSearch ? 'search-expand-icon' : ''}> <SolidSvgComponent url={SearchIcon} width={20} height={20} defaultClass={``} iconColor='#00000099' onClick={() => setShowSearch(!showSearch)} /></span>}
-           
-                                           {<input
-                                               type="text"
-                                               value={searchText}
-                                               onChange={(e) => {
-                                                   handleSearchCoursesDebounced(e.target.value)
-                                                   setSearchText(e.target.value)
-                                               }}
-                                               placeholder="Search..."
-                                           />}
-                                           {showSearch ? <Icon className='close-icon' size='sm' src={IconClose} onClick={() => {
-                                               if(searchText) {
-                                                   handleSearchCoursesDebounced('')
-                                               }
-                                               setSearchText('')
-                                               setShowSearch(!showSearch)
-                                           }} /> : <SolidSvgComponent url={SearchIcon} width={20} height={20} defaultClass={``} iconColor='#00000099' onClick={() => setShowSearch(!showSearch)} />}
-           
+              {showSearch && <span className={showSearch ? 'search-expand-icon' : ''}> <SolidSvgComponent url={SearchIcon} width={20} height={20} defaultClass={``} iconColor='#00000099' onClick={() => setShowSearch(!showSearch)} /></span>}
+
+              {<input
+                ref={inputRef}
+                type="text"
+                value={searchText}
+                onChange={(e) => {
+                  handleSearchCoursesDebounced(e.target.value)
+                  setSearchText(e.target.value)
+                }}
+                placeholder="Search"
+              />}
+              {showSearch ? <Icon className='close-icon' size='sm' src={IconClose} onClick={() => {
+                if (searchText) {
+                  handleSearchCoursesDebounced('')
+                }
+                setSearchText('')
+                setShowSearch(!showSearch)
+              }} /> : <SolidSvgComponent url={SearchIcon} width={20} height={20} defaultClass={``} iconColor='#00000099' onClick={() => setShowSearch(!showSearch)} />}
+
             </button>
-                            {/* <button className="student-filter h-fit"><SolidSvgComponent url={FilterIcon} width={15} height={15} defaultClass={``} iconColor='#00000099' /></button> */}
+            {/* <button className="student-filter h-fit"><SolidSvgComponent url={FilterIcon} width={15} height={15} defaultClass={``} iconColor='#00000099' /></button> */}
             <Button variant="primary" className="h-fit" size="sm" iconBefore={IconAdd}>
               {intl.formatMessage(messages.inviteButtonText)}
             </Button>
