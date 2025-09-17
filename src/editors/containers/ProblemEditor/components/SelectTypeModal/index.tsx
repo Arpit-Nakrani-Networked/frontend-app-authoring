@@ -38,7 +38,7 @@ const SelectTypeModal: React.FC<Props> = ({
   }
   return (
     <SelectTypeWrapper onClose={onClose} selected={selected}>
-      <Row className="justify-content-center">
+      <Row className="justify-content-center question-select-row">
         {(!isAdvancedProblemType(selected)) ? (
           <Stack direction="horizontal" gap={4} className="flex-wrap w-100 h-100">
             <ProblemTypeSelect selected={selected} setSelected={setSelected} onSelectFinal={onSelectFinal} />

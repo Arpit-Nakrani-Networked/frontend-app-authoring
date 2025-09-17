@@ -86,7 +86,7 @@ const EditorContainer: React.FC<Props> = ({
     validateEntry,
     returnFunction,
   });
-  
+
   const onSave = () => {
     setSaved(true);
     handleSave();
@@ -103,7 +103,7 @@ const EditorContainer: React.FC<Props> = ({
   const deleteBlockFunc = () => {
     if (!deleteBlock) return;
     const content = getContent();
-    
+
     if (!content || content?.length === 0) {
       deleteBlock()
     }
@@ -149,10 +149,10 @@ const EditorContainer: React.FC<Props> = ({
       </BaseModal>
       <ModalDialog.Header className="editor-container_header">
         {/* <div className="d-flex flex-row justify-content-between"> */}
-          {/* <span className="col pl-0 _font-weight-semibold"> */}
-            <TitleHeader isInitialized={isInitialized} />
-          {/* </span> */}
-          {/* <IconButton
+        {/* <span className="col pl-0 _font-weight-semibold"> */}
+        <TitleHeader isInitialized={isInitialized} />
+        {/* </span> */}
+        {/* <IconButton
             src={Close}
             iconAs={Icon}
             size="sm"
@@ -181,9 +181,10 @@ const EditorContainer: React.FC<Props> = ({
             // style={{ padding: '6px  16px' }}
             disabled={disableSave || isLoading || disabled}
           >
+            {(saveText || <FormattedMessage {...messages.saveButtonLabel} />)}
             {isLoading
-              ? <Spinner animation="border" className="d-flex justify-content-center" style={{ width: '1rem', height: '1rem' }} />
-              : (saveText || <FormattedMessage {...messages.saveButtonLabel} />)}
+              ? <Spinner animation="border" className="d-flex justify-content-center ml-2" style={{ width: '1rem', height: '1rem' }} /> : null
+            }
           </Button>
         </ActionRow>
       </ModalDialog.Footer>}

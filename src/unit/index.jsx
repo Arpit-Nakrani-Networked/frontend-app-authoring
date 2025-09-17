@@ -1,5 +1,5 @@
 import { injectIntl } from '@edx/frontend-platform/i18n';
-import { Button, Container, Spinner } from '@openedx/paragon';
+import { Button, Container, Spinner, Toast } from '@openedx/paragon';
 import { Outlet, useMatch, useNavigate, useParams } from 'react-router';
 import { useEffect, useState } from 'react';
 import { SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy } from '@dnd-kit/sortable';
@@ -28,6 +28,7 @@ import DeleteModal from '../generic/delete-modal/DeleteModal';
 const Unit = ({ courseId, intl }) => {
   const { unitId } = useParams();
   const [loading, setLoading] = useState(false);
+  const [toastMessage, setToastMessage] = useState(null);
   const [components, setComponents] = useState([]);
   const [verticleBlock, setVerticleBlock] = useState(null);
   const [isDeleteBlock, setDeleteBlock] = useState(null);
@@ -41,8 +42,14 @@ const Unit = ({ courseId, intl }) => {
     setDeleteBlock(currentComponent)
   };
   const handleDeleteBlock = () => {
-    setComponents((components) => components.filter((component) => component.id !== isDeleteBlock?.id));
-    deleteComponentBlock(isDeleteBlock?.id);
+    try {
+      setComponents((components) => components.filter((component) => component.id !== isDeleteBlock?.id));
+      deleteComponentBlock(isDeleteBlock?.id);
+      setToastMessage(intl.formatMessage(messages.deleteSuccess));
+    } catch (e) {
+      console.log("while delete block");
+
+    }
   };
 
   const selectComponent = (component) => {
@@ -197,14 +204,14 @@ const Unit = ({ courseId, intl }) => {
             >
               <SortableContext id="root" strategy={verticalListSortingStrategy} items={components}>
                 {
-                  components.map((component, i) => <DraggableComponent id={component.id} category={component.category} children={selectComponent(component)} isDraggable isDroppable style={i === 0 ? {} : { borderTop: "1px solid #0000001F",paddingTop: '1.5rem', }} />)
+                  components.map((component, i) => <DraggableComponent id={component.id} category={component.category} children={selectComponent(component)} isDraggable isDroppable style={i === 0 ? {} : { borderTop: "1px solid #0000001F", paddingTop: '1.5rem', }} />)
                 }
               </SortableContext>
             </DndContext>
           )}
         </div>
         <div className="_bg-gray-50 p-4 d-flex flex-column align-items-center justify-content-between _rounded-b-lg unit-xblock-add-component">
-          <h2 className="sub-header-title">Add Content</h2>
+          <h2 className="sub-header-title">Add content</h2>
           <span className="text-gray-500 _font-weight-light mt-2">Please select the one of the below type</span>
           <div className="d-flex justify-content-between w-100 mt-4" style={{ gap: '1rem' }}>
             {
@@ -228,6 +235,15 @@ const Unit = ({ courseId, intl }) => {
         description={intl.formatMessage(messages.deleteDescription)}
         btnDefaultLabel={intl.formatMessage(messages.deleteSave)}
       />
+      {toastMessage && (
+        <Toast
+          show
+          onClose={/* istanbul ignore next */ () => setToastMessage(null)}
+          data-testid="taxonomy-toast"
+        >
+          {toastMessage}
+        </Toast>
+      )}
       <UnitContextWrapper updateComponent={handleComponentUpdate} componentBlocks={components} handleDeleteComponentBlock={handleDeleteComponentBlock}>
         <Outlet />
       </UnitContextWrapper>

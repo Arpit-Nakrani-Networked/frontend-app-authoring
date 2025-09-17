@@ -56,7 +56,7 @@ const TinyMceWidget = ({
 
   return (
     <>
-      {!isLibrary && (
+      {/* {!isLibrary && (
         <ImageUploadModal
           isOpen={isImgOpen}
           close={closeImgModal}
@@ -66,7 +66,7 @@ const TinyMceWidget = ({
           lmsEndpointUrl={getConfig().LMS_BASE_URL}
           {...imageSelection}
         />
-      )}
+      )} */}
       {editorType === 'text' && (
         <SourceCodeModal
           isOpen={isSourceCodeOpen}

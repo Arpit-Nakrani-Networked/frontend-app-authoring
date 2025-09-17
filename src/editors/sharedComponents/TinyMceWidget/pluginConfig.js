@@ -29,8 +29,8 @@ const pluginConfig = ({ isLibrary, placeholder, editorType }) => {
         plugins.charmap,
         codePlugin,
         plugins.autoresize,
-        image,
-        imageTools,
+        // image,
+        // imageTools,
         // quickToolbar,
         plugins.a11ychecker,
         plugins.powerpaste,
@@ -54,19 +54,19 @@ const pluginConfig = ({ isLibrary, placeholder, editorType }) => {
           buttons.outdent,
           buttons.indent,
         ],
-        [imageUploadButton, buttons.link, buttons.unlink, buttons.blockQuote, buttons.codeBlock],
+        [ buttons.link, buttons.unlink, buttons.blockQuote, buttons.codeBlock],
         [buttons.table, buttons.emoticons, buttons.charmap, buttons.hr],
         [buttons.removeFormat, codeButton, buttons.a11ycheck, buttons.embediframe],
       ]) : false,
       imageToolbar: mapToolbars([
         // [buttons.rotate.left, buttons.rotate.right],
         // [buttons.flip.horiz, buttons.flip.vert],
-        [editImageSettings],
+        // [editImageSettings],
       ]),
       quickbarsInsertToolbar: toolbar ? false : mapToolbars([
         // To keep from blocking the whole text input field when it's empty, this "insert" toolbar
         // used with ExpandableTextArea is kept as minimal as we can.
-        [imageUploadButton, buttons.table],
+        [ buttons.table],
       ]),
       quickbarsSelectionToolbar: toolbar ? false : mapToolbars([
         [buttons.undo, buttons.redo],
@@ -77,7 +77,7 @@ const pluginConfig = ({ isLibrary, placeholder, editorType }) => {
           buttons.bullist,
           buttons.numlist,
         ],
-        [imageUploadButton, buttons.blockQuote, buttons.codeBlock],
+        [buttons.blockQuote, buttons.codeBlock],
         [buttons.table, buttons.emoticons, buttons.charmap, buttons.removeFormat, buttons.a11ycheck],
       ]),
       config: {
@@ -93,7 +93,7 @@ const pluginConfig = ({ isLibrary, placeholder, editorType }) => {
         inline,
         block_formats: 'Header 1=h1;Header 2=h2;Header 3=h3;Header 4=h4;Header 5=h5;Header 6=h6;Div=div;Paragraph=p;Preformatted=pre',
         forced_root_block: defaultFormat,
-        powerpaste_allow_local_images: true,
+        powerpaste_allow_local_images: false,
         powerpaste_word_import: 'prompt',
         powerpaste_html_import: 'prompt',
         powerpaste_googledoc_import: 'prompt',

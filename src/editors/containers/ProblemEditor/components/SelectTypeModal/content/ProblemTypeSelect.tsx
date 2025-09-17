@@ -40,7 +40,7 @@ const ProblemTypeSelect: React.FC<Props> = ({
         onChange={handleChange}
         type={settings.type}
         value={selected}
-        style={{ height: '100%' }}
+        style={{ height: '100%',justifyContent:"space-between" }}
         onDoubleClick={onSelectFinal}
       >
         {Object.values(ProblemTypeKeys).filter((problemType) => currentReleaseVersionSupportedProblemTypes.includes(problemType)).map((key) => (

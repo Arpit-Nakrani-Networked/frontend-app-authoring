@@ -101,7 +101,7 @@ const TextEditor = ({
                 screenreadertext={intl.formatMessage(messages.spinnerScreenReaderText)}
               />
             </div>
-          ) : (<><div className="_text-black-600 _text-sm">Add a Text</div>{selectEditor()}</>)}
+          ) : (<><div className="_text-black-600 _text-sm mb-2">Add a Text</div>{selectEditor()}</>)}
       </div>
     </EditorContainer>
   );

@@ -17,6 +17,10 @@ const messages = defineMessages({
     id: 'course-authoring.xblock.delete.category',
     defaultMessage: '{category}',
   },
+  deleteSuccess: {
+    id: 'course-authoring.xblock.delete.category',
+    defaultMessage: 'Deleted Successfully',
+  },
   deleteSave: {
     id: 'course-authoring.xblock.delete.saveText',
     defaultMessage: 'Delete Block',

@@ -704,3 +704,7 @@ a.disabled {
 .h-56{
   height: 56px;
 }
+
+.question-select-row .pgn__selectable_box-set.pgn__selectable_box-set--2{
+    grid-template-columns: repeat(2, 204px);
+}
