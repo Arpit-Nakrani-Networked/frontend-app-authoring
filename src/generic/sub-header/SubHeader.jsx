@@ -14,7 +14,7 @@ const SubHeader = ({
   hideBorder,
   withSubHeaderContent,
 }) => (
-  <div className={`${!hideBorder && ''} mb-3 card px-4 py-2`}>
+  <div className={`${!hideBorder && ''} mb-3 card px-4 py-2 d-flex justify-content-center h-56`}>
     {/* <header className="sub-header">
       <h2 className="sub-header-title m-0">
         <small className="sub-header-title-subtitle">{subtitle}</small>
@@ -39,7 +39,7 @@ const SubHeader = ({
         <h2 className="sub-header-content-title _text-xl">{title}</h2>
         {
           Boolean(description || headerActions) && <div style={{ display: 'flex', alignItems: 'center',gap: '8px' }}>
-            {description && <span className="small text-gray-700 py-3">{description}</span>}
+            {description && <span className="small text-gray-700">{description}</span>}
             {headerActions && (
               <ActionRow className="ml-auto flex-shrink-0 sub-header-actions m-0">
                 {headerActions}

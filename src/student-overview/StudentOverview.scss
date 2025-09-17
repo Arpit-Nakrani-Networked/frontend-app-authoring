@@ -1,8 +1,10 @@
 @import '../variables';
 
 .student-container.card {
-    height: calc(100vh - 200px) !important;
+    height: calc(100vh - 215px) !important;
     overflow: auto !important;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .student-header {
@@ -10,7 +12,11 @@
     justify-content: space-between;
     align-items: center;
     // margin-bottom: 16px;
-    padding: 15px 24px;
+    padding: 14px 24px;
+    position: sticky;
+    top: 0;
+    left: 0;
+    background: $white;
 
     .student-title {
         font-size: 18px;
@@ -194,7 +200,7 @@
         font-weight: 500;
         border-bottom: 1px solid #EEEEEE;
         text-transform: uppercase;
-            font-size: 14px;
+        font-size: 14px;
     }
 }
 

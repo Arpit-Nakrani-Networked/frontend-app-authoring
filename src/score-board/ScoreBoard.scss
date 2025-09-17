@@ -1,8 +1,10 @@
 @import '../variables';
 
 .score-container.card {
-    height: calc(100vh - 200px) !important;
+    height: calc(100vh - 215px) !important;
     overflow: auto !important;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .score-header {
@@ -10,7 +12,11 @@
     justify-content: space-between;
     align-items: center;
      // margin-bottom: 16px;
-    padding: 15px 24px;
+    padding: 14px 24px;
+    position: sticky;
+    top: 0;
+    left: 0;
+    background: $white;
 
     .score-title {
         font-size: 18px;
