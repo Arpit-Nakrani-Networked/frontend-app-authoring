@@ -58,14 +58,14 @@ const StudentOverview = ({ intl, courseId }) => {
 
 
 
-    if (isLoading === RequestStatus.IN_PROGRESS && !searchText) {
-        // eslint-disable-next-line react/jsx-no-useless-fragment
-        return (
-            <Row className="m-0 mt-4 justify-content-center">
-                <LoadingSpinner />
-            </Row>
-        );
-    }
+    // if (isLoading === RequestStatus.IN_PROGRESS) {
+    //     // eslint-disable-next-line react/jsx-no-useless-fragment
+    //     return (
+    //         <Row className="m-0 mt-4 justify-content-center">
+    //             <LoadingSpinner />
+    //         </Row>
+    //     );
+    // }
     return (
         <>
             <Container size="xl" className="grading px-4 pt-3 overflow-hidden">
@@ -117,7 +117,7 @@ const StudentOverview = ({ intl, courseId }) => {
                             </tr>
                         </thead>
                         <tbody>
-                            {Boolean(isLoading === RequestStatus.IN_PROGRESS && searchText) ? null : data.length === 0 ? (
+                            {Boolean(isLoading === RequestStatus.IN_PROGRESS) ? null : data.length === 0 ? (
                                 <tr>
                                     <td colSpan="7" className="student-empty">
                                         <div className="student-empty-content">
@@ -136,7 +136,7 @@ const StudentOverview = ({ intl, courseId }) => {
                         </tbody>
                     </table>
                     {
-                        Boolean(isLoading === RequestStatus.IN_PROGRESS && searchText) ? <div className="d-flex justify-content-center align-items-center" style={{ flex: 1, backgroundColor: "whitesmoke" }}>
+                        Boolean(isLoading === RequestStatus.IN_PROGRESS) ? <div className="d-flex justify-content-center align-items-center" style={{ flex: 1, backgroundColor: "white" }}>
                             <LoadingSpinner />
                         </div> : null
                     }

@@ -15,7 +15,7 @@ import { LoadingSpinner } from '../generic/Loading';
 import { debounce } from 'lodash';
 import SolidSvgComponent from '../_components/solid-svg/SolidSvgComponent';
 import SearchIcon from '../assets/images/student-overview/searchIcon.svg'
-import FilterIcon from '../assets/images/student-overview/filterIcon.svg'
+// import FilterIcon from '../assets/images/student-overview/filterIcon.svg'
 
 const ScoreBoard = ({ intl, courseId }) => {
   const [showSearch, setShowSearch] = useState(false);
@@ -59,14 +59,14 @@ const ScoreBoard = ({ intl, courseId }) => {
     if (grades?.previous) dispatch(fetchGrades(courseId, grades?.previous));
   };
 
-  if (isLoading === RequestStatus.IN_PROGRESS && !searchText) {
-    // eslint-disable-next-line react/jsx-no-useless-fragment
-    return (
-      <Row className="m-0 mt-4 justify-content-center">
-        <LoadingSpinner />
-      </Row>
-    );
-  }
+  // if (isLoading === RequestStatus.IN_PROGRESS && !searchText) {
+  //   // eslint-disable-next-line react/jsx-no-useless-fragment
+  //   return (
+  //     <Row className="m-0 mt-4 justify-content-center">
+  //       <LoadingSpinner />
+  //     </Row>
+  //   );
+  // }
 
   return (
     <Container size="xl" className="grading px-4 pt-3 pb-3 _max-flex-width overflow-hidden">
@@ -114,7 +114,7 @@ const ScoreBoard = ({ intl, courseId }) => {
             </tr>
           </thead>
           <tbody>
-            {data.length === 0 && !Boolean(isLoading === RequestStatus.IN_PROGRESS && searchText) ? (
+            {data.length === 0 && !Boolean(isLoading === RequestStatus.IN_PROGRESS) ? (
               <tr>
                 <td colSpan="9" className="score-empty">
                   <div className="score-empty-content">
@@ -125,7 +125,7 @@ const ScoreBoard = ({ intl, courseId }) => {
                   </div>
                 </td>
               </tr>
-            ) : !Boolean(isLoading === RequestStatus.IN_PROGRESS && searchText) ? (
+            ) : !Boolean(isLoading === RequestStatus.IN_PROGRESS) ? (
               data.map((row, index) => (
                 <ScoreRow key={index} row={row} columns={columns} />
               ))
@@ -133,7 +133,7 @@ const ScoreBoard = ({ intl, courseId }) => {
           </tbody>
         </table>
         {
-          Boolean(isLoading === RequestStatus.IN_PROGRESS && searchText) ? <div className="d-flex justify-content-center align-items-center" style={{ flex: 1, backgroundColor: "whitesmoke" }}>
+          Boolean(isLoading === RequestStatus.IN_PROGRESS) ? <div className="d-flex justify-content-center align-items-center" style={{ flex: 1, backgroundColor: "white" }}>
             <LoadingSpinner />
           </div> : null
         }

@@ -41,11 +41,11 @@ const Unit = ({ courseId, intl }) => {
     const currentComponent = components.find((component) => component.id === componentBlockId);
     setDeleteBlock(currentComponent)
   };
-  const handleDeleteBlock = () => {
+  const handleDeleteBlock = (id) => {
     try {
-      setComponents((components) => components.filter((component) => component.id !== isDeleteBlock?.id));
-      deleteComponentBlock(isDeleteBlock?.id);
-      setToastMessage(intl.formatMessage(messages.deleteSuccess));
+      setComponents((components) => components.filter((component) => component.id !== (id || isDeleteBlock?.id)));
+      deleteComponentBlock(id || isDeleteBlock?.id);
+      !id && setToastMessage(intl.formatMessage(messages.deleteSuccess));
     } catch (e) {
       console.log("while delete block");
 
@@ -118,7 +118,7 @@ const Unit = ({ courseId, intl }) => {
     const newComponent = {
       ...baseComponent,
       ...(defaultsByCategory[componentBlockCategory] || {}),
-      isNew: false,
+      // isNew: false,
     };
 
     setComponents(prev => [...prev, newComponent]);
@@ -157,7 +157,7 @@ const Unit = ({ courseId, intl }) => {
     await dispatch(publishCourseItemQuery(unitId, null, false, []))
     getComponents(true)
   }
-  console.log("verticleBlock", verticleBlock);
+  // console.log("updatedComponent---->verticleBlock", verticleBlock);
 
   return (
     <Container size="xl" className="px-4 rounded p-4">
@@ -244,7 +244,7 @@ const Unit = ({ courseId, intl }) => {
           {toastMessage}
         </Toast>
       )}
-      <UnitContextWrapper updateComponent={handleComponentUpdate} componentBlocks={components} handleDeleteComponentBlock={handleDeleteComponentBlock}>
+      <UnitContextWrapper updateComponent={handleComponentUpdate} componentBlocks={components} handleDeleteComponentBlock={handleDeleteBlock}>
         <Outlet />
       </UnitContextWrapper>
     </Container>
