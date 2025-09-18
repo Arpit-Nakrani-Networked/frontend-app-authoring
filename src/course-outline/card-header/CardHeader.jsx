@@ -70,6 +70,7 @@ const CardHeader = ({
   showEditButton = false,
   showConfigure = true,
   parentInfo,
+  className=""
 }) => {
   const intl = useIntl();
   const [searchParams] = useSearchParams();
@@ -120,7 +121,7 @@ const CardHeader = ({
   return (
     <>
       <div
-        className="item-card-header"
+        className={`item-card-header ${className}`}
         data-testid={`${namePrefix}-card-header`}
         ref={cardHeaderRef}
       >
@@ -340,6 +341,7 @@ CardHeader.defaultProps = {
 };
 
 CardHeader.propTypes = {
+  className: PropTypes.string,
   title: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
   cardId: PropTypes.string,

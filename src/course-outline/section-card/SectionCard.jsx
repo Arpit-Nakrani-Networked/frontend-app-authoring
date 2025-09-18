@@ -235,6 +235,7 @@ const SectionCard = ({
         <div>
           {isHeaderVisible && (
             <CardHeader
+            className='section-item-header'
               cardId={id}
               title={displayName}
               status={sectionStatus}

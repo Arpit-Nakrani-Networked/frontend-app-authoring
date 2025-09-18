@@ -168,7 +168,7 @@ const GradingSettings = ({ intl, courseId }) => {
               xs={[{ span: 12 }]}
               xl={[{ span: 12 }]}
             > */}
-            <Container size="xl" className="px-0">
+            <div className="px-0 max-w-1200">
               <article>
                 <SubHeader
                   title={intl.formatMessage(messages.headingTitle)}
@@ -272,7 +272,7 @@ const GradingSettings = ({ intl, courseId }) => {
                   />
                 </section>
               </article>
-            </Container>
+            </div>
             {/* <Layout.Element>
                 <GradingSidebar
                   courseId={courseId}

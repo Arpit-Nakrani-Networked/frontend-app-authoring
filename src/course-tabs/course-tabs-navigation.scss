@@ -18,6 +18,7 @@
   // }
 
   .nav {
+
     button,
     a {
       font-weight: 500;
@@ -35,6 +36,9 @@
         border: 1px solid #0000001F;
         color: #000000CC;
         font-weight: 600;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
     }
   }

@@ -53,6 +53,7 @@ const VideoEditor: React.FC<EditorComponent> = ({
           return videoId && videoId
         }}
         deleteBlock={() => deleteBlock && deleteBlock()}
+        saveText={intl.formatMessage(messages.addText) }
       >
         {studioViewFinished ? (
           <div className="video-editor">

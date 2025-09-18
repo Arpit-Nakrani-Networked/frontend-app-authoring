@@ -5,6 +5,7 @@
     overflow: auto !important;
     max-width: 1200px;
     margin: 0 auto;
+    box-sizing: content-box;
 }
 
 .student-header {
@@ -17,6 +18,7 @@
     top: 0;
     left: 0;
     background: $white;
+        z-index: 9;
 
     .student-title {
         font-size: 18px;

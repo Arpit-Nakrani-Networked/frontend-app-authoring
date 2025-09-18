@@ -1,6 +1,11 @@
 import { defineMessages } from '@edx/frontend-platform/i18n';
 
 const messages = defineMessages({
+  addText: {
+    id: 'authoring.texteditor.load.addText',
+    defaultMessage: 'Add',
+    description: 'Add Text save button text',
+  },
   spinnerScreenReaderText: {
     id: 'authoring.videoEditor.spinnerScreenReaderText',
     defaultMessage: 'loading',

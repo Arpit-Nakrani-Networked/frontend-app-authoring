@@ -86,6 +86,7 @@ const TextEditor = ({
       onClose={onClose}
       returnFunction={returnFunction}
       deleteBlock={() => deleteBlock && deleteBlock()}
+      saveText={intl.formatMessage(messages.addText) }
     >
       <div className="editor-body h-75 overflow-auto">
         <Toast show={blockFailed} onClose={hooks.nullMethod}>

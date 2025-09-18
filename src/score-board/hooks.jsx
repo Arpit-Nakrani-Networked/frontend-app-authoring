@@ -26,10 +26,12 @@ export const useGradebookTableData = () => {
     {
       Header: <input type="checkbox" />,
       accessor: 'select',
+      //  className: "sticky-checkbox"
     },
     {
       Header: 'Name & Date of Submission',
       accessor: 'user',
+      className: "text-nowrap"
     },
     // {
     //   Header: 'Full Name',
@@ -42,16 +44,19 @@ export const useGradebookTableData = () => {
     ...headings.map((entry, idx) => ({
       Header: entry?.assignment_type || `Section ${idx + 1}`,
       accessor: `section_${idx}`,
+      className: "text-nowrap"
     })),
     {
       Header: 'Score',
       accessor: 'score',
-      className:"score-th"
+      className: "score-th sticky-col sticky-score"
     },
     {
       Header: 'Result',
       accessor: 'result',
+      className: "sticky-col sticky-result"
     },
+
   ];
 
   // ---- Rows Data ----

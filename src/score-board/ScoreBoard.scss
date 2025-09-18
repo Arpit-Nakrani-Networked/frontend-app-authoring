@@ -5,18 +5,20 @@
     overflow: auto !important;
     max-width: 1200px;
     margin: 0 auto;
+    box-sizing: content-box;
 }
 
 .score-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-     // margin-bottom: 16px;
+    // margin-bottom: 16px;
     padding: 14px 24px;
     position: sticky;
     top: 0;
     left: 0;
     background: $white;
+    z-index: 9;
 
     .score-title {
         font-size: 18px;
@@ -41,7 +43,7 @@
         border: 1px solid transparent;
         overflow: hidden;
         transition: ease-in .3s ease;
-         background: transparent;
+        background: transparent;
         cursor: pointer;
 
         &:hover {
@@ -110,7 +112,7 @@
         border: 1px solid transparent;
         overflow: hidden;
         transition: ease-in .3s ease;
-         background: transparent;
+        background: transparent;
         cursor: pointer;
 
         &:hover {
@@ -189,7 +191,7 @@
         font-weight: 500;
         border-bottom: 1px solid #EEEEEE;
         text-transform: uppercase;
-            font-size: 14px;
+        font-size: 14px;
     }
 
     // .score-td,
@@ -226,8 +228,8 @@
 .score-row {
     border-bottom: 1px solid #F1F1F1;
 
-    &:hover {
-        background: #FAFAFA;
+    &:hover,&:hover td,&:hover th {
+        background: #FAFAFA !important;
     }
 
     &:last-child {
@@ -274,4 +276,56 @@
     border: none;
     cursor: pointer;
     font-size: 18px;
+}
+
+.sticky-user {
+    position: sticky;
+    left: 50px;
+    background: #fff;
+    /* or your table header bg */
+    z-index: 2;
+    /* keep above rows */
+}
+
+.sticky-checkbox {
+    position: sticky;
+    left: 0;
+    background: #fff;
+    /* or your table header bg */
+    z-index: 2;
+    /* keep above rows */
+    min-width: 50px !important;
+    max-width: 50px !important;
+    width: 50px !important;
+    overflow: hidden;
+}
+
+.score-th,
+.sticky-col {
+    position: sticky;
+    //   top: 0;
+    background: #fff;
+    /* or your table header bg */
+    z-index: 2;
+    /* keep above rows */
+    min-width: 100px !important;
+    max-width: 100px !important;
+    width: 100px !important;
+    overflow: hidden;
+}
+
+/* Sticky to the right */
+.sticky-score {
+    right: 100px;
+    /* adjust based on column width */
+}
+
+.sticky-result {
+    right: 0;
+}
+
+/* Ensure table doesn’t cut off */
+.table-container {
+    overflow: auto;
+    position: relative;
 }
