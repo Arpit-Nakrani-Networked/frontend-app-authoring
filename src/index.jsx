@@ -35,6 +35,7 @@ import { ToastProvider } from './generic/toast-context';
 import 'react-datepicker/dist/react-datepicker.css';
 import './index.scss';
 import NotFoundPage from './404/404';
+import ToastRenderer from './generic/custom-toast';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -100,6 +101,7 @@ const App = () => {
   return (
     <AppProvider store={initializeStore()} wrapWithRouter={false}>
       <ToastProvider>
+        <ToastRenderer />
         <QueryClientProvider client={queryClient}>
           <Head />
           <RouterProvider router={router} />

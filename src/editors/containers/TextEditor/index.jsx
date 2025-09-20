@@ -87,6 +87,7 @@ const TextEditor = ({
       returnFunction={returnFunction}
       deleteBlock={() => deleteBlock && deleteBlock()}
       saveText={intl.formatMessage(messages.addText) }
+      className="editor-question-text-model"
     >
       <div className="editor-body h-75 overflow-auto">
         <Toast show={blockFailed} onClose={hooks.nullMethod}>
@@ -111,6 +112,7 @@ TextEditor.defaultProps = {
   blockValue: null,
   blockFinished: null,
   returnFunction: null,
+  isNew: false,
 };
 TextEditor.propTypes = {
   onClose: PropTypes.func.isRequired,

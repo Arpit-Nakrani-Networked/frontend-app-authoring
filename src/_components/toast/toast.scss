@@ -1,0 +1,104 @@
+@import '../../variables';
+
+
+
+.toaster-custom {
+    position: fixed !important;
+    top: 15px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+
+    .toast-header {
+        font-size: 20px !important;
+        
+        p{
+            display: flex;
+            align-items: center;
+        }
+    }
+
+    &.success {
+        color: $success !important;
+        border:1px solid  $success !important;
+        background-color: $successLight !important;
+
+        .toast-header {
+            color:$success !important;
+            background-color: $successLight !important;
+
+            .toast-header-btn-container>button.btn-icon {
+                &:hover {
+                    background-color: transparent !important;
+
+                    .pgn__icon svg {
+                        color: $iconColor !important;
+                    }
+                }
+
+                .pgn__icon svg {
+                    color: $iconColor !important;
+                }
+            }
+        }
+
+        &::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 4px;
+            width: 100%;
+            background-color: $success;
+            animation: shrinkBar 5s linear forwards;
+        }
+    }
+
+    &.error {
+        color: $error !important;
+        border:1px solid  $error !important;
+        background-color: $errorLight !important;
+
+        .toast-header {
+            color: $error !important;
+            background-color: $errorLight !important;
+
+            .toast-header-btn-container>button.btn-icon {
+                &:hover {
+                    background-color: transparent !important;
+
+                    .pgn__icon svg {
+                        color: $iconColor !important;
+                    }
+                }
+
+                .pgn__icon svg {
+                    color: $iconColor !important;
+                }
+            }
+        }
+
+        &::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 4px;
+            width: 100%;
+            background-color: $error;
+            animation: shrinkBar 5s linear forwards;
+        }
+    }
+
+
+}
+
+
+@keyframes shrinkBar {
+    from {
+        width: 100%;
+    }
+
+    to {
+        width: 0%;
+    }
+}

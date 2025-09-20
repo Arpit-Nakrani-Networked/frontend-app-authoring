@@ -4,4 +4,5 @@ export interface EditorComponent {
   // TODO: get a better type for the 'result' here
   returnFunction?: (() => (result: any) => void) | null;
   deleteBlock?: (result?: any) => void | null;
+  isNew?: boolean;
 }

@@ -16,6 +16,7 @@ interface Props extends EditorComponent {
   studioEndpointUrl?: string;
   fullScreen?: boolean;
   children?: never;
+  isNew?: boolean;
 }
 
 /**
@@ -32,6 +33,7 @@ const EditorPage: React.FC<Props> = ({
   returnFunction = null,
   handleDeleteComponentBlock = null,
   fullScreen = true,
+  isNew = undefined,
 }) => (
   <Provider store={store}>
     <ErrorBoundary
@@ -50,7 +52,8 @@ const EditorPage: React.FC<Props> = ({
             lmsEndpointUrl,
             studioEndpointUrl,
             returnFunction,
-            handleDeleteComponentBlock
+            handleDeleteComponentBlock,
+            isNew
           }}
         />
       </EditorContextProvider>

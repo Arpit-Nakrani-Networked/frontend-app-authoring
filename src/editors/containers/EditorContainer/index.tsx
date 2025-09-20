@@ -27,11 +27,11 @@ interface WrapperProps {
   children: React.ReactNode;
 }
 
-export const EditorModalWrapper: React.FC<WrapperProps & { onClose: () => void }> = ({ children, onClose }) => {
+export const EditorModalWrapper: React.FC<WrapperProps & { onClose: () => void, className?: string }> = ({ children, onClose, className = "" }) => {
   const intl = useIntl();
   const title = intl.formatMessage(messages.modalTitle);
   return (
-    <ModalDialog isOpen size="lg" className="_rounded-md" isOverflowVisible={false} onClose={onClose} title={title} hasCloseButton isBlocking={true}>{children}</ModalDialog>
+    <ModalDialog isOpen size="lg" className={`_rounded-md ${className}`} isOverflowVisible={false} onClose={onClose} title={title} hasCloseButton isBlocking={true}>{children}</ModalDialog>
   );
 };
 
@@ -52,7 +52,9 @@ interface Props extends EditorComponent {
   isDirty: () => boolean;
   hideFooter?: boolean;
   disabled?: boolean;
+  isNew?: boolean;
   saveText?: any;
+  className?: string;
   validateEntry?: Function | null;
 }
 
@@ -65,8 +67,10 @@ const EditorContainer: React.FC<Props> = ({
   returnFunction = null,
   deleteBlock,
   hideFooter = false,
+  isNew = false,
   saveText,
-  disabled
+  disabled,
+  className = ""
 }) => {
   const intl = useIntl();
   const dispatch = useDispatch();
@@ -110,15 +114,19 @@ const EditorContainer: React.FC<Props> = ({
   }
 
   const confirmCancelIfDirty = () => {
-    if (isDirty()) {
+    if (isDirty() && !isNew) {
       openCancelConfirmModal();
     } else {
-      deleteBlockFunc()
+      if (isNew) {
+        deleteBlock && deleteBlock()
+      } else {
+        deleteBlockFunc()
+      }
       handleCancel();
     }
   };
   return (
-    <EditorModalWrapper onClose={confirmCancelIfDirty}>
+    <EditorModalWrapper onClose={confirmCancelIfDirty} className={className}>
       {saveFailed && (
         <Toast show onClose={clearSaveFailed}>
           <FormattedMessage {...messages.contentSaveFailed} />

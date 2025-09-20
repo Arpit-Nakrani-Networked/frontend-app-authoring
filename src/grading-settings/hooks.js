@@ -55,7 +55,7 @@ const useUpdateGradingData = (gradingSettingsData, setOverrideInternetConnection
         weight: 0,
       }],
     }));
-    callback(gradingData);
+    callback(gradingData,true);
     setShowSuccessAlert(false);
   };
 

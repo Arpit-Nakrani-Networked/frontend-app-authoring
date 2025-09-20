@@ -55,10 +55,12 @@ import {
 import { useCourseOutline } from './hooks';
 import messages from './messages';
 import { getTagsExportFile } from './data/api';
+import { useCustomToast } from '../generic/custom-toast/useCustomToast';
 
 const CourseOutline = ({ courseId }) => {
   const intl = useIntl();
   const location = useLocation();
+  const { showToast } = useCustomToast()
 
   const {
     courseName,
@@ -118,22 +120,17 @@ const CourseOutline = ({ courseId }) => {
     handleSectionDragAndDrop,
     handleSubsectionDragAndDrop,
     handleUnitDragAndDrop,
-    errors,
-    setToastMessage,
-    toastMessage
+    errors
   } = useCourseOutline({ courseId });
-
-  // Use `setToastMessage` to show the toast.
-  // const [toastMessage, setToastMessage] = useState(/** @type{null|string} */(null));
 
   useEffect(() => {
     // Wait for the course data to load before exporting tags.
     if (courseId && courseName && location.hash === '#export-tags') {
-      setToastMessage(intl.formatMessage(messages.exportTagsCreatingToastMessage));
+      showToast(intl.formatMessage(messages.exportTagsCreatingToastMessage));
       getTagsExportFile(courseId, courseName).then(() => {
-        setToastMessage(intl.formatMessage(messages.exportTagsSuccessToastMessage));
+        showToast(intl.formatMessage(messages.exportTagsSuccessToastMessage));
       }).catch(() => {
-        setToastMessage(intl.formatMessage(messages.exportTagsErrorToastMessage));
+        showToast(intl.formatMessage(messages.exportTagsErrorToastMessage));
       });
 
       // Delete `#export-tags` from location
@@ -154,7 +151,7 @@ const CourseOutline = ({ courseId }) => {
 
   const currentItemData = useSelector(getCurrentItem);
   const deleteCategory = COURSE_BLOCK_NAMES[currentItemData.category]?.name
-  const isLesson =  currentItemData.category === COURSE_BLOCK_NAMES.sequential.id;
+  const isLesson = currentItemData.category === COURSE_BLOCK_NAMES.sequential.id;
 
   const enableProctoredExams = useSelector(getProctoredExamsFlag);
 
@@ -432,7 +429,7 @@ const CourseOutline = ({ courseId }) => {
                         ) : (
                           <EmptyPlaceholder
                             onCreateNewSection={handleNewSectionSubmit}
-                            // childAddable={courseActions.childAddable}
+                          // childAddable={courseActions.childAddable}
                           />
                         )}
                       </div>
@@ -486,15 +483,6 @@ const CourseOutline = ({ courseId }) => {
           onInternetConnectionFailed={handleInternetConnectionFailed}
         />
       </div>
-      {toastMessage && (
-        <Toast
-          show
-          onClose={/* istanbul ignore next */ () => setToastMessage(null)}
-          data-testid="taxonomy-toast"
-        >
-          {toastMessage}
-        </Toast>
-      )}
     </>
   );
 };

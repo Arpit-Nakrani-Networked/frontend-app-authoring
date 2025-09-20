@@ -29,7 +29,7 @@ const SourceCodeModal = ({
       close={close}
       size="xl"
       confirmAction={(
-        <Button {...saveBtnProps} variant="primary">
+        <Button {...saveBtnProps} variant="primary btn-sm">
           <FormattedMessage {...messages.saveButtonLabel} />
         </Button>
             )}
@@ -37,7 +37,7 @@ const SourceCodeModal = ({
       title={intl.formatMessage(messages.titleLabel)}
       bodyStyle={{ maxHeight: (height - 180) }}
     >
-      <div className="px-4.5 pt-2.5">
+      <div className="">
         <CodeEditor
           innerRef={ref}
           value={value}

@@ -286,7 +286,7 @@ export function configureCourseItemQuery(sectionId, configureFn) {
 
 export function configureCourseSectionQuery(sectionId, isVisibleToStaffOnly, startDatetime) {
   return async (dispatch) => {
-    dispatch(configureCourseItemQuery(
+    await dispatch(configureCourseItemQuery(
       sectionId,
       async () => configureCourseSection(sectionId, isVisibleToStaffOnly, startDatetime),
     ));
@@ -314,7 +314,7 @@ export function configureCourseSubsectionQuery(
   prereqMinCompletion,
 ) {
   return async (dispatch) => {
-    dispatch(configureCourseItemQuery(
+    await dispatch(configureCourseItemQuery(
       sectionId,
       async () => configureCourseSubsection(
         itemId,
@@ -341,7 +341,7 @@ export function configureCourseSubsectionQuery(
 
 export function configureCourseUnitQuery(itemId, sectionId, isVisibleToStaffOnly, groupAccess, discussionEnabled) {
   return async (dispatch) => {
-    dispatch(configureCourseItemQuery(
+    await dispatch(configureCourseItemQuery(
       sectionId,
       async () => configureCourseUnit(itemId, isVisibleToStaffOnly, groupAccess, discussionEnabled),
     ));
@@ -396,7 +396,7 @@ function deleteCourseItemQuery(itemId, deleteItemFn) {
 
 export function deleteCourseSectionQuery(sectionId) {
   return async (dispatch) => {
-    dispatch(deleteCourseItemQuery(
+    await dispatch(deleteCourseItemQuery(
       sectionId,
       () => deleteSection({ itemId: sectionId }),
     ));
@@ -405,7 +405,7 @@ export function deleteCourseSectionQuery(sectionId) {
 
 export function deleteCourseSubsectionQuery(subsectionId, sectionId) {
   return async (dispatch) => {
-    dispatch(deleteCourseItemQuery(
+    await dispatch(deleteCourseItemQuery(
       subsectionId,
       () => deleteSubsection({ itemId: subsectionId, sectionId }),
     ));
@@ -414,7 +414,7 @@ export function deleteCourseSubsectionQuery(subsectionId, sectionId) {
 
 export function deleteCourseUnitQuery(unitId, subsectionId, sectionId) {
   return async (dispatch) => {
-    dispatch(deleteCourseItemQuery(
+    await dispatch(deleteCourseItemQuery(
       unitId,
       () => deleteUnit({ itemId: unitId, subsectionId, sectionId }),
     ));
@@ -517,7 +517,7 @@ function addNewCourseItemQuery(parentLocator, category, displayName, addItemFn) 
 
 export function addNewSectionQuery(parentLocator) {
   return async (dispatch) => {
-    dispatch(addNewCourseItemQuery(
+    await dispatch(addNewCourseItemQuery(
       parentLocator,
       COURSE_BLOCK_NAMES.chapter.id,
       COURSE_BLOCK_NAMES.chapter.name,

@@ -16,6 +16,7 @@ export interface Props extends EditorComponent {
   advancedSettingsFinished: boolean;
   blockFinished: boolean;
   blockFailed: boolean;
+  isNew?: boolean;
   /** null if this is a new problem */
   problemType: ProblemType | null;
   initializeProblemEditor: (blockValue: any) => void;
@@ -43,7 +44,7 @@ const ProblemEditor: React.FC<Props> = ({
 
   if (!blockFinished || !advancedSettingsFinished) {
     return (
-      <EditorContainer getContent={() => { console.log('Dummy'); }} isDirty={() => false} onClose={onClose} hideFooter>
+      <EditorContainer getContent={() => { console.log('Dummy'); }} isDirty={() => false} onClose={onClose} hideFooter className='editor-question-problem-model'>
         <div className="text-center p-6">
           <Spinner
             animation="border"

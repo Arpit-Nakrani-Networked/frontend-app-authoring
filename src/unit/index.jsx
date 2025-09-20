@@ -24,6 +24,15 @@ import SolidSvgComponent from '../_components/solid-svg/SolidSvgComponent';
 import ViewIcon from '../assets/images/viewIcon.svg'
 import messages from './messages';
 import DeleteModal from '../generic/delete-modal/DeleteModal';
+import { ToastStatus } from '../data/constants';
+import { showToast } from '../generic/custom-toast/data/slice';
+
+
+const message = {
+  video: "Video",
+  html: "Text",
+  problem: "Question",
+}
 
 const Unit = ({ courseId, intl }) => {
   const { unitId } = useParams();
@@ -45,7 +54,10 @@ const Unit = ({ courseId, intl }) => {
     try {
       setComponents((components) => components.filter((component) => component.id !== (id || isDeleteBlock?.id)));
       deleteComponentBlock(id || isDeleteBlock?.id);
-      !id && setToastMessage(intl.formatMessage(messages.deleteSuccess));
+      !id && dispatch(showToast({
+        message: `${message[isDeleteBlock.category]} deleted successfully`,
+        status: ToastStatus.SUCCESSFUL
+      }));
     } catch (e) {
       console.log("while delete block");
 
@@ -71,6 +83,7 @@ const Unit = ({ courseId, intl }) => {
       coordinateGetter: sortableKeyboardCoordinates,
     }),
   );
+
 
   const {
     isShow: isShowProcessingNotification,
@@ -118,11 +131,10 @@ const Unit = ({ courseId, intl }) => {
     const newComponent = {
       ...baseComponent,
       ...(defaultsByCategory[componentBlockCategory] || {}),
-      // isNew: false,
     };
 
     setComponents(prev => [...prev, newComponent]);
-    getComponents(true)
+    getComponents(true, componentBlockId)
     navigate(`/course/${courseId}/container/${unitId}/editor/${componentBlockCategory}/${componentBlockId}`);
   };
 
@@ -130,9 +142,16 @@ const Unit = ({ courseId, intl }) => {
     setComponents((components) => components.map((component) => {
       if (component.id === updatedComponent.id) {
         getComponents(true)
+        if (updatedComponent && message[component?.category]) {
+          dispatch(showToast({
+            message: component?.isNew ? `${message[componentBlockCategory]} added successfully` : `${message[component?.category]} updated successfully`,
+            status: ToastStatus.SUCCESSFUL
+          }));
+        }
         return {
           ...component,
           ...updatedComponent,
+          isNew: false,
         };
       }
 
@@ -140,11 +159,11 @@ const Unit = ({ courseId, intl }) => {
     }));
   };
 
-  const getComponents = async (silent = false) => {
+  const getComponents = async (silent = false, newcomponentBlockId) => {
     if (unitId) {
       if (!silent) setLoading(true);
       getVerticalBlock(unitId).then(((response) => {
-        setComponents(response.components);
+        setComponents(response.components.map(val => val?.id === newcomponentBlockId ? ({ ...val, isNew: true }) : val));
         setVerticleBlock(response.verticalBlock);
       })).finally(() => { setLoading(false); });
     }
@@ -156,8 +175,11 @@ const Unit = ({ courseId, intl }) => {
   const publishLessonContent = async () => {
     await dispatch(publishCourseItemQuery(unitId, null, false, []))
     getComponents(true)
+    dispatch(showToast({
+      message: `Lesson published successfully`,
+      status: ToastStatus.SUCCESSFUL
+    }));
   }
-  // console.log("updatedComponent---->verticleBlock", verticleBlock);
 
   return (
     <Container size="xl" className="px-4 rounded p-4">

@@ -72,13 +72,14 @@ const VideoSourceWidget = ({
             <FormattedMessage {...messages.videoIdFeedback} />
           </Form.Control.Feedback>
         </Form.Group> */}
-        <Form.Group size="sm">
+        <Form.Group size="sm" className='mb-0'>
           <Form.Label className="text-secondory _font-weight-medium">Video URL</Form.Label>
           <Form.Control
             onChange={source.onChange}
             onBlur={(e) => updateVideoURL(e, videoId.local)}
             value={source.local}
-            style={{ height: '42px', borderRadius: '.75rem' }}
+            style={{ height: '42px', borderRadius: '.75rem',border: '1px solid #0000001F' }}
+            placeholder="Video URL"
           />
           {/* <Form.Control.Feedback className="text-primary-300">
             <FormattedMessage {...messages.videoUrlFeedback} />

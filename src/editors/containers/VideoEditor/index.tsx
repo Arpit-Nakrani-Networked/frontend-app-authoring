@@ -18,7 +18,8 @@ import { parseYoutubeId } from '../../../editors/data/services/cms/api';
 const VideoEditor: React.FC<EditorComponent> = ({
   onClose,
   returnFunction,
-  deleteBlock
+  deleteBlock,
+  isNew
 }) => {
   const dispatch = useDispatch()
   const intl = useIntl();
@@ -39,6 +40,7 @@ const VideoEditor: React.FC<EditorComponent> = ({
         isDirty={/* istanbul ignore next */ () => true}
         onClose={onClose}
         returnFunction={returnFunction}
+        isNew={isNew}
         validateEntry={() => {
           const videoState = fetchVideoContent();
           const videoData = videoState && videoState({ dispatch })
@@ -54,6 +56,7 @@ const VideoEditor: React.FC<EditorComponent> = ({
         }}
         deleteBlock={() => deleteBlock && deleteBlock()}
         saveText={intl.formatMessage(messages.addText) }
+        className="editor-question-video-model"
       >
         {studioViewFinished ? (
           <div className="video-editor">

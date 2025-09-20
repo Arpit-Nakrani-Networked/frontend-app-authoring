@@ -22,7 +22,7 @@ export const ErrorSummary = () => {
     //   <Alert.Heading>
     //     <FormattedMessage {...messages.validateErrorTitle} />
     //   </Alert.Heading>
-      <p className='_text-delete'>
+      <p className='_text-delete mt-1'>
         <FormattedMessage {...messages.validateErrorBody} />
       </p>
     // </Alert>

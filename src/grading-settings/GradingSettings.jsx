@@ -103,10 +103,10 @@ const GradingSettings = ({ intl, courseId }) => {
     dispatch(sendGradingSetting(courseId, gradingData));
   };
 
-  const handleSendGradingSettingsData = (data) => {
+  const handleSendGradingSettingsData = (data,isAdd) => {
     setIsQueryPending(true);
     // setOverrideInternetConnectionAlert(true);
-     dispatch(sendGradingSetting(courseId, data || gradingData));
+     dispatch(sendGradingSetting(courseId, data || gradingData,isAdd));
   };
   const handleSendGradingPassingScoreSettingsData = (data) => {
     setIsQueryPending(true);

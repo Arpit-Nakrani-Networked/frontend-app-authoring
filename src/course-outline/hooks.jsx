@@ -54,6 +54,7 @@ import {
   dismissNotificationQuery,
 } from './data/thunk';
 import { createNewCourseXBlock } from '../course-unit/data/thunk';
+import { useCustomToast } from '../generic/custom-toast/useCustomToast';
 
 // 🔄 Check recursively if any child hasChanges
 function hasAnyChildChanges(node) {
@@ -69,7 +70,7 @@ function hasAnyChildChanges(node) {
 const useCourseOutline = ({ courseId }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const { showToast } = useCustomToast()
   const {
     reindexLink,
     courseStructure,
@@ -99,7 +100,6 @@ const useCourseOutline = ({ courseId }) => {
   const [isEnableHighlightsModalOpen, openEnableHighlightsModal, closeEnableHighlightsModal] = useToggle(false);
   const [isSectionsExpanded, setSectionsExpanded] = useState(false);
   const [isDisabledReindexButton, setDisableReindexButton] = useState(false);
-  const [toastMessage, setToastMessage] = useState(/** @type{null|string} */(null));
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   const [isHighlightsModalOpen, openHighlightsModal, closeHighlightsModal] = useToggle(false);
   const [isPublishModalOpen, openPublishModal, closePublishModal] = useToggle(false);
@@ -112,12 +112,16 @@ const useCourseOutline = ({ courseId }) => {
     dispatch(pasteClipboardContent(parentLocator, sectionId));
   };
 
-  const handleNewSectionSubmit = () => {
-    dispatch(addNewSectionQuery(courseStructure.id));
+  const handleNewSectionSubmit = async () => {
+    await dispatch(addNewSectionQuery(courseStructure.id));
+    showToast("Section added successfully")
   };
 
   const handleNewSubsectionSubmit = (sectionId, callback) => {
-    dispatch(addNewSubsectionQuery(sectionId, callback));
+    dispatch(addNewSubsectionQuery(sectionId, ()=>{
+      callback && callback()
+      showToast("Lesson added successfully")
+    }));
   };
 
   const getUnitUrl = (locator) => {
@@ -186,10 +190,10 @@ const useCourseOutline = ({ courseId }) => {
   const handlePublishItemSubmit = async () => {
     closePublishModal();
     await dispatch(publishCourseItemQuery(currentItem.id, currentSection.id));
-    setToastMessage('Published successfully');
+    showToast('Published successfully');
   };
 
-  
+
   const handlePublishAllSubmit = async () => {
     // const sections = sectionsList.filter(val => val.hasChanges);
     // Only pick section IDs based on rules
@@ -210,7 +214,7 @@ const useCourseOutline = ({ courseId }) => {
 
       await dispatch(publishCourseItemQuery(sectionId, sectionId, isLast, isLast ? [...ids] : []));
     }
-    setToastMessage('Published successfully');
+    showToast('Published successfully');
     closePublishModal();
   };
 
@@ -221,37 +225,40 @@ const useCourseOutline = ({ courseId }) => {
     dispatch(setCurrentItem({}));
   };
 
-  const handleConfigureItemSubmit = (...arg) => {
+  const handleConfigureItemSubmit = async (...arg) => {
+    handleConfigureModalClose();
     switch (currentItem.category) {
       case COURSE_BLOCK_NAMES.chapter.id:
-        dispatch(configureCourseSectionQuery(currentSection.id, ...arg));
+        await dispatch(configureCourseSectionQuery(currentSection.id, ...arg));
         break;
       case COURSE_BLOCK_NAMES.sequential.id:
-        dispatch(configureCourseSubsectionQuery(currentItem.id, currentSection.id, ...arg));
+        await dispatch(configureCourseSubsectionQuery(currentItem.id, currentSection.id, ...arg));
         break;
       case COURSE_BLOCK_NAMES.vertical.id:
-        dispatch(configureCourseUnitQuery(currentItem.id, currentSection.id, ...arg));
+        await dispatch(configureCourseUnitQuery(currentItem.id, currentSection.id, ...arg));
         break;
       default:
         return;
     }
-    handleConfigureModalClose();
+    showToast('Configure successfully');
   };
 
-  const handleEditSubmit = (itemId, sectionId, displayName, subSectionId = null) => {
-    dispatch(editCourseItemQuery(itemId, sectionId, displayName, subSectionId));
+  const handleEditSubmit = async (itemId, sectionId, displayName, subSectionId = null) => {
+    await dispatch(editCourseItemQuery(itemId, sectionId, displayName, subSectionId));
+    showToast('Updated successfully');
   };
 
-  const handleDeleteItemSubmit = () => {
+  const handleDeleteItemSubmit = async () => {
+    closeDeleteModal();
     switch (currentItem.category) {
       case COURSE_BLOCK_NAMES.chapter.id:
-        dispatch(deleteCourseSectionQuery(currentItem.id));
+        await dispatch(deleteCourseSectionQuery(currentItem.id));
         break;
       case COURSE_BLOCK_NAMES.sequential.id:
-        dispatch(deleteCourseSubsectionQuery(currentItem.id, currentSection.id));
+        await dispatch(deleteCourseSubsectionQuery(currentItem.id, currentSection.id));
         break;
       case COURSE_BLOCK_NAMES.vertical.id:
-        dispatch(deleteCourseUnitQuery(
+        await dispatch(deleteCourseUnitQuery(
           currentItem.id,
           currentSubsection.id,
           currentSection.id,
@@ -260,7 +267,7 @@ const useCourseOutline = ({ courseId }) => {
       default:
         return;
     }
-    closeDeleteModal();
+    showToast('Deleted successfully');
   };
 
   const handleDuplicateSectionSubmit = () => {
@@ -331,7 +338,9 @@ const useCourseOutline = ({ courseId }) => {
   }, [courseId]);
 
   useEffect(() => {
-    setShowSuccessAlert(reIndexLoadingStatus === RequestStatus.SUCCESSFUL);
+    if(reIndexLoadingStatus === RequestStatus.SUCCESSFUL){
+      showToast("Reindex successfully")
+    }
   }, [reIndexLoadingStatus]);
 
   return {
@@ -395,8 +404,7 @@ const useCourseOutline = ({ courseId }) => {
     handleUnitDragAndDrop,
     handleCreateNewCourseXBlock,
     errors,
-    handlePublishAllSubmit,
-    toastMessage, setToastMessage
+    handlePublishAllSubmit
   };
 };
 

@@ -99,6 +99,7 @@ const EditorContainer: React.FC<Props> = ({
         onClose={handleCloseModal}
         returnFunction={() => handleReturn}
         handleDeleteComponentBlock={() => blockId && context.handleDeleteComponentBlock(blockId)}
+        isNew={Boolean(blockId && context.componentBlocks.find(val => val?.id === blockId && val?.isNew))}
       />
     </div>
   );

@@ -228,7 +228,8 @@ mark {
 .btn-primary,
 .btn-primary>span>span,
 .btn-outline-primary>span>span,
-.btn-outline-primary {
+.btn-outline-primary,
+.tox-button:not(.tox-button--icon) {
   width: fit-content !important;
   // padding: 6px 12px !important;
   background-color: $v2-blue-600 !important;
@@ -255,7 +256,8 @@ mark {
   vertical-align: middle !important;
 }
 
-.btn-outline-third {
+.btn-outline-third,
+.tox-button--secondary:not(.tox-button--icon) {
   height: fit-content !important;
   // padding: 6px 12px !important;
   width: fit-content !important;
@@ -270,7 +272,8 @@ mark {
   vertical-align: middle !important;
 }
 
-._btn-sm {
+._btn-sm,
+.tox-button:not(.tox-button--icon) {
   padding: 6px 12px !important;
 }
 
@@ -510,7 +513,11 @@ input.pgn__form-switch-input {
 .pgn__scrollable-body.pgn__scrollable-body-scroll-top.pgn__scrollable-body-scroll-bottom::before,
 .unit-navigation .previous-button:focus:before,
 .unit-navigation .next-button:focus:before,
-.tox .tox-statusbar {
+.tox .tox-statusbar,
+[dir="ltr"] .pgn__scrollable-body::before,
+[dir="ltr"] .pgn__scrollable-body::after,
+.pgn__scrollable-body.pgn__scrollable-body-scroll-top::after,
+.pgn__scrollable-body.pgn__scrollable-body-scroll-bottom::after {
   display: none !important;
 }
 
@@ -538,6 +545,22 @@ input.pgn__form-switch-input {
 .pgn__modal-md {
   max-width: 448px;
 }
+
+
+// Question component model text-component
+.pgn__modal.editor-question-text-model,
+.pgn__modal.editor-question-problem-model {
+  width: 760px !important;
+}
+
+.pgn__modal.editor-question-video-model {
+  width: 600px !important;
+}
+
+.pgn__modal.editor-question-select-type-model {
+  width: 480px !important;
+}
+
 
 // select question
 
@@ -628,6 +651,11 @@ button:focus-visible {
   }
 }
 
+.cm-editor,
+.cm-focused {
+  outline: none !important;
+}
+
 .dropdown-item.active,
 .dropdown-item:active {
   color: white !important;
@@ -664,6 +692,7 @@ a.disabled {
 
 .btn-sm {
   height: 36px;
+  overflow: hidden;
 }
 
 .pgn__dropdown-toggle-iconbutton {
@@ -718,6 +747,136 @@ a.disabled {
   grid-template-columns: repeat(2, 204px);
 }
 
-.welcome-user-course{
+.welcome-user-course {
   height: 88px;
+}
+
+
+// svgs editor
+.tox .tox-tbtn svg {
+  fill: $iconColor;
+}
+
+.tox .tox-split-button:focus {
+  color: $iconColor;
+  background-color: $secondaryColor !important;
+
+  svg {
+    fill: $iconColor;
+  }
+}
+
+.tox .tox-tbtn {
+  height: 28px;
+  width: 28px;
+  margin: 0 4px;
+  color: $iconColor;
+
+  &:hover {
+    background-color: transparent;
+    color: $iconColor;
+
+    svg {
+      fill: $iconColor;
+    }
+  }
+
+  &:focus:not(.tox-tbtn--disabled) {
+    color: $iconColor;
+
+    svg {
+      fill: $iconColor;
+    }
+  }
+
+  &.tox-tbtn--enabled {
+    background-color: $secondaryColor !important;
+  }
+
+  &.tox-tbtn--disabled {
+    opacity: 0.5;
+  }
+}
+
+[dir] .tox .tox-toolbar,
+[dir] .tox .tox-toolbar__primary,
+[dir] .tox .tox-toolbar__overflow {
+  background-color: #fff;
+  height: 36px;
+  border-bottom: 1px solid $v2-black-500;
+}
+
+[dir="ltr"] .tox .tox-toolbar,
+[dir="ltr"] .tox .tox-toolbar__primary,
+[dir="ltr"] .tox .tox-toolbar__overflow {
+  background: none;
+}
+
+.tox:not([dir=rtl]) .tox-toolbar__group:not(:last-of-type) {
+  border-right: none !important;
+}
+
+.tox .tox-tbtn--select {
+  width: fit-content;
+  border: 1px solid #0000001F;
+  border-radius: 4px;
+  height: 28px;
+  padding: 3px 5px;
+  margin: 0 4px;
+  text-align: center;
+
+  &:hover {
+    border: 1px solid #0000001F;
+  }
+
+  &>.tox-tbtn__select-chevron {
+    display: none;
+  }
+}
+
+
+.tox .tox-tbtn--bespoke .tox-tbtn__select-label {
+  width: fit-content;
+}
+
+.tox .tox-split-button {
+  align-items: center;
+}
+
+.tox .tox-toolbar__group {
+  padding: 0;
+}
+
+.tox .tox-textfield,
+.tox .tox-toolbar-textfield,
+.tox .tox-listboxfield .tox-listbox--select,
+.tox .tox-textarea {
+  border-radius: 12px;
+  border: 1px solid #0000001F;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.tox-dialog__body-content {
+  padding-top: 0px;
+  padding-bottom: 5px;
+}
+
+.tox-form__group {
+  margin-top: 4px;
+}
+
+.tox .tox-dialog__footer {
+  border: none;
+}
+
+.tox .tox-dialog {
+  border-radius: 13px !important;
+  box-shadow: 0px 8px 48px 0px #00000029 !important;
+}
+
+.editor-question-video-model {
+  .pgn__action-row>*+* {
+    margin-inline-start: 1rem;
+  }
 }

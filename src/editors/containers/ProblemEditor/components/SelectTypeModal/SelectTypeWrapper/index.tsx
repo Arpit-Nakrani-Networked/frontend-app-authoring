@@ -38,7 +38,7 @@ const SelectTypeWrapper: React.FC<Props> = ({
   const setBlockTitle = React.useCallback((title) => dispatch(actions.app.setBlockTitle(title)), [dispatch]);
 
   return (
-    <EditorModalWrapper onClose={handleCancel} >
+    <EditorModalWrapper onClose={handleCancel} className="editor-question-select-type-model" >
       <ModalDialog.Header className="">
         {/* <span className="_font-weight-medium _text-black-400"> */}
           <FormattedMessage {...messages.selectTypeTitle} />

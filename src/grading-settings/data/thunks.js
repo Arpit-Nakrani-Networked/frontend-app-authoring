@@ -1,4 +1,5 @@
-import { RequestStatus } from '../../data/constants';
+import { showToast } from '../../generic/custom-toast/data/slice';
+import { RequestStatus, ToastStatus } from '../../data/constants';
 import {
   getGradingSettings,
   sendGradingSettings,
@@ -25,15 +26,23 @@ export function fetchGradingSettings(courseId) {
   };
 }
 
-export function sendGradingSetting(courseId, settings) {
+export function sendGradingSetting(courseId, settings, isAdd) {
   return async (dispatch) => {
     dispatch(updateSavingStatus({ status: RequestStatus.IN_PROGRESS }));
     try {
       const settingValues = await sendGradingSettings(courseId, settings);
       dispatch(sendGradingSettingsSuccess(settingValues));
       dispatch(updateSavingStatus({ status: RequestStatus.SUCCESSFUL }));
+      dispatch(showToast({
+        message: isAdd ? "Grading added successfully" : "Grading updated successfully",
+        status: ToastStatus.SUCCESSFUL
+      }));
     } catch (error) {
       dispatch(updateLoadingStatus({ status: RequestStatus.FAILED }));
+      dispatch(showToast({
+        message: "Grading updated failed",
+        status: ToastStatus.FAILED
+      }));
     }
   };
 }
@@ -45,8 +54,16 @@ export function sendGradingPassSetting(courseId, settings) {
       const settingValues = await getGradingSettings(courseId);
       dispatch(sendGradingSettingsSuccess(settingValues));
       dispatch(updateSavingStatus({ status: RequestStatus.SUCCESSFUL }));
+      dispatch(showToast({
+        message: "Grade passing updated successfully",
+        status: ToastStatus.SUCCESSFUL
+      }));
     } catch (error) {
       dispatch(updateLoadingStatus({ status: RequestStatus.FAILED }));
+      dispatch(showToast({
+        message: "Grade passing updated failed",
+        status: ToastStatus.FAILED
+      }));
     }
   };
 }

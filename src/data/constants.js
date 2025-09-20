@@ -18,6 +18,12 @@ export const RequestStatus = /** @type {const} */ ({
   NO_PERMISSION: 'not-permission',
 });
 
+
+export const ToastStatus = /** @type {const} */ ({
+  SUCCESSFUL: 'success',
+  FAILED: 'error',
+});
+
 /**
  * Team sizes enum
  * @enum

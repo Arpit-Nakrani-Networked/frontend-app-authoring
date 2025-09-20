@@ -68,6 +68,7 @@ const EditProblemView = ({
       onClose={onClose}
       deleteBlock={() => deleteBlock && deleteBlock()}
       saveText={intl.formatMessage(messages.saveAddQuestion)}
+      className='editor-question-problem-model'
     >
       <AlertModal
         title={isAdvancedProblemType ? (

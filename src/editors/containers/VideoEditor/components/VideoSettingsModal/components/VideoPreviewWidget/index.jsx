@@ -35,7 +35,7 @@ export const VideoPreviewWidget = ({
   const id = videoSource ? parseYoutubeId(videoSource) : '';
   const youtubeUrl = `https://youtube.com/embed/${id}`;
   return id ? (
-    <iframe src={youtubeUrl} width="100%" height={370} style={{ border: 'none', borderRadius: '1rem' }} />
+    <iframe src={youtubeUrl} width="100%" height={370} style={{ border: 'none', borderRadius: '1rem',marginTop:"1rem" }} />
   ) : <ErrorSummary />;
   return (
     <Collapsible.Advanced
