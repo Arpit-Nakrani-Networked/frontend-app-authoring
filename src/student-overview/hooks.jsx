@@ -37,7 +37,7 @@ export const useStudentsTableData = () => {
   
 
   const mapRows = entry => ([
-    <input type="checkbox" />,
+    // <input type="checkbox" />,
     <div className="student-name">
       <img src={`${getConfig().LMS_BASE_URL}${entry?.profile_image?.image_url_small}`} alt={entry.username} className="student-avatar" />
       <span>

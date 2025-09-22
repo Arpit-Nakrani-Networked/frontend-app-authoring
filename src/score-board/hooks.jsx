@@ -23,13 +23,12 @@ export const useGradebookTableData = () => {
 
   // ---- Columns Schema ----
   const columns = [
+    // {
+    //   Header: <input type="checkbox" />,
+    //   accessor: 'select',
+    // },
     {
-      Header: <input type="checkbox" />,
-      accessor: 'select',
-      //  className: "sticky-checkbox"
-    },
-    {
-      Header: 'Name & Date of Submission',
+      Header: 'Name',
       accessor: 'user',
       className: "text-nowrap"
     },

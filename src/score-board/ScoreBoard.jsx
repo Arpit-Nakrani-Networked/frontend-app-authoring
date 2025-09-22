@@ -99,9 +99,9 @@ const ScoreBoard = ({ intl, courseId }) => {
 
             </button>
             {/* <button className="student-filter h-fit"><SolidSvgComponent url={FilterIcon} width={15} height={15} defaultClass={``} iconColor='#00000099' /></button> */}
-            <Button variant="primary" className="h-fit" size="sm" iconBefore={IconAdd}>
+            {/* <Button variant="primary" className="h-fit" size="sm" iconBefore={IconAdd}>
               {intl.formatMessage(messages.inviteButtonText)}
-            </Button>
+            </Button> */}
           </div>
         </header>
 

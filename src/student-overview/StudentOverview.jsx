@@ -98,16 +98,16 @@ const StudentOverview = ({ intl, courseId }) => {
 
                             </button>
                             {/* <button className="student-filter h-fit"><SolidSvgComponent url={FilterIcon} width={15} height={15} defaultClass={``} iconColor='#00000099' /></button> */}
-                            <Button variant="primary" className="" size="sm" iconBefore={IconAdd}>
+                            {/* <Button variant="primary" className="" size="sm" iconBefore={IconAdd}>
                                 {intl.formatMessage(messages.inviteButtonText)}
-                            </Button>
+                            </Button> */}
                         </div>
                     </header>
 
                     <table className="student-table">
                         <thead>
                             <tr>
-                                <th><input type="checkbox" /></th>
+                                {/* <th><input type="checkbox" /></th> */}
                                 <th>{intl.formatMessage(messages.name)}</th>
                                 <th>{intl.formatMessage(messages.email)}</th>
                                 <th>{intl.formatMessage(messages.startDate)}</th>
