@@ -8,3 +8,11 @@
 @import "./highlights-modal/HighlightsModal";
 @import "./publish-modal/PublishModal";
 @import "./xblock-status/XBlockStatus";
+
+.outline-h-screen{
+    height: calc(100vh - 210px) !important;
+
+    .outline-empty-placeholder{
+        height: 260px;
+    }
+}

@@ -47,7 +47,7 @@ export const saveBlock = ({
   }
   let attemptSave = false;
   if (validateEntry) {
-    if (validateEntry()) {
+    if (validateEntry(content)) {
       attemptSave = true;
     }
   } else {

@@ -273,6 +273,11 @@ const CourseOutline = ({ courseId }) => {
           <SubHeader
             title={intl.formatMessage(messages.headingTitle)}
             subtitle={intl.formatMessage(messages.headingSubtitle)}
+            className={`${!errors?.outlineIndexApi && sections.length ? 'mb-3' : 'outline-h-screen'}`}
+            emptyPlaceholder={!errors?.outlineIndexApi && !sections.length && <EmptyPlaceholder
+                            onCreateNewSection={handleNewSectionSubmit}
+                          // childAddable={courseActions.childAddable}
+                          />}
             headerActions={(
               <HeaderNavigations
                 isReIndexShow={isReIndexShow && false}
@@ -427,10 +432,7 @@ const CourseOutline = ({ courseId }) => {
                             )} */}
                           </>
                         ) : (
-                          <EmptyPlaceholder
-                            onCreateNewSection={handleNewSectionSubmit}
-                          // childAddable={courseActions.childAddable}
-                          />
+                          null
                         )}
                       </div>
                     )}

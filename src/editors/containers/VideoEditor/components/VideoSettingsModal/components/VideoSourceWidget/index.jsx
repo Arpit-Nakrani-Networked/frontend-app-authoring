@@ -75,7 +75,10 @@ const VideoSourceWidget = ({
         <Form.Group size="sm" className='mb-0'>
           <Form.Label className="text-secondory _font-weight-medium">Video URL</Form.Label>
           <Form.Control
-            onChange={source.onChange}
+            onChange={(e)=>{
+              source.onChange(e)
+              updateVideoURL(e, videoId.local)
+            }}
             onBlur={(e) => updateVideoURL(e, videoId.local)}
             value={source.local}
             style={{ height: '42px', borderRadius: '.75rem',border: '1px solid #0000001F' }}

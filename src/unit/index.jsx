@@ -144,7 +144,7 @@ const Unit = ({ courseId, intl }) => {
         getComponents(true)
         if (updatedComponent && message[component?.category]) {
           dispatch(showToast({
-            message: component?.isNew ? `${message[componentBlockCategory]} added successfully` : `${message[component?.category]} updated successfully`,
+            message: component?.isNew ? `${message[component?.category]} added successfully` : `${message[component?.category]} updated successfully`,
             status: ToastStatus.SUCCESSFUL
           }));
         }

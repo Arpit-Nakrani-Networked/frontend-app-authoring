@@ -13,8 +13,10 @@ const SubHeader = ({
   titleActions,
   hideBorder,
   withSubHeaderContent,
+  className="",
+  emptyPlaceholder
 }) => (
-  <div className={`${!hideBorder && ''} mb-3 card px-4 py-2 d-flex justify-content-center h-56`}>
+  <div className={`${!hideBorder && ''} card d-flex ${className}`}>
     {/* <header className="sub-header">
       <h2 className="sub-header-title m-0">
         <small className="sub-header-title-subtitle">{subtitle}</small>
@@ -35,7 +37,7 @@ const SubHeader = ({
       )}
     </header> */}
     {title && (
-      <header className="sub-header-content m-0">
+      <header className="sub-header-content m-0 py-2 px-4 h-56">
         <h2 className="sub-header-content-title _text-xl">{title}</h2>
         {
           Boolean(description || headerActions) && <div style={{ display: 'flex', alignItems: 'center',gap: '8px' }}>
@@ -52,6 +54,7 @@ const SubHeader = ({
     {/* {instruction && (
       <p className="sub-header-instructions mb-4">{instruction}</p>
     )} */}
+    {emptyPlaceholder && emptyPlaceholder}
   </div>
 );
 
@@ -59,8 +62,10 @@ SubHeader.defaultProps = {
   instruction: '',
   description: '',
   subtitle: '',
+  className: '',
   breadcrumbs: '',
   contentTitle: '',
+  emptyPlaceholder: null,
   headerActions: null,
   titleActions: null,
   hideBorder: false,
@@ -73,6 +78,7 @@ SubHeader.propTypes = {
     PropTypes.string,
   ]).isRequired,
   subtitle: PropTypes.string,
+  className: PropTypes.string,
   breadcrumbs: PropTypes.oneOfType([
     PropTypes.node,
     PropTypes.string,
@@ -85,6 +91,7 @@ SubHeader.propTypes = {
   ]),
   headerActions: PropTypes.node,
   titleActions: PropTypes.node,
+  emptyPlaceholder: PropTypes.node,
   hideBorder: PropTypes.bool,
   withSubHeaderContent: PropTypes.bool,
 };

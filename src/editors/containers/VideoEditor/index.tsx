@@ -41,21 +41,17 @@ const VideoEditor: React.FC<EditorComponent> = ({
         onClose={onClose}
         returnFunction={returnFunction}
         isNew={isNew}
-        validateEntry={() => {
-          const videoState = fetchVideoContent();
-          const videoData = videoState && videoState({ dispatch })
+        validateEntry={(videoData) => {
           const videoId = parseYoutubeId(videoData?.videoSource)
           if (!Boolean(videoId && videoId)) {
-            setVideoSourceErrors("Invalid Url")
+            setVideoSourceErrors({ message: "Invalid Url" })
             return false
           } else {
-            setVideoSourceErrors('')
             return true
           }
-          return videoId && videoId
         }}
         deleteBlock={() => deleteBlock && deleteBlock()}
-        saveText={intl.formatMessage(messages.addText) }
+        saveText={intl.formatMessage(messages.addText)}
         className="editor-question-video-model"
       >
         {studioViewFinished ? (

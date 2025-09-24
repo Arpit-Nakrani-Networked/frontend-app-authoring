@@ -40,10 +40,12 @@ $transparent: rgb(0 0 0 / 0);
 $highlight-color: #FCEA8D;
 
 
-$success :#07BC0C;
+$success :rgb(7, 188, 12);
+$successText :rgb(80, 115, 81);
 $successLight :#D3F7D3;
 
 $error :#FF3D3D;
+$errorText :#FF0E0E;
 $errorLight :#FFCECE;
 
 //custom color variables for networked

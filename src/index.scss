@@ -735,6 +735,13 @@ a.disabled {
   cursor: text !important;
 }
 
+.tox-editor-container {
+
+  .tox-edit-area__iframe {
+    padding-bottom: 20px;
+  }
+}
+
 .cursor-text {
   cursor: text;
 }
@@ -755,6 +762,7 @@ a.disabled {
 // svgs editor
 .tox .tox-tbtn svg {
   fill: $iconColor;
+    scale: 0.834 !important;
 }
 
 .tox .tox-split-button:focus {

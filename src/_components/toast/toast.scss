@@ -7,23 +7,28 @@
     top: 15px !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
+    padding: 8px 12px !important;
 
     .toast-header {
         font-size: 20px !important;
-        
+        margin-left: 16px !important;
+        padding:6px !important;
+
         p{
             display: flex;
             align-items: center;
+            margin: 0;
+            padding: 0;
         }
     }
 
     &.success {
-        color: $success !important;
-        border:1px solid  $success !important;
+        color: $successText !important;
+        border:1px solid  $successText !important;
         background-color: $successLight !important;
 
         .toast-header {
-            color:$success !important;
+            color:$successText !important;
             background-color: $successLight !important;
 
             .toast-header-btn-container>button.btn-icon {
@@ -54,12 +59,12 @@
     }
 
     &.error {
-        color: $error !important;
-        border:1px solid  $error !important;
+        color: $errorText !important;
+        border:1px solid  $errorText !important;
         background-color: $errorLight !important;
 
         .toast-header {
-            color: $error !important;
+            color: $errorText !important;
             background-color: $errorLight !important;
 
             .toast-header-btn-container>button.btn-icon {
