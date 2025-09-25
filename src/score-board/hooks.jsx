@@ -41,7 +41,7 @@ export const useGradebookTableData = () => {
     //   accessor: 'email',
     // },
     ...headings.map((entry, idx) => ({
-      Header: entry?.assignment_type || `Section ${idx + 1}`,
+      Header: entry?.short_label || `Section ${idx + 1}`,
       accessor: `section_${idx}`,
       className: "text-nowrap"
     })),
