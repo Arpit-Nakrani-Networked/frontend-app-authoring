@@ -162,7 +162,7 @@ const getStyles = () => (
       font-size: 0.75em;
   }
   .mce-content-body p {
-      margin-bottom: 1.416em;
+      margin-bottom: 0;
       margin-top: 0;
       font-size: 1em;
       line-height: 1.6em !important;
@@ -175,7 +175,7 @@ const getStyles = () => (
       font-weight: bold;
   }
   .mce-content-body p + p, .mce-content-body ul + p, .mce-content-body ol + p {
-      margin-top: 20px;
+      margin-top: 0;
   }
   .mce-content-body ol, .mce-content-body ul {
       margin: 1em 0;
