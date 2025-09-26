@@ -1,0 +1,162 @@
+.html-component-container {
+    &>* {
+        font-size: initial;
+        line-height: 1.4em;
+    }
+
+    h1 {
+        color: #3c3c3c;
+        letter-spacing: 1px;
+        margin: 0 0 1.416em 0;
+    }
+
+    h2 {
+        color: #646464;
+        letter-spacing: 1px;
+        margin-bottom: 15px;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin: 0 0 10px 0;
+        font-weight: 600;
+    }
+
+    h3 {
+        font-size: 1.2em;
+    }
+
+    h4,span {
+        font-size: 1em;
+    }
+
+    h5 {
+        font-size: 0.83em;
+    }
+
+    h6 {
+        font-size: 0.75em;
+    }
+
+    p {
+        margin-bottom: 1.416em;
+        font-size: 1em;
+        line-height: 1.6em !important;
+        color: #3c3c3c;
+    }
+
+    em,
+    i {
+        font-style: italic;
+    }
+
+    em span,
+    i span {
+        font-style: italic;
+    }
+
+    strong,
+    b {
+        font-weight: bold;
+    }
+
+    strong span,
+    b span {
+        font-weight: bold;
+    }
+
+    p+p,
+    ul+p,
+    ol+p {
+        margin-top: 20px;
+    }
+
+    blockquote {
+        margin: 1em 40px;
+    }
+
+    ol,
+    ul {
+        padding: 0 0 0 1em;
+        margin: 1em 0;
+        color: #3c3c3c;
+    }
+
+    ol li,
+    ul li {
+        margin-bottom: 0.708em;
+    }
+
+    ol {
+        list-style: decimal outside none;
+    }
+
+    ul {
+        list-style: disc outside none;
+    }
+
+    a:link,
+    a:visited,
+    a:hover,
+    a:active,
+    a:focus {
+        color: #0075b4;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    pre {
+        margin: 1em 0;
+        color: #3c3c3c;
+        font-size: 1em;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+    }
+
+    code {
+        color: #3c3c3c;
+        background: none;
+        padding: 0;
+    }
+
+    table {
+        width: 100%;
+        margin: 20px 0;
+        border-collapse: collapse;
+        font-size: 16px;
+    }
+
+    table td,
+    table th {
+        margin: 20px 0;
+        padding: 10px;
+        border: 1px solid #e3e3e3;
+        font-size: 14px;
+    }
+
+    table td.cont-justified-left,
+    table th.cont-justified-left {
+        text-align: left !important;
+    }
+
+    table td.cont-justified-right,
+    table th.cont-justified-right {
+        text-align: right !important;
+    }
+
+    table td.cont-justified-center,
+    table th.cont-justified-center {
+        text-align: center !important;
+    }
+
+    th {
+        background: #eee;
+        font-weight: bold;
+    }
+}

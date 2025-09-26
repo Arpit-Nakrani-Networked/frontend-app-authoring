@@ -39,7 +39,8 @@ const EditProblemView = ({
   isDirty,
   // injected
   intl,
-  deleteBlock
+  deleteBlock,
+  isNew
 }) => {
   const dispatch = useDispatch();
   const editorRef = useRef(null);
@@ -69,6 +70,7 @@ const EditProblemView = ({
       deleteBlock={() => deleteBlock && deleteBlock()}
       saveText={intl.formatMessage(messages.saveAddQuestion)}
       className='editor-question-problem-model'
+      isNew={isNew}
     >
       <AlertModal
         title={isAdvancedProblemType ? (
@@ -131,6 +133,7 @@ EditProblemView.defaultProps = {
   lmsEndpointUrl: null,
   returnFunction: null,
   isDirty: false,
+  isNew: false,
 };
 
 EditProblemView.propTypes = {
@@ -144,6 +147,7 @@ EditProblemView.propTypes = {
   lmsEndpointUrl: PropTypes.string,
   returnUrl: PropTypes.string.isRequired,
   isDirty: PropTypes.bool,
+  isNew: PropTypes.bool,
   // injected
   intl: intlShape.isRequired,
 };

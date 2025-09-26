@@ -34,7 +34,8 @@ const ProblemEditor: React.FC<Props> = ({
   blockValue,
   initializeProblemEditor,
   advancedSettingsFinished,
-  deleteBlock
+  deleteBlock,
+  isNew
 }) => {
   React.useEffect(() => {
     if (blockFinished && !blockFailed) {
@@ -72,7 +73,7 @@ const ProblemEditor: React.FC<Props> = ({
       }
     }} />);
   }
-  return (<EditProblemView {...{ onClose, returnFunction, deleteBlock }} />);
+  return (<EditProblemView {...{ onClose, returnFunction, deleteBlock ,isNew}} />);
 };
 
 export const mapStateToProps = (state) => ({

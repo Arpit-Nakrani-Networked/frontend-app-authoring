@@ -1,6 +1,7 @@
 import { CardHeader } from '../CardHeader';
 /* eslint-disable import/prefer-default-export */
 import { ensureConfig, getConfig } from '@edx/frontend-platform';
+import './HTMLComponentCard.scss'
 
 ensureConfig([
   'STUDIO_BASE_URL',
@@ -23,7 +24,7 @@ export const HTMLComponentCard = ({ component, onEdit, onDelete }) => {
   const baseUrl = getConfig().LMS_BASE_URL;
   const updatedHtml = updateImageSrc(component.data, baseUrl);
   return (
-    <div className="component-block-wrappper">
+    <div className="component-block-wrappper html-component-container">
       <CardHeader component={component} onDelete={onDelete} />
       <div dangerouslySetInnerHTML={{ __html: updatedHtml }} />
     </div>
