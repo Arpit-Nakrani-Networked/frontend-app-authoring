@@ -9,6 +9,7 @@ import messages from './messages';
 import { isLibraryV1Key } from '../../../generic/key-utils';
 import { navigateTo } from '../../hooks';
 import { selectors } from '../../data/redux';
+import { useEffect } from 'react';
 
 /**
  * An error page that displays a generic message for unexpected errors.  Also contains a "Try
@@ -26,6 +27,32 @@ const ErrorPage = ({
   const outlineType = isLibraryV1Key(learningContextId) ? 'library' : 'course';
   const outlineUrl = `${studioEndpointUrl}/${outlineType}/${learningContextId}`;
   const unitUrl = unitData?.data ? `${studioEndpointUrl}/container/${unitData?.data.ancestors[0].id}` : null;
+  const url = new URL(window.location.href);
+  const count = url.searchParams.get('retry')
+
+  console.log("count",count);
+  
+
+  useEffect(() => {
+    const retryCount = parseInt(url.searchParams.get('retry') || '0', 10);
+
+    if (retryCount < 3) {
+      const timer = setTimeout(() => {
+        url.searchParams.set('retry', retryCount + 1);
+        // Replace URL (no back history)
+        window.location.href = url.toString();
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    }
+
+    return undefined;
+  }, []);
+
+  if(count != 3){
+    return null
+  }
+
 
   return (
     <Container fluid className="py-5 justify-content-center align-items-start text-center">
