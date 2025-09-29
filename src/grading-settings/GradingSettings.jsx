@@ -236,7 +236,7 @@ const GradingSettings = ({ intl, courseId }) => {
                       setShowSuccessAlert={setShowSuccessAlert}
                     />
                   </section> */}
-                <section className="card pt-3 px-0 overflow-hidden">
+                <section className="card pt-3 px-0 overflow-hidden mt-3">
                   <header className="px-4 row justify-content-between align-items-center mx-0 mb-2">
                     <h2 className="lead _text-xl">
                       {intl.formatMessage(messages.assignmentTypeSectionTitle)}

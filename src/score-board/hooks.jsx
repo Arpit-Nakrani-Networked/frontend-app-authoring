@@ -66,7 +66,9 @@ export const useGradebookTableData = () => {
         `${(subsection?.percent * 100).toFixed(0)}${getLocalizedPercentSign()}`;
     });
 
-    const isQuizComplete = !Boolean(entry.section_breakdown?.length === 0 || entry.section_breakdown.find((subsection, idx) => !subsection?.attempted))
+    const section_breakdown = entry?.section_breakdown ? entry?.section_breakdown?.filter(val => val?.score_possible > 0) : []
+
+    const isQuizComplete = !Boolean(section_breakdown?.length === 0 || section_breakdown.find((subsection, idx) => !subsection?.attempted))
 
     return {
       select: <input type="checkbox" />,
