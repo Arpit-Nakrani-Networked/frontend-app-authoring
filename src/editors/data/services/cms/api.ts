@@ -45,12 +45,19 @@ export const loadImages = (rawImages) => camelizeKeys(rawImages).reduce(
 );
 
 export const parseYoutubeId = (src: string): string | null => {
-  const youtubeRegex = /^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w-]+\?v=|embed\/|v\/)?)([\w-]+)(\S+)?$/;
-  const match = src.match(youtubeRegex);
-  if (!match) {
-    return null;
+  if (!src) return null;
+
+  try {
+    new URL(src);
+    const youtubeRegex =
+      /(?:v=|\/embed\/|\/v\/|youtu\.be\/|\/shorts\/)([a-zA-Z0-9_-]{11})/;
+
+    const match = src.match(youtubeRegex);
+    return match ? match[1] : null;
+  } catch {
+    return '';
   }
-  return match[5];
+
 };
 
 export const processVideoIds = ({

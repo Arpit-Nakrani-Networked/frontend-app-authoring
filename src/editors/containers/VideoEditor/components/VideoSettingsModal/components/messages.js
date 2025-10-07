@@ -20,6 +20,11 @@ const messages = defineMessages({
     defaultMessage: 'Please check your entries and try again.',
     description: 'Body of validation error.',
   },
+  validateVideoDomainsBody: {
+    id: 'authoring.videoeditor.validate.errorDomains.body',
+    defaultMessage: 'Only youtube video are allowed.',
+    description: 'Body of validation error.',
+  },
   durationTitle: {
     id: 'authoring.videoeditor.duration.title',
     defaultMessage: 'Duration',

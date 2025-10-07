@@ -36,7 +36,7 @@ export const VideoPreviewWidget = ({
   const youtubeUrl = `https://youtube.com/embed/${id}`;
   return id ? (
     <iframe src={youtubeUrl} width="100%" height={370} style={{ border: 'none', borderRadius: '1rem',marginTop:"1rem" }} />
-  ) : <ErrorSummary />;
+  ) : <ErrorSummary value={videoSource} />;
   return (
     <Collapsible.Advanced
       className="collapsible-card rounded mx-4 my-3 px-4"

@@ -11,7 +11,7 @@ export const hasNoError = (error) => Object.keys(error[0]).length === 0;
 
 export const showAlert = (errors) => !Object.values(errors).every(hasNoError);
 
-export const ErrorSummary = () => {
+export const ErrorSummary = (value?:string) => {
   const errors = React.useContext(ErrorContext);
   return showAlert(errors) && (
     // <Alert
@@ -23,7 +23,7 @@ export const ErrorSummary = () => {
     //     <FormattedMessage {...messages.validateErrorTitle} />
     //   </Alert.Heading>
       <p className='_text-delete mt-1'>
-        <FormattedMessage {...messages.validateErrorBody} />
+        {value ? <FormattedMessage {...messages.validateVideoDomainsBody} />: <FormattedMessage {...messages.validateErrorBody} />}
       </p>
     // </Alert>
   );
