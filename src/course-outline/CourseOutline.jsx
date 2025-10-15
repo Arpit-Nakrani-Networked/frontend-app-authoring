@@ -239,8 +239,8 @@ const CourseOutline = ({ courseId }) => {
       <Helmet>
         <title>{getPageHeadTitle(courseName, intl.formatMessage(messages.headingTitle))}</title>
       </Helmet>
-      <Container size="xl" className="px-4">
-        <section className="max-w-1200 course-outline-container mb-4 mt-3">
+      <Container size="xl" className="px-4 container-screen custom-scrollbar w-fit">
+        <section className="max-w-1200 course-outline-container">
           {/* <PageAlerts
             courseId={courseId}
             notificationDismissUrl={notificationDismissUrl}
@@ -270,26 +270,28 @@ const CourseOutline = ({ courseId }) => {
               />
             ) : null}
           </TransitionReplace> */}
-          <SubHeader
-            title={intl.formatMessage(messages.headingTitle)}
-            subtitle={intl.formatMessage(messages.headingSubtitle)}
-            className={`${!errors?.outlineIndexApi && sections.length ? 'mb-3' : 'outline-h-screen'}`}
-            emptyPlaceholder={!errors?.outlineIndexApi && !sections.length && <EmptyPlaceholder
-                            onCreateNewSection={handleNewSectionSubmit}
-                          // childAddable={courseActions.childAddable}
-                          />}
-            headerActions={(
-              <HeaderNavigations
-                isReIndexShow={isReIndexShow && false}
-                isSectionsExpanded={isSectionsExpanded}
-                headerNavigationsActions={headerNavigationsActions}
-                isDisabledReindexButton={isDisabledReindexButton}
-                hasSections={Boolean(sectionsList.length)}
-                courseActions={courseActions}
-                errors={errors}
-              />
-            )}
-          />
+          <div className="card-header-sticky pb-3">
+            <SubHeader
+              title={intl.formatMessage(messages.headingTitle)}
+              subtitle={intl.formatMessage(messages.headingSubtitle)}
+              className={`${!errors?.outlineIndexApi && sections.length ? '' : 'outline-h-screen'}`}
+              emptyPlaceholder={!errors?.outlineIndexApi && !sections.length && <EmptyPlaceholder
+                onCreateNewSection={handleNewSectionSubmit}
+              // childAddable={courseActions.childAddable}
+              />}
+              headerActions={(
+                <HeaderNavigations
+                  isReIndexShow={isReIndexShow && false}
+                  isSectionsExpanded={isSectionsExpanded}
+                  headerNavigationsActions={headerNavigationsActions}
+                  isDisabledReindexButton={isDisabledReindexButton}
+                  hasSections={Boolean(sectionsList.length)}
+                  courseActions={courseActions}
+                  errors={errors}
+                />
+              )}
+            />
+          </div>
           <Layout
             lg={[{ span: 12 }]}
             md={[{ span: 12 }]}

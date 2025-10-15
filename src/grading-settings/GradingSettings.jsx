@@ -147,7 +147,7 @@ const GradingSettings = ({ intl, courseId }) => {
 
   return (
     <>
-      <Container size="xl" className="grading px-4 pt-3">
+      <Container size="xl" className="grading px-4 container-screen custom-scrollbar w-fit overflow-hidden pb-3">
         {/* <div className="mt-5">
           <AlertMessage
             show={showSuccessAlert}
@@ -159,8 +159,7 @@ const GradingSettings = ({ intl, courseId }) => {
             aria-describedby={intl.formatMessage(messages.alertSuccessAriaDescribedby)}
           />
         </div> */}
-        <div>
-          <section className="setting-items mb-4">
+          <section className="setting-items mb-4 px-0 max-w-1200 d-flex flex-column overflow-hidden h-full">
             {/* <Layout
               lg={[{ span: 12 }]}
               md={[{ span: 12 }]}
@@ -168,8 +167,7 @@ const GradingSettings = ({ intl, courseId }) => {
               xs={[{ span: 12 }]}
               xl={[{ span: 12 }]}
             > */}
-            <div className="px-0 max-w-1200">
-              <article>
+                <div className='card-header-sticky pb-3'>
                 <SubHeader
                   title={intl.formatMessage(messages.headingTitle)}
                   description={<span className="_text-black-400">{intl.formatMessage(messages.setPassingGradePre)} <span className='_text-2xl _font-weight-semibold'>{gradeValues[0]}% </span>{intl.formatMessage(messages.setPassingGradePost)}</span>}
@@ -184,6 +182,7 @@ const GradingSettings = ({ intl, courseId }) => {
                     </Button>
                   }
                 />
+                </div>
                 <section>
                   {showGradeModal && <GradingScaleModel
                     gradeCutoffs={gradeCutoffs}
@@ -236,7 +235,7 @@ const GradingSettings = ({ intl, courseId }) => {
                       setShowSuccessAlert={setShowSuccessAlert}
                     />
                   </section> */}
-                <section className="card pt-3 px-0 overflow-hidden mt-3">
+                <section className="card pt-3 px-0 overflow-hidden">
                   <header className="px-4 row justify-content-between align-items-center mx-0 mb-2">
                     <h2 className="lead _text-xl">
                       {intl.formatMessage(messages.assignmentTypeSectionTitle)}
@@ -271,8 +270,6 @@ const GradingSettings = ({ intl, courseId }) => {
                     isLoading={false}
                   />
                 </section>
-              </article>
-            </div>
             {/* <Layout.Element>
                 <GradingSidebar
                   courseId={courseId}
@@ -282,7 +279,6 @@ const GradingSettings = ({ intl, courseId }) => {
               </Layout.Element> */}
             {/* </Layout> */}
           </section>
-        </div>
       </Container>
       <div className="alert-toast">
         {showOverrideInternetConnectionAlert && (

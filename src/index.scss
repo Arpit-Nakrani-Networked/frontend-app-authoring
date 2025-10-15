@@ -762,7 +762,7 @@ a.disabled {
 // svgs editor
 .tox .tox-tbtn svg {
   fill: $iconColor;
-    scale: 0.834 !important;
+  scale: 0.834 !important;
 }
 
 .tox .tox-split-button:focus {
@@ -887,4 +887,43 @@ a.disabled {
   .pgn__action-row>*+* {
     margin-inline-start: 1rem;
   }
+}
+
+
+.custom-scrollbar,.unit-iframe-wrapper {
+  // Show and style scrollbar for WebKit browsers
+  &::-webkit-scrollbar {
+    width: 8px;
+    background: #F6F7FA;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #cfd8dc;
+    border-radius: 8px;
+  }
+  &::-webkit-scrollbar-track {
+    background: #F6F7FA;
+    border-radius: 8px;
+  }
+
+  // For Firefox
+  scrollbar-width: thin;
+  scrollbar-color: #cfd8dc #F6F7FA;
+}
+
+
+.container-screen {
+  height: calc(100vh - 180px);
+  overflow: auto;
+}
+
+.w-fit{
+  width: fit-content;
+}
+
+.card-header-sticky{
+  position: sticky;
+  top: 0px;
+  background-color: #F6F7FA;
+  z-index: 1;
+  padding-top: 16px;
 }

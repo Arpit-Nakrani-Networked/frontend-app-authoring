@@ -105,43 +105,44 @@ const AssignmentSection = ({
   const isHiddenRemoveButton = graders?.length === 1;
 
   return (
-    <div className="assignment-items pb-2">
+    <div className="assignment-items overflow-hidden d-flex flex-column">
       <div className='d-flex align-items-center gap-3 px-4 py-3 border-bottom mb-2 _border-black-500'>
         <div className='course-grading-assignment-total-grade w-25 _text-black-600 _text-sm _uppercase'>Weight of total grade</div>
         <div className='course-grading-assignment-total-grade w-25 _text-black-600 _text-sm _uppercase'>Assignment Name</div>
       </div>
-      {graders?.map((gradeField, i) => {
-        const courseAssignmentUsage = courseAssignmentLists[gradeField.type];
-        const isFormOpen = Boolean(editId === gradeField.id);
-        const isError = Boolean(errorList[`${weight}-${gradeField.id}`] || errorList[`${type}-${gradeField.id}`])
-        return (
-          <div key={gradeField.id} className="px-4 course-grading-assignment-wrapper d-flex py-0 border-0 align-items-center gap-3">
-            <ol className="course-grading-assignment-items p-0 d-flex mb-0 mr-0 w-100 align-items-center">
-              <AssignmentItem
-                className="course-grading-assignment-total-grade p-0 w-25"
-                title={intl.formatMessage(messages.weightOfTotalGradeTitle)}
-                descriptions={intl.formatMessage(messages.weightOfTotalGradeDescription)}
-                type="number"
-                min={MIN_NUMBER_VALUE}
-                max={MAX_NUMBER_VALUE}
-                errorMsg={intl.formatMessage(messages.weightOfTotalGradeErrorMessage)}
-                name={weight}
-                value={gradeField.weight}
-                onChange={(e) => handleAssignmentChange(e, gradeField.id)}
-                errorEffort={errorList[`${weight}-${gradeField.id}`]}
-                trailingElement="%"
-                isFormOpen={isFormOpen}
-                isLoading={isLoading}
-              />
-              <AssignmentTypeName
-                className="flex-1 py-0 pl-1"
-                value={gradeField.type}
-                errorEffort={errorList[`${type}-${gradeField.id}`]}
-                onChange={(e) => handleAssignmentChange(e, gradeField.id)}
-                isFormOpen={isFormOpen}
-                isLoading={isLoading}
-              />
-              {/* <AssignmentItem
+      <div className='overflow-auto h-full custom-scrollbar'>
+        {graders?.map((gradeField, i) => {
+          const courseAssignmentUsage = courseAssignmentLists[gradeField.type];
+          const isFormOpen = Boolean(editId === gradeField.id);
+          const isError = Boolean(errorList[`${weight}-${gradeField.id}`] || errorList[`${type}-${gradeField.id}`])
+          return (
+            <div key={gradeField.id} className="px-4 course-grading-assignment-wrapper d-flex py-0 border-0 align-items-center gap-3">
+              <ol className="course-grading-assignment-items p-0 d-flex mb-0 mr-0 w-100 align-items-center">
+                <AssignmentItem
+                  className="course-grading-assignment-total-grade p-0 w-25"
+                  title={intl.formatMessage(messages.weightOfTotalGradeTitle)}
+                  descriptions={intl.formatMessage(messages.weightOfTotalGradeDescription)}
+                  type="number"
+                  min={MIN_NUMBER_VALUE}
+                  max={MAX_NUMBER_VALUE}
+                  errorMsg={intl.formatMessage(messages.weightOfTotalGradeErrorMessage)}
+                  name={weight}
+                  value={gradeField.weight}
+                  onChange={(e) => handleAssignmentChange(e, gradeField.id)}
+                  errorEffort={errorList[`${weight}-${gradeField.id}`]}
+                  trailingElement="%"
+                  isFormOpen={isFormOpen}
+                  isLoading={isLoading}
+                />
+                <AssignmentTypeName
+                  className="flex-1 py-0 pl-1"
+                  value={gradeField.type}
+                  errorEffort={errorList[`${type}-${gradeField.id}`]}
+                  onChange={(e) => handleAssignmentChange(e, gradeField.id)}
+                  isFormOpen={isFormOpen}
+                  isLoading={isLoading}
+                />
+                {/* <AssignmentItem
                 className="course-grading-assignment-abbreviation"
                 title={intl.formatMessage(messages.abbreviationTitle)}
                 descriptions={intl.formatMessage(messages.abbreviationDescription)}
@@ -150,7 +151,7 @@ const AssignmentSection = ({
                 value={gradeField.shortLabel}
                 onChange={(e) => handleAssignmentChange(e, gradeField.id)}
               /> */}
-              {/* <AssignmentItem
+                {/* <AssignmentItem
                 className="course-grading-assignment-total-number"
                 title={intl.formatMessage(messages.totalNumberTitle)}
                 descriptions={intl.formatMessage(messages.totalNumberDescription)}
@@ -178,8 +179,8 @@ const AssignmentSection = ({
                 })}
                 errorEffort={errorList[`${dropCount}-${gradeField.id}`]}
               /> */}
-            </ol>
-            {/* {showDefinedCaseAlert && (
+              </ol>
+              {/* {showDefinedCaseAlert && (
               <AlertMessage
                 className="course-grading-assignment-item-alert-warning"
                 variant="warning"
@@ -223,37 +224,38 @@ const AssignmentSection = ({
                 aria-hidden="true"
               />
             )} */}
-            <Stack gap={3} direction="horizontal" className={classNames('d-flex', {})}>
-              {isFormOpen && <button className='back-button w-auto py-1 _text-sm h-auto btn btn-secondary pgn__icon _cursor-pointer d-flex justify-content-center align-items-center' onClick={(e) => {
-                action(() => {
-                  onReset();
-                  setEditId(null);
-                })
-              }}>
-                Cancel
-              </button>}
-              {isFormOpen && <button disabled={isError} className='w-auto py-1 _text-sm h-auto btn btn-primary pgn__icon _cursor-pointer d-flex justify-content-center align-items-center' onClick={(e) => {
-                action(() => {
-                  onSubmit();
-                  setEditId(null);
-                })
-              }}>
-                Save
-              </button>}
-              {!isFormOpen && !isHiddenRemoveButton && <span className='pgn__icon btn-icon__icon _cursor-pointer d-flex justify-content-center align-items-center' onClick={(e) => {
-                action(() => {
-                  handleRemoveAssignment(gradeField.id)
-                })
-              }}><SolidSvgComponent url={DelIcon} width={20} height={20} defaultClass={``} iconColor='#00000099'  isIconColor /></span>}
-              {!isFormOpen && <span className='pgn__icon btn-icon__icon _cursor-pointer d-flex justify-content-center align-items-center' onClick={(e) => {
-                action(() => {
-                  setEditId(gradeField.id)
-                })
-              }}><SolidSvgComponent url={EditIcon} width={20} height={20} defaultClass={``} iconColor='#00000099' isIconColor /></span>}
-            </Stack>
-          </div>
-        );
-      })}
+              <Stack gap={3} direction="horizontal" className={classNames('d-flex', {})}>
+                {isFormOpen && <button className='back-button w-auto py-1 _text-sm h-auto btn btn-secondary pgn__icon _cursor-pointer d-flex justify-content-center align-items-center' onClick={(e) => {
+                  action(() => {
+                    onReset();
+                    setEditId(null);
+                  })
+                }}>
+                  Cancel
+                </button>}
+                {isFormOpen && <button disabled={isError} className='w-auto py-1 _text-sm h-auto btn btn-primary pgn__icon _cursor-pointer d-flex justify-content-center align-items-center' onClick={(e) => {
+                  action(() => {
+                    onSubmit();
+                    setEditId(null);
+                  })
+                }}>
+                  Save
+                </button>}
+                {!isFormOpen && !isHiddenRemoveButton && <span className='pgn__icon btn-icon__icon _cursor-pointer d-flex justify-content-center align-items-center' onClick={(e) => {
+                  action(() => {
+                    handleRemoveAssignment(gradeField.id)
+                  })
+                }}><SolidSvgComponent url={DelIcon} width={20} height={20} defaultClass={``} iconColor='#00000099' isIconColor /></span>}
+                {!isFormOpen && <span className='pgn__icon btn-icon__icon _cursor-pointer d-flex justify-content-center align-items-center' onClick={(e) => {
+                  action(() => {
+                    setEditId(gradeField.id)
+                  })
+                }}><SolidSvgComponent url={EditIcon} width={20} height={20} defaultClass={``} iconColor='#00000099' isIconColor /></span>}
+              </Stack>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };
