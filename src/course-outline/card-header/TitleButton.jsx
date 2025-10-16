@@ -33,7 +33,7 @@ const TitleButton = ({
       )}
     >
       <Button
-        iconBefore={isExpanded ? ArrowDownIcon : ArrowRightIcon}
+        iconBefore={isExpanded ? ArrowRightIcon : ArrowDownIcon}
         variant="tertiary border-0"
         data-testid={`${namePrefix}-card-header__expanded-btn`}
         className="item-card-header__title-btn"

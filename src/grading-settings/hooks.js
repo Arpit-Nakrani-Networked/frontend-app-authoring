@@ -50,8 +50,8 @@ const useUpdateGradingData = (gradingSettingsData, setOverrideInternetConnection
         id: uniqueId,
         dropCount: 0,
         minCount: 1,
-        shortLabel: 'Homework',
-        type: 'Homework',
+        shortLabel: 'Graded',
+        type: 'Graded',
         weight: 0,
       }],
     }));

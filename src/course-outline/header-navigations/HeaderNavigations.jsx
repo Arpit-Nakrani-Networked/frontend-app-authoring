@@ -49,7 +49,7 @@ const HeaderNavigations = ({
           <Button
             iconBefore={IconAdd}
             onClick={handleNewSection}
-            size='sm'
+            size='xs'
             // disabled={errors?.outlineIndexApi}
           >
             {intl.formatMessage(messages.newSectionButton)}

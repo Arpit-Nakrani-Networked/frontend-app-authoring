@@ -17,7 +17,7 @@
   }
 
   .item-card-header {
-    padding: 10px 16px 10px 50px;
+    padding: 10px 16px 10px 45px;
     
     &.section-item-header{
       height: 68px;
@@ -43,7 +43,7 @@
     // font-weight: $headings-font-weight;
     // line-height: $headings-line-height;
     // color: $headings-color;
-    padding-left: 5px;
+    padding-left: 10px;
     font-weight: 600;
     font-size: 16px;
     line-height: 100%;
@@ -62,7 +62,7 @@
   width: auto;
   position: absolute;
   top: 11px;
-  left: 10px;
+  left: 0px;
 }
 
 .btn-icon__drag:hover {

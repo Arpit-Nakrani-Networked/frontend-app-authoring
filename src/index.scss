@@ -683,16 +683,21 @@ a.disabled {
   pointer-events: visible !important;
 }
 
-.btn-sm,
+.btn-sm,.btn-xs ,
 .btn-group-sm>.btn {
   padding: 7px 13px;
   text-wrap: nowrap;
   overflow: hidden;
 }
 
-.btn-sm {
+.btn-sm,.btn-xs {
   height: 36px;
   overflow: hidden;
+
+  .pgn__icon__sm {
+    width: 16px;
+    height: 16px;
+  }
 }
 
 .pgn__dropdown-toggle-iconbutton {
@@ -926,4 +931,13 @@ a.disabled {
   background-color: #F6F7FA;
   z-index: 1;
   padding-top: 16px;
+}
+
+.course-badge{
+  background-color: #F5F5F5;
+  padding: 5px;
+  font-size: 14px;
+  font-family: $font-family-base;
+  color: #000000CC;
+  border-radius: 8px;
 }

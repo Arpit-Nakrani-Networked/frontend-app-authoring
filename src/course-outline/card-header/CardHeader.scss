@@ -11,6 +11,12 @@
     background: transparent;
     color: $black;
     overflow: hidden;
+
+    .pgn__icon__sm {
+      width: 24px;
+      height: 24px;
+    }
+
   }
 
   .item-card-edit-icon {
