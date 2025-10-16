@@ -182,8 +182,8 @@ const Unit = ({ courseId, intl }) => {
   }
 
   return (
-    <Container size="xl" className="px-4 rounded p-4">
-      <div className="bg-white _rounded-lg border border-light unit-xblocks-add-container">
+    <Container size="xl" className="px-4 rounded p-4 container-screen w-fit overflow-hidden">
+      <div className="bg-white _rounded-lg border border-light unit-xblocks-add-container overflow-hidden d-flex flex-column">
         {!loading && <div className="max-w-1200 bg-white d-flex justify-content-between align-items-center sub-header-container h-72 border-bottom border-bottom border-light">
           <h2 className="sub-header-title">{verticleBlock?.displayName}</h2>
           {verticleBlock && <div className='actions-btns'>
@@ -212,7 +212,7 @@ const Unit = ({ courseId, intl }) => {
             </Button>
           </div>}
         </div>}
-        <div className="max-w-1200 bg-white p-4" style={{ minHeight: '200px' }}>
+        <div className="max-w-1200 bg-white p-4 custom-scrollbar h-full overflow-auto" style={{ minHeight: '200px' }}>
           {loading && <div className="d-flex flex-column align-items-center justify-content-center" style={{ minHeight: '150px' }}> <Spinner animation="border" className="mie-3" screenReaderText="loading" /> </div>}
           {!loading && components.length === 0 && <NoContent />}
           {!loading && components.length !== 0 && (

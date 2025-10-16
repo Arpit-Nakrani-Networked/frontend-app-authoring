@@ -88,7 +88,7 @@ export default function CourseTitleHeader() {
         >
           <SolidSvgComponent url={ViewIcon} width={16} height={16} defaultClass={`mr-1`} isIconColor /> {intl.formatMessage(messages.viewBtnText)}
         </Button>
-        <Button
+       {hasChanges&& <Button
           type="button"
           onClick={()=>setIsOpen(true)}
           data-testid="course-reindex"
@@ -97,7 +97,7 @@ export default function CourseTitleHeader() {
           size='sm'
         >
           {intl.formatMessage(messages.saveBtnText)}
-        </Button>
+        </Button>}
       </div>}
       <CoursePublishModal isOpen={isOpen} onClose={() => setIsOpen(false)} onPublishSubmit={publishDraftContent} />
             {toastMessage && (

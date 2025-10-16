@@ -83,6 +83,11 @@
 }
 
 .component-block-wrappper {
+
+  *{
+    text-wrap: auto;
+  }
+  
   .component-block-dropdown__menu {
     padding: 0;
     min-width: 10rem;
