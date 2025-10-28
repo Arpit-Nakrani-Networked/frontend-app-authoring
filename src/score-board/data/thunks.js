@@ -1,3 +1,4 @@
+import { handleStatusCatch } from '../../helper/httpWrapper';
 import { RequestStatus } from '../../data/constants';
 import {
   getCourseGradebook,
@@ -24,8 +25,7 @@ export function fetchGrades(courseId, url = null, searchText = "") {
       dispatch(fetchGradesSuccess(detailsValues));
       dispatch(updateLoadingGradesStatus({ status: RequestStatus.SUCCESSFUL }));
     } catch (error) {
-      console.log("error-->>", error);
-
+      handleStatusCatch(error?.customAttributes?.httpErrorStatus)
       if (error.response && error.response.status === 403) {
         dispatch(updateLoadingGradesStatus({ status: RequestStatus.DENIED }));
       } else {
@@ -44,8 +44,7 @@ export function fetchGradesHeading(courseId) {
       dispatch(fetchHeadingSuccess(detailsValues));
       // dispatch(updateLoadingGradesStatus({ status: RequestStatus.SUCCESSFUL }));
     } catch (error) {
-      console.log("error-->>", error);
-
+      handleStatusCatch(error?.customAttributes?.httpErrorStatus)
       if (error.response && error.response.status === 403) {
         // dispatch(updateLoadingGradesStatus({ status: RequestStatus.DENIED }));
       } else {

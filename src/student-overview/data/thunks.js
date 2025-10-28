@@ -1,3 +1,4 @@
+import { handleStatusCatch } from '../../helper/httpWrapper';
 import { RequestStatus } from '../../data/constants';
 import {
   getStudentList,
@@ -20,8 +21,7 @@ export function fetchStudents(courseId,url=null,searchText) {
       dispatch(fetchStudentsSuccess(detailsValues));
       dispatch(updateLoadingStatus({ status: RequestStatus.SUCCESSFUL }));
     } catch (error) {
-      console.log("error-->>", error);
-      
+                    handleStatusCatch(error?.customAttributes?.httpErrorStatus)
       if (error.response && error.response.status === 403) {
         dispatch(updateLoadingStatus({ status: RequestStatus.DENIED }));
       } else {

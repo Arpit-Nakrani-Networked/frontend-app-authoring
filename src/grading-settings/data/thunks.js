@@ -12,6 +12,7 @@ import {
   fetchGradingSettingsSuccess,
   fetchCourseSettingsSuccess,
 } from './slice';
+import { handleStatusCatch } from '../../helper/httpWrapper';
 
 export function fetchGradingSettings(courseId) {
   return async (dispatch) => {
@@ -21,6 +22,7 @@ export function fetchGradingSettings(courseId) {
       dispatch(fetchGradingSettingsSuccess(settingValues));
       dispatch(updateLoadingStatus({ status: RequestStatus.SUCCESSFUL }));
     } catch (error) {
+  handleStatusCatch(error?.customAttributes?.httpErrorStatus)
       dispatch(updateLoadingStatus({ status: RequestStatus.FAILED }));
     }
   };
@@ -77,7 +79,8 @@ export function fetchCourseSettingsQuery(courseId) {
       dispatch(fetchCourseSettingsSuccess(settingsValues));
       dispatch(updateLoadingStatus({ status: RequestStatus.SUCCESSFUL }));
       return true;
-    } catch (error) {
+    } catch (error) {      
+        handleStatusCatch(error?.customAttributes?.httpErrorStatus)
       dispatch(updateLoadingStatus({ status: RequestStatus.FAILED }));
       return false;
     }

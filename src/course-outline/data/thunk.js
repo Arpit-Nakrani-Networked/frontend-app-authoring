@@ -1,3 +1,4 @@
+import { handleStatusCatch } from '../../helper/httpWrapper';
 import { RequestStatus } from '../../data/constants';
 import { NOTIFICATION_MESSAGES } from '../../constants';
 import { API_ERROR_TYPES, COURSE_BLOCK_NAMES } from '../constants';
@@ -123,6 +124,7 @@ export function fetchCourseLaunchQuery({
 
       dispatch(updateCourseLaunchQueryStatus({ status: RequestStatus.SUCCESSFUL }));
     } catch (error) {
+              handleStatusCatch(error?.customAttributes?.httpErrorStatus)
       dispatch(updateCourseLaunchQueryStatus({
         status: RequestStatus.FAILED,
         errors: getErrorDetails(error),

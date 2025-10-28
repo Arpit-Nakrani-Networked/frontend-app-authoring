@@ -1,3 +1,4 @@
+import { handleStatusCatch } from '../../helper/httpWrapper';
 import { RequestStatus } from '../../data/constants';
 import {
   getStudioHomeData,
@@ -27,6 +28,7 @@ function fetchStudioHomeData(search, hasHomeData, requestParams = {}, isPaginati
         dispatch(fetchStudioHomeDataSuccess(studioHomeData));
         dispatch(updateLoadingStatuses({ studioHomeLoadingStatus: RequestStatus.SUCCESSFUL }));
       } catch (error) {
+        handleStatusCatch(error?.customAttributes?.httpErrorStatus)
         dispatch(updateLoadingStatuses({ studioHomeLoadingStatus: RequestStatus.FAILED }));
         return;
       }
