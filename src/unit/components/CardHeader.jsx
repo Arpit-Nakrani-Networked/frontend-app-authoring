@@ -18,6 +18,8 @@ export const CardHeader = ({ component, onDelete }) => {
         return 'VIDEO';
       case 'problem':
         return 'QUESTION';
+      case 'scorm':
+        return 'SCORM';
       default:
         return '';
     }

@@ -280,6 +280,19 @@ export const apiMethods = {
         id: blockId,
         metadata: { display_name: title, ...content.settings },
       };
+    } else if (blockType === 'scorm') {
+      response = {
+        file: content.file || undefined,
+        display_name: content.display_name,
+        has_score: content.has_score ? 1 : 0,
+        enable_navigation_menu: content.enable_navigation_menu ? 1 : 0,
+        enable_fullscreen_button: content.enable_fullscreen_button ? 1 : 0,
+        weight: content?.weight || 10.0,
+        width: content.width || '',
+        height: content.height || '',
+        navigation_menu_width: content.navigation_menu_width || '',
+        popup_on_launch: content.popup_on_launch ? 1 : 0,
+      };
     } else if (blockType === 'video') {
       const {
         html5Sources,
@@ -324,16 +337,49 @@ export const apiMethods = {
     learningContextId,
     studioEndpointUrl,
     title,
-  }) => post(
-    urls.block({ studioEndpointUrl, blockId }),
-    apiMethods.normalizeContent({
+  }) => {
+    const normalizedContent = apiMethods.normalizeContent({
       blockType,
       content,
       blockId,
       learningContextId,
       title,
-    }),
-  ),
+    }) as any;
+
+    // Use FormData for SCORM blocks
+    if (blockType === 'scorm') {
+      const formData = new FormData();
+
+      // Append file if it exists
+      if (normalizedContent.file) {
+        formData.append('file', normalizedContent.file);
+      }else{
+        formData.append('file', normalizedContent?.file);
+      }
+
+      // Append other fields
+      formData.append('display_name', normalizedContent.display_name);
+      formData.append('has_score', String(normalizedContent.has_score));
+      formData.append('enable_navigation_menu', String(normalizedContent.enable_navigation_menu));
+      formData.append('enable_fullscreen_button', String(normalizedContent.enable_fullscreen_button));
+      formData.append('weight', normalizedContent.weight);
+      formData.append('width', normalizedContent.width);
+      formData.append('height', String(normalizedContent.height));
+      formData.append('navigation_menu_width', normalizedContent.navigation_menu_width);
+      formData.append('popup_on_launch', String(normalizedContent.popup_on_launch));
+
+      return post(
+        urls.block({ studioEndpointUrl, blockId,isScorm:true }),
+        formData,
+      );
+    }
+
+    // Use regular JSON for other block types
+    return post(
+      urls.block({ studioEndpointUrl, blockId }),
+      normalizedContent,
+    );
+  },
   fetchVideoFeatures: ({
     studioEndpointUrl,
   }) => get(

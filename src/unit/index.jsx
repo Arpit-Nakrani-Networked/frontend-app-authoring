@@ -8,10 +8,10 @@ import {
 } from '@dnd-kit/core';
 import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
 import { deleteComponentBlock, getVerticalBlock, updateVerticleBlock } from './data/api';
-import { HTMLComponentCard } from './components/cards/HTMLComponentCard';
+import { HTMLComponentCard, SCORMComponentCard } from './components/cards/HTMLComponentCard';
 import { VideoComponentCard } from './components/cards/VideoComponentCard';
 import { ProblemComponentCard } from './components/cards/ProblemComponentCard';
-import { availableComponents } from './data/constant';
+import { availableComponents,scormComponents } from './data/constant';
 import { NoContent } from './components/NoContent';
 import { DraggableComponent } from './components/DraggableComponent';
 import { AvailableComponentCard } from './components/AvailableComponentCard';
@@ -26,7 +26,9 @@ import messages from './messages';
 import DeleteModal from '../generic/delete-modal/DeleteModal';
 import { ToastStatus } from '../data/constants';
 import { showToast } from '../generic/custom-toast/data/slice';
-
+import { getCourseAppSettings } from '../advanced-settings/data/selectors';
+import { CoursePlugins} from '../helper/constants'
+import { actions } from '../editors/data/redux';
 
 const message = {
   video: "Video",
@@ -35,7 +37,7 @@ const message = {
 }
 
 const Unit = ({ courseId, intl }) => {
-  const { unitId } = useParams();
+  const { unitId ,blockType,blockId} = useParams();
   const [loading, setLoading] = useState(false);
   const [toastMessage, setToastMessage] = useState(null);
   const [components, setComponents] = useState([]);
@@ -43,6 +45,9 @@ const Unit = ({ courseId, intl }) => {
   const [isDeleteBlock, setDeleteBlock] = useState(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const {advancedModules} = useSelector(getCourseAppSettings);
+  const isSCORMEnabled = Boolean(advancedModules && advancedModules?.value && advancedModules?.value?.includes(CoursePlugins.scorm))
+    
   const isEditorOpen = useMatch("course/:courseId/container/:unitId/editor/:blockType/:blockId?");
 
 
@@ -72,6 +77,8 @@ const Unit = ({ courseId, intl }) => {
         return <VideoComponentCard component={component} onDelete={handleDeleteComponentBlock} />;
       case 'problem':
         return <ProblemComponentCard component={component} onDelete={handleDeleteComponentBlock} />;
+      case 'scorm':
+        return <SCORMComponentCard component={component} onDelete={handleDeleteComponentBlock} />;
       default:
         return null;
     }
@@ -123,6 +130,7 @@ const Unit = ({ courseId, intl }) => {
     };
 
     const defaultsByCategory = {
+      scorm: { metadata: {} },
       video: { metadata: {} },
       html: { data: '' },
       problem: { data: '' },
@@ -139,6 +147,18 @@ const Unit = ({ courseId, intl }) => {
   };
 
   const handleComponentUpdate = (updatedComponent) => {
+    dispatch(actions.scorm.resetState())
+    if(blockType === 'scorm' && blockId ){
+      const component = components.find(val => val.id === blockId)
+      if(component){
+     dispatch(showToast({
+            message: component?.isNew ? `${message[component?.category]} added successfully` : `${message[component?.category]} updated successfully`,
+            status: ToastStatus.SUCCESSFUL
+          }));
+      }
+      getComponents(true,blockId)
+     return; 
+    }
     setComponents((components) => components.map((component) => {
       if (component.id === updatedComponent.id) {
         getComponents(true)
@@ -240,6 +260,13 @@ const Unit = ({ courseId, intl }) => {
               availableComponents.map((component, index) => <AvailableComponentCard key={index} {...component} onSuccess={onSuccessComponentBlockCreate} />)
             }
           </div>
+          {
+            isSCORMEnabled && <div className="justify-content-center w-100 mt-3 advancemodules-container" style={{ gap: '1rem' }}>
+            {
+              scormComponents.map((component, index) => <AvailableComponentCard key={index} {...component} onSuccess={onSuccessComponentBlockCreate} />)
+            }
+          </div>
+          }
         </div>
       </div>
       <ProcessingNotification

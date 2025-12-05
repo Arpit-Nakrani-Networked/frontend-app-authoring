@@ -8,12 +8,14 @@ import * as requests from './requests';
 import * as module from './app';
 import { actions as appActions } from '../app';
 import { actions as requestsActions } from '../requests';
+import { actions as scormsActions ,initialState} from '../scorm';
 import { RequestKeys } from '../../constants/requests';
 
 // Similar to `import { actions } from '..';` but avoid circular imports:
 const actions = {
   app: appActions,
   requests: requestsActions,
+  scorm: scormsActions,
 };
 
 export const fetchBlock = () => (dispatch) => {
@@ -21,6 +23,21 @@ export const fetchBlock = () => (dispatch) => {
     onSuccess: (response) => {
       dispatch(actions.app.setBlockValue(response));
       dispatch(actions.app.setShowRawEditor(response));
+      if (response?.data?.category === "scorm" && response?.data?.metadata) {
+        const metaData = response?.data?.metadata
+        const payload = {
+          display_name:metaData?.display_name ?? initialState?.display_name,
+          has_score: metaData?.has_score ?? initialState?.has_score,
+          enable_navigation_menu: metaData?.enable_navigation_menu ?? initialState?.enable_navigation_menu,
+          enable_fullscreen_button: metaData?.enable_fullscreen_button ?? initialState?.enable_fullscreen_button,
+          weight: metaData?.weight ?? initialState?.weight,
+          width: metaData?.width ?? initialState?.width,
+          height: metaData?.height ?? initialState?.height,
+          navigation_menu_width: metaData?.navigation_menu_width ?? initialState?.navigation_menu_width,
+          popup_on_launch: metaData?.popup_on_launch ?? initialState?.popup_on_launch,
+        }
+        dispatch(actions.scorm.updateField(payload))
+      }
     },
     onFailure: (error) => dispatch(actions.requests.failRequest({
       requestKey: RequestKeys.fetchBlock,
@@ -109,6 +126,9 @@ export const initialize = (data) => (dispatch) => {
       } else {
         dispatch(module.fetchImages({ pageNumber: 0 }));
       }
+      break;
+    case 'scorm':
+      dispatch(module.fetchStudioView());
       break;
     default:
       break;

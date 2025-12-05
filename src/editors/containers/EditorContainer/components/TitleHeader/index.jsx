@@ -22,7 +22,7 @@ const TitleHeader = ({
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const title = useSelector(selectors.app.displayTitle);
 
-  const titleAsPerNetowkedRequirment = title.toLowerCase() === 'text' ? 'Add Text' : title.toLowerCase() === 'video' ? 'Add Video' : 'Add Question';
+  const titleAsPerNetowkedRequirment = title.toLowerCase() === 'text' ? 'Add Text' : title.toLowerCase() === 'video' ? 'Add Video' : title.toLowerCase() === 'scorm module' ? 'Scorm module':'Add Question';
   const {
     inputRef,
     isEditing,

@@ -15,6 +15,7 @@ import { RequestStatus } from './data/constants';
 import Loading from './generic/Loading';
 import CourseMultiHeader from './_components/course-header-title/CourseMultiHeader';
 import { CourseTabsNavigation } from './course-tabs';
+import { fetchCourseAppSettings } from './advanced-settings/data/thunks';
 
 
 const CourseAuthoringPage = ({ courseId, children }) => {
@@ -44,6 +45,7 @@ const CourseAuthoringPage = ({ courseId, children }) => {
 
   useEffect(() => {
     dispatch(fetchCourseDetail(courseId));
+    dispatch(fetchCourseAppSettings(courseId));
   }, [courseId]);
 
   useEffect(() => {

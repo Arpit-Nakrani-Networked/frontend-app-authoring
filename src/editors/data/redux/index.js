@@ -7,6 +7,7 @@ import * as requests from './requests';
 import * as video from './video';
 import * as problem from './problem';
 import * as game from './game';
+import * as scorm from './scorm';
 
 export { default as thunkActions } from './thunkActions';
 
@@ -16,6 +17,7 @@ const modules = {
   video,
   problem,
   game,
+  scorm,
 };
 
 const moduleProps = (propName) => Object.keys(modules).reduce(

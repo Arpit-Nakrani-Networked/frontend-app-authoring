@@ -84,10 +84,10 @@
 
 .component-block-wrappper {
 
-  *{
+  * {
     text-wrap: auto;
   }
-  
+
   .component-block-dropdown__menu {
     padding: 0;
     min-width: 10rem;
@@ -115,5 +115,25 @@
     position: sticky;
     bottom: 0;
     z-index: 1;
+  }
+}
+
+.advancemodules-container {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(3, 1fr);
+
+  &>* {
+    grid-column: 2 / 3; // place the single child in the center column
+    width: 100%; // take full width of the middle column
+  }
+
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
   }
 }

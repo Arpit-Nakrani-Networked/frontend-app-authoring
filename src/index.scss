@@ -562,6 +562,25 @@ input.pgn__form-switch-input {
 }
 
 
+// scorm-module-modal SCORM
+.scorm-module-modal {
+  .editor-body {
+    .pgn__card {
+      border: none !important;
+    }
+
+    .pgn__form-control-floating-label .pgn__form-control-floating-label-content {
+      padding-top: 0 !important;
+      display: flex;
+      align-items: center;
+    }
+
+    button{
+          text-wrap: nowrap;
+    }
+  }
+}
+
 // select question
 
 .pgn__selectable_box {
@@ -683,14 +702,16 @@ a.disabled {
   pointer-events: visible !important;
 }
 
-.btn-sm,.btn-xs ,
+.btn-sm,
+.btn-xs,
 .btn-group-sm>.btn {
   padding: 7px 13px;
   text-wrap: nowrap;
   overflow: hidden;
 }
 
-.btn-sm,.btn-xs {
+.btn-sm,
+.btn-xs {
   height: 36px;
   overflow: hidden;
 
@@ -895,16 +916,20 @@ a.disabled {
 }
 
 
-.custom-scrollbar,.unit-iframe-wrapper {
+.custom-scrollbar,
+.unit-iframe-wrapper {
+
   // Show and style scrollbar for WebKit browsers
   &::-webkit-scrollbar {
     width: 8px;
     background: #F6F7FA;
   }
+
   &::-webkit-scrollbar-thumb {
     background: #cfd8dc;
     border-radius: 8px;
   }
+
   &::-webkit-scrollbar-track {
     background: #F6F7FA;
     border-radius: 8px;
@@ -921,11 +946,11 @@ a.disabled {
   overflow: auto;
 }
 
-.w-fit{
+.w-fit {
   width: fit-content;
 }
 
-.card-header-sticky{
+.card-header-sticky {
   position: sticky;
   top: 0px;
   background-color: #F6F7FA;
@@ -933,7 +958,7 @@ a.disabled {
   padding-top: 16px;
 }
 
-.course-badge{
+.course-badge {
   background-color: #F5F5F5;
   padding: 5px;
   font-size: 14px;

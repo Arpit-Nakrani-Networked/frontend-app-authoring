@@ -24,3 +24,12 @@ export const availableComponents = [
     type: 'problem',
   },
 ];
+
+export const scormComponents = [
+  {
+    label: 'Add Scorm',
+    navigate: '/scorm',
+    icon: TextIcon,
+    category: 'scorm',
+  }
+]

@@ -25,3 +25,7 @@ export const NETWORKED_BACKEND_URL =
     : env === 'qa'
     ? 'https://backend.qa.networked.co'
     : 'https://backend.networked.co';
+
+export enum CoursePlugins {
+	scorm = "scorm"
+}

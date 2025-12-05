@@ -38,11 +38,15 @@ export const returnUrl = ({
   return '';
 };
 
-export const block = (({ studioEndpointUrl, blockId }) => (
-  blockId.startsWith('lb:')
-    ? `${studioEndpointUrl}/api/xblock/v2/xblocks/${blockId}/fields/`
-    : `${studioEndpointUrl}/xblock/${blockId}`
-)) satisfies UrlFunction;
+export const block = (({ studioEndpointUrl, blockId ,isScorm=false}:any) => {
+  if (blockId.startsWith('lb:')) {
+    return `${studioEndpointUrl}/api/xblock/v2/xblocks/${blockId}/fields/`;
+  }
+  if (isScorm) {
+    return `${studioEndpointUrl}/xblock/${blockId}/handler/studio_submit`;
+  }
+  return `${studioEndpointUrl}/xblock/${blockId}`;
+}) satisfies UrlFunction;
 
 export const blockAncestor = (({ studioEndpointUrl, blockId }) => {
   if (blockId.includes('block-v1')) {
