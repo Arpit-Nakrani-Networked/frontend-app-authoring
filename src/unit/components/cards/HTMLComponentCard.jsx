@@ -35,30 +35,28 @@ export const buildScormAssetUrl = (blockId, assetPath) => {
   if (!blockId || !assetPath) {
     return null
   }
-  const baseUrl = getConfig().STUDIO_BASE_URL
-    // const encodedBlockId = encodeURIComponent(blockId);
-
-  return `${baseUrl}/preview/xblock/${blockId}/handler/assets_proxy/${assetPath}`;
+  const baseUrl = getConfig().LMS_BASE_URL
+  return `${baseUrl}/xblock_particular/${blockId}?exam_access=&jumpToId&recheck_access=1&show_bookmark=0&show_title=0&view=student_view`;
 };
 
 export const SCORMComponentCard = ({ component, onEdit, onDelete }) => {
   const url = buildScormAssetUrl(component?.id,component?.metadata?.indexPagePath)
-  const height = component?.metadata?.height || 450
+  const height = 600
   const width = component?.metadata?.width || ''
   return (
     <div className="component-block-wrappper html-component-container">
       <CardHeader component={component} onDelete={onDelete} />
-      {
+      {/* {
         component?.metadata?.navigationMenu && <div dangerouslySetInnerHTML={{
           __html:component?.metadata?.navigationMenu
         }} />
-      }
+      } */}
         {url && component?.metadata?.indexPagePath ? (
         <iframe
           src={url}
           style={{
             width:width ? String(width)?.replace(/px/g,'') +'px': "100%",
-            height: height+"px",
+            minHeight: height+"px",
             border: "none",
           }}
           allow="fullscreen"

@@ -34,6 +34,7 @@ const message = {
   video: "Video",
   html: "Text",
   problem: "Question",
+  scorm: "SCORM",
 }
 
 const Unit = ({ courseId, intl }) => {

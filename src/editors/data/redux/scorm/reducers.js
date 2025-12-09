@@ -5,7 +5,7 @@ const initialState = {
   file: undefined,
   display_name: 'Scorm module',
   has_score: 1,
-  enable_navigation_menu: 1,
+  enable_navigation_menu: 0,
   enable_fullscreen_button: 1,
   weight: 10.0,
   width: '',
