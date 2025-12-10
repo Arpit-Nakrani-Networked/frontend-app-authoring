@@ -48,17 +48,50 @@ export const parseYoutubeId = (src: string): string | null => {
   if (!src) return null;
 
   try {
-    new URL(src);
+    const url = new URL(src);
+
+    // Vimeo: return the full url directly
+    if (url.hostname.includes("vimeo.com")) {
+      return src;
+    }
+
+    // YouTube: extract ID from any type of YT URL
     const youtubeRegex =
       /(?:v=|\/embed\/|\/v\/|youtu\.be\/|\/shorts\/)([a-zA-Z0-9_-]{11})/;
 
     const match = src.match(youtubeRegex);
     return match ? match[1] : null;
   } catch {
-    return '';
+    // If it's not a valid URL (likely a raw YouTube ID), return as-is
+    if (/^[a-zA-Z0-9_-]{11}$/.test(src)) {
+      return src;
+    }
+    return null;
   }
-
 };
+
+
+export const parseYoutubeIdOnly = (src: string): string | null => {
+  if (!src) return null;
+
+  try {
+    const url = new URL(src);
+
+    // YouTube: extract ID from any type of YT URL
+    const youtubeRegex =
+      /(?:v=|\/embed\/|\/v\/|youtu\.be\/|\/shorts\/)([a-zA-Z0-9_-]{11})/;
+
+    const match = src.match(youtubeRegex);
+    return match ? match[1] : null;
+  } catch {
+    // If it's not a valid URL (likely a raw YouTube ID), return as-is
+    if (/^[a-zA-Z0-9_-]{11}$/.test(src)) {
+      return src;
+    }
+    return null;
+  }
+};
+
 
 export const processVideoIds = ({
   videoId,
@@ -69,7 +102,7 @@ export const processVideoIds = ({
   const html5Sources: string[] = [];
 
   if (videoUrl) {
-    if (parseYoutubeId(videoUrl)) {
+    if (parseYoutubeIdOnly(videoUrl)) {
       youtubeId = parseYoutubeId(videoUrl);
     } else {
       html5Sources.push(videoUrl);

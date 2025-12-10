@@ -132,7 +132,7 @@ export const determineVideoSources = ({
   youtubeId,
   html5Sources,
 }) => {
-  const youtubeUrl = `https://youtu.be/${youtubeId}`;
+  const youtubeUrl = !youtubeId ? '' : `https://youtu.be/${youtubeId}`;
   let videoUrl;
   let fallbackVideos;
   if (youtubeId) {

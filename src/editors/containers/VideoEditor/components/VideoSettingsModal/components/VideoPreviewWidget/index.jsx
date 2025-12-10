@@ -33,7 +33,11 @@ export const VideoPreviewWidget = ({
   //   return match ? match[1] : null;
   // }
   const id = videoSource ? parseYoutubeId(videoSource) : '';
-  const youtubeUrl = `https://youtube.com/embed/${id}`;
+   const idOrUrl = id || "";
+
+  // Check if it's a full Vimeo URL
+  const isVimeo = idOrUrl.startsWith("http");
+  const youtubeUrl =isVimeo ? idOrUrl : `https://youtube.com/embed/${id}`;
   return id ? (
     <iframe src={youtubeUrl} width="100%" height={370} style={{ border: 'none', borderRadius: '1rem',marginTop:"1rem" }} />
   ) : <ErrorSummary value={videoSource} />;

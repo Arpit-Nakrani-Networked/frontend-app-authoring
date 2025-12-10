@@ -1,7 +1,14 @@
 import { CardHeader } from '../CardHeader';
 
 export const VideoComponentCard = ({ component, onEdit, onDelete }) => {
-  const videoUrl = `https://www.youtube.com/embed/${component.metadata.youtubeId10}`;
+  const idOrUrl = component?.metadata?.youtubeId10 || component?.metadata?.html5Sources[0] || "";
+
+  // Check if it's a full Vimeo URL
+  const isVimeo = idOrUrl.startsWith("http");
+
+  const videoUrl = isVimeo
+    ? idOrUrl
+    : `https://www.youtube.com/embed/${idOrUrl}`;
   return (
     <div className="component-block-wrappper">
       <CardHeader component={component} onDelete={onDelete} />

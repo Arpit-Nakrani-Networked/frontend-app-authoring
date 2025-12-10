@@ -22,7 +22,7 @@ const messages = defineMessages({
   },
   validateVideoDomainsBody: {
     id: 'authoring.videoeditor.validate.errorDomains.body',
-    defaultMessage: 'Only youtube video are allowed.',
+    defaultMessage: 'Only YouTube and Vimeo videos are allowed.',
     description: 'Body of validation error.',
   },
   durationTitle: {
