@@ -10,18 +10,18 @@ export const availableComponents = [
     category: 'html',
   },
   {
-    label: 'Add Video',
-    navigate: '/video',
-    icon: VideoIcon,
-    category: 'video',
-    type: 'video',
-  },
-  {
     label: 'Add Question',
     navigate: '/problem',
     icon: QuestionIcon,
     category: 'problem',
     type: 'problem',
+  },
+  {
+    label: 'Add Video',
+    navigate: '/video',
+    icon: VideoIcon,
+    category: 'video',
+    type: 'video',
   },
 ];
 
