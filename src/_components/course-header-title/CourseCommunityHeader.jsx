@@ -106,9 +106,9 @@ export default function CourseCommunityHeader() {
           <span className="course-title">{communityName || "-"}</span>
         </div>
         <div className="course-actions">
-          <button className="back-button" onClick={handleBackClick}>
+          {/* <button className="back-button" onClick={handleBackClick}>
             &lt; Back to Course
-          </button>
+          </button> */}
           {getDefaultUserImage()}
         </div>
       </div>
