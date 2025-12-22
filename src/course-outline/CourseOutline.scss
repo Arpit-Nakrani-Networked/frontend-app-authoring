@@ -9,10 +9,20 @@
 @import "./publish-modal/PublishModal";
 @import "./xblock-status/XBlockStatus";
 
-.outline-h-screen{
+.outline-h-screen {
     height: calc(100vh - 210px) !important;
 
-    .outline-empty-placeholder{
+    .outline-empty-placeholder {
         height: 260px;
+    }
+}
+
+@media (max-width: 360px) {
+    .outline-h-screen {
+        height: calc(100vh - 143px) !important;
+    }
+
+    .outline-empty-placeholder {
+        flex: 1;
     }
 }

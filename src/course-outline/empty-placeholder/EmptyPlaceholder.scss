@@ -13,7 +13,7 @@
     // letter-spacing: 0%;
     text-align: center;
     color: #000000CC;
-    
+
   }
 
   p {
@@ -23,5 +23,21 @@
     // letter-spacing: 0%;
     text-align: center;
     color: #00000099;
+  }
+}
+
+@media (max-width: 360px) {
+
+  .outline-empty-placeholder {
+    gap: 8px;
+    padding: 1rem;
+
+    h4 {
+      font-size: 20px;
+    }
+
+    p {
+      font-size: 14px;
+    }
   }
 }

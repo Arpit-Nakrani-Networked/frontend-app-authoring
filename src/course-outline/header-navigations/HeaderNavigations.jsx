@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useIntl } from '@edx/frontend-platform/i18n';
-import { Button, OverlayTrigger, Tooltip } from '@openedx/paragon';
+import { Button, Icon, OverlayTrigger, Tooltip } from '@openedx/paragon';
 import {
   Add as IconAdd,
+  AddCircleOutline as IconAddCircle,
   ArrowDropDown as ArrowDownIcon,
   ArrowDropUp as ArrowUpIcon,
 } from '@openedx/paragon/icons';
+import { AddCircleOutline } from '@openedx/paragon/icons';
 
 import messages from './messages';
 
@@ -31,10 +33,26 @@ const HeaderNavigations = ({
           variant="outline-secondary"
           onClick={handleExpandAll}
            size='sm'
+           id="expand-all-button"
+           className='hide-after-360'
         >
           {isSectionsExpanded
             ? intl.formatMessage(messages.collapseAllButton)
             : intl.formatMessage(messages.expandAllButton)}
+        </Button>
+      )}
+      {hasSections && (
+        <Button
+          onClick={handleExpandAll}
+           size='sm'
+           variant="muted"
+            style={{width:'36px'}}
+           id="expand-all-button-mobile"
+           className='show-after-360 px-1'
+        >
+          {isSectionsExpanded
+            ? <Icon src={IconAddCircle} />
+            : <Icon src={IconAddCircle} />}
         </Button>
       )}
       {courseActions.childAddable && (
@@ -45,14 +63,37 @@ const HeaderNavigations = ({
               {intl.formatMessage(messages.newSectionButtonTooltip)}
             </Tooltip>
           )}
+          
         >
           <Button
             iconBefore={IconAdd}
             onClick={handleNewSection}
             size='xs'
+            className={hasSections ? 'hide-after-360' : ''}
             // disabled={errors?.outlineIndexApi}
           >
             {intl.formatMessage(messages.newSectionButton)}
+          </Button>
+        </OverlayTrigger>
+      )}
+      {courseActions.childAddable && (
+        <OverlayTrigger
+          placement="bottom"
+          overlay={(
+            <Tooltip id={intl.formatMessage(messages.newSectionButtonTooltip)}>
+              {intl.formatMessage(messages.newSectionButtonTooltip)}
+            </Tooltip>
+          )}
+          
+        >
+          <Button
+            onClick={handleNewSection}
+            size='xs'
+            className={hasSections ? 'show-after-360 px-1' : 'hide-after-360'}
+            variant="muted"
+            style={{width:'36px'}}
+          >
+            <Icon src={IconAddCircle} />
           </Button>
         </OverlayTrigger>
       )}
