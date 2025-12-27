@@ -104,6 +104,7 @@ const useCourseOutline = ({ courseId }) => {
   const [isHighlightsModalOpen, openHighlightsModal, closeHighlightsModal] = useToggle(false);
   const [isPublishModalOpen, openPublishModal, closePublishModal] = useToggle(false);
   const [isConfigureModalOpen, openConfigureModal, closeConfigureModal] = useToggle(false);
+  const [isConfigureCourseModalOpen, openConfigureCourseModal, closeConfigureCourseModal] = useToggle(false);
   const [isDeleteModalOpen, openDeleteModal, closeDeleteModal] = useToggle(false);
 
   const isSavingStatusFailed = savingStatus === RequestStatus.FAILED || genericSavingStatus === RequestStatus.FAILED;
@@ -404,7 +405,10 @@ const useCourseOutline = ({ courseId }) => {
     handleUnitDragAndDrop,
     handleCreateNewCourseXBlock,
     errors,
-    handlePublishAllSubmit
+    handlePublishAllSubmit,
+    isConfigureCourseModalOpen,
+    openConfigureCourseModal,
+    closeConfigureCourseModal
   };
 };
 
