@@ -15,6 +15,11 @@ const messages = defineMessages({
     defaultMessage: 'Configure Quiz',
     description: 'The visibility modal title for unit',
   },
+  configureSettingsTitle: {
+    id: 'course-authoring.course-outline.configure-settings-modal.settings.title',
+    defaultMessage: 'Course Configure Settings',
+    description: 'Course Configure Settings',
+  },
   basicTabTitle: {
     id: 'course-authoring.course-outline.configure-modal.basic-tab.title',
     defaultMessage: 'Basic',
@@ -328,6 +333,22 @@ const messages = defineMessages({
     id: 'course-authoring.course-outline.configure-modal.quiz-tab.showAnserOnResult.title',
     defaultMessage: 'Show Answers on Result Page',
   },
+  sequentialCourseProgression: {
+    id: 'course-authoring.course-outline.configure-modal.settings-tab.progression.title',
+    defaultMessage: 'Sequential Course Progression',
+  },
+  sequentialCourseProgressionDesc: {
+    id: 'course-authoring.course-outline.configure-modal.settings-tab.progression.desc',
+    defaultMessage: 'Learners must complete units in order.',
+  },
+  minimumTimeonUnit: {
+    id: 'course-authoring.course-outline.configure-modal.settings-tab.minimumTime.title',
+    defaultMessage: 'Minimum Time on Unit',
+  },
+  minimumTimeonUnitDesc: {
+    id: 'course-authoring.course-outline.configure-modal.settings-tab.minimumTime.desc',
+    defaultMessage: 'learner must spend minimum time on unit before proceeding.',
+  },
   showAnserOnResultDesc: {
     id: 'course-authoring.course-outline.configure-modal.quiz-tab.showAnserOnResult.desc',
     defaultMessage: 'Learners will not see correct answers after submitting',
@@ -340,6 +361,10 @@ const messages = defineMessages({
     id: 'course-authoring.course-outline.configure-modal.quiz-tab.includeGrade.desc',
     defaultMessage: 'If enabled, this quiz will be counted in the final course grade.',
   },
+    headingTitle: {
+    id: 'course-authoring.advanced-settings.heading.title',
+    defaultMessage: 'Advanced settings',
+  }
 });
 
 export default messages;
