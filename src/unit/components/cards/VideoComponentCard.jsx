@@ -1,10 +1,14 @@
 import { CardHeader } from '../CardHeader';
 
 export const VideoComponentCard = ({ component, onEdit, onDelete }) => {
-  const idOrUrl = component?.metadata?.youtubeId10 || component?.metadata?.html5Sources?.length > 0 ? component?.metadata?.html5Sources[0] : "";
+  let idOrUrl = component?.metadata?.youtubeId10;
 
+  if(!idOrUrl && component?.metadata?.html5Sources?.length > 0){
+     idOrUrl = component?.metadata?.html5Sources[0]
+  }
+    
   // Check if it's a full Vimeo URL
-  const isVimeo = idOrUrl.startsWith("http");
+  const isVimeo = idOrUrl && idOrUrl?.startsWith("http");
 
   const videoUrl = isVimeo
     ? idOrUrl

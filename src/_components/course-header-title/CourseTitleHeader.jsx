@@ -11,11 +11,15 @@ import ViewIcon from '../../assets/images/viewIcon.svg'
 import SolidSvgComponent from '../../_components/solid-svg/SolidSvgComponent';
 import { CourseStatus } from '../../constants';
 import { postCoursePublish } from '../../data/api';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { fetchCourseDetail } from '../../data/thunks';
-import { fetchCourseOutlineIndexQuery, publishCourseItemQuery } from '../../course-outline/data/thunk';
+// import { fetchCourseOutlineIndexQuery, publishCourseItemQuery } from '../../course-outline/data/thunk';
 import CoursePublishModal from '../../course-outline/publish-modal/CoursePublishModal';
 import { useState } from 'react';
+import SettingIcon from '../../assets/images/settingIconSM.svg'
+import ConfigureModal from '../../generic/configure-modal/ConfigureModal';
+import { getCurrentItem } from '../../course-outline/data/selectors';
+import ConfigureSettingModal from '../../generic/configure-modal/CourseSetting';
 
 function hasAnyChanges(node) {
   // If the current node hasChanges true
@@ -41,10 +45,11 @@ function extractUnitId(params) {
 
 export default function CourseTitleHeader() {
   const intl = useIntl();
-  const [isOpen,setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
+  const [isConfigureModalOpen, setIsConfigureModalOpen] = useState(false)
   const { courseId: courseIdFromUrl, ...params } = useParams();
   const dispatch = useDispatch();
-  const { handlePublishAllSubmit, sectionsList,toastMessage,setToastMessage, ...p } = useCourseOutline({ courseId: courseIdFromUrl });
+  const { handlePublishAllSubmit, sectionsList, toastMessage, setToastMessage, ...p } = useCourseOutline({ courseId: courseIdFromUrl });
   const courseDetail = useModel('courseDetails', courseIdFromUrl);
   const courseTitle = courseDetail ? courseDetail.name : courseIdFromUrl;
   const lmsApiBaseUrl = getConfig().LMS_BASE_URL;
@@ -55,15 +60,22 @@ export default function CourseTitleHeader() {
   const unitId = extractUnitId(params);
   const isDraftStatus = courseDetail?.catalogVisibility === CourseStatus.private;
   const hasChanges = Boolean(sectionsList.some(item => hasAnyChanges(item)))
+  
 
   const publishDraftContent = async () => {
     setIsOpen(false)
-      await handlePublishAllSubmit();
-      if (isDraftStatus) {
-        await postCoursePublish(courseIdFromUrl)
-        dispatch(fetchCourseDetail(courseIdFromUrl));
-      }
+    await handlePublishAllSubmit();
+    if (isDraftStatus) {
+      await postCoursePublish(courseIdFromUrl)
+      dispatch(fetchCourseDetail(courseIdFromUrl));
+    }
   }
+
+  const onConfigureSubmit = async () => {
+    setIsConfigureModalOpen(false)
+  }
+
+  const closeConfigureModal = () => setIsConfigureModalOpen(false)
 
   return (
     <div className="_container-fluid main-course-header">
@@ -79,6 +91,16 @@ export default function CourseTitleHeader() {
       {!unitId && <div className='actions-btns'>
         <Button
           // iconBefore={Search}
+          variant="outline-third"
+          size='sm'
+          type="button"
+          id='configure-course'
+          onClick={() => setIsConfigureModalOpen(true)}
+        >
+          <SolidSvgComponent url={SettingIcon} width={16} height={16} defaultClass={`mr-1`} iconColor='#0000008A' /> {intl.formatMessage(messages.Configure)}
+        </Button>
+        <Button
+          // iconBefore={Search}
           // data-testid="course-reindex"
           variant="outline-secondary"
           href={viewerUrl}
@@ -88,9 +110,9 @@ export default function CourseTitleHeader() {
         >
           <SolidSvgComponent url={ViewIcon} width={16} height={16} defaultClass={`mr-1`} isIconColor /> {intl.formatMessage(messages.viewBtnText)}
         </Button>
-       {hasChanges&& <Button
+        {hasChanges && <Button
           type="button"
-          onClick={()=>setIsOpen(true)}
+          onClick={() => setIsOpen(true)}
           data-testid="course-reindex"
           variant="outline-primary"
           disabled={!hasChanges}
@@ -100,15 +122,20 @@ export default function CourseTitleHeader() {
         </Button>}
       </div>}
       <CoursePublishModal isOpen={isOpen} onClose={() => setIsOpen(false)} onPublishSubmit={publishDraftContent} />
-            {toastMessage && (
-                <Toast
-                  show
-                  onClose={/* istanbul ignore next */ () => setToastMessage(null)}
-                  data-testid="taxonomy-toast"
-                >
-                  {toastMessage}
-                </Toast>
-              )} 
+      {toastMessage && (
+        <Toast
+          show
+          onClose={/* istanbul ignore next */ () => setToastMessage(null)}
+          data-testid="taxonomy-toast"
+        >
+          {toastMessage}
+        </Toast>
+      )}
+      <ConfigureSettingModal
+        isOpen={isConfigureModalOpen}
+        onClose={closeConfigureModal}
+        onConfigureSubmit={onConfigureSubmit}
+      />
     </div>
   );
 }
