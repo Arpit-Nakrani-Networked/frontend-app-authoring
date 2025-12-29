@@ -179,10 +179,10 @@ const CardHeader = ({
           </>
         )}
         <div className="ml-auto d-flex align-items-center">
-          {showNewButton && (
+          {showNewButton && !isFormOpen && (
             <Button
               data-testid="new-unit-button"
-              className="mr-3 bg-white btn-sm"
+              className="mr-3 bg-white btn-sm hide-after-360"
               variant="outline-third"
               iconBefore={IconAdd}
               size='sm'
@@ -192,19 +192,19 @@ const CardHeader = ({
                 handleNewButtonClick && handleNewButtonClick()
               }}
             >
-              {intl.formatMessage(unitMessage.newUnitButton)}
+             {intl.formatMessage(unitMessage.newUnitButton)}
             </Button>
           )}
-          {(isVertical || isSequential) && (
+          {(isVertical || isSequential) && !isFormOpen && (
             <CardStatus status={status} showDiscussionsEnabledBadge={showDiscussionsEnabledBadge} />
           )}
           {getConfig().ENABLE_TAGGING_TAXONOMY_PAGES === 'true' && !!contentTagCount && (
             <TagCount count={contentTagCount} onClick={openManageTagsDrawer} />
           )}
-          {showEditButton && (
+          {showEditButton && !isFormOpen && (
             <Button
               data-testid="edit-unit-button"
-              className="mr-3 _bg-white btn-sm"
+              className="mr-3 _bg-white btn-sm hide-after-360"
               variant="outline-third"
               iconBefore={EditIcon}
               block
@@ -214,10 +214,10 @@ const CardHeader = ({
             //   // handleNewButtonClick && handleNewButtonClick()
             // }}
             >
-              {intl.formatMessage(unitMessage.editUnitButton)}
+              <span className='hide-after-360'>{intl.formatMessage(unitMessage.editUnitButton)}</span>
             </Button>
           )}
-          <Dropdown data-testid={`${namePrefix}-card-header__menu`} onClick={(e) => {
+          {!isFormOpen && <Dropdown data-testid={`${namePrefix}-card-header__menu`} onClick={(e) => {
             e?.stopPropagation()
             onClickMenuButton()
           }}>
@@ -316,7 +316,7 @@ const CardHeader = ({
                 </Dropdown.Item>
               )}
             </Dropdown.Menu>
-          </Dropdown>
+          </Dropdown>}
         </div>
       </div>
       <ContentTagsDrawerSheet

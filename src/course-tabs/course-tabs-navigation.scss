@@ -1,6 +1,22 @@
+@media (max-width: 360px) {
+  .course-tabs-navigation {
+    padding-top: 17px;
+    padding-bottom: 17px;
+
+    .container-fluid {
+      width: max-content;
+      overflow: auto;
+      padding: 0 16px !important;
+    }
+  }
+}
+
 .course-tabs-navigation {
   position: relative;
   padding-top: 1rem;
+  overflow: auto;
+
+
   // border-bottom: solid 1px #eaeaea;
 
   // .nav a,

@@ -71,6 +71,32 @@ html>body>#root,
   margin: 0 auto;
 }
 
+@media (max-width: 1200px) {
+  .max-w-1200 {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 360px) {
+
+  .max-w-1200,
+  .container-mw-xl {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .course-outline-wrapper.container-screen {
+    height: calc(100vh - 127px);
+    padding: 0 16px !important;
+    width: 100%;
+  }
+
+  .course-outline-container .card-header-sticky {
+    padding-top: 0 !important;
+  }
+}
+
 // To apply the glow effect to the selected Section/Subsection, in the Course Outline
 div.row:has(> div > div.highlight) {
   animation: 5s glow;
@@ -119,6 +145,7 @@ mark {
 
 
 // header community
+
 .main-course-header {
   background-color: $v2-white-100 !important;
   padding: 14px 15px !important;
@@ -136,6 +163,17 @@ mark {
     column-gap: 16px;
   }
 
+  @media (max-width: 360px) {
+
+    div.actions-btns {
+      display: none;
+    }
+
+    h1 {
+      font-size: 18px !important;
+    }
+  }
+
   h1 {
     font-weight: 600 !important;
     font-size: 20px !important;
@@ -148,6 +186,7 @@ mark {
     text-wrap: nowrap;
     text-overflow: ellipsis;
   }
+
 }
 
 .h-72 {
@@ -163,6 +202,12 @@ mark {
   align-items: center;
   justify-content: space-between;
   width: 100%;
+}
+
+@media (max-width: 360px) {
+  .community-header {
+    display: none;
+  }
 }
 
 .course-content {
@@ -575,8 +620,8 @@ input.pgn__form-switch-input {
       align-items: center;
     }
 
-    button{
-          text-wrap: nowrap;
+    button {
+      text-wrap: nowrap;
     }
   }
 }
@@ -965,4 +1010,26 @@ a.disabled {
   font-family: $font-family-base;
   color: #000000CC;
   border-radius: 8px;
+}
+
+
+// common classes styles
+.hide-after-360 {
+  display: flex;
+}
+
+@media (max-width: 360px) {
+  .hide-after-360 {
+    display: none;
+  }
+}
+
+.show-after-360 {
+  display: none;
+}
+
+@media (max-width: 360px) {
+  .show-after-360 {
+    display: flex;
+  }
 }

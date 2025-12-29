@@ -33,3 +33,10 @@
     text-overflow: ellipsis;
   }
 }
+
+
+@media (max-width: 360px) {
+  .unit-card button {
+    opacity: 1 !important;
+  }
+}

@@ -56,3 +56,9 @@
 .text-center {
     text-align: center !important;
 }
+
+@media (max-width: 360px) {
+  .community-header ,.main-course-header .actions-btns{
+    display: none;
+  }
+}
