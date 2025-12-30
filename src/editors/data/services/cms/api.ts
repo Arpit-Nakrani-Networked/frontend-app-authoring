@@ -356,6 +356,7 @@ export const apiMethods = {
           start_time: durationStringFromValue(content.duration.startTime),
           end_time: durationStringFromValue(content.duration.stopTime),
           license: processLicense(content.licenseType, content.licenseDetails),
+          prevent_skip_video : content.preventSkipVideo,
         },
       };
     } else {

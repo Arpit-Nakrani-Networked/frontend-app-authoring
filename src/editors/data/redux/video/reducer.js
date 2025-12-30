@@ -5,6 +5,7 @@ import { StrictDict } from '../../../utils';
 const initialState = {
   videoSource: '',
   videoId: '',
+  preventSkipVideo:false,
   fallbackVideos: [
     '',
     '',

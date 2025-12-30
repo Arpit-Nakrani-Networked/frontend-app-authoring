@@ -15,8 +15,8 @@ import * as hooks from './hooks';
 import messages from './messages';
 
 import ErrorAlert from '../../../../../../sharedComponents/ErrorAlerts/ErrorAlert';
+import ToggleItem from '../../../../../../../generic/configure-modal/ToggleItem';
 // import CollapsibleFormWidget from '../CollapsibleFormWidget';
-
 /**
  * Collapsible Form widget controlling video source as well as fallback sources
  */
@@ -30,6 +30,7 @@ const VideoSourceWidget = ({
     videoSource: source,
     fallbackVideos,
     allowVideoDownloads: allowDownload,
+    preventSkipVideo
   } = widgetHooks.widgetValues({
     dispatch,
     fields: {
@@ -37,10 +38,11 @@ const VideoSourceWidget = ({
       [widgetHooks.selectorKeys.videoId]: widgetHooks.genericWidget,
       [widgetHooks.selectorKeys.fallbackVideos]: widgetHooks.arrayWidget,
       [widgetHooks.selectorKeys.allowVideoDownloads]: widgetHooks.genericWidget,
+      [widgetHooks.selectorKeys.preventSkipVideo]: widgetHooks.genericWidget,
     },
   });
   const { videoIdChangeAlert } = hooks.videoIdChangeAlert();
-  const { updateVideoId, updateVideoURL } = hooks.sourceHooks({
+  const { updateVideoId, updateVideoURL, updatePreventSkipVideo } = hooks.sourceHooks({
     dispatch,
     previousVideoId: videoId.formValue,
     setAlert: videoIdChangeAlert.set,
@@ -49,6 +51,12 @@ const VideoSourceWidget = ({
     addFallbackVideo,
     deleteFallbackVideo,
   } = hooks.fallbackHooks({ fallbackVideos: fallbackVideos.formValue, dispatch });
+
+
+  const handleRequiresVideoWatchChange = (e) => {
+    // Dispatch action or call function to update the setting
+    updatePreventSkipVideo(e);
+  }
 
   return (
     <div>
@@ -75,13 +83,13 @@ const VideoSourceWidget = ({
         <Form.Group size="sm" className='mb-0'>
           <Form.Label className="text-secondory _font-weight-medium">Video URL</Form.Label>
           <Form.Control
-            onChange={(e)=>{
+            onChange={(e) => {
               source.onChange(e)
               updateVideoURL(e, videoId.local)
             }}
             onBlur={(e) => updateVideoURL(e, videoId.local)}
             value={source.local}
-            style={{ height: '42px', borderRadius: '.75rem',border: '1px solid #0000001F' }}
+            style={{ height: '42px', borderRadius: '.75rem', border: '1px solid #0000001F' }}
             placeholder="Video URL"
           />
           {/* <Form.Control.Feedback className="text-primary-300">
@@ -89,6 +97,14 @@ const VideoSourceWidget = ({
           </Form.Control.Feedback> */}
         </Form.Group>
       </div>
+
+      <ToggleItem
+        label={"Require Full Video Watch"}
+        description={"Learners must watch the entire video before the unit is marked as complete."}
+        checked={preventSkipVideo.local}
+        onChange={handleRequiresVideoWatchChange}
+        borderless={true}
+      ></ToggleItem>
       {/* <div className="mt-4">
         <FormattedMessage {...messages.fallbackVideoTitle} />
       </div>
