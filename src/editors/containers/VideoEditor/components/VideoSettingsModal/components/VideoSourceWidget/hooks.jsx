@@ -35,6 +35,10 @@ export const sourceHooks = ({ dispatch, previousVideoId, setAlert }) => ({
     }
     dispatch(actions.video.updateField({ videoId: updatedVideoId }));
   },
+  updatePreventSkipVideo: (e) => {
+    const updatedPreventSkipVideo = e.target.checked;
+    dispatch(actions.video.updateField({ preventSkipVideo: updatedPreventSkipVideo }));
+  },
 });
 
 export const fallbackHooks = ({ fallbackVideos, dispatch }) => ({

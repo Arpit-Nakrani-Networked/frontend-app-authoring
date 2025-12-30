@@ -75,6 +75,7 @@ export const loadVideoData = (selectedVideoId, selectedVideoUrl) => (dispatch, g
     videoSource: videoSourceUrl || '',
     videoId,
     fallbackVideos,
+    preventSkipVideo: rawVideoData?.prevent_skip_video || false,
     allowVideoDownloads: rawVideoData.download_video,
     allowVideoSharing,
     videoSharingLearnMoreLink: blockValueData?.video_sharing_doc_url,

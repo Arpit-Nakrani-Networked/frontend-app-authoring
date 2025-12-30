@@ -19,6 +19,7 @@ export const video = (state) => state.video;
 export const simpleSelectors = [
   stateKeys.videoSource,
   stateKeys.videoId,
+  stateKeys.preventSkipVideo,
   stateKeys.fallbackVideos,
   stateKeys.allowVideoDownloads,
   stateKeys.videoSharingEnabledForCourse,
@@ -94,6 +95,7 @@ export const videoSettings = createSelector(
     module.simpleSelectors.handout,
     module.simpleSelectors.licenseType,
     module.simpleSelectors.licenseDetails,
+    module.simpleSelectors.preventSkipVideo,
   ],
   (
     videoSource,
@@ -110,6 +112,7 @@ export const videoSettings = createSelector(
     handout,
     licenseType,
     licenseDetails,
+    preventSkipVideo,
   ) => (
     {
       videoSource,
@@ -126,6 +129,7 @@ export const videoSettings = createSelector(
       handout,
       licenseType,
       licenseDetails,
+      preventSkipVideo,
     }
   ),
 );
