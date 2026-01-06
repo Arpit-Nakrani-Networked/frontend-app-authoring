@@ -2,70 +2,49 @@
 import ToggleItem from "./ToggleItem";
 import { useIntl } from "@edx/frontend-platform/i18n";
 import messages from './messages';
-// import { Form } from "@openedx/paragon";
+import { Form } from "@openedx/paragon";
 
 
 const AdvanceSettingsNew = ({ initialValues = {}, setFieldValue = () => { }, fieldValue = {} }) => {
-    const intl = useIntl();
-    //   const [passingScore, setPassingScore] = useState(false);
-    //   const [showAnswers, setShowAnswers] = useState(values.showCorrectness === SHOWASSESMENTANSWERS.ALWAYS);
-    //   const [showGrade, setShowGrade] = useState(values.graderType !== 'notgraded');
-    //   const onChangeGraderType = (e) => setFieldValue('graderType', e.target.value);
-
-    //   const createOptions = () => courseGraders.map((option) => (
-    //     <option key={option} value={option}> {option} </option>
-    //   ));
-    
-    //   const onChangeAnswerVisibility = (e) => values.showCorrectness === SHOWASSESMENTANSWERS.ALWAYS ? setFieldValue('showCorrectness', SHOWASSESMENTANSWERS.NEVER) : setFieldValue('showCorrectness', SHOWASSESMENTANSWERS.ALWAYS)
-      const onChangeEnableSubsectionGating = (e) => fieldValue['enable_subsection_gating']?.value ?? initialValues?.enableSubsectionGating?.value ? setFieldValue({...fieldValue,enable_subsection_gating : { value : false }}) :setFieldValue({...fieldValue,enable_subsection_gating : { value : true }}) 
-    return (
-        <div>
-            <ToggleItem
-                label={intl.formatMessage(messages.sequentialCourseProgression)}
-                description={intl.formatMessage(messages.sequentialCourseProgressionDesc)}
-                checked={fieldValue['enable_subsection_gating']?.value ?? initialValues?.enableSubsectionGating?.value}
-            onChange={onChangeEnableSubsectionGating}
-            >
-                {/* {showAnswers&& <div className="mt-1">
-          <Form.Group className="mb-0">
+  const intl = useIntl();
+  const onChangeEnableSubsectionGating = (e) => fieldValue['enable_subsection_gating'] ?? initialValues?.enableSubsectionGating?.value ? setFieldValue({ ...fieldValue, enable_subsection_gating: false }) : setFieldValue({ ...fieldValue, enable_subsection_gating: true })
+  const onToggleMinimumTimeOnUnit = (e) => Boolean(typeof fieldValue['minimum_time_on_unit'] === 'number' ? fieldValue['minimum_time_on_unit'] > 0 : initialValues?.minimumTimeOnUnit?.value > 0) ? setFieldValue({ ...fieldValue, minimum_time_on_unit: 0 }) : setFieldValue({ ...fieldValue, minimum_time_on_unit: initialValues?.minimumTimeOnUnit?.value > 0 ? initialValues?.minimumTimeOnUnit?.value : 1 })
+  const onChangeMinimumTimeOnUnit = (value) => {
+    const intValue = parseInt(value.target.value, 10);
+    const validValue = isNaN(intValue) ? 0 : intValue;
+    validValue > 0  ? setFieldValue({ ...fieldValue, minimum_time_on_unit: validValue }) : setFieldValue({ ...fieldValue, minimum_time_on_unit: 1 })
+  }
+  return (
+    <div>
+      <ToggleItem
+        label={intl.formatMessage(messages.sequentialCourseProgression)}
+        description={intl.formatMessage(messages.sequentialCourseProgressionDesc)}
+        checked={fieldValue['enable_subsection_gating'] ?? initialValues?.enableSubsectionGating?.value}
+        onChange={onChangeEnableSubsectionGating}
+      >
+      </ToggleItem>
+      <ToggleItem
+        label={intl.formatMessage(messages.minimumTimeonUnit)}
+        description={intl.formatMessage(messages.minimumTimeonUnitDesc)}
+        checked={typeof fieldValue['minimum_time_on_unit'] === 'number' ? fieldValue['minimum_time_on_unit'] > 0 : Boolean(initialValues?.minimumTimeOnUnit?.value > 0)}
+        onChange={onToggleMinimumTimeOnUnit}
+      >
+        {Boolean(typeof fieldValue['minimum_time_on_unit'] === 'number' ? fieldValue['minimum_time_on_unit'] > 0 : initialValues?.minimumTimeOnUnit?.value > 0)? <div className="mt-1 d-flex align-items-center gap-2">
+          <span>Minimum time:</span>
+          <Form.Group className="mx-2 mb-0">
             <Form.Control
-              as="select"
-              defaultValue={values.graderType}
-              onChange={onChangeGraderType}
-              data-testid="grader-type-select"
-            >
-              <option key="notgraded" value="notgraded">
-                {intl.formatMessage(messages.selectAnswer)}
-              </option>
-              {createOptions()}
-            </Form.Control>
+                                    type="number"
+                                    value={typeof fieldValue['minimum_time_on_unit'] === 'number' ? fieldValue['minimum_time_on_unit'] : initialValues?.minimumTimeOnUnit?.value}
+                                    onChange={onChangeMinimumTimeOnUnit}
+                                    style={{ height: '42px', borderRadius: '.75rem', border: '1px solid #0000001F',width: '80px' }}
+                                    placeholder="00"
+                                  />
           </Form.Group>
-        </div>} */}
-            </ToggleItem>
-            <ToggleItem
-                label={intl.formatMessage(messages.minimumTimeonUnit)}
-                description={intl.formatMessage(messages.minimumTimeonUnitDesc)}
-            // checked={showGrade}
-            // onChange={() => setShowGrade(!showGrade)}
-            >
-                {/* {showGrade&& <div className="mt-1">
-          <Form.Group className="mb-0">
-            <Form.Control
-              as="select"
-              defaultValue={values.graderType}
-              onChange={onChangeGraderType}
-              data-testid="grader-type-select"
-            >
-              <option key="notgraded" value="notgraded">
-                {intl.formatMessage(messages.notGradedTypeOption)}
-              </option>
-              {createOptions()}
-            </Form.Control>
-          </Form.Group>
-        </div>} */}
-            </ToggleItem>
-        </div>
-    );
+          <span>minutes</span>
+        </div> : null}
+      </ToggleItem>
+    </div>
+  );
 };
 
 export default AdvanceSettingsNew;

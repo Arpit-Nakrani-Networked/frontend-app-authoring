@@ -38,9 +38,10 @@ const ConfigureSettingModal = ({
     document.title = getPageHeadTitle(courseDetails?.name, intl.formatMessage(messages.headingTitle));
 
     useEffect(() => {
+        setEditedSettings({})
         dispatch(fetchCourseAppSettings(courseId));
         // dispatch(fetchProctoringExamErrors(courseId));
-    }, [courseId]);
+    }, [courseId,isOpen]);
 
     const advancedSettingsData = useSelector(getCourseAppSettings);
     const savingStatus = useSelector(getSavingStatus);
