@@ -12,7 +12,12 @@ const messages = defineMessages({
   },
   configureTitle: {
     id: 'course-authoring.course-outline.configure-modal.quiz.title',
-    defaultMessage: 'Configure Quiz',
+    defaultMessage: 'Configure Unit',
+    description: 'The visibility modal title for unit',
+  },
+  configureQuizTitle: {
+    id: 'course-authoring.course-outline.configure-quiz.quiz.title',
+    defaultMessage: 'Quiz Configuration (if Unit has Quizzes)',
     description: 'The visibility modal title for unit',
   },
   configureSettingsTitle: {
@@ -343,11 +348,19 @@ const messages = defineMessages({
   },
   minimumTimeonUnit: {
     id: 'course-authoring.course-outline.configure-modal.settings-tab.minimumTime.title',
-    defaultMessage: 'Minimum Time on Unit',
+    defaultMessage: 'Enforce Minimum Time on Unit',
   },
   minimumTimeonUnitDesc: {
     id: 'course-authoring.course-outline.configure-modal.settings-tab.minimumTime.desc',
-    defaultMessage: 'learner must spend minimum time on unit before proceeding.',
+    defaultMessage: 'Learner must spend this minimum time on unit before proceeding.',
+  },
+  makeUnitUnSkippable: {
+    id: 'course-authoring.course-outline.configure-modal.settings-tab.Unskippable.title',
+    defaultMessage: 'Make this Unit Un-skippable',
+  },
+  makeUnitUnSkippableDesc: {
+    id: 'course-authoring.course-outline.configure-modal.settings-tab.Unskippable.desc',
+    defaultMessage: 'Learners must complete this unit, before they can access the next unit on the course outline.',
   },
   showAnserOnResultDesc: {
     id: 'course-authoring.course-outline.configure-modal.quiz-tab.showAnserOnResult.desc',

@@ -300,7 +300,7 @@ const ConfigureModal = ({
   return (
     <ModalDialog
       className="configure-modal"
-      size="lg"
+      size="md"
       isOpen={isOpen}
       onClose={onClose}
       hasCloseButton

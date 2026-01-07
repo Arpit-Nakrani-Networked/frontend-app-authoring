@@ -1,4 +1,5 @@
 import TextIcon from '../../assets/images/xblock-icons/textIcon.svg'
+import SCORMIcon from '../../assets/images/xblock-icons/scormIcon.svg'
 import VideoIcon from '../../assets/images/xblock-icons/videoIcon.svg'
 import QuestionIcon from '../../assets/images/xblock-icons/questionIcon.svg'
 
@@ -29,7 +30,7 @@ export const scormComponents = [
   {
     label: 'Add Scorm',
     navigate: '/scorm',
-    icon: TextIcon,
+    icon: SCORMIcon,
     category: 'scorm',
   }
 ]

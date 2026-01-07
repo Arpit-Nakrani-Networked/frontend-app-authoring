@@ -258,16 +258,16 @@ const Unit = ({ courseId, intl }) => {
           <span className="text-gray-500 _font-weight-light mt-2">Please select the one of the below type</span>
           <div className="d-flex justify-content-between w-100 mt-4" style={{ gap: '1rem' }}>
             {
-              availableComponents.map((component, index) => <AvailableComponentCard key={index} {...component} onSuccess={onSuccessComponentBlockCreate} />)
+              [...availableComponents,...(isSCORMEnabled ? scormComponents: [])].map((component, index) => <AvailableComponentCard key={index} {...component} onSuccess={onSuccessComponentBlockCreate} />)
             }
           </div>
-          {
+          {/* {
             isSCORMEnabled && <div className="justify-content-center w-100 mt-3 advancemodules-container" style={{ gap: '1rem' }}>
             {
               scormComponents.map((component, index) => <AvailableComponentCard key={index} {...component} onSuccess={onSuccessComponentBlockCreate} />)
             }
           </div>
-          }
+          } */}
         </div>
       </div>
       <ProcessingNotification

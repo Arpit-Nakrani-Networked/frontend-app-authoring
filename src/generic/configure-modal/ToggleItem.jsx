@@ -2,9 +2,9 @@ import React from "react";
 import "./ToggleItem.scss";
 import { Form } from "@openedx/paragon";
 
-const ToggleItem = ({ label, description, checked, onChange,children,borderless=false }) => {
+const ToggleItem = ({ label, description, checked, onChange,children,borderless=false,style={} }) => {
   return (
-    <div className={`toggleItem${borderless ? ' borderless' : ''}`}>
+    <div className={`toggleItem${borderless ? ' borderless' : ''}`} style={style}>
       {/* <label className="switch"> */}
       {/* <input
           type="checkbox"

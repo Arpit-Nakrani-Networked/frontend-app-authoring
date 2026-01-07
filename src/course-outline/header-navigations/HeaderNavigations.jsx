@@ -89,7 +89,7 @@ const HeaderNavigations = ({
           <Button
             onClick={handleNewSection}
             size='xs'
-            className={hasSections ? 'show-after-360 px-1' : 'hide-after-360'}
+            className={hasSections ? 'show-after-360 px-1' : 'show-after-360'}
             variant="muted"
             style={{width:'36px'}}
           >

@@ -16,6 +16,7 @@ import messages from './messages';
 
 import ErrorAlert from '../../../../../../sharedComponents/ErrorAlerts/ErrorAlert';
 import ToggleItem from '../../../../../../../generic/configure-modal/ToggleItem';
+import ConnectedVideoPreviewWidget from '../VideoPreviewWidget';
 // import CollapsibleFormWidget from '../CollapsibleFormWidget';
 /**
  * Collapsible Form widget controlling video source as well as fallback sources
@@ -98,12 +99,15 @@ const VideoSourceWidget = ({
         </Form.Group>
       </div>
 
+      
+    <ConnectedVideoPreviewWidget />
+
       <ToggleItem
-        label={"Require Full Video Watch"}
-        description={"Learners must watch the entire video before the unit is marked as complete."}
+        label={"Make this Video Un-skippable"}
+        description={"Learners must watch the entire video before the unit can be marked as complete and this video cant be skipped."}
         checked={preventSkipVideo.local}
         onChange={handleRequiresVideoWatchChange}
-        borderless={true}
+        // borderless={true}
       ></ToggleItem>
       {/* <div className="mt-4">
         <FormattedMessage {...messages.fallbackVideoTitle} />

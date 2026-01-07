@@ -12,7 +12,6 @@ import ThumbnailWidget from './components/ThumbnailWidget';
 import TranscriptWidget from './components/TranscriptWidget';
 import VideoSourceWidget from './components/VideoSourceWidget';
 // Using default import to get selectors connected VideoSourceWidget
-import ConnectedVideoPreviewWidget from './components/VideoPreviewWidget';
 import './index.scss';
 import SocialShareWidget from './components/SocialShareWidget';
 import messages from '../../messages';
@@ -43,7 +42,6 @@ const VideoSettingsModal: React.FC<Props> = ({
       </Button>
     )} */}
     <VideoSourceWidget />
-    <ConnectedVideoPreviewWidget />
     {/* {!isLibrary && (
       <SocialShareWidget />
     )} */}

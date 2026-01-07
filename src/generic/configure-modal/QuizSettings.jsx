@@ -46,6 +46,34 @@ const QuizSettings = ({ setFieldValue, values, courseGraders }) => {
         </div>}
       </ToggleItem> */}
       <ToggleItem
+        label={intl.formatMessage(messages.makeUnitUnSkippable)}
+        description={intl.formatMessage(messages.makeUnitUnSkippableDesc)}
+        checked={values.showCorrectness === SHOWASSESMENTANSWERS.ALWAYS}
+        onChange={onChangeAnswerVisibility}
+      />
+      <ToggleItem
+        label={intl.formatMessage(messages.minimumTimeonUnit)}
+        description={intl.formatMessage(messages.minimumTimeonUnitDesc)}
+        checked={values.showCorrectness === SHOWASSESMENTANSWERS.ALWAYS}
+        onChange={onChangeAnswerVisibility}
+      >
+ {Boolean(values.showCorrectness === SHOWASSESMENTANSWERS.ALWAYS)? <div className="mt-1 d-flex align-items-center gap-2">
+          <span>Minimum time:</span>
+          <Form.Group className="mx-2 mb-0">
+            <Form.Control
+                                    type="number"
+                                    // value={}
+                                    onChange={(e) => console.log(e.target.value)}
+                                    style={{ height: '42px', borderRadius: '.75rem', border: '1px solid #0000001F',width: '80px' }}
+                                    placeholder="00"
+                                  />
+          </Form.Group>
+          <span>minutes</span>
+        </div> : null}
+
+      </ToggleItem>
+      <div className="mb-3 mt-4 _text-black-400">{intl.formatMessage(messages.configureQuizTitle)}</div>
+      <ToggleItem
         label={intl.formatMessage(messages.showAnserOnResultTitle)}
         description={intl.formatMessage(messages.showAnserOnResultDesc)}
         checked={values.showCorrectness === SHOWASSESMENTANSWERS.ALWAYS}
@@ -73,7 +101,7 @@ const QuizSettings = ({ setFieldValue, values, courseGraders }) => {
         checked={showGrade}
         onChange={() => setShowGrade(!showGrade)}
       >
-       {showGrade&& <div className="mt-1">
+        {showGrade && <div className="mt-1">
           <Form.Group className="mb-0">
             <Form.Control
               as="select"
