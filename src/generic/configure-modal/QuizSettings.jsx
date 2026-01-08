@@ -21,6 +21,9 @@ const QuizSettings = ({ setFieldValue, values, courseGraders }) => {
   ));
 
   const onChangeAnswerVisibility = (e) => values.showCorrectness === SHOWASSESMENTANSWERS.ALWAYS ? setFieldValue('showCorrectness', SHOWASSESMENTANSWERS.NEVER) : setFieldValue('showCorrectness', SHOWASSESMENTANSWERS.ALWAYS)
+  const onChangeUnskippableUnit = (e) => setFieldValue('unskippableUnit', !values.unskippableUnit);
+  const onToggleMinimumTimeOnUnit = (e) => values.minimumTimeOnUnit > 0 ? setFieldValue('minimumTimeOnUnit', 0) : setFieldValue('minimumTimeOnUnit', 1);
+  const onChangeMinimumTimeOnUnit = (e) => setFieldValue('minimumTimeOnUnit', e.target.value > 0 ? parseInt(e.target.value) : 1);
   return (
     <div>
       {/* <ToggleItem
@@ -48,25 +51,25 @@ const QuizSettings = ({ setFieldValue, values, courseGraders }) => {
       <ToggleItem
         label={intl.formatMessage(messages.makeUnitUnSkippable)}
         description={intl.formatMessage(messages.makeUnitUnSkippableDesc)}
-        checked={values.showCorrectness === SHOWASSESMENTANSWERS.ALWAYS}
-        onChange={onChangeAnswerVisibility}
+        checked={values.unskippableUnit}
+        onChange={onChangeUnskippableUnit}
       />
       <ToggleItem
         label={intl.formatMessage(messages.minimumTimeonUnit)}
         description={intl.formatMessage(messages.minimumTimeonUnitDesc)}
-        checked={values.showCorrectness === SHOWASSESMENTANSWERS.ALWAYS}
-        onChange={onChangeAnswerVisibility}
+        checked={values.minimumTimeOnUnit > 0}
+        onChange={onToggleMinimumTimeOnUnit}
       >
- {Boolean(values.showCorrectness === SHOWASSESMENTANSWERS.ALWAYS)? <div className="mt-1 d-flex align-items-center gap-2">
+        {Boolean(values.minimumTimeOnUnit > 0) ? <div className="mt-1 d-flex align-items-center gap-2">
           <span>Minimum time:</span>
           <Form.Group className="mx-2 mb-0">
             <Form.Control
-                                    type="number"
-                                    // value={}
-                                    onChange={(e) => console.log(e.target.value)}
-                                    style={{ height: '42px', borderRadius: '.75rem', border: '1px solid #0000001F',width: '80px' }}
-                                    placeholder="00"
-                                  />
+              type="number"
+              value={values.minimumTimeOnUnit}
+              onChange={onChangeMinimumTimeOnUnit}
+              style={{ height: '42px', borderRadius: '.75rem', border: '1px solid #0000001F', width: '80px' }}
+              placeholder="00"
+            />
           </Form.Group>
           <span>minutes</span>
         </div> : null}

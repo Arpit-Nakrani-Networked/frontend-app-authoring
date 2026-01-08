@@ -24,8 +24,14 @@ import {
   ModalDialog,
   ActionRow,
 } from '@openedx/paragon';
+import {
+  Close as CloseIcon,
+  AttachFile as AttachFileIcon,
+  DeleteOutline as DeleteOutlineIcon,
+  EditOutline as EditOutlineIcon,
+} from '@openedx/paragon/icons';
 import { injectIntl, intlShape, FormattedMessage } from '@edx/frontend-platform/i18n';
-import { InfoOutline,AddCircleOutline as IconAddCircle } from '@openedx/paragon/icons';
+import { InfoOutline, AddCircleOutline as IconAddCircle } from '@openedx/paragon/icons';
 import EditorContainer from '../EditorContainer';
 // This 'module' self-import hack enables mocking during tests.
 // See src/editors/decisions/0005-internal-editor-testability-decisions.md. The whole approach to how hooks are tested
@@ -34,7 +40,7 @@ import EditorContainer from '../EditorContainer';
 import * as module from '.';
 import { actions, selectors } from '../../data/redux';
 import { RequestKeys } from '../../data/constants/requests';
-import ToggleItem from '../../../generic/configure-modal/ToggleItem';
+import ToggleItem, { ToggleItemUI } from '../../../generic/configure-modal/ToggleItem';
 import messages from './messages';
 
 export const hooks = {
@@ -114,6 +120,10 @@ export const scormEditor = ({
     }
   };
 
+  const handleFileRemove = () => {
+    dispatch(actions.scorm.setFile(null));
+  };
+
   const handleFileButtonClick = () => {
     fileInputRef.current?.click();
   };
@@ -150,11 +160,14 @@ export const scormEditor = ({
         console.log("scorm -->>", scorm)
         return scorm
       }}
-      onClose={onClose}
+      onClose={()=>{
+        dispatch(actions.scorm.resetState());
+        onClose()
+      }}
       returnFunction={returnFunction}
       isNew={isNew}
       className="scorm-module-modal pgn__modal-md"
-      saveText={isNew ? "Add Scorm" : "Update Scorm"}
+      saveText={isNew ? "Add Scorm" : "Add Scorm"}
     >
       <div className="editor-body h-75 overflow-auto">
         {!studioViewFinished
@@ -187,10 +200,10 @@ export const scormEditor = ({
                 <Form.Group size="sm" className="mb-4">
                   {/* <Form.Label className="text-secondory _font-weight-medium">SCORM Package File ( <small>Upload a SCORM package (.zip file)</small> )</Form.Label> */}
                   <div
-                    onClick={handleFileButtonClick}
+                    onClick={() => scorm?.file ? null : handleFileButtonClick()}
                     onDrop={e => {
                       e.preventDefault();
-                      if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+                      if (e.dataTransfer.files && e.dataTransfer.files.length > 0 && !scorm?.file) {
                         handleFileChange({ target: { files: e.dataTransfer.files } });
                       }
                     }}
@@ -199,22 +212,27 @@ export const scormEditor = ({
                       border: '2px dashed #0000001F',
                       borderRadius: '12px',
                       padding: '1rem',
-                      // textAlign: 'center',
                       background: '#F8F8F8',
-                      cursor: 'pointer',
                       color: '#00000099',
                       marginBottom: '12px',
                     }}
+                    className={scorm?.file ? '' : '_cursor_pointer'}
                   >
                     <div style={{ fontWeight: 500 }}>
                       {scorm?.file ? (
-                        <>
-                          <Icon name="fa-file-archive" className="mr-2" />
-                          {scorm.file.name || 'File selected'}
-                        </>
+                        <div className="d-flex align-items-center justify-content-between">
+                          <div className="d-flex align-items-center">
+                            <Icon src={AttachFileIcon} className="mr-2" style={{ width: "18px", height: "18px" }} />
+                            {scorm.file.name || 'File selected'}
+                          </div>
+                          <div className="d-flex align-items-center">
+                            <Icon src={DeleteOutlineIcon} className="mr-2 _cursor-pointer" style={{ width: "18px", height: "18px" }} onClick={handleFileRemove} />
+                            <Icon src={EditOutlineIcon} className="_cursor-pointer" style={{ width: "18px", height: "18px" }} onClick={() => handleFileButtonClick()} />
+                          </div>
+                        </div>
                       ) : (
-                        <div className="d-flex align-items-center">
-                          <Icon src={IconAddCircle} className="mr-2" />
+                        <div className="d-flex align-items-center _cursor-pointer w-100">
+                          <Icon src={IconAddCircle} className="mr-2" style={{ width: "18px", height: "18px" }} />
                           Add .zip file
                         </div>
                       )}
@@ -241,7 +259,7 @@ export const scormEditor = ({
                       <Form.Control
                         type="number"
                         min={0}
-                        step={0.1}
+                        step={1}
                         value={scorm?.weight ?? 10.0}
                         onChange={(e) => handleFieldChange('weight', parseFloat(e.target.value))}
                         style={{ height: '42px', borderRadius: '.75rem', border: '1px solid #0000001F', width: "80px" }}
@@ -253,94 +271,61 @@ export const scormEditor = ({
                 </ToggleItem>
 
                 {/* Advance Settings clickable div below ToggleItem */}
-                <div
-                  style={{ cursor: 'pointer', margin: '24px 0 0',padding:"9px 0", display: 'flex', alignItems: 'center', fontWeight: 600,fontSize:"14px" }}
+                {!isAdvanceOpen && <div
+                  style={{ cursor: 'pointer', margin: '24px 0 0', padding: "9px 0", display: 'flex', alignItems: 'center', fontWeight: 600, fontSize: "14px" }}
                   onClick={() => setIsAdvanceOpen(true)}
                   data-testid="advance-settings-trigger"
                 >
-                  <Icon src={IconAddCircle} className="mr-2" style={{color:"#00000099"}} /> <span style={{ color: '#000000CC', }}>Advance Settings</span>
-                </div>
+                  <Icon src={IconAddCircle} className="mr-2" style={{ color: "#00000099", width: "18px", height: "18px" }} /> <span style={{ color: '#000000CC', }}>Advance Settings</span>
+                </div>}
+                {isAdvanceOpen && <div
+                  style={{ margin: '24px 0 0', padding: "9px 0", display: 'flex', alignItems: 'center', justifyContent: "space-between", fontWeight: 600, fontSize: "14px" }}
+                  data-testid="advance-settings-trigger"
+                >
+                  <span style={{ color: '#000000CC', }}>Add Additional Details</span>
+                  <Icon src={CloseIcon} className="mr-2" style={{ color: "#00000099", cursor: 'pointer', width: "18px", height: "18px" }} onClick={() => setIsAdvanceOpen(false)} />
+                </div>}
 
                 {/* Advance Settings Modal/Dialog using Paragon ModalDialog */}
-                <ModalDialog
-                  isOpen={isAdvanceOpen}
-                  onClose={() => setIsAdvanceOpen(false)}
-                  title="Advance Settings"
-                  size="md"
-                  hasCloseButton
-                >
-                  <ModalDialog.Header className="editor-container_header">
-                    Advance Settings
-                  </ModalDialog.Header>
-                  <ModalDialog.Body>
-                    <ToggleItem
-                      label={"Show Fullscreen button "}
-                      description={"Select True to show fullscreen button in the SCORM content"}
-                      checked={checkboxStates.enable_fullscreen_button}
-                      onChange={e => handleCheckboxChange('enable_fullscreen_button', e.target.checked)}
-                    />
+                {
+                  isAdvanceOpen && (
+                    <>
+                      <ToggleItem
+                        label={"Show Fullscreen button "}
+                        description={"Select True to show fullscreen button in the SCORM content"}
+                        checked={checkboxStates.enable_fullscreen_button}
+                        onChange={e => handleCheckboxChange('enable_fullscreen_button', e.target.checked)}
+                      />
 
-                    <ToggleItem
-                      label={"Display height (px) "}
-                      description={"Height of iframe"}
-                      checked={scorm?.height}
-                      style={{marginTop:"24px"}}
-                    // onChange={(e) => scorm?.height > 0 ? handleCheckboxChange('has_score', e.target.checked)}
-                    >
-                      {Boolean(scorm?.height) ? <div className="mt-1 d-flex align-items-center gap-2">
-                        <Form.Group className="mx-2 mb-0 w-100">
-                          <Form.Control
-                            type="number"
-                            min={0}
-                            step={0.1}
-                            value={scorm?.height ?? 450}
-                            onChange={(e) => handleFieldChange('height', parseFloat(e.target.value))}
-                            style={{ height: '42px', borderRadius: '.75rem', border: '1px solid #0000001F', width: "100%" }}
-                            placeholder="450"
-                          />
-                        </Form.Group>
-                      </div> : null}
-                    </ToggleItem>
-
-
-                    <ToggleItem
-                      label={"Launch in pop-up window "}
-                      description={"Launch in pop-up window instead of embedding the SCORM content in an iframe. Enable this for older packages that need to be run in separate window."}
-                      checked={checkboxStates.popup_on_launch}
-                      onChange={e => handleCheckboxChange('popup_on_launch', e.target.checked)}
-                      style={{marginTop:"24px"}}
-                    />
-
-
-                  </ModalDialog.Body>
-                  <ModalDialog.Footer className="shadow-sm px-4 pb-3 pt-0">
-                    <ActionRow>
-                      <Button
-                        // aria-label={intl.formatMessage(messages.cancelButtonAriaLabel)}
-                        variant="outline-third btn-sm"
-                        // style={{ padding: '6px  16px' }}
-                        // onClick={confirmCancelIfDirty}
-                        onClick={() => setIsAdvanceOpen(false)}
+                      <ToggleItem
+                        label={"Launch in pop-up window "}
+                        description={"Launch in pop-up window instead of embedding the SCORM content in an iframe. Enable this for older packages that need to be run in separate window."}
+                        checked={checkboxStates.popup_on_launch}
+                        onChange={e => handleCheckboxChange('popup_on_launch', e.target.checked)}
+                        style={{ marginTop: "16px" }}
+                      />
+                      <ToggleItemUI
+                        label={"Display height (px) "}
+                        description={"Height of iframe"}
+                        style={{ marginTop: "16px" }}
                       >
-                        <FormattedMessage {...messages.cancelButtonLabel} />
-                      </Button>
-                      <Button
-                        aria-label={intl.formatMessage(messages.saveButtonAriaLabel)}
-                        // onClick={onSave}
-                        variant="outline-primary btn-sm"
-                        // style={{ padding: '6px  16px' }}
-                        // disabled={disableSave || isLoading || disabled}
-                        onClick={() => setIsAdvanceOpen(false)}
-
-                      >
-                        {(<FormattedMessage {...messages.saveButtonLabel} />)}
-                        {/* {isLoading
-                          ? <Spinner animation="border" className="d-flex justify-content-center ml-2" style={{ width: '1rem', height: '1rem' }} /> : null
-                        } */}
-                      </Button>
-                    </ActionRow>
-                  </ModalDialog.Footer>
-                </ModalDialog>
+                        <div className="d-flex align-items-center">
+                          <Form.Group className="m-0 mb-0 w-100">
+                            <Form.Control
+                              type="number"
+                              min={0}
+                              step={1}
+                              value={scorm?.height ?? 450}
+                              onChange={(e) => handleFieldChange('height', parseFloat(e.target.value))}
+                              style={{ height: '42px', borderRadius: '.75rem', border: '1px solid #0000001F', width: "103px", margin: "0" }}
+                              placeholder="450"
+                            />
+                          </Form.Group>
+                        </div>
+                      </ToggleItemUI>
+                    </>
+                  )
+                }
 
                 {/* <Row> */}
                 {/* Weight */}

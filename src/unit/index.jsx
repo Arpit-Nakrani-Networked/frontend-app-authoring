@@ -124,6 +124,7 @@ const Unit = ({ courseId, intl }) => {
   };
 
   const onSuccessComponentBlockCreate = ({ componentBlockCategory, componentBlockId }) => {
+    if(componentBlockCategory === 'scorm') dispatch(actions.scorm.resetState())
     const baseComponent = {
       id: componentBlockId,
       category: componentBlockCategory,

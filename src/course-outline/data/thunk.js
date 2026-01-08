@@ -314,6 +314,8 @@ export function configureCourseSubsectionQuery(
   prereqUsageKey,
   prereqMinScore,
   prereqMinCompletion,
+  unskippableUnit,
+    minimumTimeOnUnit,
 ) {
   return async (dispatch) => {
     await dispatch(configureCourseItemQuery(
@@ -336,6 +338,8 @@ export function configureCourseSubsectionQuery(
         prereqUsageKey,
         prereqMinScore,
         prereqMinCompletion,
+        unskippableUnit,
+    minimumTimeOnUnit,
       ),
     ));
   };

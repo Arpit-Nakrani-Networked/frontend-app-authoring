@@ -256,6 +256,8 @@ export async function configureCourseSection(sectionId, isVisibleToStaffOnly, st
  * @param {string} prereqUsageKey,
  * @param {number} prereqMinScore,
  * @param {number} prereqMinCompletion,
+ * @param {boolean} unskippableUnit,
+ * @param {number} minimumTimeOnUnit,
  * @returns {Promise<Object>}
  */
 export async function configureCourseSubsection(
@@ -276,6 +278,8 @@ export async function configureCourseSubsection(
   prereqUsageKey,
   prereqMinScore,
   prereqMinCompletion,
+  unskippableUnit,
+  minimumTimeOnUnit,
 ) {
   const { data } = await getAuthenticatedHttpClient()
     .post(getCourseItemApiUrl(itemId), {
@@ -298,6 +302,8 @@ export async function configureCourseSubsection(
         default_time_limit_minutes: defaultTimeLimitMin,
         is_onboarding_exam: isOnboardingExam,
         start: releaseDate,
+        unskippable_unit: unskippableUnit,
+        minimum_time_on_unit: minimumTimeOnUnit,
       },
     });
   return data;

@@ -41,6 +41,8 @@ const ConfigureModal = ({
     defaultTimeLimitMinutes,
     hideAfterDue,
     showCorrectness,
+    unskippableUnit,
+    minimumTimeOnUnit,
     courseGraders,
     category,
     format,
@@ -99,6 +101,8 @@ const ConfigureModal = ({
     prereqUsageKey: prereq,
     prereqMinScore: defaultPrereqScore(prereqMinScore),
     prereqMinCompletion: defaultPrereqScore(prereqMinCompletion),
+    unskippableUnit: unskippableUnit || false,
+    minimumTimeOnUnit: minimumTimeOnUnit || 0,
     // by default it is -1 i.e. accessible to all learners & staff
     selectedPartitionIndex: userPartitionInfo?.selectedPartitionIndex,
     selectedGroups: getSelectedGroups(),
@@ -114,6 +118,8 @@ const ConfigureModal = ({
     defaultTimeLimitMinutes: Yup.number().nullable(true),
     hideAfterDueState: Yup.boolean(),
     showCorrectness: Yup.string().required(),
+    unskippableUnit: Yup.boolean().default(false),
+    minimumTimeOnUnit: Yup.number().default(0).required(),
     isPrereq: Yup.boolean(),
     prereqUsageKey: Yup.string().nullable(true),
     prereqMinScore: Yup.number().min(
@@ -166,6 +172,8 @@ const ConfigureModal = ({
           data.prereqUsageKey,
           data.prereqMinScore,
           data.prereqMinCompletion,
+          data.unskippableUnit,
+          data.minimumTimeOnUnit || 0,
         );
         break;
       case COURSE_BLOCK_NAMES.vertical.id:

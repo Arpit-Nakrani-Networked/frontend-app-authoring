@@ -89,7 +89,7 @@ export default function CourseTitleHeader() {
           </div>
         )}
       {!unitId && <div className='actions-btns'>
-        <Button
+        {/* <Button
           // iconBefore={Search}
           variant="outline-third"
           size='sm'
@@ -98,7 +98,7 @@ export default function CourseTitleHeader() {
           onClick={() => setIsConfigureModalOpen(true)}
         >
           <SolidSvgComponent url={SettingIcon} width={16} height={16} defaultClass={`mr-1`} iconColor='#0000008A' /> {intl.formatMessage(messages.Configure)}
-        </Button>
+        </Button> */}
         <Button
           // iconBefore={Search}
           // data-testid="course-reindex"
