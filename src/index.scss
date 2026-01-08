@@ -2,7 +2,7 @@
 @import 'variables';
 @import 'base/module';
 
-$font-family-base: 'Proxima Nova' !important;
+$font-family-base: 'Figtree' !important;
 
 @import "~@edx/brand/paragon/fonts";
 @import "~@edx/brand/paragon/variables";
@@ -45,7 +45,7 @@ html>body>#root,
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   scrollbar-width: none;
-  font-family: 'Proxima Nova' !important;
+  font-family: 'Figtree' !important;
   line-height: 100%;
   letter-spacing: .5px !important;
 }
@@ -387,7 +387,7 @@ mark {
     // font-weight: 600;
     color: #000000CC;
     box-shadow: none !important;
-    // font-family: Proxima Nova;
+    // font-family: Figtree;
     font-weight: 600;
     font-style: semibold;
     font-size: 16px;
@@ -416,7 +416,7 @@ mark {
 
 .card.dropdown-menu a {
   border-radius: 8px;
-  // font-family: Proxima Nova;
+  // font-family: Figtree;
   font-weight: 400;
   // font-style: Regular;
   font-size: 14px;
@@ -515,7 +515,7 @@ input.pgn__form-switch-input {
 }
 
 .pgn__modal-title {
-  font-family: Proxima Nova;
+  font-family: Figtree;
   font-weight: 500;
   // font-style: Medium;
   font-size: 20px;
@@ -576,7 +576,7 @@ input.pgn__form-switch-input {
   padding-bottom: 8px !important;
 
   .pgn__modal-body-content p {
-    font-family: Proxima Nova;
+    font-family: Figtree;
     font-weight: 400;
     // font-style: Regular;
     font-size: 16px;
@@ -1032,4 +1032,49 @@ a.disabled {
   .show-after-360 {
     display: flex;
   }
+}
+
+
+
+//Figtree-font definitions
+@font-face {
+	font-family: 'Figtree';
+	font-style: normal;
+	font-weight: 400;
+	src: url('./fonts/Figtree/Figtree-Regular.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Figtree';
+	font-style: normal;
+	font-weight: 500;
+	src: url('./fonts/Figtree/Figtree-Medium.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Figtree';
+	font-style: normal;
+	font-weight: 600;
+	src: url('./fonts/Figtree/Figtree-SemiBold.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Figtree';
+	font-style: normal;
+	font-weight: 700;
+	src: url('./fonts/Figtree/Figtree-Bold.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Figtree';
+	font-style: normal;
+	font-weight: 800;
+	src: url('./fonts/Figtree/Figtree-ExtraBold.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Figtree';
+	font-style: normal;
+	font-weight: 900;
+	src: url('./fonts/Figtree/Figtree-Black.ttf') format('truetype');
 }
