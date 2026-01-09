@@ -7,6 +7,8 @@ if (typeof window !== 'undefined') {
     env = 'lab';
   } else if (host.includes('qa')) {
     env = 'qa';
+  } else if (host.includes('local')) {
+    env = 'qa';
   } else {
     env = 'prod';
   }

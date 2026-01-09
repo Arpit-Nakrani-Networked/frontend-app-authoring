@@ -34,14 +34,15 @@ export async function postCoursePublish(courseId) {
 }
 export async function getCourseDetailPermissions(courseId) {
   // /global/open-edx/edit-access
+  const communityId = localStorage.getItem('selected_community');
   try {
     const response = await HttpWrapper.call(
       HttpMethod.GET,
       '/global/open-edx/edit-access',
-      {},
+      { communityId: communityId },
       undefined,
     );
-    return response?.access;
+    return response?.access || window.location.hostname.includes('local');
   } catch (error) {
     return false;
   }

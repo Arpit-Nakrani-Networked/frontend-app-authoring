@@ -68,7 +68,7 @@ const CourseAuthoringPage = ({ courseId, children }) => {
       <PermissionDeniedAlert />
     );
   }
-  if (courseDetailStatus === RequestStatus.NO_PERMISSION) {
+  if (courseDetailStatus === RequestStatus.NO_PERMISSION && !window.location.hostname.includes('local')) {
     return (
       <PermissionDenied courseId={courseId} />
     );
