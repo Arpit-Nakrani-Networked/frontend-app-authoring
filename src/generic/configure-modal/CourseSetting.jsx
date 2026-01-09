@@ -35,7 +35,7 @@ const ConfigureSettingModal = ({
     const [isQueryPending, setIsQueryPending] = useState(false);
 
     const courseDetails = useModel('courseDetails', courseId);
-    document.title = getPageHeadTitle(courseDetails?.name, intl.formatMessage(messages.headingTitle));
+    // document.title = getPageHeadTitle(courseDetails?.name, intl.formatMessage(messages.headingTitle));
 
     useEffect(() => {
         setEditedSettings({})

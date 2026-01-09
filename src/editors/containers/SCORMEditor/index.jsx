@@ -94,6 +94,12 @@ export const scormEditor = ({
     });
   }, [scorm]);
 
+  useEffect(() => {
+    if (isNew) {
+      dispatch(actions.scorm.resetState());
+    }
+  }, [isNew]);
+
   // Handle field changes
   const handleFieldChange = (fieldName, value) => {
     console.log("handle field changes -->>> ", fieldName, value);
@@ -160,14 +166,16 @@ export const scormEditor = ({
         console.log("scorm -->>", scorm)
         return scorm
       }}
-      onClose={()=>{
+      onClose={() => {
         dispatch(actions.scorm.resetState());
         onClose()
       }}
+      deleteBlock={() => deleteBlock && deleteBlock()}
       returnFunction={returnFunction}
       isNew={isNew}
       className="scorm-module-modal pgn__modal-md"
       saveText={isNew ? "Add Scorm" : "Add Scorm"}
+      disabled={isNew && !scorm?.file}
     >
       <div className="editor-body h-75 overflow-auto">
         {!studioViewFinished
@@ -220,10 +228,23 @@ export const scormEditor = ({
                   >
                     <div style={{ fontWeight: 500 }}>
                       {scorm?.file ? (
-                        <div className="d-flex align-items-center justify-content-between">
-                          <div className="d-flex align-items-center">
+                        <div className="d-flex align-items-center justify-content-between" style={{
+                          width: '100%',
+                          overflow: "hidden"
+                        }}>
+                          <div className="d-flex align-items-center" style={{
+                            flex: 1,
+                            overflow: "hidden"
+                          }}>
                             <Icon src={AttachFileIcon} className="mr-2" style={{ width: "18px", height: "18px" }} />
-                            {scorm.file.name || 'File selected'}
+                            <span style={{
+                              whiteSpace: 'nowrap',
+                              overflow: 'hidden',
+                              textOverflow: 'ellipsis',
+                              display: 'inline-block',
+                              // maxWidth: '180px',
+                              verticalAlign: 'bottom',
+                            }}>{scorm.file.name || 'File selected'}</span>
                           </div>
                           <div className="d-flex align-items-center">
                             <Icon src={DeleteOutlineIcon} className="mr-2 _cursor-pointer" style={{ width: "18px", height: "18px" }} onClick={handleFileRemove} />
@@ -460,6 +481,7 @@ scormEditor.propTypes = {
   lmsEndpointUrl: PropTypes.string,
   blockFailed: PropTypes.bool.isRequired,
   blockFinished: PropTypes.bool.isRequired,
+  deleteBlock: PropTypes.func,
   initializeEditor: PropTypes.func.isRequired,
   scormState: PropTypes.shape({
     file: PropTypes.any,

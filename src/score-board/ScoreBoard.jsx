@@ -15,6 +15,8 @@ import { LoadingSpinner } from '../generic/Loading';
 import { debounce } from 'lodash';
 import SolidSvgComponent from '../_components/solid-svg/SolidSvgComponent';
 import SearchIcon from '../assets/images/student-overview/searchIcon.svg'
+import getPageHeadTitle from '../generic/utils';
+import { useModel } from '../generic/model-store';
 // import FilterIcon from '../assets/images/student-overview/filterIcon.svg'
 
 const ScoreBoard = ({ intl, courseId }) => {
@@ -40,6 +42,8 @@ const ScoreBoard = ({ intl, courseId }) => {
     dispatch(fetchGrades(courseId));
     dispatch(fetchGradesHeading(courseId));
   }, [])
+  const courseDetails = useModel('courseDetails', courseId);
+  document.title = getPageHeadTitle(courseDetails?.name, "Score Board");
 
   // useEffect(() => {
   //   dispatch(fetchGrades(courseId, null, searchText));

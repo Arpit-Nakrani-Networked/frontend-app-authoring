@@ -155,6 +155,9 @@ const CourseOutline = ({ courseId }) => {
 
   const enableProctoredExams = useSelector(getProctoredExamsFlag);
 
+
+  document.title = getPageHeadTitle(courseName, "Course Outline");
+
   /**
    * Move section to new index
    * @param {any} currentIndex
@@ -233,12 +236,11 @@ const CourseOutline = ({ courseId }) => {
     );
   }
   console.log('items=sections======>>>>', sections);
-
   return (
     <>
-      <Helmet>
+      {/* <Helmet>
         <title>{getPageHeadTitle(courseName, intl.formatMessage(messages.headingTitle))}</title>
-      </Helmet>
+      </Helmet> */}
       <Container size="xl" className="px-4 container-screen w-fit overflow-hidden course-outline-wrapper">
         <section className="max-w-1200 course-outline-container overflow-hidden h-full d-flex flex-column">
           {/* <PageAlerts
