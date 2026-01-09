@@ -170,7 +170,7 @@ export const scormEditor = ({
         dispatch(actions.scorm.resetState());
         onClose()
       }}
-      deleteBlock={() => deleteBlock && deleteBlock()}
+      deleteBlock={() => isNew && deleteBlock && deleteBlock()}
       returnFunction={returnFunction}
       isNew={isNew}
       className="scorm-module-modal pgn__modal-md"
