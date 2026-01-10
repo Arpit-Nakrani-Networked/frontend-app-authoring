@@ -2,6 +2,8 @@ import { CardHeader } from '../CardHeader';
 /* eslint-disable import/prefer-default-export */
 import { ensureConfig, getConfig } from '@edx/frontend-platform';
 import './HTMLComponentCard.scss'
+import React from 'react';
+import { LoadingSpinner } from '../../../generic/Loading';
 
 ensureConfig([
   'STUDIO_BASE_URL',
@@ -40,9 +42,10 @@ export const buildScormAssetUrl = (blockId, assetPath) => {
 };
 
 export const SCORMComponentCard = ({ component, onEdit, onDelete }) => {
-  const url = buildScormAssetUrl(component?.id,component?.metadata?.indexPagePath)
-  const height = 600
-  const width = component?.metadata?.width || ''
+  const url = buildScormAssetUrl(component?.id, component?.metadata?.indexPagePath);
+  const height = 600;
+  const width = component?.metadata?.width || '';
+  const [iframeLoaded, setIframeLoaded] = React.useState(false);
   return (
     <div className="component-block-wrappper html-component-container">
       <CardHeader component={component} onDelete={onDelete} />
@@ -51,17 +54,28 @@ export const SCORMComponentCard = ({ component, onEdit, onDelete }) => {
           __html:component?.metadata?.navigationMenu
         }} />
       } */}
-        {url && component?.metadata?.indexPagePath ? (
-        <iframe
-          src={url}
-          style={{
-            width:width ? String(width)?.replace(/px/g,'') +'px': "100%",
-            minHeight: height+"px",
-            border: "none",
-          }}
-          allow="fullscreen"
-        />
-      ) : <p>Click 'Edit' to modify this module and upload a new SCORM package.</p>}
+      {url && component?.metadata?.indexPagePath ? (
+        <>
+          {!iframeLoaded && (
+            <div className="scorm-loader" style={{ textAlign: 'center', padding: '2em' }}>
+              <LoadingSpinner />
+            </div>
+          )}
+          <iframe
+            src={url}
+            style={{
+              width: width ? String(width)?.replace(/px/g, '') + 'px' : '100%',
+              minHeight: height + 'px',
+              border: 'none',
+              display: iframeLoaded ? 'block' : 'none',
+            }}
+            allow="fullscreen"
+            onLoad={() => setIframeLoaded(true)}
+          />
+        </>
+      ) : (
+        <p>Click 'Edit' to modify this module and upload a new SCORM package.</p>
+      )}
     </div>
   );
 }
