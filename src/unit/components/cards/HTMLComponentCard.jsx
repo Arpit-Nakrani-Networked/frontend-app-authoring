@@ -3,7 +3,7 @@ import { CardHeader } from '../CardHeader';
 import { ensureConfig, getConfig } from '@edx/frontend-platform';
 import './HTMLComponentCard.scss'
 import React from 'react';
-import { LoadingSpinner } from '../../../generic/Loading';
+// import { LoadingSpinner } from '../../../generic/Loading';
 
 ensureConfig([
   'STUDIO_BASE_URL',
@@ -43,9 +43,12 @@ export const buildScormAssetUrl = (blockId, assetPath) => {
 
 export const SCORMComponentCard = ({ component, onEdit, onDelete }) => {
   const url = buildScormAssetUrl(component?.id, component?.metadata?.indexPagePath);
-  const height = 600;
+  // console.log("component---->>>>>>",component);
+  
+  const popupOnLaunch = component?.metadata?.popupOnLaunch
+  const height = popupOnLaunch ? 300 : (component?.metadata?.height || 450) + 160;
   const width = component?.metadata?.width || '';
-  const [iframeLoaded, setIframeLoaded] = React.useState(false);
+  // const [iframeLoaded, setIframeLoaded] = React.useState(false);
   return (
     <div className="component-block-wrappper html-component-container">
       <CardHeader component={component} onDelete={onDelete} />
@@ -56,21 +59,21 @@ export const SCORMComponentCard = ({ component, onEdit, onDelete }) => {
       } */}
       {url && component?.metadata?.indexPagePath ? (
         <>
-          {!iframeLoaded && (
+          {/* {!iframeLoaded && (
             <div className="scorm-loader" style={{ textAlign: 'center', padding: '2em' }}>
               <LoadingSpinner />
             </div>
-          )}
+          )} */}
           <iframe
             src={url}
             style={{
               width: width ? String(width)?.replace(/px/g, '') + 'px' : '100%',
               minHeight: height + 'px',
               border: 'none',
-              display: iframeLoaded ? 'block' : 'none',
+              // display: iframeLoaded ? 'block' : 'none',
             }}
             allow="fullscreen"
-            onLoad={() => setIframeLoaded(true)}
+            // onLoad={() => setIframeLoaded(true)}
           />
         </>
       ) : (
