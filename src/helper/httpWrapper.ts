@@ -55,8 +55,7 @@ export class HttpWrapper {
     const cookies = new Cookies();
     return {
       sessionToken: cookies.get('sessionToken'),
-      communityToken: cookies.get('communityToken'),
-      groupToken: (cookies.get('groupToken')) ? cookies.get('groupToken') : undefined,
+      openedxCommunityId: cookies.get('openedxCommunityId'),
     };
   }
 

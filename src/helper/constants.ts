@@ -1,4 +1,4 @@
-let env: 'lab' | 'qa' | 'prod' = 'qa'; // default to QA
+let env: 'lab' | 'qa' | 'prod' = 'prod'; // default to QA
 
 if (typeof window !== 'undefined') {
   const host = window.location.hostname; // e.g. apps.courses.lab.networked.co

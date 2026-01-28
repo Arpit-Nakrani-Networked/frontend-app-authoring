@@ -39,7 +39,7 @@ export async function getCourseDetailPermissions(courseId) {
     const response = await HttpWrapper.call(
       HttpMethod.GET,
       '/global/open-edx/edit-access',
-      { communityId: communityId },
+      { },
       undefined,
     );
     return response?.access || window.location.hostname.includes('local');

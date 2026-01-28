@@ -19,7 +19,7 @@ export default function CourseCommunityHeader() {
     localStorage.getItem('communityName'),
   );
   const [userProfile, setUserProfile] = useState(
-    user?.image?.url
+    user?.image
   );
   const [username, setUserName] = useState(
     user?.name,
@@ -70,7 +70,7 @@ export default function CourseCommunityHeader() {
       );
 
       const newCommunityName = user?.community?.name;
-      const newCommunityImage = user?.community?.image?.url;
+      const newCommunityImage = user?.community?.image;
       const newUser = user?.user || "-";
 
       // Update localStorage
@@ -81,7 +81,7 @@ export default function CourseCommunityHeader() {
       // Update state
       setCommunityName(newCommunityName);
       setCommunityImage(newCommunityImage);
-      setUserProfile(newUser?.image?.url);
+      setUserProfile(newUser?.image);
       setUserName(newUser?.name);
     } catch (error) {
        setCommunityName('');
