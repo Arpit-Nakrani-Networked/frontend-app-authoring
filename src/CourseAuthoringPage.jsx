@@ -16,7 +16,7 @@ import Loading from './generic/Loading';
 import CourseMultiHeader from './_components/course-header-title/CourseMultiHeader';
 import { CourseTabsNavigation } from './course-tabs';
 import { fetchCourseAppSettings } from './advanced-settings/data/thunks';
-
+import IntractiveLoader from './_components/interactive-loader/IntractiveLoader';
 
 const CourseAuthoringPage = ({ courseId, children }) => {
   const dispatch = useDispatch();
@@ -87,15 +87,14 @@ const CourseAuthoringPage = ({ courseId, children }) => {
     )?.slug;
       return findSlug || window.location.pathname
     }
-
-  return (
+  return inProgress ? <IntractiveLoader /> :  (
     <div>
       {/* While V2 Editors are temporarily served from their own pages
       using url pattern containing /editor/,
       we shouldn't have the header and footer on these pages.
       This functionality will be removed in TNL-9591 */}
-      {inProgress ? <Loading /> : <CourseMultiHeader />}
-      {inProgress ? <Loading /> : <CourseTabsNavigation tabs={tabs} activeTabSlug={getActiveSlugUrl()} />}
+      <CourseMultiHeader />
+      <CourseTabsNavigation tabs={tabs} activeTabSlug={getActiveSlugUrl()} />
       {children}
       {/* {!inProgress && !isEditor && <StudioFooter />} */}
     </div>
