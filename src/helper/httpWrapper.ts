@@ -54,7 +54,7 @@ export class HttpWrapper {
   private static getDefaultHeader() {
     const cookies = new Cookies();
     return {
-      sessionToken: cookies.get('sessionToken'),
+      sessionToken: cookies.get('openedxSessionToken'),
       openedxCommunityId: cookies.get('openedxCommunityId'),
     };
   }
