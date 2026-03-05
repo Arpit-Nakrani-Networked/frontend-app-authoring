@@ -33,6 +33,7 @@ const TextEditor = ({
   learningContextId,
   images,
   isLibrary,
+  isNew,
   // inject
   intl,
 }) => {
@@ -86,8 +87,9 @@ const TextEditor = ({
       onClose={onClose}
       returnFunction={returnFunction}
       deleteBlock={() => deleteBlock && deleteBlock()}
-      saveText={intl.formatMessage(messages.addText) }
+      saveText={isNew ? intl.formatMessage(messages.addText) :''}
       className="editor-question-text-model"
+      isNew={isNew}
     >
       <div className="editor-body h-75 overflow-auto">
         <Toast show={blockFailed} onClose={hooks.nullMethod}>

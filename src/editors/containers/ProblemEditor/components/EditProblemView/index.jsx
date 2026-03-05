@@ -68,7 +68,7 @@ const EditProblemView = ({
       returnFunction={returnFunction}
       onClose={onClose}
       deleteBlock={() => deleteBlock && deleteBlock()}
-      saveText={intl.formatMessage(messages.saveAddQuestion)}
+      saveText={isNew ? intl.formatMessage(messages.saveAddQuestion) : ''}
       className='editor-question-problem-model'
       isNew={isNew}
     >

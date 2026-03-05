@@ -14,7 +14,7 @@ const pluginConfig = ({ isLibrary, placeholder, editorType }) => {
   const quickToolbar = editorType === 'expandable' ? plugins.quickbars : '';
   const inline = editorType === 'expandable';
   const toolbar = editorType !== 'expandable';
-  const defaultFormat = (editorType === 'question' || editorType === 'expandable') ? 'div' : 'p';
+  const defaultFormat = editorType === 'expandable' ? 'div' : 'p';
   const hasStudioHeader = document.querySelector('.studio-header');
 
   return (

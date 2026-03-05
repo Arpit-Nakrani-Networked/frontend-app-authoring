@@ -158,7 +158,7 @@ const EditorContainer: React.FC<Props> = ({
       <ModalDialog.Header className="editor-container_header">
         {/* <div className="d-flex flex-row justify-content-between"> */}
         {/* <span className="col pl-0 _font-weight-semibold"> */}
-        <TitleHeader isInitialized={isInitialized} />
+        <TitleHeader isNew={isNew} isInitialized={isInitialized} />
         {/* </span> */}
         {/* <IconButton
             src={Close}

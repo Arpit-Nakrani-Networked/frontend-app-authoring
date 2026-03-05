@@ -174,7 +174,7 @@ export const scormEditor = ({
       returnFunction={returnFunction}
       isNew={isNew}
       className="scorm-module-modal pgn__modal-md"
-      saveText={isNew ? "Add Scorm" : "Add Scorm"}
+      saveText={isNew ? "Add Scorm" : ""}
       disabled={isNew && !scorm?.file}
     >
       <div className="editor-body h-75 overflow-auto">

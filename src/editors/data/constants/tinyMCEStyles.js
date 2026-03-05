@@ -1,5 +1,5 @@
 const getStyles = () => (
-  `@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&display=swap");
+  `@import url("https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
   .mce-content-body *[contentEditable=false] {
     cursor: default;
@@ -100,7 +100,7 @@ const getStyles = () => (
   .mce-content-body {
       padding: 0;
       background-color: #fff;
-      font-family: 'Open Sans', Verdana, Arial, Helvetica, sans-serif;
+      font-family: "Figtree" !important;
       font-size: 16px;
       line-height: 1.6;
       color: #3c3c3c;
@@ -113,6 +113,11 @@ const getStyles = () => (
       scrollbar-shadow-color: #F0F0EE;
       scrollbar-track-color: #F5F5F5;
   }
+  .mce-content-body *,
+  .mce-content-body div,
+  .mce-content-body span {
+      font-family: "Figtree" !important;
+  }
   .mce-content-body h1,
   .mce-content-body .hd-1 {
       color: #3c3c3c;
@@ -121,6 +126,7 @@ const getStyles = () => (
       line-height: 1.4em;
       margin: 0 0 1.41575em 0;
       text-transform: initial;
+      font-family: "Figtree" !important;
   }
   .mce-content-body h2,
   .mce-content-body .hd-2 {
@@ -131,6 +137,7 @@ const getStyles = () => (
       font-size: 1.2em;
       line-height: 1.2em;
       text-transform: initial;
+      font-family: "Figtree" !important;
   }
   .mce-content-body h3,
   .mce-content-body .hd-3 {
@@ -138,6 +145,7 @@ const getStyles = () => (
     font-size: 1.1125em;
     font-weight: 400;
     text-transform: initial;
+    font-family: "Figtree" !important;
   }
   .mce-content-body .hd-3,
   .mce-content-body h4,
@@ -148,6 +156,7 @@ const getStyles = () => (
   .mce-content-body .hd-6 {
       margin: 0 0 10px 0;
       font-weight: 600;
+      font-family: "Figtree" !important;
   }
   .mce-content-body h4,
   .mce-content-body .hd-4 {
@@ -167,6 +176,7 @@ const getStyles = () => (
       font-size: 1em;
       line-height: 1.6em !important;
       color: #3c3c3c;
+      font-family: "Figtree" !important;
   }
   .mce-content-body em, .mce-content-body i {
       font-style: italic;
@@ -181,9 +191,11 @@ const getStyles = () => (
       margin: 1em 0;
       padding: 0 0 0 1em;
       color: #3c3c3c;
+      font-family: "Figtree" !important;
   }
   .mce-content-body ol li, .mce-content-body ul li {
       margin-bottom: 0.708em;
+      font-family: "Figtree" !important;
   }
   .mce-content-body ol {
       list-style: decimal outside none;

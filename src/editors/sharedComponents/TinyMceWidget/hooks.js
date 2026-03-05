@@ -235,12 +235,12 @@ export const setupCustomBehavior = ({
     editor.execCommand('mceToggleFormat', false, 'label');
   };
   editor.ui.registry.addIcon('textToSpeech', tinyMCE.textToSpeechIcon);
-  editor.ui.registry.addButton('customLabelButton', {
-    icon: 'textToSpeech',
-    text: 'Label',
-    tooltip: 'Apply a "Question" label to specific text, recognized by screen readers. Recommended to improve accessibility.',
-    onAction: toggleLabelFormatting,
-  });
+  // editor.ui.registry.addButton('customLabelButton', {
+  //   icon: 'textToSpeech',
+  //   text: 'Label',
+  //   tooltip: 'Apply a "Question" label to specific text, recognized by screen readers. Recommended to improve accessibility.',
+  //   onAction: toggleLabelFormatting,
+  // });
   if (editorType === 'expandable') {
     editor.on('init', () => {
       const initialContent = editor.getContent();

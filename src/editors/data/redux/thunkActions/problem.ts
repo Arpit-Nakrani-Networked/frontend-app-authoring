@@ -60,7 +60,21 @@ export const getDataFromOlx = ({ rawOLX, rawSettings, defaultSettings }) => {
 
 export const loadProblem = ({ rawOLX, rawSettings, defaultSettings }) => (dispatch) => {
   if (isBlankProblem({ rawOLX })) {
-    dispatch(actions.problem.setEnableTypeSelection(camelizeKeys(defaultSettings)));
+    // Auto-initialize with single select problem type instead of showing type selection modal
+    const { default: basicOlxTemplates } = require('../../constants/basicOlxTemplates');
+    const singleSelectTemplate = basicOlxTemplates.singleSelect;
+    const newState = getDataFromOlx({
+      rawOLX: singleSelectTemplate,
+      rawSettings: {
+        weight: 1,
+        attempts_before_showanswer_button: 0,
+        show_reset_button: null,
+        showanswer: null,
+        defaultToAdvanced: false,
+      },
+      defaultSettings
+    });
+    dispatch(actions.problem.load(newState));
   } else {
     dispatch(actions.problem.load(getDataFromOlx({ rawOLX, rawSettings, defaultSettings })));
   }

@@ -51,7 +51,7 @@ const VideoEditor: React.FC<EditorComponent> = ({
           }
         }}
         deleteBlock={() => deleteBlock && deleteBlock()}
-        saveText={intl.formatMessage(messages.addText)}
+        saveText={isNew ? intl.formatMessage(messages.addText) : ''}
         className="editor-question-video-model"
       >
         {studioViewFinished ? (

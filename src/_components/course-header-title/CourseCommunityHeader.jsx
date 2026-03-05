@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { NETWORKED_FRONTEND_URL } from '../../helper/constants';
 import { HttpMethod, HttpWrapper } from '../../helper/httpWrapper';
-import './css/CourseHeader.scss'  
+import './css/CourseHeader.scss'
+import Favicon from '../favicon/Favicon';
 
 export default function CourseCommunityHeader() {
   const { courseId } = useParams();
@@ -100,6 +101,7 @@ export default function CourseCommunityHeader() {
 
   return !isLoading && (
     <div className="_container-fluid community-header">
+     <Favicon communityImage={communityImage} />
       <div className="course-content">
         <div className="course-info">
           {getDefaultCommunityImage()}

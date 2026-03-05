@@ -13,6 +13,7 @@ import EditableHeader from './EditableHeader';
 
 const TitleHeader = ({
   isInitialized,
+  isNew,
   // injected
   intl,
 }) => {
@@ -21,8 +22,9 @@ const TitleHeader = ({
   const dispatch = useDispatch();
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const title = useSelector(selectors.app.displayTitle);
+  const prefix = isNew ? 'Add' : 'Edit';
 
-  const titleAsPerNetowkedRequirment = title.toLowerCase() === 'text' ? 'Add Text' : title.toLowerCase() === 'video' ? 'Add Video' : title.toLowerCase() === 'scorm module' ? 'Add Scorm':'Add Question';
+  const titleAsPerNetowkedRequirment = title.toLowerCase() === 'text' ? prefix +' Text' : title.toLowerCase() === 'video' ? prefix + ' Video' : title.toLowerCase() === 'scorm module' ? prefix + ' Scorm':prefix + ' Question';
   const {
     inputRef,
     isEditing,
@@ -55,6 +57,7 @@ const TitleHeader = ({
 TitleHeader.defaultProps = {};
 TitleHeader.propTypes = {
   isInitialized: PropTypes.bool.isRequired,
+  isNew: PropTypes.bool.isRequired,
   // injected
   intl: intlShape.isRequired,
 };

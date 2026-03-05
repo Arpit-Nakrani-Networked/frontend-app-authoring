@@ -1036,6 +1036,24 @@ a.disabled {
   }
 }
 
+.pgn__form-radio-input ,.pgn__form-radio.pgn__form-control-valid{
+  border-radius: $custom-radio-indicator-border-radius;
+
+
+  &:checked {
+     border-color: $v2-blue-600 !important;
+    background-image: escape-svg($custom-radio-indicator-icon-checked) !important;
+  }
+}
+
+.pgn__form-checkbox-input,.pgn__form-checkbox.pgn__form-control-valid  {
+  
+  &:checked {
+   border-color: $v2-blue-600 !important;
+    background-image: escape-svg($custom-checkbox-indicator-icon-checked) !important;
+  }
+}
+
 
 
 //Figtree-font definitions
