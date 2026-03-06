@@ -48,7 +48,7 @@ html>body>#root,
   scrollbar-width: none;
   font-family: 'Figtree' !important;
   line-height: 100%;
-  letter-spacing: .5px !important;
+  letter-spacing: normal !important;
 }
 
 // center
@@ -524,6 +524,7 @@ input.pgn__form-switch-input {
   // leading-trim: NONE;
   line-height: 1.1;
   letter-spacing: normal !important;
+  opacity: 0.8;
 }
 
 .pgn__modal-header {
@@ -845,6 +846,22 @@ a.disabled {
   svg {
     fill: $iconColor;
   }
+}
+
+.icon-container {
+  svg {
+    opacity: 0.6;
+  }
+}
+
+.item-card-edit-icon svg{
+  height:24px !important;
+  width:24px !important;
+}
+
+.pgn__spinner.spinner-border {
+  color:$primary-color !important;
+  opacity: 1 !important;
 }
 
 .tox .tox-tbtn {

@@ -68,7 +68,7 @@ const GradingModal = ({
       </ModalDialog.Header>
       <ModalDialog.Body>
         <Form.Group
-          className={classNames('form-group-custom w-100', {
+          className={classNames('form-group-custom w-100 grade_weight_input', {
             'form-group-custom_isInvalid': errorEffort,
           })}
         >
@@ -80,13 +80,14 @@ const GradingModal = ({
             type="number"
             value={grade}
             name="grade_weight"
+            className="grade_weight_input"
             onChange={handleGradeChange}
             min={MIN_NUMBER_VALUE}
             max={MAX_NUMBER_VALUE}
             trailingElement="%"
             disabled={isLoading}
           />
-          <Form.Control.Feedback className="grading-description">
+          <Form.Control.Feedback className="grading-description mt-0">
             {intl.formatMessage(messages.gradingDescription)}
           </Form.Control.Feedback>
           {errorEffort && (
@@ -106,7 +107,7 @@ const GradingModal = ({
           </ModalDialog.CloseButton>}
           <StatefulButton
             key="statefulBtn"
-            className="btn btn-sm"
+            className="btn btn-sm ml-3"
             onClick={onSubmit}
             disabled={isDisabled}
             state={isLoading ? STATEFUL_BUTTON_STATES.pending : STATEFUL_BUTTON_STATES.default}

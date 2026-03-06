@@ -237,7 +237,7 @@ const GradingSettings = ({ intl, courseId }) => {
                   </section> */}
                 <section className="card pt-3 px-0 overflow-hidden">
                   <header className="px-4 row justify-content-between align-items-center mx-0 mb-2">
-                    <h2 className="lead _text-xl">
+                    <h2 className="lead _text-xl sub-header-content-title">
                       {intl.formatMessage(messages.assignmentTypeSectionTitle)}
                     </h2>
                     <Button

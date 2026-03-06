@@ -167,7 +167,7 @@ const CardHeader = ({
           <>
             {titleComponent}
             <IconButton
-              className="item-card-edit-icon mr-2"
+              className="item-card-edit-icon mr-2 icon-container"
               data-testid={`${namePrefix}-edit-button`}
               alt={intl.formatMessage(messages.altButtonEdit)}
               iconAs={EditIcon}
@@ -204,7 +204,7 @@ const CardHeader = ({
           {showEditButton && !isFormOpen && (
             <Button
               data-testid="edit-unit-button"
-              className="mr-3 _bg-white btn-sm hide-after-360"
+              className="mr-3 _bg-white btn-sm hide-after-360 icon-container"
               variant="outline-third"
               iconBefore={EditIcon}
               block

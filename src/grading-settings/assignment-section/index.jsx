@@ -116,7 +116,7 @@ const AssignmentSection = ({
           const isFormOpen = Boolean(editId === gradeField.id);
           const isError = Boolean(errorList[`${weight}-${gradeField.id}`] || errorList[`${type}-${gradeField.id}`])
           return (
-            <div key={gradeField.id} className="px-4 course-grading-assignment-wrapper d-flex py-0 border-0 align-items-center gap-3">
+            <div key={gradeField.id} className="px-4 course-grading-assignment-wrapper d-flex py-0 border-0 align-items-center gap-3" style={{minHeight:"52px"}}>
               <ol className="course-grading-assignment-items p-0 d-flex mb-0 mr-0 w-100 align-items-center">
                 <AssignmentItem
                   className="course-grading-assignment-total-grade p-0 w-25"
@@ -224,8 +224,10 @@ const AssignmentSection = ({
                 aria-hidden="true"
               />
             )} */}
-              <Stack gap={3} direction="horizontal" className={classNames('d-flex', {})}>
-                {isFormOpen && <button className='back-button w-auto py-1 _text-sm h-auto btn btn-secondary pgn__icon _cursor-pointer d-flex justify-content-center align-items-center' onClick={(e) => {
+              <Stack gap={3} direction="horizontal" className={classNames('d-flex', {
+                  
+              })}>
+                {isFormOpen && <button className='back-button w-auto py-1 _text-sm h-auto btn pgn__icon _cursor-pointer d-flex justify-content-center align-items-center' onClick={(e) => {
                   action(() => {
                     onReset();
                     setEditId(null);

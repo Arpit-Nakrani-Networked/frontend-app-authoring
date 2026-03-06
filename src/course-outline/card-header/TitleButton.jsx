@@ -36,7 +36,7 @@ const TitleButton = ({
         iconBefore={isExpanded ? ArrowRightIcon : ArrowDownIcon}
         variant="tertiary border-0"
         data-testid={`${namePrefix}-card-header__expanded-btn`}
-        className="item-card-header__title-btn"
+        className="item-card-header__title-btn icon-container"
         size="sm"
         onClick={onTitleClick}
       >

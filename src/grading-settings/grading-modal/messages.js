@@ -23,7 +23,7 @@ const messages = defineMessages({
   },
    buttonSaveText: {
     id: 'course-authoring.grading-settings.alert.button.save',
-    defaultMessage: 'Save changes',
+    defaultMessage: 'Add',
   },
   buttonSavingText: {
     id: 'course-authoring.grading-settings.alert.button.saving',

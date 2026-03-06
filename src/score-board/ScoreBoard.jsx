@@ -93,7 +93,7 @@ const ScoreBoard = ({ intl, courseId }) => {
                 }}
                 placeholder="Search"
               />}
-              {showSearch ? <Icon className='close-icon' size='sm' src={IconClose} onClick={() => {
+              {showSearch ? <Icon className='close-icon icon-container' size='sm' src={IconClose} onClick={() => {
                 if (searchText) {
                   handleSearchCoursesDebounced('')
                 }
