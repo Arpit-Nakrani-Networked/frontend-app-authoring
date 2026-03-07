@@ -235,7 +235,7 @@ const SectionCard = ({
         <div>
           {isHeaderVisible && (
             <CardHeader
-            className='section-item-header'
+            className={`section-item-header ${isExpanded ? 'expanded' : 'collapsed'}`}
               cardId={id}
               title={displayName}
               status={sectionStatus}

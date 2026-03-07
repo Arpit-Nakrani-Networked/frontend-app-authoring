@@ -50,6 +50,7 @@ const ProblemEditor: React.FC<Props> = ({
           <Spinner
             animation="border"
             className="m-3"
+            variant="primary"
             screenreadertext="Loading Problem Editor"
           />
         </div>

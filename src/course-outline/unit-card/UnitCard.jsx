@@ -227,6 +227,7 @@ const UnitCard = ({
           onClick={handleViewEdit}
         >
           <CardHeader
+          className={`unit-item-header`}
             title={displayName}
             status={unitStatus}
             hasChanges={hasChanges}

@@ -28,7 +28,10 @@ export const AvailableComponentCard = ({
     if (category === 'problem') {
       payload.data = '<problem><multiplechoiceresponse>\n<div>what is 1+1?</div><choicegroup><choice correct="true"><div>2</div></choice><choice correct="false"><div>1</div></choice><choice correct="false"><div>1</div></choice></choicegroup></multiplechoiceresponse>\n</problem>';
     }
-    createComponentBlock(payload).then(({ locator, courseKey }) => onSuccess({ componentBlockCategory: category, componentBlockId: locator })).catch((error) => onError?.(error)).finally(() => setIsCreating(false));
+    createComponentBlock(payload).then(({ locator, courseKey }) => onSuccess({ componentBlockCategory: category, componentBlockId: locator })).catch((error) => {
+      setIsCreating(false);
+      onError?.(error)
+    }).finally(() => setIsCreating(false));
   };
 
   return (
@@ -36,7 +39,7 @@ export const AvailableComponentCard = ({
       <div className='icon-24 mr-3'><SolidSvgComponent url={icon} width={20} height={20} defaultClass={``} iconColor="#00000099" /></div>
       <div className="d-flex align-items-center justify-content-between _flex-1">
         <span className='_text-black-400'>{label}</span>
-        {isCreating && <Spinner animation="border" size="sm" className="ms-2" />}
+        {isCreating && <Spinner animation="border"  size="sm" className="ms-2" />}
       </div>
     </Button>
   );

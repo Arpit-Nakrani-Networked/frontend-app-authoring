@@ -32,11 +32,11 @@ export const CardHeader = ({ component, onDelete }) => {
   return (
     <Stack direction="horizontal" className="justify-content-between">
       <span className="text-secondory">{getCardTitle()}</span>
-      <Stack direction="horizontal" className="justify-content-between" gap={3}>
+      <Stack direction="horizontal" className="justify-content-between" gap={1}>
         <span className="xblock-edit-icon btn-icon d-flex justify-content-center align-items-center" onClick={handleEdit}><SolidSvgComponent url={EditIcon} width={16} height={16} defaultClass={``} iconColor='#00000099' isIconColor /></span>
         <Dropdown>
           <Dropdown.Toggle
-            className="item-card-header__menu xblock-delete-button"
+            className="item-card-header__menu xblock-delete-button icon-container"
             id={`text-component-card-header__menu`}
             data-testid={`text-component-card-header__menu-button`}
             as={IconButton}

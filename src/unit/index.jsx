@@ -234,8 +234,8 @@ const Unit = ({ courseId, intl }) => {
             </Button>
           </div>}
         </div>}
-        <div className="max-w-1200 bg-white p-4 custom-scrollbar h-full overflow-auto" style={{ minHeight: '200px' }}>
-          {loading && <div className="d-flex flex-column align-items-center justify-content-center" style={{ minHeight: '150px' }}> <Spinner animation="border" className="mie-3" screenReaderText="loading" /> </div>}
+        <div className="max-w-1200 bg-white custom-scrollbar h-full overflow-auto pt-4" style={{ minHeight: '200px' }}>
+          {loading && <div className="d-flex flex-column align-items-center justify-content-center" style={{ minHeight: '150px' }}> <Spinner animation="border" variant="primary" className="mie-3" screenReaderText="loading" /> </div>}
           {!loading && components.length === 0 && <NoContent />}
           {!loading && components.length !== 0 && (
             <DndContext
@@ -254,7 +254,7 @@ const Unit = ({ courseId, intl }) => {
             </DndContext>
           )}
         </div>
-        <div className="max-w-1200 _bg-gray-50 p-4 d-flex flex-column align-items-center justify-content-between _rounded-b-lg unit-xblock-add-component">
+        <div className="max-w-1200 _bg-gray-50 p-4 d-flex flex-column align-items-center justify-content-between _rounded-b-lg unit-xblock-add-component" style={{borderTop: "1px solid #0000001F"}}>
           <h2 className="sub-header-title">Add content</h2>
           <span className="text-gray-500 _font-weight-light mt-2">Please select the one of the below type</span>
           <div className="d-flex justify-content-between w-100 mt-4" style={{ gap: '1rem' }}>

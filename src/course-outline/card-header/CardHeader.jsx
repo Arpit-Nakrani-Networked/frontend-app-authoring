@@ -179,10 +179,10 @@ const CardHeader = ({
           </>
         )}
         <div className="ml-auto d-flex align-items-center">
-          {showNewButton && !isFormOpen && (
+          {showNewButton && (
             <Button
               data-testid="new-unit-button"
-              className="mr-3 bg-white btn-sm hide-after-360"
+              className="mr-2 bg-white btn-sm hide-after-360"
               variant="outline-third"
               iconBefore={IconAdd}
               size='sm'
@@ -201,10 +201,10 @@ const CardHeader = ({
           {getConfig().ENABLE_TAGGING_TAXONOMY_PAGES === 'true' && !!contentTagCount && (
             <TagCount count={contentTagCount} onClick={openManageTagsDrawer} />
           )}
-          {showEditButton && !isFormOpen && (
+          {showEditButton && (
             <Button
               data-testid="edit-unit-button"
-              className="mr-3 _bg-white btn-sm hide-after-360 icon-container"
+              className="mr-2 _bg-white btn-sm hide-after-360 icon-container"
               variant="outline-third"
               iconBefore={EditIcon}
               block
@@ -217,12 +217,12 @@ const CardHeader = ({
               <span className='hide-after-360'>{intl.formatMessage(unitMessage.editUnitButton)}</span>
             </Button>
           )}
-          {!isFormOpen && <Dropdown data-testid={`${namePrefix}-card-header__menu`} onClick={(e) => {
+          { <Dropdown data-testid={`${namePrefix}-card-header__menu`} onClick={(e) => {
             e?.stopPropagation()
             onClickMenuButton()
           }}>
             <Dropdown.Toggle
-              className="item-card-header__menu"
+              className="item-card-header__menu icon-container"
               id={`${namePrefix}-card-header__menu`}
               data-testid={`${namePrefix}-card-header__menu-button`}
               as={IconButton}

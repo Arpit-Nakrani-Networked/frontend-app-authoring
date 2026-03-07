@@ -55,6 +55,7 @@ export const thumbEditor = ({
           <div className="text-center p-6">
             <Spinner
               animation="border"
+              variant="primary"
               className="m-3"
               // Use a messages.js file for intl messages.
               screenreadertext={intl.formatMessage('Loading Spinner')}

@@ -26,8 +26,8 @@ const CardStatus = ({
           text={badgeTitle}
           icon={badgeIcon}
           iconSize="xs"
-          iconClassName={classNames({ 'text-success-500': status === ITEM_BADGE_STATUS.live,'text-secondory': status === ITEM_BADGE_STATUS.draft})}
-          className={classNames({'_bg-gray-50 _text-sm py-0 _text-black': status === ITEM_BADGE_STATUS.draft })}
+          iconClassName={classNames({ 'text-success-500': status === ITEM_BADGE_STATUS.live,'text-secondory': [ITEM_BADGE_STATUS.draft,ITEM_BADGE_STATUS.unpublishedChanges].includes(status)})}
+          className={classNames({'_bg-gray-50 _text-sm py-0 _text-black': [ITEM_BADGE_STATUS.draft,ITEM_BADGE_STATUS.unpublishedChanges].includes(status) })}
         />
       )}
     </>

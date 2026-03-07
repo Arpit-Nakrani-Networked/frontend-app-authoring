@@ -39,7 +39,7 @@ export const DraggableComponent = ({
   };
 
   return (
-    <Row className="mx-0" ref={setNodeRef} style={customStyle}>
+    <Row className="mx-0 px-4" ref={setNodeRef} style={customStyle}>
       <div className="d-flex align-items-center rounded _bg-gray-50">
         <button
           ref={setActivatorNodeRef}
@@ -48,7 +48,7 @@ export const DraggableComponent = ({
           {...attributes}
           {...listeners}
         >
-          <span className="btn-icon__icon-container">
+          <span className="btn-icon__icon-container icon-container">
             <Icon src={DragIndicator} />
           </span>
         </button>

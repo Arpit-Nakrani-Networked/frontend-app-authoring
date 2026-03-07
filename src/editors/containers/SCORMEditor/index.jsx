@@ -184,6 +184,7 @@ export const scormEditor = ({
               <Spinner
                 animation="border"
                 className="m-3"
+                variant="primary"
                 screenreadertext="Loading"
               />
             </div>

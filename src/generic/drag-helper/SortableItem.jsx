@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import { intlShape, injectIntl } from '@edx/frontend-platform/i18n';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
+import DragIcon from '../../assets/images/dragIcon.svg'
 import {
-  Col, Icon, Row,
+  Col, Row,
 } from '@openedx/paragon';
-import { DragIndicator } from '@openedx/paragon/icons';
-
 import messages from './messages';
+import SolidSvgComponent from '../../_components/solid-svg/SolidSvgComponent';
 
 const SortableItem = ({
   id,
@@ -74,7 +74,7 @@ const SortableItem = ({
           {...listeners}
         >
           <span className="btn-icon__icon-container">
-            <Icon src={DragIndicator} />
+            <SolidSvgComponent url={DragIcon} width={16} height={16} defaultClass={``} iconColor='#00000099' isIconColor />
           </span>
         </button>
       )}

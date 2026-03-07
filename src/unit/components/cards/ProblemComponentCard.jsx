@@ -1,5 +1,4 @@
 import { Stack } from '@openedx/paragon';
-import { XMLParser } from 'fast-xml-parser';
 import { CardHeader } from '../CardHeader';
 import '../../unit.scss';
 
@@ -78,26 +77,22 @@ function toHTML(node) {
 }
 
 function parseProblemComponent(xmlString) {
-  const parser = new XMLParser();
-  const parsed = parser.parse(xmlString);
+  const domParser = new DOMParser();
+  const xmlDoc = domParser.parseFromString(xmlString, 'text/xml');
 
-  if (!parsed.problem || typeof parsed.problem === 'string') {
+  if (xmlDoc.querySelector('parsererror') || !xmlDoc.querySelector('problem')) {
     return { error: true };
   }
 
-  const isMultiSelect = !!parsed.problem.choiceresponse;
-  const parsedResponse = isMultiSelect
-    ? parsed.problem.choiceresponse
-    : parsed.problem.multiplechoiceresponse;
+  const isMultiSelect = !!xmlDoc.querySelector('choiceresponse');
 
-  const choices = parsedResponse?.choicegroup || parsedResponse?.checkboxgroup;
+  // Extract choice innerHTML directly — preserves nested tags like <br/>, <b>, etc.
+  const choiceElements = xmlDoc.querySelectorAll('choice');
+  const options = Array.from(choiceElements).map((choice) => choice.innerHTML);
 
-  // Always normalize to clean HTML/text
-  const options = (choices?.choice || []).map((choice) => toHTML(choice.div));
-
-  const problemStatementHtml = ProblemHTMLExtractor.convertXMLToHTML(xmlString.replace(/<choicegroup[\s\S]*?<\/choicegroup>/gi, "").replace(/<checkboxgroup[\s\S]*?<\/checkboxgroup>/gi, ""));  
-  const problemStatement = ProblemHTMLExtractor.elementToString(problemStatementHtml)
-  const explanation = toHTML(parsedResponse?.solution?.div?.p?.[1] || '');
+  const problemStatementHtml = ProblemHTMLExtractor.convertXMLToHTML(xmlString.replace(/<choicegroup[\s\S]*?<\/choicegroup>/gi, "").replace(/<checkboxgroup[\s\S]*?<\/checkboxgroup>/gi, ""));
+  const problemStatement = ProblemHTMLExtractor.elementToString(problemStatementHtml);
+  const explanation = '';
 
   return {
     isMultiSelect,

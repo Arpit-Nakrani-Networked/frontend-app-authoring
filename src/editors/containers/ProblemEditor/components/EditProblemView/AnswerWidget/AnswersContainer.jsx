@@ -50,6 +50,7 @@ const AnswersContainer = ({
         <Stack direction="horizontal" className="justify-content-between mt-2">
           <Button
             variant="add"
+            size='xs'
             onClick={addAnswer}
             className={`text-primary btn btn-outline-third px-3 btn-sm h-36`}
           >
@@ -64,12 +65,15 @@ const AnswersContainer = ({
           <Dropdown.Toggle
             id="Add-Answer-Or-Answer-Range"
             variant="tertiary"
-            className="px-3 text-primary btn btn-outline-third h-36"
+            className="px-3 text-primary btn btn-outline-third h-36 "
           >
             <Icon
+            size='xs'
+            className="icon-container"
               src={Add}
             />
             <FormattedMessage {...messages.addAnswerButtonText} />
+            
           </Dropdown.Toggle>
           <Dropdown.Menu>
             <Dropdown.Item
