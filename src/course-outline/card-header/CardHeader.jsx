@@ -214,7 +214,7 @@ const CardHeader = ({
             //   // handleNewButtonClick && handleNewButtonClick()
             // }}
             >
-              <span className='hide-after-360'>{intl.formatMessage(unitMessage.editUnitButton)}</span>
+              <span className='hide-after-360 _text-sm'>{intl.formatMessage(unitMessage.editUnitButton)}</span>
             </Button>
           )}
           { <Dropdown data-testid={`${namePrefix}-card-header__menu`} onClick={(e) => {
