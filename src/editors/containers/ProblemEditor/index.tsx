@@ -67,12 +67,19 @@ const ProblemEditor: React.FC<Props> = ({
   }
 
   if (problemType === null) {
-    return (<SelectTypeModal {...{
-      onClose: () => {
-        onClose && onClose()
-        deleteBlock && deleteBlock()
-      }
-    }} />);
+    return (<EditorContainer getContent={() => { console.log('Dummy'); }} isDirty={() => false} onClose={() => {
+      onClose && onClose()
+      deleteBlock && deleteBlock()
+    }} hideFooter className='editor-question-problem-model'>
+      <div className="text-center p-6">
+        <Spinner
+          animation="border"
+          className="m-3"
+          variant="primary"
+          screenreadertext="Loading Problem Editor"
+        />
+      </div>
+    </EditorContainer>);
   }
   return (<EditProblemView {...{ onClose, returnFunction, deleteBlock ,isNew}} />);
 };
