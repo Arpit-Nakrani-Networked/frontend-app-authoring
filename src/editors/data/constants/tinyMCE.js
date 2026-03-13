@@ -53,6 +53,7 @@ export const buttons = StrictDict({
   underline: 'underline',
   a11ycheck: 'a11ycheck',
   embediframe: 'embediframe',
+  lineHeight: 'lineheight',
 });
 
 export const plugins = listKeyStore([

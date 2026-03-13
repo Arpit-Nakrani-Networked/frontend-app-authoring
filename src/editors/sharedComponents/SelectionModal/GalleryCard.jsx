@@ -26,7 +26,7 @@ const GalleryCard = ({
       type="radio"
       value={asset.id}
     >
-      <div className="card-div d-flex flex-row flex-nowrap align-items-center">
+      <div className="card-div d-flex flex-row flex-nowrap align-items-center overflow-hidden">
         <div
           className="position-relative"
           style={{

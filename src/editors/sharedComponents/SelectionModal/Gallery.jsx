@@ -49,20 +49,20 @@ const Gallery = ({
   }
   if (galleryIsEmpty) {
     return (
-      <div className="gallery p-4 bg-light-400" style={{ height, margin: '0 -1.5rem' }}>
+      <div className="gallery p-4" style={{ height, margin: '0 -1.5rem' }}>
         <FormattedMessage {...emptyGalleryLabel} />
       </div>
     );
   }
   if (searchIsEmpty) {
     return (
-      <div className="gallery p-4 bg-light-400" style={{ height, margin: '0 -1.5rem' }}>
+      <div className="gallery p-4" style={{ height, margin: '0 -1.5rem' }}>
         <FormattedMessage {...messages.emptySearchLabel} />
       </div>
     );
   }
   return (
-    <div className="p-4 gallery bg-light-400" style={{ height, margin: '0 -1.5rem' }}>
+    <div className="px-4 gallery" style={{ height, margin: '0 -1.5rem' }}>
       <SelectableBox.Set
         columns={1}
         name="images"

@@ -47,7 +47,7 @@ const SelectionModal = ({
   let background = '#FFFFFF';
   let showGallery = true;
   if (isLoaded && !isFetchError && !isUploadError && !inputError.show) {
-    background = '#E9E6E4';
+    background = '#FFFFFF';
   } else if (isLoaded) {
     showGallery = false;
   }
@@ -70,10 +70,11 @@ const SelectionModal = ({
       isFullscreenScroll={isFullscreenScroll}
       footerAction={(
         <Button
-          className="text-primary-500"
+          className="mr-2 bg-white btn-block"
           iconBefore={Add}
           onClick={fileInput.click}
-          variant="link"
+          variant="outline-third"
+          size='sm'
           style={{
             textDecoration: 'none',
           }}
@@ -82,13 +83,9 @@ const SelectionModal = ({
         </Button>
       )}
       title={intl.formatMessage(titleMsg)}
-      bodyStyle={{ background }}
-      headerComponent={(
-        <div style={{ margin: '18px 0' }}>
-          <SearchSort {...searchSortProps} />
-        </div>
-      )}
-      className="selection-modal"
+      bodyStyle={{ }}
+      headerComponent={null}
+      className="selection-modal _rounded-md"
     >
       {/*
         If the modal dialog content is zero height, it shows a bottom shadow

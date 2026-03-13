@@ -39,7 +39,7 @@ const DimensionControls = ({
     <Form.Label as="h4">
       <FormattedMessage {...messages.imageDimensionsLabel} />
     </Form.Label>
-    <div className="mt-4.5">
+    <div className="mt-1">
       <Form.Control
         className="dimension-input"
         value={value.width}

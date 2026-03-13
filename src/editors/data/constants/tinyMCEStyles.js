@@ -174,7 +174,7 @@ const getStyles = () => (
       margin-bottom: 0;
       margin-top: 0;
       font-size: 1em;
-      line-height: 1.6em !important;
+      line-height: 1.6em;
       color: #3c3c3c;
       font-family: "Figtree" !important;
   }

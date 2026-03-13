@@ -64,8 +64,8 @@ const ImageSettingsModal = ({
       <Button
         iconBefore={ArrowBackIos}
         onClick={returnToSelection}
-        size="inline"
-        variant="link"
+        size="sm"
+        variant="outline-third"
       >
         <FormattedMessage {...messages.replaceImageButtonLabel} />
       </Button>

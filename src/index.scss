@@ -532,6 +532,11 @@ input.pgn__form-switch-input {
   box-shadow: none !important;
   padding-bottom: 0 !important;
   min-height: unset !important;
+  background-color: transparent !important;
+}
+
+.pgn__modal-footer{
+  background-color: transparent !important;
 }
 
 .pgn__modal .pgn__modal-header {

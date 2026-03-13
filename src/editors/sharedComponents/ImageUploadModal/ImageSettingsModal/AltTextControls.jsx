@@ -25,14 +25,15 @@ const AltTextControls = ({
   // inject
   intl,
 }) => (
-  <Form.Group className="mt-4.5">
-    <Form.Label as="h4">
+  <Form.Group className="mt-4">
+    {/* <Form.Label as="h4">
       <FormattedMessage {...messages.accessibilityLabel} />
-    </Form.Label>
+    </Form.Label> */}
     <Form.Control
-      className="mt-4.5"
+      className="mt-1"
       disabled={isDecorative}
       floatingLabel={intl.formatMessage(messages.altTextFloatingLabel)}
+      placeholder={intl.formatMessage(messages.altTextFloatingLabel)}
       isInvalid={validation.show}
       onChange={hooks.onInputChange(setValue)}
       type="input"
@@ -46,7 +47,7 @@ const AltTextControls = ({
       )}
     <Form.Checkbox
       checked={isDecorative}
-      className="mt-4.5 decorative-control-label"
+      className="mt-2 decorative-control-label"
       onChange={hooks.onCheckboxChange(setIsDecorative)}
     >
       <Form.Label>
