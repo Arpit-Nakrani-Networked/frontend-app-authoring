@@ -64,7 +64,7 @@ const Gallery = ({
   return (
     <div className="px-4 gallery" style={{ height, margin: '0 -1.5rem' }}>
       <SelectableBox.Set
-        columns={1}
+        columns={2}
         name="images"
         onChange={onHighlightChange}
         type="radio"
