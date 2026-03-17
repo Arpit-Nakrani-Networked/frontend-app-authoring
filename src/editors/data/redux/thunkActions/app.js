@@ -148,6 +148,9 @@ export const saveBlock = (content, returnToUnit) => (dispatch) => {
       dispatch(actions.app.setLoading(false));
       returnToUnit(response.data);
     },
+    onFailure: (error) => { 
+        dispatch(actions.app.setLoading(false));
+    }
   }));
 };
 

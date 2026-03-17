@@ -30,7 +30,7 @@ const GalleryCard = ({
         <div
           className="position-relative"
           style={{
-            width: '200px',
+            width: '100%',
             height: '100px',
           }}
         >
@@ -40,7 +40,7 @@ const GalleryCard = ({
             </div>
           ) : (
             <Image
-              style={{ border: 'none', width: '200px', height: '100px' }}
+              style={{ border: 'none', width: '100%', height: '100px' ,objectFit: 'contain' }}
               src={asset.externalUrl}
               onError={thumbnailFallback && (() => setThumbnailError(true))}
             />
@@ -64,7 +64,7 @@ const GalleryCard = ({
             </Badge>
           )}
         </div>
-        <div className="card-text px-3 py-2" style={{ marginTop: '10px' }}>
+        {/* <div className="card-text px-3 py-2" style={{ marginTop: '10px' }}>
           <h3 className="text-primary-500">
             <Truncate>{asset.displayName}</Truncate>
           </h3>
@@ -84,7 +84,7 @@ const GalleryCard = ({
               }}
             />
           </p>
-        </div>
+        </div> */}
       </div>
     </SelectableBox>
   );

@@ -601,9 +601,13 @@ input.pgn__form-switch-input {
 
 
 // Question component model text-component
-.pgn__modal.editor-question-text-model,
 .pgn__modal.editor-question-problem-model {
   width: 760px !important;
+}
+
+.pgn__modal.editor-question-text-model {
+  width: 1065px !important;
+  max-width: 100% !important;
 }
 
 .pgn__modal.editor-question-video-model {

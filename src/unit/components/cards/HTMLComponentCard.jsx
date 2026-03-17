@@ -28,7 +28,7 @@ export const HTMLComponentCard = ({ component, onEdit, onDelete }) => {
   return (
     <div className="component-block-wrappper html-component-container">
       <CardHeader component={component} onDelete={onDelete} />
-      <div dangerouslySetInnerHTML={{ __html: updatedHtml }} />
+      <div dangerouslySetInnerHTML={{ __html: updatedHtml }} style={{maxWidth:"947px"}} />
     </div>
   );
 }
