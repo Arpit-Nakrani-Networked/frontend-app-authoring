@@ -1,10 +1,10 @@
-@media (max-width: 360px) {
+@media (max-width: 575px) {
   .course-tabs-navigation {
     padding-top: 17px;
     padding-bottom: 17px;
 
     .container-fluid {
-      width: max-content;
+      width: 100%;
       overflow: auto;
       padding: 0 16px !important;
     }

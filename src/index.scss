@@ -79,7 +79,7 @@ html>body>#root,
   }
 }
 
-@media (max-width: 360px) {
+@media (max-width: 575px) {
 
   .max-w-1200,
   .container-mw-xl {
@@ -164,7 +164,7 @@ mark {
     column-gap: 16px;
   }
 
-  @media (max-width: 360px) {
+  @media (max-width: 575px) {
 
     div.actions-btns {
       display: none;
@@ -206,7 +206,7 @@ mark {
   width: 100%;
 }
 
-@media (max-width: 360px) {
+@media (max-width: 575px) {
   .community-header {
     display: none;
   }
@@ -1046,7 +1046,7 @@ a.disabled {
   display: flex;
 }
 
-@media (max-width: 360px) {
+@media (max-width: 575px) {
   .hide-after-360 {
     display: none;
   }
@@ -1056,7 +1056,7 @@ a.disabled {
   display: none;
 }
 
-@media (max-width: 360px) {
+@media (max-width: 575px) {
   .show-after-360 {
     display: flex;
   }
