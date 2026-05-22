@@ -9,8 +9,11 @@ import {
   ArrowDropUp as ArrowUpIcon,
 } from '@openedx/paragon/icons';
 import { AddCircleOutline } from '@openedx/paragon/icons';
+import ExpandIcon from '../../assets/images/expandIcon.svg';
+
 
 import messages from './messages';
+import SolidSvgComponent from '../../_components/solid-svg/SolidSvgComponent';
 
 const HeaderNavigations = ({
   headerNavigationsActions,
@@ -51,8 +54,8 @@ const HeaderNavigations = ({
            className='show-after-360 px-1'
         >
           {isSectionsExpanded
-            ? <Icon src={IconAddCircle} />
-            : <Icon src={IconAddCircle} />}
+            ? <SolidSvgComponent url={ExpandIcon} width={20} height={20} iconColor='#000' defaultClass={`mr-2`} />
+            : <SolidSvgComponent url={ExpandIcon} width={20} height={20} iconColor='#000' defaultClass={`mr-2`} />}
         </Button>
       )}
       {courseActions.childAddable && (
