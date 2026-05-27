@@ -241,7 +241,7 @@ const CourseOutline = ({ courseId }) => {
       {/* <Helmet>
         <title>{getPageHeadTitle(courseName, intl.formatMessage(messages.headingTitle))}</title>
       </Helmet> */}
-      <Container size="xl" className="px-4 container-screen w-fit overflow-hidden course-outline-wrapper">
+      <Container size="xl" className="px-4 container-screen overflow-hidden course-outline-wrapper">
         <section className="max-w-1200 course-outline-container overflow-hidden h-full d-flex flex-column">
           {/* <PageAlerts
             courseId={courseId}

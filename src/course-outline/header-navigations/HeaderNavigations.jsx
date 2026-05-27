@@ -79,7 +79,7 @@ const HeaderNavigations = ({
           </Button>
         </OverlayTrigger>
       )}
-      {courseActions.childAddable && (
+      {courseActions.childAddable && hasSections && (
         <OverlayTrigger
           placement="bottom"
           overlay={(
