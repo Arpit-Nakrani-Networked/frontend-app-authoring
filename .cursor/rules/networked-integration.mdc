@@ -1,0 +1,381 @@
+---
+description: Networked-specific guidance for the frontend-app-authoring Open edX MFE
+alwaysApply: true
+---
+
+# Networked Frontend Authoring Integration
+
+This repository is `frontend-app-authoring`, the Open edX course-authoring MFE used by Networked. Treat it as the Studio-facing authoring UI only. Do not use this rule as the source of truth for `fe-main`, `be-main`, LMS learner APIs, user provisioning, enrollment, course discovery, or backend Open edX cookie storage except where this app directly depends on those contracts.
+
+Networked users normally enter this MFE after `fe-main` sends them through the LMS login bridge:
+
+`/auth/networked-login/<course_id>?token=<tokenId>&communityId=<communityId>&nextPage=add-lesson`
+
+Open edX validates the Networked token, creates LMS/Studio browser sessions, then redirects to this app/Studio authoring page. This MFE should assume authentication and course access are already established by Open edX/Studio and Networked backend.
+
+## App Role
+
+`frontend-app-authoring` owns the browser UX for course creation after the course already exists in Open edX Studio:
+
+- Course outline authoring at `/course/:courseId`.
+- Section, lesson, unit, and component authoring.
+- Lesson settings used by Networked, including unskippable units, minimum time on unit, answer visibility, and graded inclusion.
+- Studio grading settings at `/course/:courseId/settings/grading`.
+- Student overview and score board entry points when Studio routes/MFE config send users here.
+- Networked-friendly header/navigation simplification.
+- Calls from the browser to Studio/LMS/Networked backend only when this app has an explicit UI need.
+
+Networked terminology maps to Open edX content like this:
+
+- Networked "section" means Open edX `chapter`.
+- Networked "lesson" means Open edX `sequential` subsection.
+- Networked "unit" means Open edX `vertical`.
+- Lesson content is made of XBlock components such as HTML/text, problem/question, video, SCORM, and other enabled block types.
+
+## Networked Changes In This Repo
+
+This fork is not a generic upstream `frontend-app-authoring` checkout. It has Networked-specific changes and expectations:
+
+- The authoring experience is reduced to Networked-needed tabs/pages: course outline, student overview, score board, grading, and profile/community context.
+- The Networked frontend should not expose "subsection" wording. In UI and rules, say `Section` for Open edX `chapter` and `Lesson` for Open edX `sequential`.
+- Lesson settings are redesigned around a small Networked popup instead of the full upstream subsection settings tab set.
+- `src/generic/configure-modal/ConfigureModal.jsx` renders a simplified `QuizSettings` body for `sequential` lessons and comments out the upstream Basic, Visibility, and Advanced tabs for that case.
+- `src/generic/configure-modal/QuizSettings.jsx` owns Networked toggles for "Make this Unit Un-skippable", "Minimum time on Unit", "Show Answers on Result Page", and "Include in Graded".
+- `src/course-outline/data/api.js` persists those lesson settings to Studio using `unskippable_unit`, `minimum_time_on_unit`, `show_correctness`, and `graderType`/`format`.
+- `src/data/api.js` adds Networked backend calls for edit access and visibility/publish behavior through `HttpWrapper`.
+- `src/helper/httpWrapper.ts` is a Networked-only API bridge from this MFE back to `be-main`; it forwards `openedxSessionToken` and `openedxCommunityId` cookies.
+- `src/helper/constants.ts` chooses the Networked app/backend host from the current hostname: `lab`, `qa`/`local`, or production.
+
+When maintaining this fork, treat those as intentional product decisions unless the task explicitly asks to restore upstream Studio behavior.
+
+## Main Files
+
+Use these files as the first places to inspect before changing authoring behavior:
+
+- `src/index.jsx`: app bootstrap, `PUBLIC_PATH` basename, React Router setup, config merge, and enabled top-level routes.
+- `src/CourseAuthoringRoutes.jsx`: all course-scoped routes under `/course/:courseId/*`.
+- `src/CourseAuthoringPage.jsx`: course detail fetch, page shell, header/footer visibility, permission/not-found handling.
+- `src/header/Header.tsx` and `src/header/hooks.jsx`: Studio header, main menus, and route links.
+- `src/data/api.js`, `src/data/thunks.js`, and `src/data/apiHooks.ts`: shared course detail, waffle flags, and Networked-specific helper calls.
+- `src/helper/httpWrapper.ts`: custom Networked backend wrapper that sends Open edX bridge cookies.
+- `src/course-outline/`: course outline, section/subsection/unit cards, publish/delete/reorder/configure flows.
+- `src/course-outline/data/api.js`: Studio contentstore and XBlock calls for outline mutation.
+- `src/course-unit/`: unit/vertical authoring experience and embedded XBlock container.
+- `src/editors/`: text, problem, video, and other editor containers.
+- `src/generic/configure-modal/`: modal for section, lesson, unit, visibility, quiz, and Networked lesson settings.
+- `src/grading-settings/`: grading policy UI and Studio grading API calls.
+- `src/pages-and-resources/`, `src/files-and-videos/`, `src/advanced-settings/`, `src/course-team/`, and related feature folders: upstream Studio authoring pages that may be hidden or linked depending on Networked needs.
+
+## Route Scope
+
+The active app route in `src/index.jsx` is:
+
+- `/course/:courseId/*` -> `CourseAuthoringRoutes`.
+
+Most upstream Studio routes are commented out in this fork. Be cautious before re-enabling routes like Studio home, library authoring, taxonomy, accessibility, or course rerun. Networked intentionally uses a simplified authoring surface.
+
+Important course routes in `CourseAuthoringRoutes.jsx`:
+
+- `/course/:courseId` -> course outline.
+- `/course/:courseId/container/:blockId/:sequenceId?` -> unit editor.
+- `/course/:courseId/editor/:blockType/:blockId?` -> component editor.
+- `/course/:courseId/settings/grading` -> grading settings.
+- `/course/:courseId/settings/details` -> schedule/details if enabled by navigation.
+- `/course/:courseId/settings/advanced` -> advanced settings if access allows it.
+- `/course/:courseId/assets`, `/videos`, `/pages-and-resources`, `/course_team`, `/group_configurations`, `/import`, `/export`, `/checklists`, `/certificates`, and `/textbooks` are upstream Studio pages that may or may not be part of the Networked UX.
+
+For Networked, keep the primary visible flow focused on:
+
+- Course outline.
+- Lesson/unit editing.
+- Student overview.
+- Score board.
+- Grading.
+- Community/user header context.
+
+## Entry From Networked
+
+`fe-main` sends users to LMS `/auth/networked-login/<courseId>` with `token`, `communityId`, optional `nextPage`, and optional `isMobile`. This MFE does not validate those parameters. The Open edX LMS/CMS fork owns validation and final redirect.
+
+Authoring login flow:
+
+1. Networked `fe-main` user clicks Add Lessons, Edit Lessons, Student Overview, Score Board, or Grading.
+2. `fe-main` opens LMS `/auth/networked-login/<courseId>` with `token=<tokenId>`, `communityId=<communityId>`, and `nextPage=<target>`.
+3. LMS calls Networked backend to validate the token/community and obtain Open edX session data.
+4. LMS/CMS sets browser cookies for Open edX and Networked bridge cookies such as `openedxSessionToken` and `openedxCommunityId`.
+5. Open edX redirects into Studio or this MFE, usually under `/course/:courseId`.
+6. `frontend-app-authoring` loads course data with `getAuthenticatedHttpClient()` and uses `HttpWrapper` only for Networked backend checks/actions.
+
+Relevant `nextPage` values for authoring:
+
+- `add-lesson` and `edit-lesson` should land on the Studio/course authoring outline for this MFE.
+- `student-overview` should land on the Studio/MFE student overview route when enabled.
+- `score-board` should land on the Studio/MFE score board route when enabled.
+- `grading` should land on Studio grading, usually `/course/:courseId/settings/grading` in this MFE or `/settings/grading/<course_id>` in CMS depending on deployment routing.
+
+When debugging entry problems, check in this order:
+
+1. The Networked FE redirect URL.
+2. LMS `/auth/networked-login/<courseId>` behavior.
+3. Open edX session cookies for LMS, Studio, and apps domains.
+4. `PUBLIC_PATH`, `STUDIO_BASE_URL`, `LMS_BASE_URL`, and MFE config.
+5. The final `frontend-app-authoring` route under `/course/:courseId`.
+
+## Configuration
+
+This app reads runtime configuration through `@edx/frontend-platform` and `process.env` merged in `src/index.jsx`.
+
+Important values:
+
+- `PUBLIC_PATH`: app basename. Local development often uses `/authoring/`; production may mount through the Open edX apps domain.
+- `STUDIO_BASE_URL`: Studio/CMS host for contentstore, XBlock, grading, assets, and fallback legacy links.
+- `LMS_BASE_URL`: LMS host used by shared course detail loading in `src/data/api.js`.
+- `LEARNING_BASE_URL`: learning MFE host for learner links when needed.
+- `ENABLE_UNIT_PAGE`, `ENABLE_ASSETS_PAGE`, `ENABLE_VIDEO_UPLOAD_PAGE_LINK_IN_CONTENT_DROPDOWN`, `ENABLE_CERTIFICATE_PAGE`, and related flags: route/menu visibility.
+- Waffle flags from `useWaffleFlags()` decide whether menu links point to MFE routes or legacy Studio URLs.
+
+Keep `PUBLIC_PATH`, Studio host, LMS host, and the Open edX apps host aligned with the environment. Mismatched values commonly cause successful Networked login followed by blank pages, wrong-domain cookies, or legacy Studio links.
+
+## API Boundaries
+
+For normal authoring data, use Open edX Studio/LMS APIs through `getAuthenticatedHttpClient()`:
+
+- Course detail: `GET {LMS_BASE_URL}/api/courses/v1/courses/:courseId`.
+- Outline: `GET {STUDIO_BASE_URL}/api/contentstore/v1/course_index/:courseId`.
+- XBlock mutations: `POST/PUT/DELETE {STUDIO_BASE_URL}/xblock/...`.
+- Grading: `GET/POST {STUDIO_BASE_URL}/api/contentstore/v1/course_grading/:courseId`.
+- Course settings: `GET {STUDIO_BASE_URL}/api/contentstore/v1/course_settings/:courseId`.
+
+Use the existing feature-local data module for the area you are changing. Examples:
+
+- Outline changes belong in `src/course-outline/data/api.js` and related thunks/hooks.
+- Unit changes belong in `src/course-unit/`.
+- Grading changes belong in `src/grading-settings/data/api.js` and `src/grading-settings/data/apiHooks.ts`.
+- Shared course shell changes belong in `src/data/api.js`, `src/data/thunks.js`, or `src/data/apiHooks.ts`.
+
+Do not add raw `axios` or `fetch` calls in components when a local API module/hook pattern exists.
+
+## Networked Backend Calls
+
+This app has a custom `HttpWrapper` in `src/helper/httpWrapper.ts` for Networked backend routes. It uses:
+
+- Base URL: `${NETWORKED_BACKEND_URL}/api/v1`.
+- Cookies: `openedxSessionToken` and `openedxCommunityId`.
+- Error redirect behavior back to Networked login for auth-like failures outside local development.
+
+Use `HttpWrapper` only for Networked-owned backend routes. Do not replace normal Studio contentstore/XBlock calls with Networked backend calls unless the feature is explicitly Networked-owned.
+
+Current Networked backend usage includes:
+
+- `GET /global/open-edx/edit-access` for Networked course edit access.
+- `POST /global/open-edx/courses/:courseId/both` to publish/make public through Networked course visibility behavior.
+
+Edit access details:
+
+- `getCourseDetailPermissions(courseId)` in `src/data/api.js` calls `GET /global/open-edx/edit-access`.
+- The request uses `HttpWrapper`, which sends `sessionToken: openedxSessionToken` and `openedxCommunityId` headers from browser cookies.
+- The response is expected to include an `access` boolean; local hosts are allowed as a development fallback.
+- Use this Networked endpoint when the UI needs Networked course-edit privilege. Do not infer edit access from UI state, URL, or local storage alone.
+
+Publish/visibility details:
+
+- `postCoursePublish(courseId)` in `src/data/api.js` calls `POST /global/open-edx/courses/:courseId/both`.
+- This delegates Networked visibility rules to `be-main` instead of directly changing catalog visibility from the browser.
+- If adding private/delete actions from this MFE, use the same route family and `CourseStatus` constants rather than hard-coding strings in components.
+
+The `CourseStatus` values in `src/constants.js` map visibility like this:
+
+- `public` -> `both`.
+- `private` -> `about`.
+- `delete` -> `none`.
+
+Do not change these status strings unless `be-main`, `fe-main`, and Open edX course visibility handling are updated together.
+
+## Authoring UI Rules
+
+Networked wants a simpler authoring experience than full upstream Studio. When changing menus, routes, buttons, or cards:
+
+- Keep the visible path centered on course outline, lesson content, student overview, score board, and grading.
+- Keep Networked tab labels/product language stable: Course outline, Student overview, Score board, and Grading.
+- Use `Lesson` in frontend UI for Open edX `sequential`; do not introduce visible "Subsection" language in Networked-facing flows.
+- Do not reintroduce broad upstream Studio navigation just because it exists.
+- Prefer hiding or not linking non-Networked pages over deleting upstream components.
+- Preserve access checks from Studio and Networked; the browser UI is not the source of truth for permission.
+- Keep owner/admin actions consistent with Networked privileges and Open edX Studio access.
+
+Current upstream menus still exist in `src/header/hooks.jsx` as Content, Settings, and Tools dropdowns. If the task is about Networked tabs, simplify or filter those menus deliberately rather than exposing every upstream Studio page.
+
+Header/menu changes usually belong in:
+
+- `src/header/Header.tsx`.
+- `src/header/hooks.jsx`.
+- `src/header/messages.js`.
+
+Route changes usually belong in:
+
+- `src/index.jsx`.
+- `src/CourseAuthoringRoutes.jsx`.
+- The feature folder being routed.
+
+## Lesson Settings
+
+Networked-specific lesson settings are centered in `src/generic/configure-modal/`.
+
+Important files:
+
+- `ConfigureModal.jsx`: gathers current item metadata, builds initial values, validates form state, and submits section/subsection/unit configuration.
+- `QuizSettings.jsx`: Networked-friendly toggles for unskippable unit, minimum time on unit, answer visibility, and grading inclusion.
+- `ToggleItem.jsx`: visual toggle wrapper used by quiz settings.
+- `messages.js`: labels and descriptions for Networked lesson/quiz controls.
+
+The edit lesson settings popup is intentionally different from upstream Studio:
+
+- `ConfigureModal.jsx` uses `ModalDialog` with `size="md"`, blocking behavior, fullscreen on mobile, and a Networked-styled body/footer.
+- For Open edX `chapter` sections, it can still render Basic and Visibility tabs.
+- For Open edX `sequential` lessons, it renders only `QuizSettings` and does not show upstream subsection Basic, Visibility, or Advanced tabs.
+- For Open edX `vertical` units/components, it renders `UnitTab` for visibility, group access, and discussion behavior.
+- Keep the popup focused. Do not add the upstream tab set back to lesson editing unless the product requirement explicitly asks for it.
+
+For Open edX `sequential` lessons, `configureCourseSubsection()` in `src/course-outline/data/api.js` sends these metadata fields:
+
+- `unskippable_unit`: whether the lesson/unit should be unskippable in Networked learning.
+- `minimum_time_on_unit`: minimum minutes the learner should spend before progressing.
+- `show_correctness`: answer visibility, commonly `always` or `never`.
+- `format`: grader type, through `graderType`.
+- `due`, `hide_after_due`, proctoring fields, prerequisites, and visibility fields as needed.
+
+Preserve these fields and names. They are part of the Networked authoring-to-learning contract. If changing UX labels, keep the metadata contract unchanged unless the Open edX backend and learning app are updated too.
+
+Section and lesson behavior:
+
+- Creating a Networked section should create an Open edX `chapter`.
+- Creating a Networked lesson should create an Open edX `sequential`.
+- The authoring UI should hide the Open edX "subsection" concept from users even when internal variables or APIs still use `sequential` or subsection-oriented names.
+- Lesson publish, delete, duplicate, configure, and reorder should continue to use the existing outline/XBlock APIs in `src/course-outline/data/api.js`.
+- A lesson can contain units/components, but Networked users should think in terms of Section -> Lesson -> content, not upstream Course -> Section -> Subsection -> Unit jargon.
+
+## Grading
+
+Grading settings live under `src/grading-settings/`.
+
+The grading page talks to Studio contentstore APIs:
+
+- `GET /api/contentstore/v1/course_grading/:courseId`.
+- `POST /api/contentstore/v1/course_grading/:courseId`.
+- `GET /api/contentstore/v1/course_settings/:courseId`.
+
+Networked uses grading in two ways:
+
+- The author configures course-level grading policy and assignment types.
+- Lesson/question settings can mark content as graded by choosing a grader type in `QuizSettings.jsx`.
+
+Do not confuse this authoring MFE with the LMS gradebook or Networked score board data APIs. This app edits policy and content metadata; LMS/Networked backend owns learner grade aggregation and staff/admin filtering.
+
+## Student Overview And Score Board
+
+Networked exposes Student Overview and Score Board from the authoring experience, but route ownership may be split between CMS routes and this MFE depending on deployment.
+
+When changing these features:
+
+- Check `CourseAuthoringRoutes.jsx` for MFE route availability.
+- Check `src/header/hooks.jsx` if the feature needs a visible nav item.
+- Keep the entry contract from `nextPage=student-overview` and `nextPage=score-board`.
+- Do not implement learner gradebook filtering in this MFE; that belongs in LMS/Open edX backend APIs.
+- Keep user/community header metadata as display context, not as an authorization source.
+
+If a page is routed in CMS first and then redirected into this MFE, ensure both route shapes still work in the target environment.
+
+Networked expectations:
+
+- Student Overview is an author/admin view launched from Networked or the authoring header; it should not become a learner-facing page.
+- Score Board is related to learner results, but this MFE should only own the UI entry/page shell if routed here. Data filtering for Networked admin/staff users belongs to LMS/backend.
+- Grading configuration is separate from Score Board: grading edits policy, score board displays learner results.
+- Keep `nextPage=student-overview`, `nextPage=score-board`, and `nextPage=grading` compatible with the Open edX login bridge.
+
+## Outline, Sections, Lessons, Units
+
+Course outline changes should respect Open edX content hierarchy:
+
+- Course block -> chapters.
+- Chapter -> sequentials.
+- Sequential -> verticals.
+- Vertical -> components.
+
+Important outline operations in `src/course-outline/data/api.js`:
+
+- `getCourseOutlineIndex(courseId)`.
+- `getCourseItem(itemId)`.
+- `addNewCourseItem(parentLocator, category, displayName)`.
+- `editItemDisplayName(itemId, displayName)`.
+- `configureCourseSection(...)`.
+- `configureCourseSubsection(...)`.
+- `configureCourseUnit(...)`.
+- `publishCourseSection(sectionId)`.
+- `deleteCourseItem(itemId)`.
+- `duplicateCourseItem(itemId, parentId)`.
+- `setSectionOrderList(courseId, children)`.
+- `setCourseItemOrderList(itemId, children)`.
+
+When adding Networked behavior, prefer extending the existing operation that owns the relevant block type instead of adding a separate side-channel API.
+
+## State And Data Patterns
+
+This app uses a mix of Redux, a local model store, and TanStack Query. Follow the surrounding folder pattern:
+
+- Shell-level course detail uses Redux thunks plus `generic/model-store`.
+- Newer shared fetches and waffle flags use TanStack Query.
+- Many feature folders use `data/api.js`, `data/thunks.js`, `data/slice.js`, and selectors.
+- Tests are colocated as `*.test.js`, `*.test.jsx`, `*.test.ts`, or `*.test.tsx`.
+
+Use `camelCaseObject`, `deepConvertingKeysToCamelCase`, and `deepConvertingKeysToSnakeCase` where nearby API modules already use them. Studio APIs often use snake_case; React components generally expect camelCase.
+
+## Styling And UI
+
+Use existing Open edX frontend conventions:
+
+- React 18 with JSX/TSX.
+- Paragon components from `@openedx/paragon`.
+- `@edx/frontend-platform/i18n` messages instead of hard-coded user-facing strings.
+- Feature-local SCSS and existing utility classes.
+- Existing toast, loading, permission, and modal components.
+
+Avoid broad visual rewrites. Networked customizations should be small and easy to trace.
+
+## Local Development And Verification
+
+Useful scripts:
+
+- `npm start`: webpack dev server.
+- `npm run dev`: local app with `PUBLIC_PATH=/authoring/` and `apps.local.openedx.io` host.
+- `npm run lint`: stylelint plus ESLint.
+- `npm run test`: Jest with coverage.
+- `npm run types`: TypeScript check.
+
+For focused changes, prefer:
+
+- Run the closest test file first.
+- Run `npm run lint` or a narrower ESLint command when touching JS/TS.
+- Run `npm run types` when touching TS/TSX or shared types.
+
+Manual smoke checks for Networked authoring:
+
+1. Enter from Networked Add/Edit Lessons through `/auth/networked-login`.
+2. Confirm the app lands on `/course/:courseId`.
+3. Create a section and lesson.
+4. Add or edit a unit/component.
+5. Toggle unskippable unit, minimum time, show answers, and include in graded.
+6. Publish and verify the outline updates.
+7. Open grading settings.
+8. Check Student Overview and Score Board links if the change touches navigation or routing.
+
+## Maintenance Rules
+
+- Keep this rule focused on `frontend-app-authoring`; put full `fe-main`/`be-main`/Open edX backend lifecycle details in separate integration docs.
+- Do not bypass Open edX Studio APIs for normal authoring mutations.
+- Do not bypass Networked backend for Networked-owned authorization or visibility behavior.
+- Do not change Networked lesson metadata field names without coordinating the learning app and Open edX backend.
+- Do not change the `/auth/networked-login` query contract from this repo.
+- Preserve community/user cookie names used by `HttpWrapper`: `openedxSessionToken` and `openedxCommunityId`.
+- Preserve the Networked course visibility strings `both`, `about`, and `none`.
+- Keep `PUBLIC_PATH`, `STUDIO_BASE_URL`, and `LMS_BASE_URL` environment assumptions visible in any route/debugging work.
+- Prefer local, feature-folder changes over cross-app abstractions.
